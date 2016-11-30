@@ -60,6 +60,8 @@ def pack_sequence(sequence):
     return tf.transpose(tf.pack(sequence), perm=[1, 0, 2])
 def normalized_scale_levels(scales_list):
     return tf.div(scales_list,tf.gather(tf.gather(tf.cumsum(scales_list, axis=1), 0), int(scales_list.get_shape()[1]-1)))
+
+
     #print("hahaha")
     #print(scales_list.get_shape())
     #a0=tf.cumsum(scales_list)
@@ -305,11 +307,6 @@ def Model(each_case,Label,Parameters=[]):
 
                     target = tf.placeholder(tf.float32, [batch_size, number_class])
 
-
-
-
-
-
                 except:
                     data_original_train = tf.placeholder(tf.float32, [None,sequence_window,input_dim])
                     target = tf.placeholder(tf.float32, [None, number_class])
@@ -353,6 +350,7 @@ def Model(each_case,Label,Parameters=[]):
             weight_list=[]
             early_stopping = 10
             epoch_stop = epoch
+
             for i in range(epoch):
                 if early_stopping > 0:
                     pass
@@ -769,12 +767,6 @@ if __name__=='__main__':
 
     epoch = 5
     case_list = [2]
-
-
-
-
-
-
 
     wave_type = 'db1'
     pooling_type = 'max pooling'
