@@ -1,0 +1,6 @@
+TensorFlow_____epoch:30,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.999,	AUC: 0.999,	G_MEAN: 0.999,	ACCURACY: 0.999,	
+TensorFlow_____epoch:30,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.742,	AUC: 0.801,	G_MEAN: 0.774,	ACCURACY: 0.801,	
+TensorFlow_____epoch:30,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.648,	AUC: 0.77,	G_MEAN: 0.703,	ACCURACY: 0.769,	

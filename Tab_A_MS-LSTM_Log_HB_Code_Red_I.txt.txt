@@ -1,0 +1,142 @@
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.743,	AUC: 0.654,	G_MEAN: 0.554,	ACCURACY: 0.654,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.841,	AUC: 0.822,	G_MEAN: 0.815,	ACCURACY: 0.822,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.844,	AUC: 0.831,	G_MEAN: 0.827,	ACCURACY: 0.831,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.742,	AUC: 0.648,	G_MEAN: 0.544,	ACCURACY: 0.65,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.837,	AUC: 0.819,	G_MEAN: 0.812,	ACCURACY: 0.819,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.863,	AUC: 0.844,	G_MEAN: 0.835,	ACCURACY: 0.845,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.743,	AUC: 0.648,	G_MEAN: 0.544,	ACCURACY: 0.651,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.837,	AUC: 0.817,	G_MEAN: 0.81,	ACCURACY: 0.818,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.884,	AUC: 0.874,	G_MEAN: 0.871,	ACCURACY: 0.875,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.743,	AUC: 0.654,	G_MEAN: 0.554,	ACCURACY: 0.654,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.795,	AUC: 0.743,	G_MEAN: 0.701,	ACCURACY: 0.744,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.841,	AUC: 0.822,	G_MEAN: 0.815,	ACCURACY: 0.822,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.828,	AUC: 0.807,	G_MEAN: 0.798,	ACCURACY: 0.807,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.844,	AUC: 0.831,	G_MEAN: 0.827,	ACCURACY: 0.831,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.848,	AUC: 0.837,	G_MEAN: 0.834,	ACCURACY: 0.837,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.742,	AUC: 0.648,	G_MEAN: 0.544,	ACCURACY: 0.65,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.806,	AUC: 0.758,	G_MEAN: 0.721,	ACCURACY: 0.759,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.837,	AUC: 0.819,	G_MEAN: 0.812,	ACCURACY: 0.819,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.835,	AUC: 0.816,	G_MEAN: 0.809,	ACCURACY: 0.817,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.863,	AUC: 0.844,	G_MEAN: 0.835,	ACCURACY: 0.845,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.872,	AUC: 0.856,	G_MEAN: 0.849,	ACCURACY: 0.857,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.743,	AUC: 0.648,	G_MEAN: 0.544,	ACCURACY: 0.651,	
+MS-LSTM_epoch:200,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.81,	AUC: 0.763,	G_MEAN: 0.728,	ACCURACY: 0.765,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.837,	AUC: 0.817,	G_MEAN: 0.81,	ACCURACY: 0.818,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.836,	AUC: 0.816,	G_MEAN: 0.808,	ACCURACY: 0.817,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.884,	AUC: 0.874,	G_MEAN: 0.871,	ACCURACY: 0.875,	
+MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.893,	AUC: 0.885,	G_MEAN: 0.882,	ACCURACY: 0.885,	
+MS-LSTM_epoch:250,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.741,	AUC: 0.649,	G_MEAN: 0.546,	ACCURACY: 0.65,	
+MS-LSTM_epoch:250,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.79,	AUC: 0.735,	G_MEAN: 0.689,	ACCURACY: 0.735,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.841,	AUC: 0.822,	G_MEAN: 0.815,	ACCURACY: 0.822,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.836,	AUC: 0.816,	G_MEAN: 0.807,	ACCURACY: 0.816,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.843,	AUC: 0.829,	G_MEAN: 0.825,	ACCURACY: 0.829,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.848,	AUC: 0.837,	G_MEAN: 0.834,	ACCURACY: 0.837,	
+MS-LSTM_epoch:250,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.741,	AUC: 0.647,	G_MEAN: 0.543,	ACCURACY: 0.649,	
+MS-LSTM_epoch:250,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.797,	AUC: 0.744,	G_MEAN: 0.701,	ACCURACY: 0.745,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.837,	AUC: 0.819,	G_MEAN: 0.812,	ACCURACY: 0.819,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.837,	AUC: 0.818,	G_MEAN: 0.811,	ACCURACY: 0.818,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.864,	AUC: 0.845,	G_MEAN: 0.836,	ACCURACY: 0.846,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.872,	AUC: 0.856,	G_MEAN: 0.848,	ACCURACY: 0.856,	
+MS-LSTM_epoch:250,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.743,	AUC: 0.648,	G_MEAN: 0.544,	ACCURACY: 0.651,	
+MS-LSTM_epoch:250,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.797,	AUC: 0.743,	G_MEAN: 0.701,	ACCURACY: 0.746,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.837,	AUC: 0.817,	G_MEAN: 0.81,	ACCURACY: 0.818,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.836,	AUC: 0.816,	G_MEAN: 0.808,	ACCURACY: 0.817,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.884,	AUC: 0.874,	G_MEAN: 0.871,	ACCURACY: 0.875,	
+MS-LSTM_epoch:250,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.893,	AUC: 0.885,	G_MEAN: 0.882,	ACCURACY: 0.885,	
+MS-LSTM_epoch:500,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.739,	AUC: 0.645,	G_MEAN: 0.539,	ACCURACY: 0.646,	
+MS-LSTM_epoch:500,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.768,	AUC: 0.696,	G_MEAN: 0.627,	ACCURACY: 0.697,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.841,	AUC: 0.822,	G_MEAN: 0.815,	ACCURACY: 0.822,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.837,	AUC: 0.818,	G_MEAN: 0.81,	ACCURACY: 0.818,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.838,	AUC: 0.823,	G_MEAN: 0.818,	ACCURACY: 0.823,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.846,	AUC: 0.834,	G_MEAN: 0.831,	ACCURACY: 0.834,	
+MS-LSTM_epoch:500,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.741,	AUC: 0.646,	G_MEAN: 0.539,	ACCURACY: 0.648,	
+MS-LSTM_epoch:500,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:20
+F1_SCORE: 0.771,	AUC: 0.701,	G_MEAN: 0.638,	ACCURACY: 0.703,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.837,	AUC: 0.819,	G_MEAN: 0.812,	ACCURACY: 0.819,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.837,	AUC: 0.818,	G_MEAN: 0.811,	ACCURACY: 0.818,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.864,	AUC: 0.845,	G_MEAN: 0.836,	ACCURACY: 0.846,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.868,	AUC: 0.851,	G_MEAN: 0.843,	ACCURACY: 0.852,	
+MS-LSTM_epoch:500,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.743,	AUC: 0.647,	G_MEAN: 0.542,	ACCURACY: 0.65,	
+MS-LSTM_epoch:500,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:30
+F1_SCORE: 0.768,	AUC: 0.695,	G_MEAN: 0.627,	ACCURACY: 0.698,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.838,	AUC: 0.818,	G_MEAN: 0.811,	ACCURACY: 0.819,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.837,	AUC: 0.817,	G_MEAN: 0.81,	ACCURACY: 0.818,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.01,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.883,	AUC: 0.873,	G_MEAN: 0.871,	ACCURACY: 0.874,	
+MS-LSTM_epoch:500,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:True,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.89,	AUC: 0.882,	G_MEAN: 0.88,	ACCURACY: 0.883,	
+Time:2016-11-02-00:42:16,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:10
+F1_SCORE: 0.795,	AUC: 0.743,	G_MEAN: 0.701,	ACCURACY: 0.744,	
+Time:2016-11-02-00:51:05,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:2,__sequence_window:10
+F1_SCORE: 0.81,	AUC: 0.775,	G_MEAN: 0.754,	ACCURACY: 0.776,	
+Time:2016-11-02-01:00:14,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:3,__sequence_window:10
+F1_SCORE: 0.837,	AUC: 0.817,	G_MEAN: 0.808,	ACCURACY: 0.817,	
+Time:2016-11-02-01:09:31,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:4,__sequence_window:10
+F1_SCORE: 0.865,	AUC: 0.854,	G_MEAN: 0.85,	ACCURACY: 0.854,	
+Time:2016-11-02-01:18:07,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:5,__sequence_window:10
+F1_SCORE: 0.892,	AUC: 0.878,	G_MEAN: 0.87,	ACCURACY: 0.879,	
+Time:2016-11-02-01:28:00,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:6,__sequence_window:10
+F1_SCORE: 0.927,	AUC: 0.925,	G_MEAN: 0.924,	ACCURACY: 0.925,	
+Time:2016-11-02-01:37:55,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:7,__sequence_window:10
+F1_SCORE: 0.83,	AUC: 0.824,	G_MEAN: 0.823,	ACCURACY: 0.824,	
+Time:2016-11-02-01:48:01,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:8,__sequence_window:10
+F1_SCORE: 0.923,	AUC: 0.928,	G_MEAN: 0.925,	ACCURACY: 0.928,	

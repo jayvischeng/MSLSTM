@@ -1,0 +1,10 @@
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.1,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.799,	AUC: 0.793,	G_MEAN: 0.792,	ACCURACY: 0.793,	
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.1,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.799,	AUC: 0.793,	G_MEAN: 0.792,	ACCURACY: 0.793,	
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.1,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.036,	AUC: 0.509,	G_MEAN: 0.136,	ACCURACY: 0.509,	
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.822,	AUC: 0.82,	G_MEAN: 0.82,	ACCURACY: 0.82,	
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.01,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.73,	AUC: 0.716,	G_MEAN: 0.715,	ACCURACY: 0.716,	

@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/chengmin/Dropbox/MSLSTM/modelckpt.txt"
+all_model_checkpoint_paths: "/Users/chengmin/Dropbox/MSLSTM/modelckpt.txt"

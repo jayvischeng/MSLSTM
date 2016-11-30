@@ -1,0 +1,4 @@
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.1,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.916,	AUC: 0.922,	G_MEAN: 0.919,	ACCURACY: 0.921,	
+MS-LSTM_epoch:5,__wavelet type:db1,__learning rate:0.001,__multi_scale:False,__scale_levels:-1,__sequence_window:10
+F1_SCORE: 0.946,	AUC: 0.948,	G_MEAN: 0.947,	ACCURACY: 0.948,	

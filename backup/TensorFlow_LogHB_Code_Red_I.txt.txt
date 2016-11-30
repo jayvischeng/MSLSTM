@@ -1,0 +1,64 @@
+TensorFlow epoch:20,	multi_scale:	False,train_set_using_level:	-1
+F1_SCORE: 0.913195,	AUC: 0.899035005619,	G_MEAN: 0.890612787996,	ACCURACY: 0.900685,	
+TensorFlow epoch:20,	multi_scale:	False,train_set_using_level:	-1
+F1_SCORE: 0.896715,	AUC: 0.888777722684,	G_MEAN: 0.881122296555,	ACCURACY: 0.889555,	
+TensorFlow		epoch:20,	multi_scale:False,	train_set_using_level:-1
+F1_SCORE: 0.887185,	AUC: 0.865621818438,	G_MEAN: 0.849944958899,	ACCURACY: 0.86772,	
+TensorFlow		epoch:20,	multi_scale:False,	train_set_using_level:-1
+F1_SCORE: 0.887185,	AUC: 0.865621818438,	G_MEAN: 0.849944958899,	ACCURACY: 0.86772,	
+TensorFlow		epoch:20,	multi_scale:False,	train_set_using_level:0
+F1_SCORE: 0.878045,	AUC: 0.88012460721,	G_MEAN: 0.87307408398,	ACCURACY: 0.87971,	
+TensorFlow		epoch:20,	multi_scale:True
+F1_SCORE: 0.75543,	AUC: 0.78957753256,	G_MEAN: 0.762847483714,	ACCURACY: 0.787675,	
+TensorFlow		epoch:20,	learning rate:0.05,	multi_scale:True
+F1_SCORE: 0.42603,	AUC: 0.658611599297,	G_MEAN: 0.398260717743,	ACCURACY: 0.65454,	
+TensorFlow		epoch:20,	learning rate:0.005,	multi_scale:True
+F1_SCORE: 0.793,	AUC: 0.82,	G_MEAN: 0.805,	ACCURACY: 0.817,	
+TensorFlow		epoch:200,	learning rate:0.005,	multi_scale:True
+F1_SCORE: 0.751,	AUC: 0.798,	G_MEAN: 0.772,	ACCURACY: 0.795,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.793,	AUC: 0.82,	G_MEAN: 0.805,	ACCURACY: 0.817,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.997,	AUC: 0.997,	G_MEAN: 0.997,	ACCURACY: 0.997,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.88,	AUC: 0.854,	G_MEAN: 0.833,	ACCURACY: 0.856,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.883,	AUC: 0.858,	G_MEAN: 0.838,	ACCURACY: 0.86,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.992,	AUC: 0.992,	G_MEAN: 0.992,	ACCURACY: 0.991,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.88,	AUC: 0.854,	G_MEAN: 0.833,	ACCURACY: 0.856,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.846,	AUC: 0.826,	G_MEAN: 0.804,	ACCURACY: 0.828,	
+TensorFlow_____epoch:250,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+TensorFlow_____epoch:20,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+TensorFlow_____epoch:5,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.864,	AUC: 0.848,	G_MEAN: 0.832,	ACCURACY: 0.849,	
+TensorFlow_____epoch:5,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.453,	AUC: 0.646,	G_MEAN: 0.536,	ACCURACY: 0.638,	
+TensorFlow_____epoch:5,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.288,	AUC: 0.591,	G_MEAN: 0.369,	ACCURACY: 0.581,	
+TensorFlow_____epoch:250,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.887,	AUC: 0.875,	G_MEAN: 0.867,	ACCURACY: 0.877,	
+TensorFlow_____epoch:250,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.893,	AUC: 0.894,	G_MEAN: 0.89,	ACCURACY: 0.894,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.962,	AUC: 0.959,	G_MEAN: 0.958,	ACCURACY: 0.959,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.876,	AUC: 0.84,	G_MEAN: 0.809,	ACCURACY: 0.843,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.86,	AUC: 0.83,	G_MEAN: 0.802,	ACCURACY: 0.832,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.962,	AUC: 0.959,	G_MEAN: 0.958,	ACCURACY: 0.959,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.876,	AUC: 0.84,	G_MEAN: 0.809,	ACCURACY: 0.843,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.86,	AUC: 0.83,	G_MEAN: 0.802,	ACCURACY: 0.832,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.962,	AUC: 0.959,	G_MEAN: 0.958,	ACCURACY: 0.959,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:-1
+F1_SCORE: 0.876,	AUC: 0.84,	G_MEAN: 0.809,	ACCURACY: 0.843,	
+TensorFlow_____epoch:10,_____learning rate:0.005,_____multi_scale:False,_____train_set_using_level:0
+F1_SCORE: 0.86,	AUC: 0.83,	G_MEAN: 0.802,	ACCURACY: 0.832,	

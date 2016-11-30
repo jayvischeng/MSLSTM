@@ -1,0 +1,72 @@
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.5,	AUC: 0.5,	G_MEAN: 0.5,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.5,	AUC: 0.5,	G_MEAN: 0.5,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.0,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.8,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.667,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.8,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.667,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.8,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.667,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.8,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.667,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.0,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.667,	AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 0.8,	AUC: 0.75,	G_MEAN: 0.707,	ACCURACY: 0.75,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	
+MS-LSTMA_____epoch:5,_____learning rate:0.01,_____multi_scale:False,_____train_set_using_level:2
+F1_SCORE: 1.0,	AUC: 1.0,	G_MEAN: 1.0,	ACCURACY: 1.0,	

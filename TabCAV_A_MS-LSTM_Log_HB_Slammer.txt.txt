@@ -1,0 +1,70 @@
+Time:2016-11-02-16:48:27,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:10
+F1_SCORE: 0.436,	AUC: 0.639,	G_MEAN: 0.528,	ACCURACY: 0.638,	
+Time:2016-11-02-17:04:02,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:2,__sequence_window:10
+F1_SCORE: 0.474,	AUC: 0.654,	G_MEAN: 0.557,	ACCURACY: 0.654,	
+Time:2016-11-02-17:18:37,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:3,__sequence_window:10
+F1_SCORE: 0.47,	AUC: 0.653,	G_MEAN: 0.555,	ACCURACY: 0.653,	
+Time:2016-11-02-22:31:53,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:10
+F1_SCORE: 0.501,	AUC: 0.661,	G_MEAN: 0.578,	ACCURACY: 0.66,	
+Time:2016-11-02-22:33:30,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:2,__sequence_window:10
+F1_SCORE: 0.505,	AUC: 0.659,	G_MEAN: 0.581,	ACCURACY: 0.659,	
+Time:2016-11-02-22:35:12,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:3,__sequence_window:10
+F1_SCORE: 0.504,	AUC: 0.656,	G_MEAN: 0.58,	ACCURACY: 0.656,	
+Time:2016-11-02-22:36:59,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:4,__sequence_window:10
+F1_SCORE: 0.501,	AUC: 0.658,	G_MEAN: 0.578,	ACCURACY: 0.657,	
+Time:2016-11-02-22:38:46,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:5,__sequence_window:10
+F1_SCORE: 0.493,	AUC: 0.653,	G_MEAN: 0.571,	ACCURACY: 0.653,	
+Time:2016-11-02-22:40:28,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:6,__sequence_window:10
+F1_SCORE: 0.496,	AUC: 0.664,	G_MEAN: 0.574,	ACCURACY: 0.664,	
+Time:2016-11-02-22:42:19,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:7,__sequence_window:10
+F1_SCORE: 0.344,	AUC: 0.604,	G_MEAN: 0.456,	ACCURACY: 0.603,	
+Time:2016-11-02-22:43:58,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:8,__sequence_window:10
+F1_SCORE: 0.0,	AUC: 0.435,	G_MEAN: 0.0,	ACCURACY: 0.434,	
+Time:2016-11-02-22:45:45,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:9,__sequence_window:10
+F1_SCORE: 0.341,	AUC: 0.603,	G_MEAN: 0.453,	ACCURACY: 0.602,	
+Time:2016-11-02-22:47:37,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:10,__sequence_window:10
+F1_SCORE: 0.343,	AUC: 0.603,	G_MEAN: 0.455,	ACCURACY: 0.603,	
+Time:2016-11-02-22:51:04,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:20
+F1_SCORE: 0.454,	AUC: 0.639,	G_MEAN: 0.542,	ACCURACY: 0.638,	
+Time:2016-11-02-22:54:20,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:2,__sequence_window:20
+F1_SCORE: 0.493,	AUC: 0.653,	G_MEAN: 0.571,	ACCURACY: 0.652,	
+Time:2016-11-02-22:57:29,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:3,__sequence_window:20
+F1_SCORE: 0.511,	AUC: 0.658,	G_MEAN: 0.585,	ACCURACY: 0.657,	
+Time:2016-11-02-23:00:43,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:4,__sequence_window:20
+F1_SCORE: 0.494,	AUC: 0.654,	G_MEAN: 0.572,	ACCURACY: 0.653,	
+Time:2016-11-02-23:03:28,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:5,__sequence_window:20
+F1_SCORE: 0.452,	AUC: 0.635,	G_MEAN: 0.54,	ACCURACY: 0.634,	
+Time:2016-11-02-23:05:26,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:6,__sequence_window:20
+F1_SCORE: 0.552,	AUC: 0.688,	G_MEAN: 0.618,	ACCURACY: 0.687,	
+Time:2016-11-02-23:07:37,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:7,__sequence_window:20
+F1_SCORE: 0.617,	AUC: 0.723,	G_MEAN: 0.668,	ACCURACY: 0.722,	
+Time:2016-11-02-23:09:56,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:8,__sequence_window:20
+F1_SCORE: 0.577,	AUC: 0.663,	G_MEAN: 0.631,	ACCURACY: 0.663,	
+Time:2016-11-02-23:12:08,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:9,__sequence_window:20
+F1_SCORE: 0.341,	AUC: 0.603,	G_MEAN: 0.453,	ACCURACY: 0.601,	
+Time:2016-11-02-23:14:23,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:10,__sequence_window:20
+F1_SCORE: 0.347,	AUC: 0.605,	G_MEAN: 0.458,	ACCURACY: 0.603,	
+Time:2016-11-02-23:17:35,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:30
+F1_SCORE: 0.479,	AUC: 0.651,	G_MEAN: 0.561,	ACCURACY: 0.649,	
+Time:2016-11-02-23:20:39,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:2,__sequence_window:30
+F1_SCORE: 0.506,	AUC: 0.658,	G_MEAN: 0.581,	ACCURACY: 0.656,	
+Time:2016-11-02-23:25:10,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:3,__sequence_window:30
+F1_SCORE: 0.507,	AUC: 0.654,	G_MEAN: 0.582,	ACCURACY: 0.652,	
+Time:2016-11-02-23:29:43,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:4,__sequence_window:30
+F1_SCORE: 0.5,	AUC: 0.657,	G_MEAN: 0.577,	ACCURACY: 0.655,	
+Time:2016-11-02-23:33:34,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:5,__sequence_window:30
+F1_SCORE: 0.468,	AUC: 0.642,	G_MEAN: 0.552,	ACCURACY: 0.64,	
+Time:2016-11-02-23:37:25,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:6,__sequence_window:30
+F1_SCORE: 0.552,	AUC: 0.688,	G_MEAN: 0.617,	ACCURACY: 0.686,	
+Time:2016-11-02-23:41:09,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:7,__sequence_window:30
+F1_SCORE: 0.621,	AUC: 0.725,	G_MEAN: 0.671,	ACCURACY: 0.723,	
+Time:2016-11-02-23:44:53,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:8,__sequence_window:30
+F1_SCORE: 0.369,	AUC: 0.562,	G_MEAN: 0.471,	ACCURACY: 0.56,	
+Time:2016-11-02-23:48:41,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:9,__sequence_window:30
+F1_SCORE: 0.837,	AUC: 0.86,	G_MEAN: 0.848,	ACCURACY: 0.859,	
+Time:2016-11-02-23:52:35,MS-LSTM_epoch:20,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:10,__sequence_window:30
+F1_SCORE: 0.347,	AUC: 0.605,	G_MEAN: 0.458,	ACCURACY: 0.602,	
+Time:2016-11-03-00:56:34,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:10
+F1_SCORE: 0.436,	AUC: 0.639,	G_MEAN: 0.528,	ACCURACY: 0.638,	
+Time:2016-11-03-01:12:56,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:2,__sequence_window:10
+F1_SCORE: 0.474,	AUC: 0.654,	G_MEAN: 0.557,	ACCURACY: 0.654,	

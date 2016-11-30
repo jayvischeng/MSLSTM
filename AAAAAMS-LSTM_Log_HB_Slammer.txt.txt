@@ -1,0 +1,4 @@
+MS-LSTM_____epoch:250,_____wavelet type:db1,_____pooling type:mean pooling,_____learning rate:0.001,_____multi_scale:True
+F1_SCORE: 0.984,	AUC: 0.984,	G_MEAN: 0.984,	ACCURACY: 0.984,	
+MS-LSTM_____epoch:250,_____wavelet type:db2,_____pooling type:mean pooling,_____learning rate:0.001,_____multi_scale:True
+F1_SCORE: 0.976,	AUC: 0.976,	G_MEAN: 0.976,	ACCURACY: 0.976,	

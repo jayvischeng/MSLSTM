@@ -1,0 +1,20 @@
+MS-LSTM_____epoch:250,_____wavelet type:db1,_____pooling type:mean pooling,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.874,	AUC: 0.865,	G_MEAN: 0.864,	ACCURACY: 0.866,	
+MS-LSTM_____epoch:56,_____wavelet type:db2,_____pooling type:mean pooling,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.866,	AUC: 0.855,	G_MEAN: 0.853,	ACCURACY: 0.856,	
+MS-LSTM_____epoch:250,_____wavelet type:haar,_____pooling type:mean pooling,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.874,	AUC: 0.865,	G_MEAN: 0.864,	ACCURACY: 0.866,	
+MS-LSTM_____epoch:250,_____wavelet type:coif1,_____pooling type:mean pooling,_____learning rate:0.005,_____multi_scale:True
+F1_SCORE: 0.87,	AUC: 0.863,	G_MEAN: 0.862,	ACCURACY: 0.864,	
+MS-LSTM_____epoch:250,_____wavelet type:db2,_____pooling type:max pooling,_____learning rate:0.01,_____multi_scale:True
+F1_SCORE: 0.526,	AUC: 0.543,	G_MEAN: 0.542,	ACCURACY: 0.543,	
+MS-LSTM_____epoch:250,_____wavelet type:db1,_____pooling type:max pooling,_____learning rate:0.05,_____multi_scale:True
+F1_SCORE: 0.563,	AUC: 0.542,	G_MEAN: 0.54,	ACCURACY: 0.542,	
+MS-LSTM_____epoch:250,_____wavelet type:db1,_____pooling type:max pooling,_____learning rate:0.1,_____multi_scale:True
+F1_SCORE: 0.545,	AUC: 0.561,	G_MEAN: 0.559,	ACCURACY: 0.56,	
+MS-LSTM_____epoch:21,_____wavelet type:db1,_____pooling type:max pooling,_____learning rate:0.1,_____multi_scale:True
+F1_SCORE: 0.886,	AUC: 0.884,	G_MEAN: 0.884,	ACCURACY: 0.884,	
+MS-LSTM_____epoch:250,_____wavelet type:db1,_____pooling type:max pooling,_____learning rate:0.1,_____multi_scale:False
+F1_SCORE: 0.889,	AUC: 0.876,	G_MEAN: 0.873,	ACCURACY: 0.878,	
+MS-LSTM_____epoch:250,_____wavelet type:db1,_____pooling type:max pooling,_____learning rate:0.01,_____multi_scale:True
+F1_SCORE: 0.927,	AUC: 0.923,	G_MEAN: 0.923,	ACCURACY: 0.924,	
