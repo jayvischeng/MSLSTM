@@ -72,3 +72,5 @@ Time:2016-11-03-01:01:11,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max
 F1_SCORE: 0.81,	AUC: 0.775,	G_MEAN: 0.754,	ACCURACY: 0.776,	
 Time:2016-11-03-01:13:09,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:3,__sequence_window:10
 F1_SCORE: 0.837,	AUC: 0.817,	G_MEAN: 0.808,	ACCURACY: 0.817,	
+Time:2016-12-01-00:18:48,MS-LSTM_epoch:200,__wavelet type:db1,__pooling type:max pooling,__learning rate:0.001,__multi_scale:False,__scale_levels:1,__sequence_window:10
+F1_SCORE: 0.795,	AUC: 0.743,	G_MEAN: 0.701,	ACCURACY: 0.744,	

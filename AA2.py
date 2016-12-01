@@ -60,8 +60,6 @@ def pack_sequence(sequence):
     return tf.transpose(tf.pack(sequence), perm=[1, 0, 2])
 def normalized_scale_levels(scales_list):
     return tf.div(scales_list,tf.gather(tf.gather(tf.cumsum(scales_list, axis=1), 0), int(scales_list.get_shape()[1]-1)))
-
-
     #print("hahaha")
     #print(scales_list.get_shape())
     #a0=tf.cumsum(scales_list)
@@ -81,11 +79,6 @@ def normalized_scale_levels(scales_list):
     #denomier = tf.Variable(tf.constant(tf.gather(tf.cumsum(scales_list),scales_list.get_shape()[0]-1),dtype=tf.float32,shape=[1,scales_list.get_shape()[1]]))
     #return tf.truediv(scales_list,denomier)
     #return map(lambda a:float(a)/np.sum(scales_list),scales_list)
-
-
-
-
-
 
 def Model(each_case,Label,Parameters=[]):
     global filepath, filename, fixed_seed_num, sequence_window, number_class, hidden_units, input_dim, learning_rate, epoch, is_multi_scale, training_level, cross_cv, wave_type, is_add_noise, noise_ratio, pooling_type,corss_val_label
@@ -131,17 +124,10 @@ def Model(each_case,Label,Parameters=[]):
 
         x_train, y_train,x_test, y_test = LoadData.GetData(pooling_type,is_add_noise,noise_ratio,'Attention',filepath, filename, sequence_window,tab_cv,cross_cv,Multi_Scale=is_multi_scale,Wave_Let_Scale=training_level,Wave_Type=wave_type)
 
-        #batch_size = min(len(y_train),len(y_test))
-        #batch_size = Parameters["batch_size"]
-        #x_train = x_train_multi_list
-        #x_test = x_testing_multi_list
-
-        #batch_size = min(len(y_train),len(y_test))
         batch_size = 1
         if Label == "MS-LSTM":
             tf.reset_default_graph()
             tf.set_random_seed(fixed_seed_num)
-
             num_neurons = hidden_units
             # Network building
             if is_multi_scale == True and each_case == 2:
@@ -155,10 +141,13 @@ def Model(each_case,Label,Parameters=[]):
                 print(data_original_train1.get_shape())
                 max_pooling_output = tf.nn.max_pool(data_original_train1,[1,sequence_window,1,1], \
                                                     [1, 1, 1, 1],padding='VALID')
+
                 print(max_pooling_output.get_shape())
                 print("bbb")
+
                 max_pooling_output_reshape = tf.reshape(max_pooling_output,(batch_size,input_dim,number_scale_levels))
                 max_pooling_output2 = tf.transpose(max_pooling_output_reshape,[0,2,1])
+
                 #data_original_train_merged = batch_vm2(data_original_train2,tf.transpose(u_w_scales_normalized))
                 #data_original_train_merged = tf.reshape(data_original_train_merged,(batch_size,sequence_window,input_dim))
                 #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(num_neurons, forget_bias=1.0, activation=tf.nn.tanh)
@@ -166,6 +155,7 @@ def Model(each_case,Label,Parameters=[]):
                 #val = tf.transpose(val,[1,0,2])
                 #val2_list = [tf.gather(tf.gather(val_list,i),val.get_shape()[0]-1) for i in range(number_scale_levels)]
                 #val = tf.reshape(val,[batch_size*number_of_scales,num_neurons])
+
                 Weight_W = tf.Variable(tf.truncated_normal([input_dim,number_scale_levels]))
                 b_W = tf.Variable(tf.constant(0.1, shape=[1,number_scale_levels]))
                 batch_W = tf.Variable(tf.constant(0.1, shape=[batch_size,number_scale_levels]))
