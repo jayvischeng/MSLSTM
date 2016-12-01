@@ -19,11 +19,6 @@ def set_style():
     matplotlib.rc("font", family="serif")
 set_style()
 
-
-
-
-
-
 def batch_vm(v, m):
   shape = tf.shape(v)
   rank = shape.get_shape()[0].value
@@ -32,7 +27,6 @@ def batch_vm(v, m):
   vm = tf.mul(v, m)
 
   return tf.reduce_sum(vm, rank-1)
-
 
 def batch_vm2(x, m):
   [input_size, output_size] = m.get_shape().as_list()
@@ -49,11 +43,9 @@ def batch_vm2(x, m):
 
   return y
 
-
 def unpack_sequence(tensor):
     """Split the single tensor of a sequence into a list of frames."""
     return tf.unpack(tf.transpose(tensor, perm=[1, 0, 2]))
-
 
 def pack_sequence(sequence):
     """Combine a list of the frames into a single tensor of the sequence."""
@@ -103,34 +95,25 @@ def Model(each_case,Label,Parameters=[]):
     except:
         pass
 
-
     result_list_dict = defaultdict(list)
     evaluation_list = ["ACCURACY","F1_SCORE","AUC","G_MEAN"]
     for each in evaluation_list:
         result_list_dict[each] = []
 
-
-
     for tab_cv in range(cross_cv):
         if not tab_cv == corss_val_label: continue
         print("******************************"+str(tab_cv))
-        #if corss_val_label == False:
-            #if 'Nimda' in filename:
-                #if not tab_cv == 1: continue
-            #else:
-            #if not tab_cv == 1 :continue#AS Leak, Code Red I, Slammer
-        #else:
-            #pass
 
         x_train, y_train,x_test, y_test = LoadData.GetData(pooling_type,is_add_noise,noise_ratio,'Attention',filepath, filename, sequence_window,tab_cv,cross_cv,Multi_Scale=is_multi_scale,Wave_Let_Scale=training_level,Wave_Type=wave_type)
 
-        batch_size = 1
+        batch_size = 2269
         if Label == "MS-LSTM":
             tf.reset_default_graph()
             tf.set_random_seed(fixed_seed_num)
             num_neurons = hidden_units
             # Network building
             if is_multi_scale == True and each_case == 2:
+
                 number_scale_levels = training_level
                 data_original_train = tf.placeholder(tf.float32,[number_scale_levels,batch_size,sequence_window,input_dim])
 
@@ -138,10 +121,10 @@ def Model(each_case,Label,Parameters=[]):
 
                 data_original_train1 = tf.transpose(data_original_train,[1,2,3,0])
                 print("aaa")
+
                 print(data_original_train1.get_shape())
                 max_pooling_output = tf.nn.max_pool(data_original_train1,[1,sequence_window,1,1], \
                                                     [1, 1, 1, 1],padding='VALID')
-
                 print(max_pooling_output.get_shape())
                 print("bbb")
 
@@ -177,21 +160,6 @@ def Model(each_case,Label,Parameters=[]):
                 print(u_current_levels.get_shape())
 
                 out_put_u_w_scale = tf.Print(u_current_levels,[u_current_levels],"The u_current_levels shape is ----------------:",first_n=4096,summarize=40)
-
-                #target = tf.placeholder(tf.float32, [batch_size, number_class])
-                #m_total = batch_vm(tf.transpose(u_current_levels),val)
-                #u_w_scales_normalized = u_current_levels
-                #tf.assign(u_w_scales_normalized,u_current_levels)
-                #m_total = tf.mul(tf.transpose(u_current_levels),val)
-                #weight = tf.Variable(tf.truncated_normal([num_neurons, int(target.get_shape()[1])]))
-                #bias = tf.Variable(tf.constant(0.1, shape=[target.get_shape()[1]]))
-                #prediction = tf.nn.softmax(tf.matmul(m_total, weight) + bias)
-
-                #u_w_scales_normalized = tf.Variable(tf.constant(1.0/number_scale_levels,shape=[1,number_scale_levels]), name="u_w")
-                #u_w_scales_normalized = normalized_scale_levels(u_w_scales_normalized)
-                #u_w = tf.Variable(tf.random_normal(shape=[1,sequence_window]), name="u_w")
-
-
 
                 #output_data_original_train = tf.Print(data_original_train,[data_original_train],"The Original Train  is :",first_n=4096,summarize=40)
 
@@ -235,10 +203,7 @@ def Model(each_case,Label,Parameters=[]):
                 #tf.reshape(tf.matmul(tf.reshape(Aijk,[i*j,k]),Bkl),[i,j,l])
 
                 #u_current_levels_temp = tf.reshape(tf.mul(tf.reshape(val,[batch_size*num_neurons],Weight_W)+b_W
-                #print("val shape is ")
-                #print(val2.get_shape())
-                #print(Weight_W.get_shape())
-                #print(b_W.get_shape())
+
                 u_current_levels_temp_AAA = tf.matmul(val2,Weight_W_AAA)+b_W_AAA
 
                 out_put_u_current_levels_b_W_AAA = tf.Print(b_W_AAA,[b_W_AAA],"The b_W shape is :",first_n=4096,summarize=40)
@@ -277,14 +242,13 @@ def Model(each_case,Label,Parameters=[]):
 
             else:
                 try:
+
                     number_scale_levels = training_level
                     u_w_scales_normalized = tf.Variable(tf.constant(1.0/number_scale_levels,shape=[1,number_scale_levels]), name="u_w")
                     u_w_scales_normalized = normalized_scale_levels(u_w_scales_normalized)
                     u_w = tf.Variable(tf.random_normal(shape=[1,sequence_window]), name="u_w")
 
-
                     data_original_train = tf.placeholder(tf.float32,[number_scale_levels,batch_size,sequence_window,input_dim])
-
                     output_data_original_train = tf.Print(data_original_train,[data_original_train],"The Original Train  is :",first_n=4096,summarize=40)
 
                     #data_original_train = tf.placeholder(tf.float32,[batch_size,sequence_window,input_dim])
@@ -294,10 +258,10 @@ def Model(each_case,Label,Parameters=[]):
                     lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(num_neurons, forget_bias=1.0, activation=tf.nn.tanh)
 
                     val, state = tf.nn.dynamic_rnn(lstm_cell, data_original_train_merged, dtype=tf.float32)
-
                     target = tf.placeholder(tf.float32, [batch_size, number_class])
 
                 except:
+
                     data_original_train = tf.placeholder(tf.float32, [None,sequence_window,input_dim])
                     target = tf.placeholder(tf.float32, [None, number_class])
                     lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(num_neurons, forget_bias=1.0, activation=tf.nn.tanh)
