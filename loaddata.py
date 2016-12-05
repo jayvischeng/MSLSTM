@@ -1,5 +1,4 @@
 import tensorflow as tf
-
 #_author_by_MC@20160424
 import os
 import pywt
@@ -48,6 +47,7 @@ def trapezoid_area(x1, x2, y1, y2):
     delta = abs(x2 - x1)
     return delta * 0.5 * (y1 + y2)
 def LoadData(input_data_path,filename):
+    input_data_path = os.path.join(os.getcwd(),'data')
     with open(os.path.join(input_data_path,filename)) as fin:
         global negative_sign,positive_sign
         if filename == 'sonar.dat':
@@ -551,7 +551,7 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
     scaler = preprocessing.StandardScaler()
 
     #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
-    if Wave_Let_Scale < 0:
+    if Multi_Scale == False:
         Data_Sequenlized_X,Data_Sequenlized_Y = reConstruction(Window_Size, scaler.fit_transform(Data_[:, :-1]), Data_[:, -1])
         X_Training, Y_Training,X_Testing,Y_Testing = returnTabData(Current_CV,Cross_CV,Data_Sequenlized_X,Data_Sequenlized_Y)
 
@@ -603,15 +603,14 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
     #print(X_Testing_Single_Sclae)
     if Multi_Scale == False:
         #print("This is single ....................")
-        if Wave_Let_Scale < 0:
-            print("XXXXXX_Original" + str(X_Training.shape))
-            return X_Training, Y_Training, X_Testing, Y_Testing
-        else:
-            print("XXXXXX_Scale" + str(Wave_Let_Scale))
-            print(np.array(X_Training_Multi_Level_List[-1]).shape)
-            print(np.array(X_Training_Multi_Level_List[-1])[0])
-
-            return np.array(X_Training_Multi_Level_List[-1]), Y_Training, X_Testing, Y_Testing
+        #if Wave_Let_Scale < 0:
+            #print("XXXXXX_Original" + str(X_Training.shape))
+        return X_Training, Y_Training, X_Testing, Y_Testing
+        #else:
+            #print("XXXXXX_Scale" + str(Wave_Let_Scale))
+            #print(np.array(X_Training_Multi_Level_List[-1]).shape)
+            #print(np.array(X_Training_Multi_Level_List[-1])[0])
+            #return np.array(X_Training_Multi_Level_List[-1]), Y_Training, X_Testing, Y_Testing
     #if Wave_Let_Scale > 0 and Method == "Attention222":
         #X_Training_Multi_Level_List1,Y_Training = Mix_Multi_Scale1(X_Training_Multi_Level_List,Y_Training,Pooling_Type)
         #X_Testing_Multi_Level_List1, Y_Training = Mix_Multi_Scale1(X_Testing_Multi_Level_List, Y_Training,Pooling_Type)

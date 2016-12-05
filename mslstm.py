@@ -6,14 +6,14 @@ from __future__ import division
 import tensorflow as tf
 FLAGS = tf.app.flags.FLAGS
 
-def inputs(option):
+def inputs(option=0):
     #data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim,FLAGS.scale_levels])
     if option > 0:
         data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.scale_levels,FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.number_class])
     else:
-        data_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.sequence_window,FLAGS.input_dim])
-        label_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.number_class])
+        data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
+        label_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.number_class])
 
     return data_tensor,label_tensor
 
@@ -45,6 +45,8 @@ def loss(predict,label):
     #cost_cross_entropy = -tf.reduce_mean(target * tf.log(prediction))
     cost_cross_entropy = tf.reduce_mean(
         tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+
+    tf.scalar_summary("loss", cost_cross_entropy)
     return cost_cross_entropy
 
 def print_info(tensor,name):
@@ -129,18 +131,39 @@ def inference(data,label,option=0):
         output_val = print_info(u_current_levels_AAA, "u_current_levels_AAA")
         output_val = print_info(m_total, "m_total")
         output_val = print_info(prediction, "prediction")
+
     else:
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons, forget_bias=1.0, activation=tf.nn.tanh)
+
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
 
-        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons, int(label.get_shape()[1])]))
+        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
-def train():
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)
+        #tf.scalar_summary("weight", weight)
+
+    return prediction,label
+
+def train(loss):
+
+  _optimizer = tf.train.GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)
+  #_grads = _optimizer.compute_gradients(loss)
+
+  #for var in tf.trainable_variables():
+        #tf.histogram_summary(var.op.name, var)
+
+  #for grad, var in _grads:
+    #if grad is not None:
+      #tf.histogram_summary(var.op.name + '/gradients', grad)
+
+  #_train_op = _optimizer.apply_gradients(_grads, global_step=global_step)
+  _train_op = None
+  return _optimizer,_train_op
+
 
 
 

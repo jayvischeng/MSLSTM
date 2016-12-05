@@ -2,7 +2,7 @@ import os
 import time
 import numpy as np
 #import tflearn
-import LoadData
+import loaddata
 import Evaluation
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -104,7 +104,7 @@ def Model(each_case,Label,Parameters=[]):
         if not tab_cv == corss_val_label: continue
         print("******************************"+str(tab_cv))
 
-        x_train, y_train,x_test, y_test = LoadData.GetData(pooling_type,is_add_noise,noise_ratio,'Attention',filepath, filename, sequence_window,tab_cv,cross_cv,Multi_Scale=is_multi_scale,Wave_Let_Scale=training_level,Wave_Type=wave_type)
+        x_train, y_train,x_test, y_test = loaddata.GetData(pooling_type,is_add_noise,noise_ratio,'Attention',filepath, filename, sequence_window,tab_cv,cross_cv,Multi_Scale=is_multi_scale,Wave_Let_Scale=training_level,Wave_Type=wave_type)
 
         batch_size = 2269
         if Label == "MS-LSTM":
@@ -113,7 +113,8 @@ def Model(each_case,Label,Parameters=[]):
             num_neurons = hidden_units
             # Network building
             if is_multi_scale == True and each_case == 2:
-
+                pass
+                """
                 number_scale_levels = training_level
                 data_original_train = tf.placeholder(tf.float32,[number_scale_levels,batch_size,sequence_window,input_dim])
 
@@ -239,10 +240,11 @@ def Model(each_case,Label,Parameters=[]):
 
                 out_put_prediction = tf.Print(prediction,[prediction.get_shape()],"The prediction shape is :",first_n=1024,summarize=10)
                 #print(prediction.get_shape())
+                """
 
             else:
                 try:
-
+                    """
                     number_scale_levels = training_level
                     u_w_scales_normalized = tf.Variable(tf.constant(1.0/number_scale_levels,shape=[1,number_scale_levels]), name="u_w")
                     u_w_scales_normalized = normalized_scale_levels(u_w_scales_normalized)
@@ -259,6 +261,12 @@ def Model(each_case,Label,Parameters=[]):
 
                     val, state = tf.nn.dynamic_rnn(lstm_cell, data_original_train_merged, dtype=tf.float32)
                     target = tf.placeholder(tf.float32, [batch_size, number_class])
+                    """
+                    data_original_train = tf.placeholder(tf.float32, [None, sequence_window, input_dim])
+                    target = tf.placeholder(tf.float32, [None, number_class])
+                    lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(num_neurons, forget_bias=1.0, activation=tf.nn.tanh)
+                    val, state = tf.nn.dynamic_rnn(lstm_cell, data_original_train, dtype=tf.float32)
+
 
                 except:
 
@@ -270,10 +278,8 @@ def Model(each_case,Label,Parameters=[]):
 
                 val = tf.transpose(val, [1, 0, 2])
                 last = tf.gather(val, int(val.get_shape()[0]) - 1)
-
                 weight = tf.Variable(tf.truncated_normal([num_neurons, int(target.get_shape()[1])]))
                 bias = tf.Variable(tf.constant(0.1, shape=[target.get_shape()[1]]))
-
                 prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
 
 
@@ -290,6 +296,7 @@ def Model(each_case,Label,Parameters=[]):
             accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
             init_op = tf.initialize_all_variables()
+
             sess = tf.Session()
 
             sess.run(init_op)
@@ -313,9 +320,11 @@ def Model(each_case,Label,Parameters=[]):
                     break
                 ptr = 0
                 for j in range(no_of_batches):
-                    inp, out = x_train[:,ptr:ptr + batch_size], y_train[ptr:ptr + batch_size]
-                    inp2, out2 = x_test[:,ptr:ptr + batch_size], y_test[ptr:ptr + batch_size]
-                    if len(inp[0])!= batch_size:continue
+                    inp, out = x_train[ptr:ptr + batch_size], y_train[ptr:ptr + batch_size]
+                    inp2, out2 = x_test[ptr:ptr + batch_size], y_test[ptr:ptr + batch_size]
+                    #inp, out = x_train[:,ptr:ptr + batch_size], y_train[ptr:ptr + batch_size]
+                    #inp2, out2 = x_test[:,ptr:ptr + batch_size], y_test[ptr:ptr + batch_size]
+                    #if len(inp[0])!= batch_size:continue
                     #print("INPUT IS ")
                     #print(inp.shape)
                     #print("OUTPUT IS ")
@@ -715,12 +724,12 @@ if __name__=='__main__':
     filename_list = ['HB_AS_Leak.txt']
     #filename_list = ["HB_AS_Leak.txt", "HB_Nimda.txt", "HB_Slammer.txt", "HB_Code_Red_I.txt"]
 
-    corss_val_label_list = [0,1]
+    corss_val_label_list = [0]
 
-    learning_rate = 0.0001
+    learning_rate = 0.002
 
-    epoch = 5
-    case_list = [2]
+    epoch = 20
+    case_list = [0]
 
     wave_type = 'db1'
     pooling_type = 'max pooling'
