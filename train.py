@@ -9,7 +9,7 @@ import mslstm
 import loaddata
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'data'),"""Directory for storing data set""")
-flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
+flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
 flags.DEFINE_string('num_neurons1',200,"""Number of hidden units""")
 flags.DEFINE_string('num_neurons2',200,"""Number of hidden units""")
@@ -23,6 +23,7 @@ flags.DEFINE_string('max_epochs',20,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
+flags.DEFINE_string('option','HL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
 flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
 
 FLAGS = flags.FLAGS
@@ -47,9 +48,9 @@ def train(filename,tab_cv,cross_cv):
         tf.set_random_seed(1337)
 
         #global_step = tf.Variable(0,name="global_step",trainable=False)
-        data_x,data_y = mslstm.inputs()
+        data_x,data_y = mslstm.inputs(FLAGS.option)
 
-        prediction, label = mslstm.inference(data_x,data_y)
+        prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
         loss = mslstm.loss(prediction, label)
         optimizer,train_op = mslstm.train(loss)
         minimize = optimizer.minimize(loss)
@@ -147,6 +148,7 @@ def main(unused_argv):
     FLAGS.is_use_m_scale = False
     print(FLAGS.data_dir)
     print(FLAGS.is_use_m_scale)
+
     train("HB_AS_Leak.txt",0,2)
 if __name__ == "__main__":
     tf.app.run()
