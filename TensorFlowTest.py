@@ -19,38 +19,46 @@ def batch_vm2(x, m):
 
 
 
-"""
-A = tf.Variable(tf.constant(0.1,shape = [1000,10,30,33]))
-B = tf.Variable(tf.constant(0.1,shape = [1,10]))
-A = tf.transpose(A,[0,2,3,1])
+
+A = tf.Variable(tf.truncated_normal([2,3,4,5]))
+#B = tf.tranpose(tf.truncated_normal([2,3,4]))
+
+#B = tf.Variable(tf.constant(0.1,shape = [1,10]))
+#A = tf.transpose(A,[1,0])
 #C = batch_vm2(A,tf.transpose(B))
-D = [tf.gather(B,i) for i in range(1)]
+#D = [tf.gather(B,i) for i in range(1)]
 #C = tf.reshape(C,(1000,30,33))
 #C = B.get_shape()[1]-1
 #D = tf.gather(tf.gather(tf.cumsum(B,axis = 1),0),0)
-C = tf.div(B,tf.gather(tf.gather(tf.cumsum(B,axis = 1),0),9))
+#C = tf.div(B,tf.gather(tf.gather(tf.cumsum(B,axis = 1),0),9))
 
-output_A = tf.Print(A,[A.get_shape()],message = "A shape is :", first_n=4096, summarize=40)
-output_B = tf.Print(B,[B],message = "B shape is :", first_n=4096, summarize=40)
-output_C = tf.Print(C,[C],message = "C shape is :", first_n=4096, summarize=40)
-output_D = tf.Print(D,[D],message = "D shape is :", first_n=4096, summarize=40)
 
-B = C
-C = tf.div(B,tf.gather(tf.gather(tf.cumsum(B,axis = 1),0),5))
-output_B = tf.Print(B,[B],message = "B shape is :", first_n=4096, summarize=40)
 
-output_C = tf.Print(C,[C],message = "C shape is :", first_n=4096, summarize=40)
+#B = tf.gather(tf.transpose(A,[1,2,0]),[0])
+B = tf.gather(tf.reshape(A,(6,4,5)),[0])
+
+
+
+output_A = tf.Print(A,[A],message = "A shape is :", first_n=4096, summarize=40)
+output_B = tf.Print(B,[B],message = "B  is :", first_n=4096, summarize=40)
+#output_C = tf.Print(C,[C],message = "C shape is :", first_n=4096, summarize=40)
+#output_D = tf.Print(D,[D],message = "D shape is :", first_n=4096, summarize=40)
+
+#B = C
+#C = tf.div(B,tf.gather(tf.gather(tf.cumsum(B,axis = 1),0),5))
+#output_B = tf.Print(B,[B],message = "B shape is :", first_n=4096, summarize=40)
+#output_C = tf.Print(C,[C],message = "C shape is :", first_n=4096, summarize=40)
 
 
 sess = tf.Session()
 sess.run(tf.initialize_all_variables())
 sess.run(output_A)
 sess.run(output_B)
-sess.run(output_D)
+#sess.run(output_D)
 
 
 
-
+"""
 
 a = tf.Variable(tf.constant(0.1,shape=[2,5,256]))
 b = tf.Variable(tf.constant(0.1,shape=[10]))
@@ -76,6 +84,7 @@ sess.run(output_b)
 #sess.run(init_op)
 #print(tf.transpose(b).get_shape())
 #print(c.get_shape())
+"""
 def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
@@ -149,6 +158,7 @@ plt.tight_layout()
 plt.suptitle("Slammer")
 plt.savefig("DDD.png",dpi=200)
 plt.show()
+"""
 
 
 
