@@ -621,8 +621,12 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
     print("XXXXXXXXXXXXXXXXXXX"+str(np.array(X_Training_Multi_Level_List).shape))
     print("XXXXXXXXXXXXXXXXXXX"+str(np.array(X_Testing_Multi_Level_List).shape))
+    A1 = np.array(X_Training_Multi_Level_List).transpose((1,0,2,3))
+    A2 = np.array(X_Testing_Multi_Level_List).transpose((1,0,2,3))
+    print("XXXXXXXXXXXXXXXXXXX22222222222"+str(A1.shape))
+    print("XXXXXXXXXXXXXXXXXXX22222222222"+str(A2.shape))
 
-    return np.array(X_Training_Multi_Level_List),Y_Training,np.array(X_Testing_Multi_Level_List),Y_Testing
+    return A1,Y_Training,A2,Y_Testing
 
 
 
