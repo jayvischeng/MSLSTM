@@ -71,6 +71,8 @@ def inference(data,label,option):
         lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val2, state2 = tf.nn.rnn(lstm_cell2, last1, dtype=tf.float32)
 
+
+
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 

@@ -204,8 +204,10 @@ def Model(each_case,Label,Parameters=[]):
 
                 val, state = tf.nn.dynamic_rnn(lstm_cell, data_original_train_merged, dtype=tf.float32)
                 #val = tf.transpose(val,[1,0,2])
+
                 val2 = tf.gather(val,val.get_shape()[0]-1)
                 #val = tf.reshape(val,[batch_size*number_of_scales,num_neurons])
+
                 out_put_val = tf.Print(val,[val.get_shape()],"The val shape is :",first_n=4096,summarize=40)
                 out_put_val2 = tf.Print(val2,[val2.get_shape()],"The val2 shape is :",first_n=4096,summarize=40)
 

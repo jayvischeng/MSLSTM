@@ -1,6 +1,4 @@
-import tensorflow as tf
 #_author_by_MC@20160424
-import os
 import pywt
 import matplotlib.pyplot as plt
 import time
@@ -12,12 +10,9 @@ from numpy import *
 from sklearn.preprocessing import LabelEncoder
 from sklearn import svm,preprocessing
 from keras.utils import np_utils
-#import seaborn as sns
 import matplotlib
-from sklearn.decomposition import PCA
 from sklearn.feature_selection import SelectKBest
-from sklearn.feature_selection import chi2,f_classif
-from sklearn.feature_selection import RFE
+from sklearn.feature_selection import f_classif
 def get_auc(arr_score, arr_label, pos_label):
     score_label_list = []
     for index in xrange(len(arr_score)):
@@ -60,7 +55,6 @@ def LoadData(input_data_path,filename):
             if '@' in each:continue
             val=each.split(",")
             if len(val)>0 or val[-1].strip()=="negative" or val[-1].strip()=="positive":
-                #print(each)
                 if val[-1].strip()== negative_flag:
                     val[-1] = negative_sign
                 else:
@@ -85,7 +79,6 @@ def reConstruction(window_size,data,label):
     newdata = []
     newlabel = []
     L = len(data)
-    D = len(data[0])
     interval = 1
 
     index = 0
@@ -101,16 +94,7 @@ def reConstruction(window_size,data,label):
         index += interval
         newdata[newdata_count]=Sequence
         newdata_count += 1
-    print("Sequence Window is "+str(window_size))
-    print(np.array(newdata).shape)
-    print(np.array(newlabel).shape)
     return np.array(newdata),np.array(newlabel)
-    #print(np.array(newdata).shape)
-    #print(np.array(newlabel).shape)
-    #return np.concatenate((np.array(newdata),np.array(newlabel)),axis = 1)
-
-
-
 
 def Manipulation(X_Taining,Y_Training,time_scale_size):
     window_size = len(X_Taining[0])
@@ -128,8 +112,6 @@ def Manipulation(X_Taining,Y_Training,time_scale_size):
 def returnPositiveIndex(data,negative_sign):
     temp = []
     for i in range(len(data)):
-        #print("aaa")
-        #print(data)
         try:
             if int(data[i]) != negative_sign:
                 temp.append(i)
@@ -167,18 +149,8 @@ def Plotting_Sequence(X,Y):
         X_index = [i for i in range(len(Y))]
         X_pos_index = returnPositiveIndex(Y,negative_sign=1)
         X_pos_index_sub1,X_pos_index_sub2 = returnSub_Positive(X_pos_index)
-        X_neg_index = returnPositiveIndex(Y,negative_sign=1)
 
-        #print(X[:,0].shape)
-        #print(X.shape)
-        #print(X[:,0][:,2])
-        #print(X[:,1][:,2])
-        #print(X[:,2][:,2])
-
-        fig = plt.figure(figsize=(12,5))
         if 1>0:
-            #print(len(X_index))
-            #print(len(X[:,0][:,selected_feature]))
             plt.plot(X_index,X[:,0][:,selected_feature],'b-',linewidth=2.0)
             plt.plot(X_pos_index_sub1,X[X_pos_index_sub1,0][:,selected_feature],'r-',linewidth=2.0)
             plt.plot(X_pos_index_sub2,X[X_pos_index_sub2,0][:,selected_feature],'r-',linewidth=2.0)
@@ -202,46 +174,33 @@ def MyEvaluation(Y_Testing, Result):
         for tab1 in range(len(Result)):
             temp_result = map(lambda a:int(round(a)),Result[tab1])
             temp_true = map(lambda a:int(round(a)),Y_Testing[tab1])
-            #print(type(temp_result))
-            #print(temp_result)
-            #print(temp_true)
             if list(temp_result) == list(temp_true):
                 acc += 1
     return round(float(acc)/len(Result),3)
 
 def Multi_Scale_Wavelet(X_Training,Y_Training,Level,Is_Wave_Let=True,Wave_Type='db1'):
-    #print(Wave_Type+" processing+++++++++++++++++++++++++++++++++++++++++++++")
     TEMP_XData = [[] for i in range(Level)]
-    #print("X_Training")
     NN = X_Training.shape[0]
-    #print(X_Training.shape)
     if (Is_Wave_Let == True) and (Level > 1):
         for tab in range(Level):
             X = []
             for each_feature in range(len(X_Training[0])):
-                #print(str(each_feature+1)+" is processing"+" length is "+str(len(X_Training[:,each_feature])))
                 coeffs = pywt.wavedec(X_Training[:,each_feature], Wave_Type, level=Level)
                 current_level = Level - tab
                 for tab2 in range(tab+1,Level+1):
                     coeffs[tab2] = None
                 X_WAVELET_REC = pywt.waverec(coeffs, Wave_Type)
-                #print("recoverying legnth is "+str(len(X_WAVELET_REC)))
                 X.append(X_WAVELET_REC[:NN])
-                #print(np.transpose(np.array(X)).shape)
 
             TEMP_XData[current_level - 1].extend(np.transpose(np.array(X)))
 
         TEMP_XData = np.array(TEMP_XData)
-        #print("11111111111")
-        #print(TEMP_XData.shape)
     else:
         for tab in range(Level):
             current_level = Level - tab
             TEMP_XData[current_level - 1].extend(X_Training)
 
         TEMP_XData = np.array(TEMP_XData)
-        #print("22222222222222")
-        #print(TEMP_XData.shape)
     return  TEMP_XData,X_Training,Y_Training
 
 def Multi_Scale_Wavelet0(X_Training,Y_Training,Level,Is_Wave_Let=True):
@@ -365,12 +324,8 @@ def Multi_Scale_Plotting(Data_Multi,Data_A):
     plt.xlabel("(h)")
     plt.ylabel("Average AS path length")
     ax1.grid(True)
-
     plt.show()
 
-    #plt.savefig("C.pdf",dpi=400)
-
-    #plt.show()
 
 
 def Convergge(X_Training,Y_Training,time_scale_size=1):
@@ -385,9 +340,6 @@ def Convergge(X_Training,Y_Training,time_scale_size=1):
                 TEMP_Value += X_Training[tab1][tab2*time_scale_size+tab3]
             TEMP_Value = TEMP_Value/time_scale_size
             TEMP_XData[tab1].append(list(TEMP_Value[0]))
-
-    #print("Converge")
-    #print(np.array(TEMP_XData).shape)
 
     return  np.array(TEMP_XData),Y_Training
 def Fun(Multiscale_Sequence_List,case = 'max pooling'):
@@ -414,20 +366,8 @@ def Fun(Multiscale_Sequence_List,case = 'max pooling'):
                 elif case == 'mean pooling':
                     temp_sample.append(np.mean(AAA[:,tab_dimension]))# max pooling
             Temp.append(temp_sample)
-    #print("LALALALLALALA"+str(np.array(Temp).shape))
     return Temp
 
-    """
-    B = np.ones(shape=(1,len(Sequence_List)))
-    if case == 'max pooling':
-        C = np.divide(np.matmul(B,A),len(Sequence_List))[0]
-    elif case == 'mean pooling':
-        C = A[-1]
-    elif case == "diag pooling":
-        C = A[tab_scale]
-    elif case ==
-    return C
-    """
 
 def Add_Noise(Ratio,Data):
     w = 5
@@ -447,8 +387,6 @@ def Add_Noise(Ratio,Data):
     Noise = np.array(Noise)
     return np.concatenate((Data,Noise),axis=0)
 def Mix_Multi_Scale1(X_Train_Multi_Scale,Y_Train,Pooling_Type):
-    #print("Multi Scale is ")
-    #print(X_Train_Multi_Scale)
     Scale = len(X_Train_Multi_Scale)
     Length = len(X_Train_Multi_Scale[0])
     Temp_X_Train = []
@@ -494,20 +432,13 @@ def returnTabData(Current_CV,Cross_CV,Data_X,Data_Y):
 
         Training_Data_Index = np.append(negative_Data_index_Train, positive_Data_index_Train, axis=0)
         Training_Data_Index.sort()
-        #print(Training_Data_Index)
-        #print(len(negative_Data_index_Train))
-        #print(len(positive_Data_index_Train))
-        #print(len(negative_index))
-        #print(len(positive_index))
+
         Training_Data_Index = map(lambda a: int(a), Training_Data_Index)
         Training_Data_X = Data_X[Training_Data_Index, :]
         Training_Data_Y = Data_Y[Training_Data_Index]
 
         Testing_Data_Index = np.append(negative_Data_index_Test, positive_Data_index_Test, axis=0)
         Testing_Data_Index.sort()
-        #print(Testing_Data_Index)
-        #print(len(negative_Data_index_Test))
-        #print(len(positive_Data_index_Test))
 
         Testing_Data_Index = map(lambda a: int(a), Testing_Data_Index)
         Testing_Data_X = Data_X[Testing_Data_Index, :]
@@ -545,9 +476,6 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
         Data_ = Add_Noise(Noise_Ratio,Data_)
 
 
-    #Data_ = Add_Noise(Noise_Ratio,Data_)
-    #Pos_Data=Data_[Data_[:,-1]!=negative_sign]
-    #Neg_Data=Data_[Data_[:,-1]==negative_sign]
     scaler = preprocessing.StandardScaler()
 
     #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
@@ -572,60 +500,29 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
         for tab_level in range(Scale_Level):
             Data_Levels_X,Data_Levels_Y = reConstruction(Window_Size, scaler.fit_transform(Data_Multi_Level_X[tab_level]), Data_Y)
 
-            #(X_Testing,Y_Testing) = reConstruction(Window_Size, scaler.fit_transform(X_Testing_Multi[tab_level]), Y_Testing_1)
-            #(X_Testing,Y_Testing) = reConstruction(Window_Size, (X_Testing_Multi[tab_level]), Y_Testing_1)
             X_Training, Y_Training, X_Testing, Y_Testing = returnTabData(Current_CV, Cross_CV, Data_Levels_X,Data_Levels_Y)
             print("returnTabData_"+str(Data_Levels_X.shape))
             X_Training_Multi_Level_List[tab_level].extend(X_Training)
             X_Testing_Multi_Level_List[tab_level].extend(X_Testing)
 
-
-        #(X_Training_Single_Sclae, Y_Training) = reConstruction(Window_Size, scaler.fit_transform(X_Training_1), Y_Training_1)
-        #(X_Training_Single_Sclae, Y_Training) = reConstruction(Window_Size, X_Training_1, Y_Training_1)
-        #(X_Testing_Single_Sclae, Y_Testing) = reConstruction(Window_Size, scaler.fit_transform(X_Testing_1), Y_Testing_1)
-        #(X_Testing_Single_Sclae, Y_Testing) = reConstruction(Window_Size, X_Testing_1, Y_Testing_1)
-
-    Y_Training0 = Y_Training
     Y_Training_Encoder = LabelEncoder()
     Y_Training_Encoder.fit(Y_Training)
     encoded_Y1 = Y_Training_Encoder.transform(Y_Training)
     # convert integers to dummy variables (i.e. one hot encoded)
     Y_Training = np_utils.to_categorical(encoded_Y1)
 
-    Y_Testing0 = Y_Testing
     Y_Testing_Encoder = LabelEncoder()
     Y_Testing_Encoder.fit(Y_Testing)
     encoded_Y2 = Y_Testing_Encoder.transform(Y_Testing)
     # convert integers to dummy variables (i.e. one hot encoded)
     Y_Testing = np_utils.to_categorical(encoded_Y2)
 
-    #print("hahaha")
-    #print(X_Testing_Single_Sclae)
     if Multi_Scale == False:
-        #print("This is single ....................")
-        #if Wave_Let_Scale < 0:
-            #print("XXXXXX_Original" + str(X_Training.shape))
         return X_Training, Y_Training, X_Testing, Y_Testing
-        #else:
-            #print("XXXXXX_Scale" + str(Wave_Let_Scale))
-            #print(np.array(X_Training_Multi_Level_List[-1]).shape)
-            #print(np.array(X_Training_Multi_Level_List[-1])[0])
-            #return np.array(X_Training_Multi_Level_List[-1]), Y_Training, X_Testing, Y_Testing
-    #if Wave_Let_Scale > 0 and Method == "Attention222":
-        #X_Training_Multi_Level_List1,Y_Training = Mix_Multi_Scale1(X_Training_Multi_Level_List,Y_Training,Pooling_Type)
-        #X_Testing_Multi_Level_List1, Y_Training = Mix_Multi_Scale1(X_Testing_Multi_Level_List, Y_Training,Pooling_Type)
-    #try:
-        #print("***********************"+str(len(X_Testing_Multi_Level_List2)))
-    #except:
-        #pass
 
-    print("XXXXXXXXXXXXXXXXXXX"+str(np.array(X_Training_Multi_Level_List).shape))
-    print("XXXXXXXXXXXXXXXXXXX"+str(np.array(X_Testing_Multi_Level_List).shape))
-    A1 = np.array(X_Training_Multi_Level_List).transpose((1,0,2,3))
-    A2 = np.array(X_Testing_Multi_Level_List).transpose((1,0,2,3))
-    print("XXXXXXXXXXXXXXXXXXX22222222222"+str(A1.shape))
-    print("XXXXXXXXXXXXXXXXXXX22222222222"+str(A2.shape))
-
+    A1 = np.array(X_Training_Multi_Level_List).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
+    A2 = np.array(X_Testing_Multi_Level_List).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
+    print("Input shape is"+str(A1.shape))
     return A1,Y_Training,A2,Y_Testing
 
 
@@ -638,8 +535,6 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
     Data_=LoadData(Fila_Path,FileName)
     if Is_Adding_Noise == True:
         Data_ = Add_Noise(Noise_Ratio,Data_)
-    #Pos_Data=Data_[Data_[:,-1]!=negative_sign]
-    #Neg_Data=Data_[Data_[:,-1]==negative_sign]
     if Normalize == 1 or  Normalize==10 or Normalize==11:
         scaler = preprocessing.MinMaxScaler()
     elif Normalize == 2:
@@ -716,8 +611,6 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
 
         X_Testing = np.array(scaler.fit_transform(X_Testing))
         Y_Testing = np.array(Testing_Data[:, -1])
-
-
 
         Y_Training_Encoder = LabelEncoder()
         Y_Training_Encoder.fit(Y_Training)
