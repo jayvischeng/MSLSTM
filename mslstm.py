@@ -11,6 +11,10 @@ def inputs(option):
         data_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.sequence_window, FLAGS.input_dim])
         #data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.number_class])
+    elif option == 'AL':
+        data_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.scale_levels,FLAGS.sequence_window,FLAGS.input_dim])
+        label_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.number_class])
+
     elif option == 'HL' or 'HAL' or 'Boost' :
         data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.scale_levels,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.number_class])
@@ -133,7 +137,7 @@ def inference(data,label,option):
         # data_original_train = tf.placeholder(tf.float32,[batch_size,sequence_window,input_dim])
         data2 = tf.transpose(data, [1, 2, 3, 0])
         data_merged = batch_vm2(data2, tf.transpose(u_w_scales_normalized))
-        data_merged = tf.reshape(data_merged, (FLAGS.batch_size, FLAGS.sequence_window, FLAGS.input_dim))
+        data_merged = tf.reshape(data_merged, (-1, FLAGS.sequence_window, FLAGS.input_dim))
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
 
         val, state = tf.nn.dynamic_rnn(lstm_cell, data_merged, dtype=tf.float32)

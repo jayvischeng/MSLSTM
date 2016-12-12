@@ -56,12 +56,10 @@ def train(filename,cross_cv):
 
             #global_step = tf.Variable(0,name="global_step",trainable=False)
             data_x,data_y = mslstm.inputs(FLAGS.option)
-
             prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
             loss = mslstm.loss(prediction, label)
             optimizer,train_op = mslstm.train(loss)
             minimize = optimizer.minimize(loss)
-
             correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
             accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
