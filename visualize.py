@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib
+import os
 def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
@@ -44,42 +45,8 @@ fpr = [0 for i in range(len(method_list))]
 tpr = [0 for i in range(len(method_list))]
 auc = [0 for i in range(len(method_list))]
 
-Parameters = {}
-# Parameters
-#global filepath, filename, sequence_window, number_class, hidden_units, input_dim, learning_rate, epoch, is_multi_scale, training_level, cross_cv
-# ---------------------------Fixed Parameters------------------------------
-Parameters["filepath"] = os.getcwd()
-Parameters["sequence_window"] = 10
-Parameters["hidden_units"] = 200
-Parameters["input_dim"] = 33
-Parameters["number_class"] = 2
-Parameters["cross_cv"] = 2
-Parameters["fixed_seed_num"] = 1337
-# -------------------------------------------------------------------------
-Parameters["learning_rate"] = 0.001
-Parameters["epoch"] = 250
-Parameters["is_multi_scale"] = True
-Parameters["training_level"] = 10
-Parameters["is_add_noise"] = False
-Parameters["noise_ratio"] = 0
-Parameters["pooling_type"] = "diag pooling"
-def PlotAUC(method_list,Parameters):
-    for tab in range(len(method_list)):
-        try:
-            #print(method_list[tab] + " of C is processing----------------->>>>>>>>>>>>>>>>>>>>>")
-            fpr[tab], tpr[tab], auc[tab] = c.Model(method_list[tab], Parameters)
-            print(method_list[tab]+ " of C is completed++++++++++++++++<<<<<<<<<<<<<<<<<<<<<")
-        except:
-            try:
-                #print(method_list[tab] + " of DA is processing----------------->>>>>>>>>>>>>>>>>>>>>")
-                fpr[tab], tpr[tab], auc[tab] = da.Model(method_list[tab], Parameters)
-                print(method_list[tab] + " of DA is completed++++++++++++++++<<<<<<<<<<<<<<<<<<<<<")
 
-            except:
-                #print(method_list[tab] + " of DB2 is processing----------------->>>>>>>>>>>>>>>>>>>>>")
-                #fpr[tab], tpr[tab], auc[tab] = db2.Model(method_list[tab], Parameters)
-                #print(method_list[tab] + " of DB2 is completed++++++++++++++++<<<<<<<<<<<<<<<<<<<<<")
-                pass
+def PlotAUC(method_list,Parameters):
     plt.figure()
     #color_list = ['y', 'g', '#FF8C00', 'c', 'b', 'r', 'm']
     color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
@@ -97,12 +64,77 @@ def PlotAUC(method_list,Parameters):
     plt.grid()
     plt.savefig(eachfile + "_AUC.png", dpi=800)
     plt.savefig(eachfile + "_AUC.pdf", dpi=800)
-for eachfile in filename_list:
-    if not "Slammer" in eachfile:
-        continue
-    else:
-        Parameters["filename"] = eachfile
-        Parameters["learning_rate"] = 0.001
-        Parameters["epoch"] = 75
 
-        PlotAUC(method_list,Parameters)
+
+def Plotting(filename, subtitle, method):
+    # Predict = []
+    # True = []
+    Temp = []
+    with open(os.path.join(os.getcwd(), filename))as fin:
+        for each in fin.readlines():
+            Temp.append(int(each))
+            # val = each.split('\t\t')
+            # Predict.append(int(val[0].strip()))
+            # True.append(int(float(val[-1].strip())))
+
+    Temp = Temp[2340:4740]
+
+    if "SVM" in filename:
+        print(Temp)
+
+    X = [i + 1 for i in range(len(Temp))]
+
+    plt.xlim(0, len(X))
+    plt.ylim(-0.5, 2.0)
+    if not method == "Original":
+        """
+        if method == "NB":
+            Temp = []
+            for each in Predict:
+                if each==1:
+                    Temp.append(each)
+                elif each==-1:
+                    Temp.append(0)
+            Predict = Temp
+            print(Predict)
+        print(len(X))
+        print(len(Predict))
+        """
+        plt.plot(X, Temp, 'b.', markersize=2, label='Predict')
+    else:
+        plt.plot(X, Temp, 'r.', markersize=2, label='True')
+
+    plt.legend(loc=1, fontsize=12)
+    # plt.legend(bbox_to_anchor=(1, 1),
+    # bbox_transform=plt.gcf().transFigure)
+    # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+    plt.xlabel('(' + subtitle + ')' + "  " + method)
+    x = len(X) / 2
+    plt.xticks([1, 400, 800, 1200, 1600, 2000, 2500])
+    # plt.grid()
+    # plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.1)
+    # plt.minorticks_on()
+    plt.axvline(x, ymin=-1, ymax=2, linewidth=2, color='g')  # plt.title('Testing Sequence')
+    # plt.axvline(x+30, ymin=-1, ymax=2, linewidth=2, color='g')    #plt.title('Testing Sequence')
+
+    # plt.grid()
+
+
+def PlotStat(filename, Method_List):
+    subtitle = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
+    plt.figure(figsize=(12, 6), dpi=800)
+    plt.subplot(3, 3, 1)
+    filename_ = "StatFalseAlarm_" + filename + "_True.txt"
+    Plotting(filename_, subtitle[0], "Original")
+
+    for tab in range(len(Method_List)):
+        filename_ = "StatFalseAlarm_" + filename + "_" + Method_List[tab] + "_" + "_Predict.txt"
+        plt.subplot(3, 3, tab + 1)
+        Plotting(filename_, subtitle[tab + 1], Method_List[tab])
+
+    plt.tight_layout()
+    plt.savefig("StateFalseAlarm_" + filename + ".png", dpi=400)
+    plt.show()
+
+
+
