@@ -1,433 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c4b08d6-c2c8-4ede-9305-d666174e6a9a" name="Default" comment="updated mslstm">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/AD.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/AUC.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Numpy_Test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TRAINING" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TensorFlowTest.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/A/LSTM.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/A/mydata.mat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/A/output.mat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_ACC_A.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_ACC_L.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_ACC_R.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_Auc.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_F1_score.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_G_mean.pdf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/ABC.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_C_N_S.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_Code_Red_I.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_Nimda.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_Slammer.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/C.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/C0.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/C1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Comparison.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Comparison_LogHB_Slammer.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_AdaBoost.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_DT.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_LOGREG.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_LSTM.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_MSLSTM.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_NB.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_SVM.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/MSLSTM_Binary.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/MSLSTM_Plotting.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Note" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Numpy Test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Plotting_window_size.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlowMNISTExam.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_Log.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_LogHB_Code_Red_I.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_LogHB_Nimda.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_LogHB_Slammer.txt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TesnSorFlow.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/WaveLet_Test.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/checkpoint" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_1-3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_C.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_Feature_5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_Feature_5_Multi_scale.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_Original.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_ccc.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/input_data.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/modelckpt.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/modelckpt.txt.meta" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/t10k-images-idx3-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/t10k-labels-idx1-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/train-images-idx3-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/train-labels-idx1-ubyte.gz" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/db2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train2.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/AA2.py" afterPath="$PROJECT_DIR$/backup/AA2.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/da.py" afterPath="$PROJECT_DIR$/BACKUP/da.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/da2.py" afterPath="$PROJECT_DIR$/BACKUP/da2.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/mc_plotting.py" afterPath="$PROJECT_DIR$/visualize.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/mul_wave_test.py" afterPath="$PROJECT_DIR$/BACKUP/testing.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="3c4b08d6-c2c8-4ede-9305-d666174e6a9a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/baselines/nn-keras.py" afterPath="$PROJECT_DIR$/baselines/nn-keras.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/baselines/sclearn.py" afterPath="$PROJECT_DIR$/baselines/sclearn.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/loaddata.py" afterPath="$PROJECT_DIR$/loaddata.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mslstm.py" afterPath="$PROJECT_DIR$/mslstm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train.py" afterPath="$PROJECT_DIR$/train.py" />
     </list>
     <ignored path="MSLSTM.iws" />
@@ -450,7 +25,7 @@
     <SUITE FILE_PATH="coverage/MSLSTM$loaddata.coverage" NAME="loaddata Coverage Results" MODIFIED="1481444571073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$mslstm.coverage" NAME="mslstm Coverage Results" MODIFIED="1481031706680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$sclearn.coverage" NAME="sclearn Coverage Results" MODIFIED="1481528743102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/baselines" />
-    <SUITE FILE_PATH="coverage/MSLSTM$train.coverage" NAME="train Coverage Results" MODIFIED="1481541395218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$train.coverage" NAME="train Coverage Results" MODIFIED="1481542928131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -464,8 +39,8 @@
       <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-25">
-              <caret line="113" column="26" lean-forward="false" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+            <state relative-caret-position="243">
+              <caret line="194" column="30" lean-forward="true" selection-start-line="194" selection-start-column="30" selection-end-line="194" selection-end-column="30" />
               <folding>
                 <element signature="e#65#96#0" expanded="true" />
               </folding>
@@ -473,10 +48,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="TensorFlow_LogHB_AS_Leak.txt.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="evaluation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="-337">
               <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
               <folding />
             </state>
@@ -493,24 +78,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mslstm.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mslstm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mslstm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6446">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="160">
+              <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
               <folding>
                 <element signature="e#65#96#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="visualize.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visualize.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="107" column="39" lean-forward="false" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -527,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PW.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PW.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PW.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="76" column="27" lean-forward="false" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
+            <state relative-caret-position="200">
+              <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -565,8 +140,8 @@
       <file leaf-file-name="Comparison_Log_HB_AS_Leak.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="9" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="160">
+              <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -609,10 +184,10 @@
       <find>_evaluation</find>
       <find>epoch_training_loss_list</find>
       <find>output_folder</find>
-      <find>data</find>
       <find>normalized_scale_levels</find>
       <find>results</find>
       <find>result_list_dict</find>
+      <find>data</find>
     </findStrings>
     <replaceStrings>
       <replace>data_x</replace>
@@ -643,10 +218,11 @@
         <option value="$PROJECT_DIR$/baselines/nn-keras.py" />
         <option value="$PROJECT_DIR$/loaddata.py" />
         <option value="$PROJECT_DIR$/mul_wave_test.py" />
-        <option value="$PROJECT_DIR$/mslstm.py" />
         <option value="$PROJECT_DIR$/AUC.py" />
         <option value="$PROJECT_DIR$/visualize.py" />
+        <option value="$PROJECT_DIR$/mslstm.py" />
         <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt" />
       </list>
     </option>
   </component>
@@ -1214,7 +790,21 @@
       <option name="project" value="LOCAL" />
       <updated>1481532590057</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="updated mslstm">
+      <created>1481541408547</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1481541408547</updated>
+    </task>
+    <task id="LOCAL-00018" summary="updated mslstm">
+      <created>1481542115295</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1481542115295</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1228,7 +818,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38210228" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50142044" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1278,13 +868,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BACKUP/da2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2400">
@@ -1557,16 +1140,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PW.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="76" column="27" lean-forward="false" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1586,37 +1159,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="9" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BACKUP/da2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6120">
           <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25">
-          <caret line="113" column="26" lean-forward="false" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
-          <folding>
-            <element signature="e#65#96#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1630,12 +1177,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-337">
+          <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mslstm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6446">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="160">
+          <caret line="13" column="24" lean-forward="true" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
           <folding>
             <element signature="e#65#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="194" column="30" lean-forward="true" selection-start-line="194" selection-start-column="30" selection-end-line="194" selection-end-column="30" />
+          <folding>
+            <element signature="e#65#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PW.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -10,6 +10,7 @@ from collections import defaultdict
 import tensorflow as tf
 import mslstm
 import loaddata
+import numpy as np
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
@@ -22,7 +23,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',200,"""Batch size""")
-flags.DEFINE_string('max_epochs',20,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',2,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -43,6 +44,10 @@ def sess_run(commander,data,label):
 
 def train(filename,cross_cv):
     global sess, data_x, data_y
+    result_list_dict = defaultdict(list)
+    evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
+    for each in evaluation_list:
+        result_list_dict[each] = []
     for tab_cv in range(cross_cv):
         x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
                                                             filename, FLAGS.sequence_window, tab_cv, cross_cv,
@@ -138,25 +143,22 @@ def train(filename,cross_cv):
         print(y_test)
         print(result)
         results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
-        result_list_dict = defaultdict(list)
-        evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
-        for each in evaluation_list:
-            result_list_dict[each] = []
-        try:
-            for each_eval, each_result in results.items():
-                result_list_dict[each_eval].append(each_result)
-        except:
-            pass
-        with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
-            if not FLAGS.is_multi_scale:
-                outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "\n"
-            else:
-                outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "\n"
 
-                fout.write(outfileline)
-                for eachk, eachv in result_list_dict.items():
-                    fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
-                fout.write('\n')
+        for each_eval, each_result in results.items():
+            result_list_dict[each_eval].append(each_result)
+        print(result_list_dict)
+
+
+    with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
+        if not FLAGS.is_multi_scale:
+            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "\n"
+        else:
+            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "\n"
+
+            fout.write(outfileline)
+            for eachk, eachv in result_list_dict.items():
+                fout.write(eachk + ": " + str(round(np.mean(eachv), 3)) + ",\t")
+            fout.write('\n')
             """
             try:
                 weight_list = []
