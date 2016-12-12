@@ -81,7 +81,7 @@ def waverec(data, wavelet, mode='sym'):
     level = pywt.dwt_max_level(dLen, wavelet.dec_len)
 
     end_idx = 1
-    a = data[:end_idx] # approximation ... also the original data
+    a = data[:end_idx] # approximation ... also the original BGP_Data
     d = data[end_idx:end_idx*2]
     for idx in xrange(level):
         a = pywt.idwt(a, d, wavelet, mode)

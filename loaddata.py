@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import time
 import random
 import shutil
+import os
 start = time.time()
 import numpy as np
 from numpy import *
@@ -42,7 +43,7 @@ def trapezoid_area(x1, x2, y1, y2):
     delta = abs(x2 - x1)
     return delta * 0.5 * (y1 + y2)
 def LoadData(input_data_path,filename):
-    input_data_path = os.path.join(os.getcwd(),'data')
+    input_data_path = os.path.join(os.getcwd(),'BGP_Data')
     with open(os.path.join(input_data_path,filename)) as fin:
         global negative_sign,positive_sign
         if filename == 'sonar.dat':
@@ -400,6 +401,9 @@ def Mix_Multi_Scale1(X_Train_Multi_Scale,Y_Train,Pooling_Type):
     return np.array(Temp_X_Train),Y_Train
 
 def returnTabData(Current_CV,Cross_CV,Data_X,Data_Y):
+    #print("Current cv is "+str(Current_CV))
+    #print("Cross cv is "+str(Cross_CV))
+    #print(Data_X.shape)
     global positive_sign,negative_sign
 
     positive_index = returnPositiveIndex(Data_Y, negative_sign)
@@ -444,14 +448,14 @@ def returnTabData(Current_CV,Cross_CV,Data_X,Data_Y):
         Testing_Data_X = Data_X[Testing_Data_Index, :]
         Testing_Data_Y = Data_Y[Testing_Data_Index]
 
-        min_number = min(len(Training_Data_X),len(Testing_Data_X))
+        #min_number = min(len(Training_Data_X),len(Testing_Data_X))
 
         print(str(tab_cross + 1) + "th Cross Validation is running and the training size is " + \
             str(len(Training_Data_X)) + ", testing size is " + str(len(Testing_Data_Y)) + "......")
 
         #Plotting_Sequence(Training_Data_X[0:min_number],Training_Data_Y[0:min_number])
-        return Training_Data_X[0:min_number],Training_Data_Y[0:min_number],Testing_Data_X[0:min_number],Testing_Data_Y[0:min_number]
-
+        #return Training_Data_X[0:min_number],Training_Data_Y[0:min_number],Testing_Data_X[0:min_number],Testing_Data_Y[0:min_number]
+        return Training_Data_X,Training_Data_Y,Testing_Data_X,Testing_Data_Y
 
 
 
@@ -470,13 +474,20 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
 
     Data_=LoadData(Fila_Path,FileName)
-    #Plotting_Sequence(Data_[:,0], Data_[:,-1])
+    scaler = preprocessing.StandardScaler()
 
+   # X_,Y_,X_Validation, Y_Validation = returnTabData(0, 3, Data_[:,:-1],Data_[:,-1])
+    #X_Validation, Y_Validation = reConstruction(Window_Size, scaler.fit_transform(X_Validation),Y_Validation)
+
+    #Data_ = np.concatenate((X_,np.reshape(Y_,(len(Y_),1))),axis=1)
+    #print("aaaaaaaaaaaaaaa")
+    #print(Data_.shape)
+
+    #Plotting_Sequence(Data_[:,0], Data_[:,-1])
     if Is_Adding_Noise == True:
         Data_ = Add_Noise(Noise_Ratio,Data_)
 
 
-    scaler = preprocessing.StandardScaler()
 
     #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
     if Multi_Scale == False:
@@ -499,7 +510,6 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
         for tab_level in range(Scale_Level):
             Data_Levels_X,Data_Levels_Y = reConstruction(Window_Size, scaler.fit_transform(Data_Multi_Level_X[tab_level]), Data_Y)
-
             X_Training, Y_Training, X_Testing, Y_Testing = returnTabData(Current_CV, Cross_CV, Data_Levels_X,Data_Levels_Y)
             print("returnTabData_"+str(Data_Levels_X.shape))
             X_Training_Multi_Level_List[tab_level].extend(X_Training)
@@ -523,7 +533,7 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
     A1 = np.array(X_Training_Multi_Level_List).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
     A2 = np.array(X_Testing_Multi_Level_List).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(A1.shape))
-    return A1,Y_Training,A2,Y_Testing
+    return A1,Y_Training,A2,Y_Testing,X_Validation,Y_Validation
 
 
 
@@ -533,6 +543,9 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
     positive_sign=0
     negative_sign=1
     Data_=LoadData(Fila_Path,FileName)
+    #X_,Y_,X_Validation, Y_Validation = returnTabData(0, 4, Data_[:,:-1],Data_[:,-1])
+    #Data_ = np.concatenate((X_,np.reshape(Y_,(len(Y_),1))),axis=1)
+
     if Is_Adding_Noise == True:
         Data_ = Add_Noise(Noise_Ratio,Data_)
     if Normalize == 1 or  Normalize==10 or Normalize==11:

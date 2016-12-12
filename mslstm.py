@@ -15,8 +15,8 @@ def inputs(option):
         data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.scale_levels,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.number_class])
     elif option == '1L' or option == '2L':
-        data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
-        label_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.number_class])
+        data_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.sequence_window,FLAGS.input_dim])
+        label_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.number_class])
 
     return data_tensor,label_tensor
 
@@ -113,7 +113,7 @@ def inference(data,label,option):
                                      #first_n=4096, summarize=40)
 
         #u_w_AAA = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w_AAA")
-        #data_original_train2 = tf.transpose(data, [1, 2, 3, 0])
+        #data_original_train2 = tf.transpose(BGP_Data, [1, 2, 3, 0])
         #print("ccc")
         #print(data_original_train2.get_shape())
         #print(tf.transpose(u_current_levels).get_shape())

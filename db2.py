@@ -331,7 +331,7 @@ def Model(Label,Parameters=[]):
                 print("Epoch %s"%(str(i+1))+">"*20+"="+"train_accuracy: %s, train_loss: %s"%(str(epoch_training_acc_list[-1]),str(epoch_training_loss_list[-1]))\
                       +",\tval_accuracy: %s, val_loss: %s"%(str(epoch_val_acc_list[-1]),str(epoch_val_loss_list[-1])))
 
-            #incorrect = sess.run(error, {data: x_test, target: y_test})
+            #incorrect = sess.run(error, {BGP_Data: x_test, target: y_test})
             #print("x_rest shape is ...")
             #print(x_test.shape)
             result_temp_scale = []

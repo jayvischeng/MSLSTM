@@ -9,7 +9,7 @@ import mslstm
 import loaddata
 
 flags = tf.app.flags
-flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'data'),"""Directory for storing data set""")
+flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
 flags.DEFINE_string('num_neurons1',200,"""Number of hidden units""")
@@ -151,7 +151,7 @@ def train(filename,tab_cv,cross_cv):
                 #early_stopping -= 1
             #elif epoch_val_acc_list[-1] >= max_val_acc:
                 #early_stopping = 100
-        # incorrect = sess.run(error, {data: x_test, data_y: y_test})
+        # incorrect = sess.run(error, {BGP_Data: x_test, data_y: y_test})
         # print("x_test shape is ..."+str(x_test.shape))
         # print(x_test)
         """

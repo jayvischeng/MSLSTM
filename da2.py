@@ -429,7 +429,7 @@ def Model(each_case,Label,Parameters=[]):
                     early_stopping -= 1
                 elif epoch_val_acc_list[-1] >= max_val_acc:
                     early_stopping = 100
-            #incorrect = sess.run(error, {data: x_test, target: y_test})
+            #incorrect = sess.run(error, {BGP_Data: x_test, target: y_test})
             #print("x_test shape is ..."+str(x_test.shape))
             #print(x_test)
             try:
