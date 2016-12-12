@@ -5,13 +5,14 @@ mincheng:mc.cheng@my.cityu.edu.hk
 from __future__ import division
 import os
 from baselines import sclearn
-
+import evaluation
+from collections import defaultdict
 import tensorflow as tf
 import mslstm
 import loaddata
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
-flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
+flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
 flags.DEFINE_string('num_neurons1',200,"""Number of hidden units""")
 flags.DEFINE_string('num_neurons2',200,"""Number of hidden units""")
@@ -25,8 +26,9 @@ flags.DEFINE_string('max_epochs',20,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
-flags.DEFINE_string('option','1L',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
+flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
 flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
+flags.DEFINE_string('output','./output/',"""Directory where to write the results""")
 
 FLAGS = flags.FLAGS
 
@@ -121,7 +123,42 @@ def train(filename,cross_cv):
                     early_stopping -= 1
                 elif epoch_val_acc_list[-1] >= max_val_acc:
                     early_stopping = 10
-            #incorrect = sess.run(error, {BGP_Data: x_test, data_y: y_test})
+            weight_list = []
+            result = sess.run(prediction, {data_x:x_test, data_y: y_test})
+            ptr = 0
+            #for t in range(int(len(y_test)/FLAGS.batch_size)):
+                #inp_test, out_test = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
+                #result.append(sess.run(prediction, {data_x:inp_test, data_y: out_test}))
+                #weight_list.append(sess.run(out_put_u_w_scale, {data_original_train: inp_test, target: out_test}))
+                #ptr += FLAGS.batch_size
+            #x_ = [i for i in range(FLAGS.scale_levels)]
+            #y_ = [i for i in range(int(len(y_test)/FLAGS.batch_size))]
+            #x_,y_ = np.meshgrid(x_,y_)
+            #plt.plot(np.array(x_),np.array(y_),np.array(result))
+            #plt.show()
+        sess.close()
+        print(y_test)
+        print(result)
+        results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
+        result_list_dict = defaultdict(list)
+        evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
+        for each in evaluation_list:
+            result_list_dict[each] = []
+        try:
+            for each_eval, each_result in results.items():
+                result_list_dict[each_eval].append(each_result)
+        except:
+            pass
+        with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
+            if not FLAGS.is_multi_scale:
+                outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "\n"
+            else:
+                outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "\n"
+
+                fout.write(outfileline)
+                for eachk, eachv in result_list_dict.items():
+                    fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
+                fout.write('\n')
             """
             try:
                 weight_list = []
@@ -145,15 +182,28 @@ def train(filename,cross_cv):
                 pass
             """
 def main(unused_argv):
+    #
+    #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
+    filename_list = ["HB_AS_Leak.txt"]
 
-    print(FLAGS.data_dir)
-    print(FLAGS.is_multi_scale)
-    method_list1 = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
-    method_list2 = ["MLP","RNN","LSTM"]
+    wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
+    multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
+    for filename in filename_list:
+        for wave_type_tab in range(len(wave_type_list)):
+            FLAGS.wave_type = wave_type_list[wave_type_tab]
+            FLAGS.scale_levels = multi_scale_value_list[wave_type_tab]
+            train(filename, 2)
+
+
+
     #train("HB_AS_Leak.txt",2)
-    for each_method in method_list1:
-        sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
-    for each_method in method_list2:
-        sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
+
+    #method_list1 = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
+    #method_list2 = ["MLP","RNN","LSTM"]
+    #for each_method in method_list1:
+       #sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
+    #for each_method in method_list2:
+        #sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
+
 if __name__ == "__main__":
     tf.app.run()

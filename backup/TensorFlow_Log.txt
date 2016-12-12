@@ -1,6 +1,0 @@
-TensorFlow epoch:20		#multi_scaleFalse
-F1_SCORE:		0.89132AUC:		0.879132179878G_MEAN:		0.876141448074ACCURACY:		0.88099
-TensorFlow epoch:20		#multi_scaleFalse
-F1_SCORE:		0.89132AUC:		0.879132179878G_MEAN:		0.876141448074ACCURACY:		0.88099
-TensorFlow### epoch:20		###multi_scale:		Falsetrain_set_using_level:		-1
-F1_SCORE: 0.860965	,AUC: 0.834186150908	,G_MEAN: 0.810122139912	,ACCURACY: 0.83647	,

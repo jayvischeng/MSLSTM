@@ -131,10 +131,10 @@ def Basemodel(_model,filename,cross_cv):
         result2 = np.array(evaluation.ReverseEncoder(result))
         # Statistics False Alarm Rate
         if tab_cv == 2:
-            with open("StatFalseAlarm_" + filename + "_True.txt", "w") as fout:
+            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_True"), "w") as fout:
                 for tab in range(len(y_test2)):
                     fout.write(str(int(y_test2[tab])) + '\n')
-            with open("StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict.txt", "w") as fout:
+            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
                 for tab in range(len(result2)):
                     fout.write(str(int(result2[tab])) + '\n')
 
@@ -144,7 +144,7 @@ def Basemodel(_model,filename,cross_cv):
     for eachk, eachv in result_list_dict.items():
         result_list_dict[eachk] = np.average(eachv)
     if is_add_noise == False:
-        with open(os.path.join(os.getcwd(), "Comparison_Log_" + filename + ".txt"), "a")as fout:
+        with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
             outfileline = _model + ":__"
             fout.write(outfileline)
             for eachk, eachv in result_list_dict.items():

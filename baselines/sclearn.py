@@ -167,10 +167,10 @@ def Basemodel(_model,filename,cross_cv):
         result2 = np.array(evaluation.ReverseEncoder(result))
         # Statistics False Alarm Rate
         if tab_cv == 2:
-            with open("StatFalseAlarm_" + filename + "_True.txt", "w") as fout:
+            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_True"), "w") as fout:
                 for tab in range(len(y_test2)):
                     fout.write(str(int(y_test2[tab])) + '\n')
-            with open("StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict.txt", "w") as fout:
+            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
                 for tab in range(len(result2)):
                     fout.write(str(int(result2[tab])) + '\n')
 
@@ -181,7 +181,7 @@ def Basemodel(_model,filename,cross_cv):
     for eachk, eachv in result_list_dict.items():
         result_list_dict[eachk] = np.average(eachv)
     if is_add_noise == False:
-        with open(os.path.join(os.getcwd(), "Comparison_Log_" + filename + ".txt"), "a")as fout:
+        with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
             outfileline = _model + ":__"
             fout.write(outfileline)
             for eachk, eachv in result_list_dict.items():
@@ -212,42 +212,3 @@ def epoch_loss_plotting(train_loss_list, val_loss_list):
     plt.show()
 
 
-if __name__ == '__main__':
-    # para
-    global filepath, filename, fixed_seed_num, sequence_window, number_class, hidden_units, input_dim, learning_rate, epoch, is_multi_scale, training_level, cross_cv, is_add_noise, noise_ratio
-    # ---------------------------Fixed para------------------------------
-    #filepath = os.getcwd()  # 1
-    #sequence_window = 10  # 2
-    #hidden_units = 200  # 3
-    #input_dim = 33  # 4
-    #number_class = 2  # 5
-    #cross_cv = 2  # 6
-    #fixed_seed_num = 1337  # 7
-    #is_add_noise = False  # 8
-    #noise_ratio = 0  # 9
-    # -------------------------------------------------------------------------
-    #learning_rate = 0.001  # 10
-    #epoch = 100  # 11
-    #training_level = -1  # 12
-    #is_multi_scale = False  # 13
-    #filename_list = ["HB_AS_Leak.txt", "HB_Nimda.txt", "HB_Slammer.txt", "HB_Code_Red_I.txt"]
-    # learning_rate_list = [0.001, 0.0001, 0.001, 0.001]
-    # filename = 'HB_Nimda.txt'
-    # method_list = ["Ada.Boost"]
-    # method_list = ["NBW"]
-    method_list = ["SVM"]
-    # method_list = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","MLP","RNN","LSTM"]
-
-    result_list = []
-    for tab in range(len(method_list)):
-        result_list.append(Basemodel(method_list[tab]))
-
-    for tab in range(len(method_list)):
-        print(method_list[tab])
-        print(result_list[tab])
-
-        # train_loss_list[each_case].extend(a)
-        # val_loss_list[each_case].extend(b)
-
-        # this is a a test
-        # epoch_loss_plotting(train_loss_list,val_loss_list)

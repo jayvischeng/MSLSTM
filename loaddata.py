@@ -464,12 +464,9 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
     global positive_sign,negative_sign,output_folder
     positive_sign = 0
     negative_sign = 1
-    output_folder = "ABC"
+    output_folder = "output"
 
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
-        os.makedirs(os.path.join(os.getcwd(),output_folder))
-    else:
-        shutil.rmtree(os.path.join(os.getcwd(),output_folder))
         os.makedirs(os.path.join(os.getcwd(),output_folder))
 
 
@@ -533,13 +530,18 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
     A1 = np.array(X_Training_Multi_Level_List).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
     A2 = np.array(X_Testing_Multi_Level_List).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(A1.shape))
-    return A1,Y_Training,A2,Y_Testing,X_Validation,Y_Validation
+    #return A1,Y_Training,A2,Y_Testing,X_Validation,Y_Validation
+    return A1,Y_Training,A2,Y_Testing
 
 
 
 def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
 
     global positive_sign,negative_sign
+    output_folder = "output"
+
+    if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
+        os.makedirs(os.path.join(os.getcwd(),output_folder))
     positive_sign=0
     negative_sign=1
     Data_=LoadData(Fila_Path,FileName)

@@ -1,9 +1,434 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3c4b08d6-c2c8-4ede-9305-d666174e6a9a" name="Default" comment="undated da2">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ms.py" afterPath="$PROJECT_DIR$/mslstm.py" />
+    <list default="true" id="3c4b08d6-c2c8-4ede-9305-d666174e6a9a" name="Default" comment="updated mslstm">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AD.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/AUC.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Numpy_Test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TRAINING" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/TensorFlowTest.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/A/LSTM.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/A/mydata.mat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/A/output.mat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_C_N_S_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Code_Red_I_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Nimda_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/B_Slammer_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_12793_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_13237_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_AS_Leak_1853_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Code_Red_I_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Nimda_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_ACC_A.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_ACC_L.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_ACC_R.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_Auc.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_F1_score.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/AAA_Images_WWW__L2norm/HB_Slammer_G_mean.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/ABC.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_C_N_S.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_Code_Red_I.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_Nimda.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/B_Slammer.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/C.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/C0.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/C1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Comparison.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Comparison_LogHB_Slammer.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_AdaBoost.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_DT.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_LOGREG.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_LSTM.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_MSLSTM.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_NB.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/CrossTab_0_SVM.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_10_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_16_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_200_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_20_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_30_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_32_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_40_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_50_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_12793_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_13237_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_AS_Leak_1853_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_60_LS_100_L2norm/HB_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Half_Minutes_Window_Size_64_LS_100_L2norm/HB_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/MSLSTM_Binary.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/MSLSTM_Plotting.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Note" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Numpy Test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Plotting_window_size.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlowMNISTExam.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_Log.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_LogHB_Code_Red_I.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_LogHB_Nimda.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TensorFlow_LogHB_Slammer.txt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/TesnSorFlow.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/WaveLet_Test.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_10_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_20_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_30_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_40_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_50_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_C_N_S_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Code_Red_I_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Nimda_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_ACC_Anomaly_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_ACC_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_ACC_Regular_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/Window_Size_60_LS_100_L2norm/B_Slammer_Info_F1_score_List.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/checkpoint" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_1-3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_A4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_C.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D1.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_D4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_Feature_5.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_Feature_5_Multi_scale.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_Original.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/figure_ccc.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/input_data.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/modelckpt.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/modelckpt.txt.meta" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/t10k-images-idx3-ubyte.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/t10k-labels-idx1-ubyte.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/train-images-idx3-ubyte.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/backup/tmp/data/train-labels-idx1-ubyte.gz" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/db2.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/train2.py" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/AA2.py" afterPath="$PROJECT_DIR$/backup/AA2.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/da.py" afterPath="$PROJECT_DIR$/BACKUP/da.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/da2.py" afterPath="$PROJECT_DIR$/BACKUP/da2.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mc_plotting.py" afterPath="$PROJECT_DIR$/visualize.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/mul_wave_test.py" afterPath="$PROJECT_DIR$/BACKUP/testing.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/baselines/nn-keras.py" afterPath="$PROJECT_DIR$/baselines/nn-keras.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/baselines/sclearn.py" afterPath="$PROJECT_DIR$/baselines/sclearn.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/loaddata.py" afterPath="$PROJECT_DIR$/loaddata.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mslstm.py" afterPath="$PROJECT_DIR$/mslstm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train.py" afterPath="$PROJECT_DIR$/train.py" />
     </list>
     <ignored path="MSLSTM.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -17,8 +442,15 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/MSLSTM$da2.coverage" NAME="da2 Coverage Results" MODIFIED="1480561517203" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MSLSTM$AA2.coverage" NAME="AA2 Coverage Results" MODIFIED="1480569293409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$train2.coverage" NAME="train2 Coverage Results" MODIFIED="1480837146893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$TensorFlowTest.coverage" NAME="TensorFlowTest Coverage Results" MODIFIED="1481027904762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$evaluation.coverage" NAME="evaluation Coverage Results" MODIFIED="1481120078899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$da.coverage" NAME="da Coverage Results" MODIFIED="1480522373096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$AA2.coverage" NAME="AA2 Coverage Results" MODIFIED="1480835718065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$loaddata.coverage" NAME="loaddata Coverage Results" MODIFIED="1481444571073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$mslstm.coverage" NAME="mslstm Coverage Results" MODIFIED="1481031706680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$sclearn.coverage" NAME="sclearn Coverage Results" MODIFIED="1481528743102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/baselines" />
+    <SUITE FILE_PATH="coverage/MSLSTM$train.coverage" NAME="train Coverage Results" MODIFIED="1481541395218" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -29,37 +461,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="train.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-25">
+              <caret line="113" column="26" lean-forward="false" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+              <folding>
+                <element signature="e#65#96#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="evaluation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/evaluation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="da2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/da2.py">
+        <entry file="file://$PROJECT_DIR$/BACKUP/da2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2700">
-              <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AA2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AA2.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5040">
-              <caret line="288" column="47" lean-forward="false" selection-start-line="288" selection-start-column="47" selection-end-line="288" selection-end-column="47" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#1489#2677#0" expanded="false" />
-                <element signature="e#2973#3732#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+            <state relative-caret-position="-6120">
+              <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -68,18 +496,42 @@
       <file leaf-file-name="mslstm.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mslstm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-6446">
+              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding>
+                <element signature="e#65#96#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="visualize.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/visualize.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="107" column="39" lean-forward="false" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="da.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/da.py">
+      <file leaf-file-name="loaddata.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/loaddata.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6480">
-              <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
+            <state relative-caret-position="100">
+              <caret line="469" column="60" lean-forward="false" selection-start-line="469" selection-start-column="60" selection-end-line="469" selection-end-column="60" />
+              <folding>
+                <element signature="e#24#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PW.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PW.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="580">
+              <caret line="76" column="27" lean-forward="false" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -87,26 +539,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="db2.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db2.py">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="0">
+                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <folding />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SA.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Comparison_Log_HB_AS_Leak.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Evaluation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Evaluation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
+              <caret line="0" column="9" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -122,8 +583,44 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>minimize</find>
+      <find>training_acc</find>
+      <find>cost_cross_entropy</find>
+      <find>loaddata</find>
+      <find>batch_size</find>
+      <find>fixed_seed_num</find>
+      <find>******************************</find>
+      <find>num_neurons</find>
+      <find>sess_init</find>
+      <find>hidden_units</find>
+      <find>inference</find>
+      <find>reshape</find>
+      <find>lstm_cell1</find>
+      <find>manipulation</find>
+      <find>Label</find>
+      <find>LoadData</find>
+      <find>tf</find>
+      <find>batch_vm</find>
+      <find>unpack_sequence</find>
+      <find>Manipulation</find>
+      <find>_WithoutS</find>
+      <find>Evaluation_WithoutS</find>
+      <find>Evaluation</find>
+      <find>evaluation</find>
+      <find>_evaluation</find>
+      <find>epoch_training_loss_list</find>
+      <find>output_folder</find>
+      <find>data</find>
+      <find>normalized_scale_levels</find>
+      <find>results</find>
+      <find>result_list_dict</find>
     </findStrings>
+    <replaceStrings>
+      <replace>data_x</replace>
+      <replace>data_y</replace>
+      <replace>evaluation</replace>
+      <replace>label</replace>
+      <replace>loaddata</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -133,9 +630,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/da2.py" />
-        <option value="$PROJECT_DIR$/AA2.py" />
         <option value="$PROJECT_DIR$/MSLSTM.py" />
+        <option value="$PROJECT_DIR$/AA2.py" />
+        <option value="$PROJECT_DIR$/train2.py" />
+        <option value="$PROJECT_DIR$/TensorFlowTest.py" />
+        <option value="$PROJECT_DIR$/da.py" />
+        <option value="$PROJECT_DIR$/da2.py" />
+        <option value="$PROJECT_DIR$/AD.py" />
+        <option value="$PROJECT_DIR$/evaluation.py" />
+        <option value="$PROJECT_DIR$/compare.py" />
+        <option value="$PROJECT_DIR$/baselines/sclearn.py" />
+        <option value="$PROJECT_DIR$/baselines/nn-keras.py" />
+        <option value="$PROJECT_DIR$/loaddata.py" />
+        <option value="$PROJECT_DIR$/mul_wave_test.py" />
+        <option value="$PROJECT_DIR$/mslstm.py" />
+        <option value="$PROJECT_DIR$/AUC.py" />
+        <option value="$PROJECT_DIR$/visualize.py" />
+        <option value="$PROJECT_DIR$/train.py" />
       </list>
     </option>
   </component>
@@ -146,8 +657,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -165,7 +676,7 @@
         </expanded-state>
         <selected-state>
           <State>
-            <id>SpellCheckingInspection</id>
+            <id>PyCompatibilityInspection</id>
           </State>
         </selected-state>
       </profile-state>
@@ -188,7 +699,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -201,8 +711,23 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="output" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -211,21 +736,27 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="FullScreen" value="true" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
+    <property name="FullScreen" value="true" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/data" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/BACKUP" />
+      <recent name="$PROJECT_DIR$/ABC" />
+      <recent name="$PROJECT_DIR$/baselines" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.AA2">
-    <configuration default="false" name="da2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.train">
+    <configuration default="false" name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -238,12 +769,12 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="MSLSTM" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/da2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="da" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="mslstm" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -256,12 +787,12 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="MSLSTM" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/da.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mslstm.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="AA2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="evaluation" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -274,9 +805,56 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="MSLSTM" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AA2.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/evaluation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="loaddata" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MSLSTM" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/loaddata.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="sclearn" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/baselines" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MSLSTM" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/baselines/sclearn.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -493,16 +1071,20 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Python.da2" />
-      <item index="1" class="java.lang.String" itemvalue="Python.da" />
-      <item index="2" class="java.lang.String" itemvalue="Python.AA2" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.train" />
+      <item index="1" class="java.lang.String" itemvalue="Python.mslstm" />
+      <item index="2" class="java.lang.String" itemvalue="Python.evaluation" />
+      <item index="3" class="java.lang.String" itemvalue="Python.loaddata" />
+      <item index="4" class="java.lang.String" itemvalue="Python.sclearn" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.AA2" />
-        <item index="1" class="java.lang.String" itemvalue="Python.da2" />
-        <item index="2" class="java.lang.String" itemvalue="Python.da" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.train" />
+        <item index="1" class="java.lang.String" itemvalue="Python.sclearn" />
+        <item index="2" class="java.lang.String" itemvalue="Python.loaddata" />
+        <item index="3" class="java.lang.String" itemvalue="Python.evaluation" />
+        <item index="4" class="java.lang.String" itemvalue="Python.mslstm" />
       </list>
     </recent_temporary>
   </component>
@@ -534,31 +1116,129 @@
       <option name="project" value="LOCAL" />
       <updated>1480568749482</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="undated da2">
+      <created>1480598256826</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1480598256826</updated>
+    </task>
+    <task id="LOCAL-00004" summary="undated da2">
+      <created>1480598871132</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1480598871132</updated>
+    </task>
+    <task id="LOCAL-00005" summary="updated mslstm">
+      <created>1480758128232</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1480758128232</updated>
+    </task>
+    <task id="LOCAL-00006" summary="updated mslstm">
+      <created>1480758903626</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1480758903626</updated>
+    </task>
+    <task id="LOCAL-00007" summary="updated mslstm">
+      <created>1480953327115</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1480953327115</updated>
+    </task>
+    <task id="LOCAL-00008" summary="updated mslstm">
+      <created>1481034191289</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1481034191308</updated>
+    </task>
+    <task id="LOCAL-00009" summary="updated mslstm">
+      <created>1481034215813</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1481034215813</updated>
+    </task>
+    <task id="LOCAL-00010" summary="updated mslstm">
+      <created>1481040168967</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1481040168967</updated>
+    </task>
+    <task id="LOCAL-00011" summary="updated mslstm">
+      <created>1481040234873</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1481040234873</updated>
+    </task>
+    <task id="LOCAL-00012" summary="updated mslstm">
+      <created>1481212403384</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1481212403384</updated>
+    </task>
+    <task id="LOCAL-00013" summary="updated mslstm">
+      <created>1481212424001</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1481212424001</updated>
+    </task>
+    <task id="LOCAL-00014" summary="updated mslstm">
+      <created>1481212456871</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1481212456871</updated>
+    </task>
+    <task id="LOCAL-00015" summary="updated mslstm">
+      <created>1481212473137</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1481212473137</updated>
+    </task>
+    <task id="LOCAL-00016" summary="updated mslstm">
+      <created>1481532590057</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1481532590057</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26037195" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2786753" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329602" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38210228" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4559659" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40932643" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,36 +1257,159 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="undated da2" />
-    <option name="LAST_COMMIT_MESSAGE" value="undated da2" />
+    <MESSAGE value="updated mslstm" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated mslstm" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/loaddata.py</url>
+          <line>483</line>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/baselines/sclearn.py</url>
+          <line>169</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/da2.py">
+    <entry file="file://$PROJECT_DIR$/evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2700">
+        <state relative-caret-position="180">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACKUP/da2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2400">
           <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA2.py">
+    <entry file="file://$PROJECT_DIR$/BACKUP/AA2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5040">
-          <caret line="288" column="47" lean-forward="false" selection-start-line="288" selection-start-column="47" selection-end-line="288" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1489#2677#0" expanded="false" />
-            <element signature="e#2973#3732#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="8280">
+          <caret line="414" column="0" lean-forward="false" selection-start-line="414" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/mslstm.py" />
+    <entry file="file://$PROJECT_DIR$/BACKUP/da.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6480">
+          <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACKUP/da2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2430">
+          <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACKUP/AA2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACKUP/da.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6102">
+          <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Epoch_Loss_HB_Code_Red_I.txt.png" />
+    <entry file="file://$PROJECT_DIR$/evaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Epoch_Loss_HB_Code_Red_I.txt.png" />
+    <entry file="file://$PROJECT_DIR$/mslstm.py" />
+    <entry file="file://$USER_HOME$/.pyenv/versions/MyFlaskEnv/lib/python2.7/site-packages/tensorflow/python/platform/flags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BGP_Data/HB_AS_Leak.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.pyenv/versions/MyFlaskEnv/lib/python2.7/site-packages/tensorflow/python/ops/gradients.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/events.out.tfevents.1480838580.bogon">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/events.out.tfevents.1480839261.bogon">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65980">
+          <caret line="3299" column="0" lean-forward="false" selection-start-line="3299" selection-start-column="0" selection-end-line="3299" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.pyenv/versions/MyFlaskEnv/lib/python2.7/site-packages/tensorflow/python/ops/rnn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2360">
+          <caret line="133" column="14" lean-forward="false" selection-start-line="133" selection-start-column="14" selection-end-line="133" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aaa" />
+    <entry file="file://$PROJECT_DIR$/od05.py" />
+    <entry file="file://$PROJECT_DIR$/../MSLSTM 2/c.py" />
+    <entry file="file://$PROJECT_DIR$/StatFalseAlarm_HB_AS_Leak.txt_NB__Predict.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -614,193 +1417,119 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/da.py">
+    <entry file="file://$PROJECT_DIR$/StatFalseAlarm_HB_AS_Leak.txt_SVM__Predict.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6780">
-          <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compare.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="252" column="38" lean-forward="false" selection-start-line="252" selection-start-column="29" selection-end-line="252" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="3480">
+          <caret line="217" column="0" lean-forward="true" selection-start-line="217" selection-start-column="0" selection-end-line="217" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Evaluation.py">
+    <entry file="file://$PROJECT_DIR$/Comparison_Log_HB_AS_Leak.txt.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/da2.py">
+    <entry file="file://$PROJECT_DIR$/baselines/nn-keras.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2400">
-          <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="285">
+          <caret line="149" column="39" lean-forward="false" selection-start-line="149" selection-start-column="39" selection-end-line="149" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AA2.py">
+    <entry file="file://$PROJECT_DIR$/baselines/sclearn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8280">
-          <caret line="414" column="0" lean-forward="false" selection-start-line="414" selection-start-column="0" selection-end-line="414" selection-end-column="0" />
+        <state relative-caret-position="797">
+          <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1489#2677#0" expanded="false" />
-            <element signature="e#2973#3732#0" expanded="false" />
+            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mslstm.py" />
-    <entry file="file://$PROJECT_DIR$/da.py">
+    <entry file="file://$PROJECT_DIR$/train2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6480">
-          <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-68">
+          <caret line="24" column="26" lean-forward="true" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db2.py">
+    <entry file="file://$PROJECT_DIR$/BACKUP/AA2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-9988">
+          <caret line="191" column="15" lean-forward="true" selection-start-line="191" selection-start-column="15" selection-end-line="191" selection-end-column="15" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Evaluation.py">
+    <entry file="file://$PROJECT_DIR$/Numpy_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="252">
+          <caret line="73" column="19" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="75" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/da2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2430">
-          <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AA2.py">
+    <entry file="file://$PROJECT_DIR$/TensorFlowTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACKUP/testing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2212">
+          <caret line="423" column="0" lean-forward="false" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TRAINING">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-19529">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1489#2677#0" expanded="false" />
-            <element signature="e#2973#3732#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/da.py">
+    <entry file="file://$PROJECT_DIR$/AD.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6102">
-          <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="260">
+          <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db2.py">
+    <entry file="file://$PROJECT_DIR$/BACKUP/da.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Epoch_Loss_HB_Code_Red_I.txt.png" />
-    <entry file="file://$PROJECT_DIR$/Evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Epoch_Loss_HB_Code_Red_I.txt.png" />
-    <entry file="file://$PROJECT_DIR$/Evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/da.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6480">
-          <caret line="339" column="50" lean-forward="false" selection-start-line="339" selection-start-column="50" selection-end-line="339" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/da2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2700">
-          <caret line="135" column="19" lean-forward="false" selection-start-line="135" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mslstm.py" />
-    <entry file="file://$PROJECT_DIR$/AA2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5040">
-          <caret line="288" column="47" lean-forward="false" selection-start-line="288" selection-start-column="47" selection-end-line="288" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1489#2677#0" expanded="false" />
-            <element signature="e#2973#3732#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="-8929">
+          <caret line="320" column="36" lean-forward="false" selection-start-line="320" selection-start-column="12" selection-end-line="320" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -812,11 +1541,102 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mslstm.py">
+    <entry file="file://$PROJECT_DIR$/AUC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visualize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="107" column="39" lean-forward="false" selection-start-line="107" selection-start-column="39" selection-end-line="107" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PW.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="580">
+          <caret line="76" column="27" lean-forward="false" selection-start-line="76" selection-start-column="27" selection-end-line="76" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="9" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BACKUP/da2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6120">
+          <caret line="14" column="9" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-25">
+          <caret line="113" column="26" lean-forward="false" selection-start-line="113" selection-start-column="26" selection-end-line="113" selection-end-column="26" />
+          <folding>
+            <element signature="e#65#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loaddata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="469" column="60" lean-forward="false" selection-start-line="469" selection-start-column="60" selection-end-line="469" selection-end-column="60" />
+          <folding>
+            <element signature="e#24#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mslstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6446">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="e#65#96#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
