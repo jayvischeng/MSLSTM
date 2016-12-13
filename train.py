@@ -11,6 +11,7 @@ import tensorflow as tf
 import mslstm
 import loaddata
 import numpy as np
+
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
@@ -35,8 +36,6 @@ FLAGS = flags.FLAGS
 
 
 
-
-
 def sess_run(commander,data,label):
     global sess, data_x, data_y
     return sess.run(commander, {data_x: data, data_y: label})
@@ -53,16 +52,14 @@ def train(filename,cross_cv):
                                                             filename, FLAGS.sequence_window, tab_cv, cross_cv,
                                                             Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
                                                             Wave_Type=FLAGS.wave_type)
-        print("1111111111111111111")
-        print(x_train.shape)
-        print(x_test.shape)
+
         with tf.Graph().as_default():
         #with tf.variable_scope("middle")as scope:
             tf.set_random_seed(1337)
 
             #global_step = tf.Variable(0,name="global_step",trainable=False)
             data_x,data_y = mslstm.inputs(FLAGS.option)
-            middle_assign, prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
+            prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
             loss = mslstm.loss(prediction, label)
             optimizer,train_op = mslstm.train(loss)
             minimize = optimizer.minimize(loss)
@@ -103,7 +100,6 @@ def train(filename,cross_cv):
 
                     ptr += FLAGS.batch_size
                     sess_run(minimize,inp,out)
-                    sess.run(middle_assign)
                     training_acc, training_loss = sess_run((accuracy,loss),inp,out)
                     val_acc, val_loss = sess_run((accuracy,loss),inp2,out2)
 
@@ -113,8 +109,6 @@ def train(filename,cross_cv):
 
                     epoch_val_loss_list.append(val_loss)
                     epoch_val_acc_list.append(val_acc)
-
-
 
                 print("Epoch %s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (str(training_acc), str(training_loss)) \
                       + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)))
