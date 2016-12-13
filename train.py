@@ -27,7 +27,7 @@ flags.DEFINE_string('max_epochs',2,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
-flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
+flags.DEFINE_string('option','HL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
 flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
 flags.DEFINE_string('output','./output/',"""Directory where to write the results""")
 
@@ -57,11 +57,12 @@ def train(filename,cross_cv):
         print(x_train.shape)
         print(x_test.shape)
         with tf.Graph().as_default():
+        #with tf.variable_scope("middle")as scope:
             tf.set_random_seed(1337)
 
             #global_step = tf.Variable(0,name="global_step",trainable=False)
             data_x,data_y = mslstm.inputs(FLAGS.option)
-            prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
+            middle_assign, prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
             loss = mslstm.loss(prediction, label)
             optimizer,train_op = mslstm.train(loss)
             minimize = optimizer.minimize(loss)
@@ -102,6 +103,7 @@ def train(filename,cross_cv):
 
                     ptr += FLAGS.batch_size
                     sess_run(minimize,inp,out)
+                    sess.run(middle_assign)
                     training_acc, training_loss = sess_run((accuracy,loss),inp,out)
                     val_acc, val_loss = sess_run((accuracy,loss),inp2,out2)
 

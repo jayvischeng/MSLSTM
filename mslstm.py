@@ -155,25 +155,26 @@ def inference(data,label,option):
     elif option == 'HL': #hierarchy lstm
         data_original_train1 = tf.transpose(data, [0, 2, 1, 3])
         data_original_train1 = tf.reshape(data_original_train1,(FLAGS.batch_size*FLAGS.sequence_window,FLAGS.scale_levels,FLAGS.input_dim))
-
+        #data_original_train2 = tf.reshape(data_original_train1,(FLAGS.batch_size*FLAGS.sequence_window,FLAGS.scale_levels,FLAGS.input_dim))
         lstm_cell1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,state_is_tuple=True)
         val1, state1 = tf.nn.dynamic_rnn(lstm_cell1, data_original_train1, dtype=tf.float32)
 
         temp1 = tf.transpose(val1, [1, 0, 2])
         last1 = tf.gather(temp1, int(temp1.get_shape()[0]) - 1)
+        print("LLLLLLLLL")
         print(last1.get_shape())
+
         temp2 = tf.reshape(last1,(FLAGS.batch_size,FLAGS.sequence_window,FLAGS.num_neurons1))
-
-
+        middle = tf.Variable(tf.random_normal([FLAGS.batch_size, FLAGS.sequence_window,FLAGS.num_neurons1], stddev=0.35),name="middle")
+        middle_assign = tf.assign(middle,temp2)
         lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
-        val2, state2 = tf.nn.rnn(lstm_cell2, last1, dtype=tf.float32)
-
-
+        val2, state2 = tf.nn.dynamic_rnn(lstm_cell2, middle, dtype=tf.float32)
 
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
-        val = tf.transpose(temp2, [1, 0, 2])
+        val = tf.transpose(val2, [1, 0, 2])
+
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
 
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
@@ -342,7 +343,7 @@ def inference(data,label,option):
 
 
 
-    return prediction,label
+    return middle_assign,prediction,label
 
 def train(loss):
 
