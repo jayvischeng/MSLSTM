@@ -1,0 +1,20 @@
+AL_____epoch:2,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: 0.541,	AUC: 0.459,	G_MEAN: 0.381,	ACCURACY: 0.46,	
+AL_____epoch:2,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: 0.534,	AUC: 0.447,	G_MEAN: 0.363,	ACCURACY: 0.448,	
+AL_____epoch:2,____wavelet:haar,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: 0.541,	AUC: 0.459,	G_MEAN: 0.381,	ACCURACY: 0.46,	
+AL_____epoch:2,____wavelet:coif1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: 0.541,	AUC: 0.464,	G_MEAN: 0.396,	ACCURACY: 0.464,	
+AL_____epoch:2,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: 0.534,	AUC: 0.449,	G_MEAN: 0.353,	ACCURACY: 0.45,	
+AL_____epoch:2,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: 0.531,	AUC: 0.442,	G_MEAN: 0.344,	ACCURACY: 0.443,	
+AL_____epoch:2,____wavelet:haar,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: 0.534,	AUC: 0.449,	G_MEAN: 0.353,	ACCURACY: 0.45,	
+AL_____epoch:2,____wavelet:coif1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: 0.541,	AUC: 0.465,	G_MEAN: 0.392,	ACCURACY: 0.465,	
+AL_____epoch:2,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:4
+F1_SCORE: 0.542,	AUC: 0.451,	G_MEAN: 0.347,	ACCURACY: 0.452,	
+AL_____epoch:2,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:4
+F1_SCORE: 0.538,	AUC: 0.45,	G_MEAN: 0.351,	ACCURACY: 0.45,	

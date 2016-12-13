@@ -164,6 +164,7 @@ def inference(data,label,option):
         print(last1.get_shape())
         temp2 = tf.reshape(last1,(FLAGS.batch_size,FLAGS.sequence_window,FLAGS.num_neurons1))
 
+
         lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val2, state2 = tf.nn.rnn(lstm_cell2, last1, dtype=tf.float32)
 
