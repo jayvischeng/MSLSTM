@@ -203,7 +203,7 @@ def main(unused_argv):
         for wave_type_tab in range(len(wave_type_list)):
             case_list = []
             for each_case in case:
-                FLAGS.option == each_case
+                FLAGS.option = each_case
                 if each_case == '1L' or each_case == '2L' or 'AL' == each_case:
                     FLAGS.is_multi_scale = False
                 else:
