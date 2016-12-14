@@ -14,7 +14,7 @@ import numpy as np
 
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
-flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
+flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
 flags.DEFINE_string('num_neurons1',200,"""Number of hidden units""")
 flags.DEFINE_string('num_neurons2',200,"""Number of hidden units""")
@@ -24,11 +24,11 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',200,"""Batch size""")
-flags.DEFINE_string('max_epochs',2,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',100,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
-flags.DEFINE_string('option','HL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
+flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
 flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
 flags.DEFINE_string('output','./output/',"""Directory where to write the results""")
 
@@ -81,14 +81,13 @@ def train(filename,cross_cv):
             epoch_val_loss_list = []
             epoch_val_acc_list = []
             weight_list = []
-            early_stopping = 10
+            early_stopping = 100
             no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
             for i in range(FLAGS.max_epochs):
                 if early_stopping > 0:
                     pass
                 else:
-                    epoch_stop = i + 1
                     break
                 ptr = 0
                 for j in range(no_of_batches):
@@ -107,6 +106,8 @@ def train(filename,cross_cv):
                         summary_str = sess.run(summary_op, {data_x: inp, data_y: out})
                         summary_writer.add_summary(summary_str, i * no_of_batches)
 
+                    epoch_training_loss_list.append(training_loss)
+                    epoch_training_acc_list.append(training_acc)
                     epoch_val_loss_list.append(val_loss)
                     epoch_val_acc_list.append(val_acc)
 
@@ -124,7 +125,6 @@ def train(filename,cross_cv):
                     early_stopping = 10
             weight_list = []
             result = sess.run(prediction, {data_x:x_test, data_y: y_test})
-            ptr = 0
             #for t in range(int(len(y_test)/FLAGS.batch_size)):
                 #inp_test, out_test = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
                 #result.append(sess.run(prediction, {data_x:inp_test, data_y: out_test}))
@@ -136,8 +136,6 @@ def train(filename,cross_cv):
             #plt.plot(np.array(x_),np.array(y_),np.array(result))
             #plt.show()
         sess.close()
-        print(y_test)
-        print(result)
         results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
 
         for each_eval, each_result in results.items():

@@ -38,3 +38,27 @@ HL_____epoch:2,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,__
 F1_SCORE: 0.539,	AUC: 0.588,	G_MEAN: 0.54,	ACCURACY: 0.587,	
 HL_____epoch:2,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:4
 F1_SCORE: 0.528,	AUC: 0.577,	G_MEAN: 0.533,	ACCURACY: 0.577,	
+HL_____epoch:2,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:2,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:2,____wavelet:haar,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:2,____wavelet:coif1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:haar,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:coif1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:2
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:db2,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:haar,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	
+HL_____epoch:20,____wavelet:coif1,_____learning rate:0.002,_____multi_scale:True,_____train_set_using_level:3
+F1_SCORE: nan,	AUC: nan,	G_MEAN: nan,	ACCURACY: nan,	

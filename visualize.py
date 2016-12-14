@@ -62,8 +62,8 @@ def PlotAUC(method_list,Parameters):
     plt.legend(loc="lower right", fontsize=10)
     plt.tick_params(labelsize=12)
     plt.grid()
-    plt.savefig(eachfile + "_AUC.png", dpi=800)
-    plt.savefig(eachfile + "_AUC.pdf", dpi=800)
+    plt.savefig("_AUC.png", dpi=800)
+    plt.savefig("_AUC.pdf", dpi=800)
 
 
 def Plotting(filename, subtitle, method):
