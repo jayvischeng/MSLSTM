@@ -8,19 +8,17 @@ def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
 set_style()
-def epoch_acc_plotting(filename,sequence_window,corss_val_label,learning_rate,train_acc_list,val_acc_list):
+def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learning_rate,train_acc_list,val_acc_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
         os.makedirs(os.path.join(os.getcwd(),'picture'))
     epoch = len(train_acc_list[0])
+    color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
+
     x = [i+1 for i in range(epoch)]
     plt.figure()
-    plt.plot(x,train_acc_list[0],'g-',label='LSTM Train Accuray')
-    plt.plot(x,train_acc_list[1],'b-',label='MS-LSTM Train Accuray')
-    plt.plot(x,train_acc_list[2],'r-',label='MS-LSTM-AT Train Accuray')
-    plt.plot(x, val_acc_list[0], 'y-', label='LSTM Val Accuracy')
-    plt.plot(x, val_acc_list[1], 'c-', label='MS-LSTM Val Accuracy')
-    plt.plot(x, val_acc_list[2], 'm-', label='MS-LSTM-AT Val Accuracy')
-    #plt.plot(x, val_loss_list[2], 'b-', label='multi-original val loss')
+    for tab in range(len(case_list)):
+        plt.plot(x,train_acc_list[tab],color_list[tab]+'-',label=case_list[tab] + ' train acc')
+        plt.plot(x, val_acc_list[tab], color_list[tab]+'-',label=case_list[tab] +' val acc')
     plt.xlabel('Epoch',fontsize=12)
     if 'AS' in filename:
         plt.ylim(0.0,1.0)
@@ -38,18 +36,18 @@ def epoch_acc_plotting(filename,sequence_window,corss_val_label,learning_rate,tr
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"), dpi=600)
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=600)
 
-def epoch_loss_plotting(filename,sequence_window,cross_val_label,learning_rate,train_loss_list,val_loss_list):
+def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learning_rate,train_loss_list,val_loss_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
         os.makedirs(os.path.join(os.getcwd(),'picture'))
     epoch = len(train_loss_list[0])
+    color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
+
     x = [i+1 for i in range(epoch)]
     plt.figure()
-    plt.plot(x,train_loss_list[0],'g-',label='LSTM Train Loss')
-    plt.plot(x,train_loss_list[1],'b-',label='MS-LSTM Train Loss')
-    plt.plot(x,train_loss_list[2],'r-',label='MS-LSTM-AT Train Loss')
-    plt.plot(x, val_loss_list[0], 'y-', label='LSTM Val Loss')
-    plt.plot(x, val_loss_list[1], 'c-', label='MS-LSTM Val Loss')
-    plt.plot(x, val_loss_list[2], 'm-', label='MS-LSTM-AT Val Loss')
+    for tab in range(len(case_list)):
+        plt.plot(x,train_loss_list[tab],color_list[tab]+'-',label=case_list[tab] + ' train acc')
+        plt.plot(x, val_loss_list[tab], color_list[tab]+'-',label=case_list[tab] +' val acc')
+
     plt.xlabel('Epoch',fontsize=12)
     plt.ylim(0.5,0.95)
     plt.ylabel('Loss',fontsize=12)
