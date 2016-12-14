@@ -24,7 +24,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',200,"""Batch size""")
-flags.DEFINE_string('max_epochs',100,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',20,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -149,11 +149,11 @@ def train(filename,cross_cv):
         else:
             outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "\n"
 
-            fout.write(outfileline)
-            for eachk, eachv in result_list_dict.items():
-                fout.write(eachk + ": " + str(round(np.mean(eachv), 3)) + ",\t")
-            fout.write('\n')
-            """
+        fout.write(outfileline)
+        for eachk, eachv in result_list_dict.items():
+            fout.write(eachk + ": " + str(round(np.mean(eachv), 3)) + ",\t")
+        fout.write('\n')
+        """
             try:
                 weight_list = []
                 result = []1
@@ -174,14 +174,16 @@ def train(filename,cross_cv):
                 plt.show()
             except:
                 pass
-            """
+        """
 def main(unused_argv):
     #
     #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
     filename_list = ["HB_AS_Leak.txt"]
 
-    wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
-    multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
+    #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
+    wave_type_list = ['db1']
+    multi_scale_value_list = [2,3,4,5,6,10]
+    #multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
     for filename in filename_list:
         for wave_type_tab in range(len(wave_type_list)):
             FLAGS.wave_type = wave_type_list[wave_type_tab]
@@ -191,7 +193,6 @@ def main(unused_argv):
 
 
     #train("HB_AS_Leak.txt",2)
-
     #method_list1 = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #method_list2 = ["MLP","RNN","LSTM"]
     #for each_method in method_list1:

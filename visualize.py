@@ -1,10 +1,114 @@
-import matplotlib.pyplot as plt
-import matplotlib
 import os
+import matplotlib
+import numpy as np
+#import seaborn as sns
+import matplotlib.pyplot as plt
+#matplotlib.rcParams['backend'] = 'GTKCairo'
 def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
 set_style()
+def epoch_acc_plotting(filename,sequence_window,corss_val_label,learning_rate,train_acc_list,val_acc_list):
+    if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
+        os.makedirs(os.path.join(os.getcwd(),'picture'))
+    epoch = len(train_acc_list[0])
+    x = [i+1 for i in range(epoch)]
+    plt.figure()
+    plt.plot(x,train_acc_list[0],'g-',label='LSTM Train Accuray')
+    plt.plot(x,train_acc_list[1],'b-',label='MS-LSTM Train Accuray')
+    plt.plot(x,train_acc_list[2],'r-',label='MS-LSTM-AT Train Accuray')
+    plt.plot(x, val_acc_list[0], 'y-', label='LSTM Val Accuracy')
+    plt.plot(x, val_acc_list[1], 'c-', label='MS-LSTM Val Accuracy')
+    plt.plot(x, val_acc_list[2], 'm-', label='MS-LSTM-AT Val Accuracy')
+    #plt.plot(x, val_loss_list[2], 'b-', label='multi-original val loss')
+    plt.xlabel('Epoch',fontsize=12)
+    if 'AS' in filename:
+        plt.ylim(0.0,1.0)
+    else:
+        plt.ylim(0.05,1.05)
+    plt.ylabel('Accuracy',fontsize=12)
+    plt.tick_params(labelsize=12)
+    plt.grid()
+    plt.legend(loc='lower right',fontsize=10)
+    plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
+    if corss_val_label == 0:
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=600)
+    else:
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"), dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=600)
+
+def epoch_loss_plotting(filename,sequence_window,cross_val_label,learning_rate,train_loss_list,val_loss_list):
+    if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
+        os.makedirs(os.path.join(os.getcwd(),'picture'))
+    epoch = len(train_loss_list[0])
+    x = [i+1 for i in range(epoch)]
+    plt.figure()
+    plt.plot(x,train_loss_list[0],'g-',label='LSTM Train Loss')
+    plt.plot(x,train_loss_list[1],'b-',label='MS-LSTM Train Loss')
+    plt.plot(x,train_loss_list[2],'r-',label='MS-LSTM-AT Train Loss')
+    plt.plot(x, val_loss_list[0], 'y-', label='LSTM Val Loss')
+    plt.plot(x, val_loss_list[1], 'c-', label='MS-LSTM Val Loss')
+    plt.plot(x, val_loss_list[2], 'm-', label='MS-LSTM-AT Val Loss')
+    plt.xlabel('Epoch',fontsize=12)
+    plt.ylim(0.5,0.95)
+    plt.ylabel('Loss',fontsize=12)
+    plt.grid()
+    plt.tick_params(labelsize=12)
+    plt.legend(loc='upper right',fontsize=10)
+    plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
+    if cross_val_label == 0:
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=600)
+    else:
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".pdf"), dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".png"), dpi=600)
+
+def weight_plotting(filename,sequence_window,corss_val_label,learning_rate,weight_list):
+    if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
+        os.makedirs(os.path.join(os.getcwd(),'picture'))
+    weight_list_new = np.transpose(weight_list)
+    #a,b,c = weight_list_new.shape
+    subtitle = ['a', 'b', 'c', 'd', 'e', 'f','g','h','i','j']
+
+    X = [i for i in range(len(weight_list_new[0][0]))]
+    plt.figure(figsize=(24,12),dpi=600)
+    count = 0
+    for tab in range(10):
+        index = tab
+        plt.subplot(1,4,count+1)
+        if tab == 9:
+            index = -1
+        elif tab == 8:
+            index = -2
+        plt.plot(X,weight_list_new[0][index])
+        plt.xlabel('Epoch\n('+subtitle[count]+') Scale '+str(tab+1), fontsize=12)
+        plt.ylabel('Weight', fontsize=12)
+        plt.grid()
+        count += 1
+
+    """
+    plt.subplot(2,5,2)
+    plt.plot(X,weight_list_new[0][1])
+    plt.xlabel('Epoch\n('+subtitle[1]+')', fontsize=10)
+    plt.ylabel('Scale Weight', fontsize=10)
+    plt.grid()
+
+    plt.subplot(2,5,3)
+    plt.plot(X,weight_list_new[0][2])
+    plt.xlabel('Epoch\n('+subtitle[1]+')', fontsize=10)
+    plt.ylabel('Scale Weight', fontsize=10)
+    plt.grid()
+
+    """
+    plt.tight_layout()
+    if corss_val_label == 0:
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".pdf"), dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".png"), dpi=600)
+    else:
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".pdf"),dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".png"),dpi=600)
+
 def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super_title',save_fig='save_fig'):
     X = [i+1 for i in range(len(Data[0]))]
 
@@ -22,31 +126,22 @@ def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super
     plt.savefig(save_fig,dpi=200)
     plt.show()
 
-A1 = [51.5,54.2,55.1,55.4,55.8,57.3,49.6,52.2,63.4,63.5]#"AS_LEAK"
-A2 = [50.6,53.9,55.3,54.3,56.8,52.7,54.7,52.1,63.3,63.3]
-A3 = [50.4,54.5,55.7,54.3,56.1,51.0,54.6,51.9,63.3,63.3]
-A = []
-A.append(A1)
-A.append(A2)
-A.append(A3)
+#A1 = [51.5,54.2,55.1,55.4,55.8,57.3,49.6,52.2,63.4,63.5]#"AS_LEAK"
+#A2 = [50.6,53.9,55.3,54.3,56.8,52.7,54.7,52.1,63.3,63.3]
+#A3 = [50.4,54.5,55.7,54.3,56.1,51.0,54.6,51.9,63.3,63.3]
+#A = []
+#A.append(A1)
+#A.append(A2)
+#A.append(A3)
+#MC_Plotting(A,1,3)
+#------------------------------------------Plotting AUC-----------------------------------------------------
+#filename_list = ["HB_AS_Leak.txt","HB_Slammer.txt","HB_Nimda.txt","HB_Code_Red_I.txt"]
+#method_list = ["SVM","NB","DT","Ada.Boost","MLP","RNN","LSTM","MS-LSTM"]
 
-MC_Plotting(A,1,3)
-
-import matplotlib
-import matplotlib.pyplot as plt
-def set_style():
-    plt.style.use(['classic'])
-    matplotlib.rc("font", family="serif")
-set_style()
-
-filename_list = ["HB_AS_Leak.txt","HB_Slammer.txt","HB_Nimda.txt","HB_Code_Red_I.txt"]
-method_list = ["SVM","NB","DT","Ada.Boost","MLP","RNN","LSTM","MS-LSTM"]
-fpr = [0 for i in range(len(method_list))]
-tpr = [0 for i in range(len(method_list))]
-auc = [0 for i in range(len(method_list))]
-
-
-def PlotAUC(method_list,Parameters):
+def plotAUC(method_list,Parameters):
+    fpr = [0 for i in range(len(method_list))]
+    tpr = [0 for i in range(len(method_list))]
+    auc = [0 for i in range(len(method_list))]
     plt.figure()
     #color_list = ['y', 'g', '#FF8C00', 'c', 'b', 'r', 'm']
     color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
@@ -64,9 +159,8 @@ def PlotAUC(method_list,Parameters):
     plt.grid()
     plt.savefig("_AUC.png", dpi=800)
     plt.savefig("_AUC.pdf", dpi=800)
-
-
-def Plotting(filename, subtitle, method):
+#------------------------------------------Plotting STAT-----------------------------------------------------
+def _plotting(filename, subtitle, method):
     # Predict = []
     # True = []
     Temp = []
@@ -118,141 +212,58 @@ def Plotting(filename, subtitle, method):
     # plt.axvline(x+30, ymin=-1, ymax=2, linewidth=2, color='g')    #plt.title('Testing Sequence')
 
     # plt.grid()
-
-
-def PlotStat(filename, Method_List):
+def plotStat(filename, Method_List):
     subtitle = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
     plt.figure(figsize=(12, 6), dpi=800)
     plt.subplot(3, 3, 1)
     filename_ = "StatFalseAlarm_" + filename + "_True.txt"
-    Plotting(filename_, subtitle[0], "Original")
+    _plotting(filename_, subtitle[0], "Original")
 
     for tab in range(len(Method_List)):
         filename_ = "StatFalseAlarm_" + filename + "_" + Method_List[tab] + "_" + "_Predict.txt"
         plt.subplot(3, 3, tab + 1)
-        Plotting(filename_, subtitle[tab + 1], Method_List[tab])
+        _plotting(filename_, subtitle[tab + 1], Method_List[tab])
 
     plt.tight_layout()
     plt.savefig("StateFalseAlarm_" + filename + ".png", dpi=400)
     plt.show()
+#------------------------------------------Plotting Wavelet-----------------------------------------------------
+def PlotWavelet(filename_result,filename_result2):
+    filename_list_label = ["AS_Leak","Slammer","Nimda","Code_Red_I"]
+    #wave_type_db=[81.66,82.79,85.47,80.25,80.90,81.55,82.80,87.57,92.82,93.35,95.64]
+    #wave_type_haar=[81.66,82.79,85.47,80.25,80.90,81.55,82.80,87.57,92.82,93.35,95.64]
+    color_type = ['y.', 'gs','#FF8C00','#FD8CD0','c>', 'b<', 'r.', 'm*']
+    #wave_type_sym= []
+    with open("aaa.txt","a")as fout:
+        for eachk,eachv in filename_result.items():
+            fout.write(eachk)
+            fout.write(''.join(eachv))
+        for eachk,eachv in filename_result2.items():
+            fout.write(eachk)
+            fout.write(''.join(eachv))
 
-"""
-[0.023529412]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.019327732]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.01512605]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.018487396]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.0092436979]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.012605042]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.034453783]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.071428575]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.072268911]
-I tensorflow/core/kernels/logging_ops.cc:79] this is output for output_correct_pred : [0.35630253]
-"""
-import os
-import da
-import numpy as np
-import seaborn as sns
-import matplotlib
-import matplotlib.pyplot as plt
-#print(plt.style.available)
-def set_style():
-    plt.style.use(['classic'])
-    matplotlib.rc("font", family="serif")
-set_style()
-
-
-#matplotlib.rcParams['backend'] = 'GTKCairo'
-#Plotting different wavelet
-Parameters = {}
-# Parameters
-#global filepath, filename, sequence_window, number_class, hidden_units, input_dim, learning_rate, epoch, is_multi_scale, training_level, cross_cv
-# ---------------------------Fixed Parameters------------------------------
-#Parameters["filename"] = "HB_AS_Leak.txt"
-#Parameters["filename"] = "HB_Nimda.txt"
-#Parameters["filename"] = "HB_Code_Red_I.txt"
-#Parameters["filename"] = "HB_Slammer.txt"
-
-Parameters["filepath"] = os.getcwd()
-Parameters["sequence_window"] = 10
-Parameters["hidden_units"] = 200
-Parameters["input_dim"] = 33
-Parameters["number_class"] = 2
-Parameters["cross_cv"] = 2
-Parameters["fixed_seed_num"] = 1337
-Parameters["is_add_noise"] = False
-Parameters["noise_ratio"] = 0
-# -------------------------------------------------------------------------
-Parameters["learning_rate"] = 0.001
-Parameters["epoch"] = 150
-Parameters["is_multi_scale"] = True
-Parameters["training_level"] = 10
-Parameters["pooling_type"] = "mean pooling"
-wave_type = ["db1"]
-#wave_type = ["db1","haar","bior1.1","rbio1.1"]
-filename_list = ["HB_AS_Leak.txt","HB_Nimda.txt","HB_Slammer.txt","HB_Code_Red_I.txt"]
-#filename_list = ["HB_Nimda.txt"]
-lr = 0.0005
-learning_rate = [lr,lr,lr,lr]
-filename_list_label = {"HB_AS_Leak.txt":"AS Leak","HB_Nimda.txt":"Nimda","HB_Slammer.txt":"Slammer","HB_Code_Red_I.txt":"Code Red I"}
-
-color_type = ['g-s','b-*','m-^','c-o']
-#wave_type_name = ["Daubechies Filter","Haar","Biorthogonal","Reverse Biorthogonal"]
-base = 20
-filename_result = {}
-filename_result2 = {}
-
-
-for tab_filename in filename_list:
-    Parameters["learning_rate"] = learning_rate[filename_list.index(tab_filename)]
-    Parameters["filename"] = tab_filename
-    Parameters["wave_type"] = "db1"
-    #Parameters["batch_size"] = 2270
-    filename_result[tab_filename] = []
-    filename_result2[tab_filename] = []
-
-    for tab_level in range(2,Parameters["sequence_window"]+1):
-        Parameters["training_level"] = tab_level
-        result = da.Model("MS-LSTM",Parameters)
-        #train_loss,val_loss,train_acc,val_acc,weight_list,RESULT = da.Model("MS-LSTM")
-
-        filename_result[tab_filename].append(result["ACCURACY"])
-        filename_result2[tab_filename].append(result["F1_SCORE"])
-
-#wave_type_db=[81.66,82.79,85.47,80.25,80.90,81.55,82.80,87.57,92.82,93.35,95.64]
-#wave_type_haar=[81.66,82.79,85.47,80.25,80.90,81.55,82.80,87.57,92.82,93.35,95.64]
-#wave_type_sym= []
-with open("aaa.txt","a")as fout:
+    count = 0
     for eachk,eachv in filename_result.items():
-        fout.write(eachk)
-        fout.write(''.join(eachv))
-    for eachk,eachv in filename_result2.items():
-        fout.write(eachk)
-        fout.write(''.join(eachv))
-print(filename_result)
-print(filename_result2)
-
-count = 0
-for eachk,eachv in filename_result.items():
-    X = [i+2 for i in range(len(eachv))]
-    eachv = map(lambda a:100*a,eachv)
-    print(eachv)
-    plt.plot(X,eachv,color_type[count],label=filename_list_label[eachk])
-    count += 1
+        X = [i+2 for i in range(len(eachv))]
+        eachv = map(lambda a:100*a,eachv)
+        print(eachv)
+        plt.plot(X,eachv,color_type[count],label=filename_list_label[eachk])
+        count += 1
 
 
-plt.legend(loc="lower right",fontsize=12)
-plt.ylabel("Accuracy",fontsize=12)
-#if "AS" in Parameters["filename"]:
-    #plt.ylim(35,75)
-#else:
-    #plt.ylim(50,100)
-plt.ylim(base,100)
-plt.tick_params(labelsize=12)
-plt.xlabel("Scale Levels",fontsize=12)
-plt.grid()
-plt.savefig("Wave_Let_"+'_'+str(base)+'_'+str(lr)+'_'+".png",dpi=400)
-plt.title("Wavelet Family: Daubechies/Filter Length: 2")
-#plt.show()
+    plt.legend(loc="lower right",fontsize=12)
+    plt.ylabel("Accuracy",fontsize=12)
+    #if "AS" in Parameters["filename"]:
+        #plt.ylim(35,75)
+    #else:
+        #plt.ylim(50,100)
+    plt.ylim(0,100)
+    plt.tick_params(labelsize=12)
+    plt.xlabel("Scale Levels",fontsize=12)
+    plt.grid()
+    plt.savefig("Wave_Let_"+'_'+str(0)+'_'+".png",dpi=400)
+    plt.title("Wavelet Family: Daubechies/Filter Length: 2")
+    #plt.show()
 
 
 
