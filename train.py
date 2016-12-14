@@ -197,7 +197,7 @@ def main(unused_argv):
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
     cross_cv = 2
-    tab_cross_cv = 0
+    tab_cross_cv = 1
 
     for filename in filename_list:
         for wave_type_tab in range(len(wave_type_list)):
