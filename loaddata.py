@@ -81,35 +81,34 @@ def reConstruction(window_size,data,label):
     newlabel = []
     L = len(data)
     interval = 1
-
     index = 0
     newdata_count = 0
     initial_value = -999
     while index+window_size < L:
         newdata.append(initial_value)
         newlabel.append(initial_value)
-        Sequence = []
+        sequence = []
         for i in range(window_size):
-            Sequence.append(data[index+i])
+            sequence.append(data[index+i])
             newlabel[newdata_count] = label[index+i]
         index += interval
-        newdata[newdata_count]=Sequence
+        newdata[newdata_count]=sequence
         newdata_count += 1
     return np.array(newdata),np.array(newlabel)
 
-def Manipulation(X_Taining,Y_Training,time_scale_size):
-    window_size = len(X_Taining[0])
-    TEMP_XTraining = []
+def Manipulation(trainX,trainY,time_scale_size):
+    window_size = len(trainX[0])
+    temp = []
     N = window_size/time_scale_size
-    for tab1 in range(len(X_Taining)):
-        TEMP_XTraining.append([])
-        for tab2 in range(N):
-            TEMP_Value = np.zeros((1,len(X_Taining[0][0])))
-            for tab3 in range(time_scale_size):
-                TEMP_Value += X_Taining[tab1][tab2*time_scale_size+tab3]
-            TEMP_Value = TEMP_Value/time_scale_size
-            TEMP_XTraining[tab1].extend(list(TEMP_Value[0]))
-    return TEMP_XTraining,Y_Training
+    for i in range(len(trainX)):
+        temp.append([])
+        for j in range(N):
+            _value = np.zeros((1,len(trainX[0][0])))
+            for k in range(time_scale_size):
+                _value += trainX[i][j*time_scale_size+k]
+            _value = _value/time_scale_size
+            temp[i].extend(list(_value[0]))
+    return temp,trainY
 def returnPositiveIndex(data,negative_sign):
     temp = []
     for i in range(len(data)):
@@ -145,24 +144,20 @@ def returnSub_Positive(positive_list):
 
 def Plotting_Sequence(X,Y):
     global output_folder
-
     for selected_feature in range(0,1):
-        X_index = [i for i in range(len(Y))]
-        X_pos_index = returnPositiveIndex(Y,negative_sign=1)
-        X_pos_index_sub1,X_pos_index_sub2 = returnSub_Positive(X_pos_index)
+        _index = [i for i in range(len(Y))]
+        pos_index = returnPositiveIndex(Y,negative_sign=1)
+        pos_index1,pos_index2 = returnSub_Positive(pos_index)
 
-        if 1>0:
-            plt.plot(X_index,X[:,0][:,selected_feature],'b-',linewidth=2.0)
-            plt.plot(X_pos_index_sub1,X[X_pos_index_sub1,0][:,selected_feature],'r-',linewidth=2.0)
-            plt.plot(X_pos_index_sub2,X[X_pos_index_sub2,0][:,selected_feature],'r-',linewidth=2.0)
-            plt.tick_params(labelsize=14)
-            if selected_feature == 1:
-                plt.ylim(-2,14)
-            else:
-                plt.ylim(-4,12)
+        plt.plot(_index,X[:,0][:,selected_feature],'b-',linewidth=2.0)
+        plt.plot(pos_index1,X[pos_index1,0][:,selected_feature],'r-',linewidth=2.0)
+        plt.plot(pos_index2,X[pos_index2,0][:,selected_feature],'r-',linewidth=2.0)
+        plt.tick_params(labelsize=14)
+
+        if selected_feature == 1:
+            plt.ylim(-2,14)
         else:
-            plt.plot(X_index,X)
-            plt.plot(X_pos_index,X[X_pos_index],'r-')
+            plt.ylim(-4,12)
 
         plt.savefig(os.path.join(os.path.join(os.getcwd(),output_folder),"F_"+str(selected_feature)\
                         +"_AAA"+str(random.randint(1,10000))+"AAAAAA.png"),dpi=100)
@@ -179,88 +174,72 @@ def MyEvaluation(Y_Testing, Result):
                 acc += 1
     return round(float(acc)/len(Result),3)
 
-def Multi_Scale_Wavelet(X_Training,Y_Training,Level,Is_Wave_Let=True,Wave_Type='db1'):
-    TEMP_XData = [[] for i in range(Level)]
-    NN = X_Training.shape[0]
-    if (Is_Wave_Let == True) and (Level > 1):
-        for tab in range(Level):
-            X = []
-            for each_feature in range(len(X_Training[0])):
-                coeffs = pywt.wavedec(X_Training[:,each_feature], Wave_Type, level=Level)
-                current_level = Level - tab
-                for tab2 in range(tab+1,Level+1):
-                    coeffs[tab2] = None
-                X_WAVELET_REC = pywt.waverec(coeffs, Wave_Type)
-                X.append(X_WAVELET_REC[:NN])
+def Multi_Scale_Wavelet(trainX,trainY,level,is_multi=True,wave_type='db1'):
+    temp = [[] for i in range(level)]
+    N = trainX.shape[0]
+    if (is_multi == True) and (level > 1):
+        for i in range(level):
+            x = []
+            for _feature in range(len(trainX[0])):
+                coeffs = pywt.wavedec(trainX[:,_feature], wave_type, level=level)
+                current_level = level - i
+                for j in range(i+1,level+1):
+                    coeffs[j] = None
+                _rec = pywt.waverec(coeffs, wave_type)
+                x.append(_rec[:N])
 
-            TEMP_XData[current_level - 1].extend(np.transpose(np.array(X)))
+            temp[current_level - 1].extend(np.transpose(np.array(x)))
 
-        TEMP_XData = np.array(TEMP_XData)
     else:
-        for tab in range(Level):
-            current_level = Level - tab
-            TEMP_XData[current_level - 1].extend(X_Training)
+        for tab in range(level):
+            current_level = level - tab
+            temp[current_level - 1].extend(trainX)
 
-        TEMP_XData = np.array(TEMP_XData)
-    return  TEMP_XData,X_Training,Y_Training
+    return  np.array(temp),trainX,trainY
 
-def Multi_Scale_Wavelet0(X_Training,Y_Training,Level,Is_Wave_Let=True):
-    TEMP_XData = [[] for i in range(Level)]
-    X = np.transpose(X_Training)
-    print(X.shape)
-    if Is_Wave_Let == True:
-        for tab in range(Level):
-            coeffs = pywt.wavedec(X[:,0], 'db1', level=Level)
-            current_level = Level - tab
-            for tab2 in range(tab+1,Level+1):
-                coeffs[tab2] = None
-            #print(len(coeffs))
-            X_WAVELET_REC = pywt.waverec(coeffs, 'db1')
-            X_1 = np.transpose(X_WAVELET_REC)
-
-            TEMP_XData[current_level-1].extend(X_1)
-
-        TEMP_XData = np.array(TEMP_XData)
+def Multi_Scale_Wavelet0(trainX,trainY,level,is_multi=True):
+    temp = [[] for i in range(level)]
+    x = np.transpose(trainX)
+    if is_multi == True:
+        for i in range(level):
+            coeffs = pywt.wavedec(x[:,0], 'db1', level=level)
+            current_level = level - i
+            for j in range(i+1,level+1):
+                coeffs[j] = None
+            _rec = pywt.waverec(coeffs, 'db1')
+            temp[current_level-1].extend(np.transpose(_rec))
     else:
-        for tab in range(Level):
-            current_level = Level - tab
-            X_1 = np.transpose(X)
-            TEMP_XData[current_level - 1].extend(X_1)
+        for tab in range(level):
+            current_level = level - tab
+            temp[current_level - 1].extend(np.transpose(x))
 
-        TEMP_XData = np.array(TEMP_XData)
+    return  np.array(temp),trainX,trainY
 
-    return  TEMP_XData,X_Training,Y_Training
+def Multi_Scale_Plotting(dataMulti,dataA):
 
-def Multi_Scale_Plotting(Data_Multi,Data_A):
+    selected_feature = 1
+    original = dataA[:,selected_feature]
+    original_level1 = dataMulti[0][:,selected_feature]
 
-    Selected_Feature = 1
-    Original = Data_A[:,Selected_Feature]
-    print(Data_Multi[0].shape)
-    Original_Or_Level_1 = Data_Multi[0][:,Selected_Feature]
-
-    Level_2_A = Data_Multi[1][:,Selected_Feature]
+    level2_A = dataMulti[1][:,selected_feature]
     #Obtain Level_2_D
-    coeffs = pywt.wavedec(Original, 'db1', level=1)
-    NewCoeffs = [None,coeffs[1]]
-    Level_2_D = pywt.waverec(NewCoeffs,'db1')
-    #Level_2_D = R1[:,Selected_Feature]
+    coeffs = pywt.wavedec(original, 'db1', level=1)
+    newCoeffs = [None,coeffs[1]]
+    level2_D = pywt.waverec(newCoeffs,'db1')
 
-    Level_3_A = Data_Multi[2][:,Selected_Feature]
+    level3_A = dataMulti[2][:,selected_feature]
     #Obtain Level_3_D
-    coeffs = pywt.wavedec(Original, 'db1', level=2)
-    NewCoeffs = [None,coeffs[1],None]
-    Level_3_D = pywt.waverec(NewCoeffs,'db1')
-    #Level_3_D = R2[:,Selected_Feature]
+    coeffs = pywt.wavedec(original, 'db1', level=2)
+    newCoeffs = [None,coeffs[1],None]
+    level3_D = pywt.waverec(newCoeffs,'db1')
 
-    Level_4_A = Data_Multi[3][:,Selected_Feature]
-
+    level4_A = dataMulti[3][:,selected_feature]
     #Obtain Level_4_D
-    coeffs = pywt.wavedec(Original, 'db1', level=3)
-    NewCoeffs = [None,coeffs[1],None,None]
-    Level_4_D = pywt.waverec(NewCoeffs,'db1')
-    #Level_4_D = R3[:,Selected_Feature]
+    coeffs = pywt.wavedec(original, 'db1', level=3)
+    newCoeffs = [None,coeffs[1],None,None]
+    level4_D = pywt.waverec(newCoeffs,'db1')
 
-    X = [i + 1 for i in range(len(Original_Or_Level_1))]
+    x = [i + 1 for i in range(len(original_level1))]
     #fig = plt.figure(figsize=(20,10),dpi=400)
     fig = plt.figure()
     ymax = 2
@@ -269,7 +248,7 @@ def Multi_Scale_Plotting(Data_Multi,Data_A):
     #ax1 = fig.add_subplot(4
     # 21)
     ax1 = fig
-    plt.plot(X,Level_4_D,'g')
+    plt.plot(x,level4_D,'g')
 
 
     plt.xlabel("Time",fontsize=12)
@@ -281,181 +260,173 @@ def Multi_Scale_Plotting(Data_Multi,Data_A):
     plt.show()
 
     ax1 = fig.add_subplot(422)
-    ax1.plot(X,Original_Or_Level_1,'b')
+    ax1.plot(x,original_level1,'b')
     plt.xlabel("(b)")
     plt.ylabel("Average AS path length")
     plt.ylim(ymin,ymax)
     ax1.grid(True)
 
     ax1 = fig.add_subplot(423)
-    ax1.plot(X,Level_2_A,'b')
+    ax1.plot(x,level2_A,'b')
     plt.xlabel("(c)")
     plt.ylabel("Average AS path length")
     plt.ylim(ymin,ymax)
     ax1.grid(True)
 
     ax1 = fig.add_subplot(424)
-    ax1.plot(X,Level_2_D,'b')
+    ax1.plot(x,level2_D,'b')
     plt.xlabel("(d)")
     plt.ylabel("Average AS path length")
     ax1.grid(True)
 
     ax1 = fig.add_subplot(425)
-    ax1.plot(X,Level_3_A,'b')
+    ax1.plot(x,level3_A,'b')
     plt.xlabel("(e)")
     plt.ylabel("Average AS path length")
     plt.ylim(ymin,ymax)
     ax1.grid(True)
 
     ax1 = fig.add_subplot(426)
-    ax1.plot(X,Level_3_D,'b')
+    ax1.plot(x,level3_D,'b')
     plt.xlabel("(f)")
     plt.ylabel("Average AS path length")
     ax1.grid(True)
 
     ax1 = fig.add_subplot(427)
-    ax1.plot(X,Level_4_A,'b')
+    ax1.plot(x,level4_A,'b')
     plt.xlabel("(g)")
     plt.ylabel("Average AS path length")
     plt.ylim(ymin,ymax)
     ax1.grid(True)
 
     ax1 = fig.add_subplot(428)
-    ax1.plot(X,Level_4_D,'b')
+    ax1.plot(x,level4_D,'b')
     plt.xlabel("(h)")
     plt.ylabel("Average AS path length")
     ax1.grid(True)
     plt.show()
 
-
-
-def Convergge(X_Training,Y_Training,time_scale_size=1):
-    window_size = len(X_Training[0])
-    TEMP_XData = []
+def Convergge(trainX,trainY,time_scale_size=1):
+    window_size = len(trainX[0])
+    temp = []
     N = window_size/time_scale_size
-    for tab1 in range(len(X_Training)):
-        TEMP_XData.append([])
-        for tab2 in range(N):
-            TEMP_Value = np.zeros((1,len(X_Training[0][0])))
-            for tab3 in range(time_scale_size):
-                TEMP_Value += X_Training[tab1][tab2*time_scale_size+tab3]
-            TEMP_Value = TEMP_Value/time_scale_size
-            TEMP_XData[tab1].append(list(TEMP_Value[0]))
+    for i in range(len(trainX)):
+        temp.append([])
+        for j in range(N):
+            _value = np.zeros((1,len(trainX[0][0])))
+            for k in range(time_scale_size):
+                _value += trainX[i][j*time_scale_size+k]
+            _value = _value/time_scale_size
+            temp[i].append(list(_value[0]))
 
-    return  np.array(TEMP_XData),Y_Training
-def Fun(Multiscale_Sequence_List,case = 'max pooling'):
-    Temp = []
+    return  np.array(temp),trainY
+def Fun(multiscaleSequences,case = 'max pooling'):
+    temp = []
     if case == 'diag pooling':
-        if not len(Multiscale_Sequence_List) == len(Multiscale_Sequence_List[0]):
-            print("-------------------------------------ERROR!!!")
+        if not len(multiscaleSequences) == len(multiscaleSequences[0]):
+            print("-------------------------------------error!")
         else:
-            for tab in range(len(Multiscale_Sequence_List)):
-                Temp.append(list(Multiscale_Sequence_List[tab][tab]))
+            for tab in range(len(multiscaleSequences)):
+                temp.append(list(multiscaleSequences[tab][tab]))
     else:
-        scale = len(Multiscale_Sequence_List)
-        sequence_window = len(Multiscale_Sequence_List[0])
-        dimensions = len(Multiscale_Sequence_List[0][0])
-        for tab in range(sequence_window):
-            AAA = []
+        scale = len(multiscaleSequences)
+        sequence_window = len(multiscaleSequences[0])
+        dimensions = len(multiscaleSequences[0][0])
+        for i in range(sequence_window):
+            l = []
             for tab_scale in range(scale):
-                AAA.append(Multiscale_Sequence_List[tab_scale][tab])
-            AAA = np.array(AAA)
+                l.append(multiscaleSequences[tab_scale][i])
+            l = np.array(l)
             temp_sample = []
-            for tab_dimension in range(dimensions):
+            for j in range(dimensions):
                 if case == 'max pooling':
-                    temp_sample.append(np.max(AAA[:,tab_dimension]))# max pooling
+                    temp_sample.append(np.max(l[:,j]))# max pooling
                 elif case == 'mean pooling':
-                    temp_sample.append(np.mean(AAA[:,tab_dimension]))# max pooling
-            Temp.append(temp_sample)
-    return Temp
+                    temp_sample.append(np.mean(l[:,j]))# max pooling
+            temp.append(temp_sample)
+    return temp
 
 
-def Add_Noise(Ratio,Data):
+def Add_Noise(ratio,data):
     w = 5
-    X = Data[:,:-1]
-    Y = Data[:,-1]
-    Std_List = X.std(axis=0,ddof=0)
-    N = int(Ratio*len(Data))
-    Noise = []
-    for tab1 in range(N):
-        Base_Instance_Index = random.randint(0,len(Data)-1)
-        Base_Instance = Data[Base_Instance_Index]
-        Noise.append([])
-        for tab2 in range(len(Std_List)):
-            temp = random.uniform(Std_List[tab2]*-1,Std_List[tab2])
-            Noise[tab1].append(float(Base_Instance[tab2]+temp/w))
-        Noise[tab1].append(Base_Instance[-1])
-    Noise = np.array(Noise)
-    return np.concatenate((Data,Noise),axis=0)
-def Mix_Multi_Scale1(X_Train_Multi_Scale,Y_Train,Pooling_Type):
-    Scale = len(X_Train_Multi_Scale)
-    Length = len(X_Train_Multi_Scale[0])
-    Temp_X_Train = []
-    for tab_length in range(Length):
-        Total_AAA = []
-        for tab_scale in range(Scale):
-            AAA = X_Train_Multi_Scale[tab_scale][tab_length]
-            Total_AAA.append(AAA)
-        BBB = Fun(Total_AAA,Pooling_Type)
-        Temp_X_Train.append(BBB)
-    return np.array(Temp_X_Train),Y_Train
+    x = data[:,:-1]
+    _std = x.std(axis=0,ddof=0)
+    N = int(ratio*len(data))
+    noise = []
+    for i in range(N):
+        baseinstance_index = random.randint(0,len(data)-1)
+        base_instance = data[baseinstance_index]
+        noise.append([])
+        for j in range(len(_std)):
+            temp = random.uniform(_std[j]*-1,_std[j])
+            noise[i].append(float(base_instance[j]+temp/w))
+        noise[i].append(base_instance[-1])
+    noise = np.array(noise)
+    return np.concatenate((data,noise),axis=0)
+def Mix_Multi_Scale1(trainX_multi,trainY,pooling_type):
+    scale = len(trainX_multi)
+    length = len(trainX_multi[0])
+    temp_trainX = []
+    for tab_length in range(length):
+        total_ = []
+        for tab_scale in range(scale):
+            a = trainX_multi[tab_scale][tab_length]
+            total_.append(a)
+        b = Fun(total_,pooling_type)
+        temp_trainX.append(b)
+    return np.array(temp_trainX),trainY
 
-def returnTabData(Current_CV,Cross_CV,Data_X,Data_Y):
-    #print("Current cv is "+str(Current_CV))
-    #print("Cross cv is "+str(Cross_CV))
-    #print(Data_X.shape)
+def returnTabData(current_cv,cross_cv,dataX,dataY):
     global positive_sign,negative_sign
 
-    positive_index = returnPositiveIndex(Data_Y, negative_sign)
-    negative_index = returnNegativeIndex(Data_Y, negative_sign)
+    positive_index = returnPositiveIndex(dataY, negative_sign)
+    negative_index = returnNegativeIndex(dataY, negative_sign)
 
-    pos_data = Data_X[positive_index]
-    neg_data = Data_X[negative_index]
+    pos_data = dataX[positive_index]
+    neg_data = dataX[negative_index]
 
-    for tab_cross in range(Cross_CV):
-        if not tab_cross == Current_CV: continue
-        positive_Data_index_Train = []
-        positive_Data_index_Test = []
-        negative_Data_index_Train = []
-        negative_Data_index_Test = []
+    for tab_cross in range(cross_cv):
+        if not tab_cross == current_cv: continue
+        pos_train_index = []
+        pos_test_index = []
+        neg_train_index = []
+        neg_test_index = []
 
         for tab_positive in range(len(positive_index)):
-            if int((Cross_CV - tab_cross - 1) * len(pos_data) / Cross_CV) <= tab_positive < int(
-                                    (Cross_CV - tab_cross) * len(pos_data) / Cross_CV):
-                positive_Data_index_Test.append(positive_index[tab_positive])
+            if int((cross_cv - tab_cross - 1) * len(pos_data) / cross_cv) <= tab_positive < int(
+                                    (cross_cv - tab_cross) * len(pos_data) / cross_cv):
+                pos_test_index.append(positive_index[tab_positive])
             else:
-                positive_Data_index_Train.append(positive_index[tab_positive])
+                pos_train_index.append(positive_index[tab_positive])
 
         for tab_negative in range(len(negative_index)):
-            if int((Cross_CV - tab_cross - 1) * len(neg_data) / Cross_CV) <= tab_negative < int(\
-                                    (Cross_CV - tab_cross) * len(neg_data) / Cross_CV):
-                negative_Data_index_Test.append(negative_index[tab_negative])
+            if int((cross_cv - tab_cross - 1) * len(neg_data) / cross_cv) <= tab_negative < int(\
+                                    (cross_cv - tab_cross) * len(neg_data) / cross_cv):
+                neg_test_index.append(negative_index[tab_negative])
             else:
-                negative_Data_index_Train.append(negative_index[tab_negative])
+                neg_train_index.append(negative_index[tab_negative])
 
 
-        Training_Data_Index = np.append(negative_Data_index_Train, positive_Data_index_Train, axis=0)
-        Training_Data_Index.sort()
+        train_index = np.append(neg_train_index, pos_train_index, axis=0)
+        train_index.sort()
 
-        Training_Data_Index = map(lambda a: int(a), Training_Data_Index)
-        Training_Data_X = Data_X[Training_Data_Index, :]
-        Training_Data_Y = Data_Y[Training_Data_Index]
+        train_index = map(lambda a: int(a), train_index)
+        train_dataX = dataX[train_index, :]
+        train_dataY = dataY[train_index]
 
-        Testing_Data_Index = np.append(negative_Data_index_Test, positive_Data_index_Test, axis=0)
-        Testing_Data_Index.sort()
+        test_index = np.append(neg_test_index, pos_test_index, axis=0)
+        test_index.sort()
 
-        Testing_Data_Index = map(lambda a: int(a), Testing_Data_Index)
-        Testing_Data_X = Data_X[Testing_Data_Index, :]
-        Testing_Data_Y = Data_Y[Testing_Data_Index]
+        test_index = map(lambda a: int(a), test_index)
+        test_dataX = dataX[test_index, :]
+        test_dataY = dataY[test_index]
 
-        #min_number = min(len(Training_Data_X),len(Testing_Data_X))
+        #min_number = min(len(train_dataX),len(test_dataX))
 
         print(str(tab_cross + 1) + "th Cross Validation is running and the training size is " + \
-            str(len(Training_Data_X)) + ", testing size is " + str(len(Testing_Data_Y)) + "......")
+            str(len(train_dataX)) + ", testing size is " + str(len(test_dataY)) + "......")
 
-        #Plotting_Sequence(Training_Data_X[0:min_number],Training_Data_Y[0:min_number])
-        #return Training_Data_X[0:min_number],Training_Data_Y[0:min_number],Testing_Data_X[0:min_number],Testing_Data_Y[0:min_number]
-        return Training_Data_X,Training_Data_Y,Testing_Data_X,Testing_Data_Y
+        return train_dataX,train_dataY,test_dataX,test_dataY
 
 
 
@@ -492,7 +463,6 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
         X_Training, Y_Training,X_Testing,Y_Testing = returnTabData(Current_CV,Cross_CV,Data_Sequenlized_X,Data_Sequenlized_Y)
 
     else:
-
         Scale_Level = Wave_Let_Scale
         X_Training_Multi_Level_List = [[] for i in range(Scale_Level)]
         X_Testing_Multi_Level_List = [[] for i in range(Scale_Level)]

@@ -1,0 +1,6 @@
+1L_____epoch:20,_____learning rate:0.002,_____multi_scale:False
+F1_SCORE: 0.629,	AUC: 0.537,	G_MEAN: 0.478,	ACCURACY: 0.538,	
+2L_____epoch:20,_____learning rate:0.002,_____multi_scale:False
+F1_SCORE: 0.677,	AUC: 0.576,	G_MEAN: 0.487,	ACCURACY: 0.577,	
+AL_____epoch:20,_____learning rate:0.002,_____multi_scale:False
+F1_SCORE: 0.655,	AUC: 0.663,	G_MEAN: 0.663,	ACCURACY: 0.663,	
