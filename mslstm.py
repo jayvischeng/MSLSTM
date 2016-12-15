@@ -46,11 +46,11 @@ def normalized_scale_levels(scales_list):
 
 
 def loss(predict,label):
-    #cost_cross_entropy = -tf.reduce_mean(target * tf.log(prediction))
-    cost_cross_entropy = tf.reduce_mean(
-        tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
+    #cost_cross_entropy = tf.reduce_mean(
+     #   tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
 
-    tf.scalar_summary("loss", cost_cross_entropy)
+    #tf.scalar_summary("loss", cost_cross_entropy)
     return cost_cross_entropy
 
 def print_info(tensor,name):

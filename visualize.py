@@ -13,12 +13,13 @@ def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learni
         os.makedirs(os.path.join(os.getcwd(),'picture'))
     epoch = len(train_acc_list[0])
     color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
+    #color_list = ['y', 'g', 'c', 'b', 'r', 'm']
 
     x = [i+1 for i in range(epoch)]
     plt.figure()
     for tab in range(len(case_list)):
-        plt.plot(x,train_acc_list[tab],color_list[tab]+'-',label=case_list[tab] + ' train acc')
-        plt.plot(x, val_acc_list[tab], color_list[tab]+'-',label=case_list[tab] +' val acc')
+        plt.plot(x,train_acc_list[tab],color_list[tab],label=case_list[tab] + ' train acc')
+        plt.plot(x, val_acc_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val acc')
     plt.xlabel('Epoch',fontsize=12)
     if 'AS' in filename:
         plt.ylim(0.0,1.0)
@@ -27,14 +28,14 @@ def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learni
     plt.ylabel('Accuracy',fontsize=12)
     plt.tick_params(labelsize=12)
     plt.grid()
-    plt.legend(loc='lower right',fontsize=10)
+    plt.legend(loc='lower right',fontsize=8)
     plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
     if corss_val_label == 0:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=600)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
     else:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"), dpi=600)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"), dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=400)
 
 def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learning_rate,train_loss_list,val_loss_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
@@ -45,22 +46,22 @@ def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learn
     x = [i+1 for i in range(epoch)]
     plt.figure()
     for tab in range(len(case_list)):
-        plt.plot(x,train_loss_list[tab],color_list[tab]+'-',label=case_list[tab] + ' train acc')
-        plt.plot(x, val_loss_list[tab], color_list[tab]+'-',label=case_list[tab] +' val acc')
+        plt.plot(x,train_loss_list[tab],color_list[tab],label=case_list[tab] + ' train acc')
+        plt.plot(x, val_loss_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val acc')
 
     plt.xlabel('Epoch',fontsize=12)
     plt.ylim(0.5,0.95)
     plt.ylabel('Loss',fontsize=12)
     plt.grid()
     plt.tick_params(labelsize=12)
-    plt.legend(loc='upper right',fontsize=10)
+    plt.legend(loc='upper right',fontsize=8)
     plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
     if cross_val_label == 0:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=600)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
     else:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".pdf"), dpi=600)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".png"), dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".pdf"), dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".png"), dpi=400)
 
 def weight_plotting(filename,sequence_window,corss_val_label,learning_rate,weight_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
@@ -123,6 +124,20 @@ def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super
     plt.suptitle(suptitle)
     plt.savefig(save_fig,dpi=200)
     plt.show()
+
+def Quxian_Plotting(dataX,dataY,feature,name):
+    y = list(dataX[0][:,feature])
+    for i in range(1,len(dataX)):
+        y.append(dataX[i][:,feature][-1])
+    x = [i for i in range(len(y))]
+    z = [i  for i in range(len(dataY)) if int(dataY[i][0]) == 1]
+    plt.plot(x,np.array(y),'b')
+    plt.plot(z,np.array(y)[z],'r')
+    plt.tight_layout()
+    plt.grid()
+    plt.savefig(name+'.png',dpi=400)
+    plt.clf()
+    #plt.show()
 
 #A1 = [51.5,54.2,55.1,55.4,55.8,57.3,49.6,52.2,63.4,63.5]#"AS_LEAK"
 #A2 = [50.6,53.9,55.3,54.3,56.8,52.7,54.7,52.1,63.3,63.3]

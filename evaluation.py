@@ -12,7 +12,7 @@ def ComputeAUC(y_test,y_predict):
     fpr["micro"], tpr["micro"], _ = roc_curve(y_test.ravel(), y_predict.ravel())
     roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
 
-    # Plot of a ROC curve for a specific class
+    #Plot of a ROC curve for a specific class
     #return (fpr[0]+fpr[1])/2,(tpr[0]+tpr[1])/2,(roc_auc[0]+roc_auc[1])/2
     return fpr[0],tpr[0],roc_auc[0]
 
@@ -70,6 +70,7 @@ def evaluation(True,Predict,positive_label=0,negative_label=1):
 
     #PlottingAUC(ReverseEncoder(True),ReverseEncoder(np.transpose(np.array(Output_Class))))
     fpr,tpr,auc = ComputeAUC(True,Predict)
+    #AUC = auc
     AUC = roc_auc_score(True,np.transpose(np.array(Output_Class)))
     G_MEAN=np.sqrt(float(ac_positive*ac_negative)/(total_negative*total_positive))
 

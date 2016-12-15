@@ -3,6 +3,8 @@
 mincheng:mc.cheng@my.cityu.edu.hk
 """
 from __future__ import division
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 import os
 from baselines import sclearn
 import evaluation
@@ -12,6 +14,7 @@ import mslstm
 import loaddata
 import numpy as np
 import visualize
+
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
@@ -24,7 +27,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',200,"""Batch size""")
-flags.DEFINE_string('max_epochs',20,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',100,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -74,23 +77,27 @@ def train(filename,cross_cv,tab_cross_cv):
             sess.run(init_op)
 
 
-            summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
-            saver = tf.train.Saver()
+            #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
+            #saver = tf.train.Saver()
 
             epoch_training_loss_list = []
             epoch_training_acc_list = []
             epoch_val_loss_list = []
             epoch_val_acc_list = []
-            weight_list = []
+            #weight_list = []
             early_stopping = 100
             no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
+            visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
+            visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+
             for i in range(FLAGS.max_epochs):
-                if early_stopping > 0:
-                    pass
-                else:
-                    break
+                #if early_stopping > 0:
+                    #pass
+                #else:
+                    #break
                 ptr = 0
+
                 for j in range(no_of_batches):
                     inp, out = x_train[ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
                     inp2, out2 = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
@@ -103,16 +110,16 @@ def train(filename,cross_cv,tab_cross_cv):
                     training_acc, training_loss = sess_run((accuracy,loss),inp,out)
                     val_acc, val_loss = sess_run((accuracy,loss),inp2,out2)
 
-                    if j%5 == 0:
-                        summary_str = sess.run(summary_op, {data_x: inp, data_y: out})
-                        summary_writer.add_summary(summary_str, i * no_of_batches)
+                    #if j%5 == 0:
+                        #summary_str = sess.run(summary_op, {data_x: inp, data_y: out})
+                        #summary_writer.add_summary(summary_str, i * no_of_batches)
 
-                    epoch_training_loss_list.append(training_loss)
-                    epoch_training_acc_list.append(training_acc)
-                    epoch_val_loss_list.append(val_loss)
-                    epoch_val_acc_list.append(val_acc)
+                epoch_training_loss_list.append(training_loss)
+                epoch_training_acc_list.append(training_acc)
+                epoch_val_loss_list.append(val_loss)
+                epoch_val_acc_list.append(val_acc)
 
-                print("Epoch %s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (str(training_acc), str(training_loss)) \
+                print(FLAGS.option+"_Epoch%s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (str(training_acc), str(training_loss)) \
                       + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)))
 
                 try:
@@ -182,8 +189,8 @@ def train(filename,cross_cv,tab_cross_cv):
     """
 def main(unused_argv):
     #main function
-    #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
-    filename_list = ["HB_AS_Leak.txt"]
+    filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
+    #filename_list = ["HB_Slammer.txt"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['db1']
@@ -202,10 +209,15 @@ def main(unused_argv):
     for filename in filename_list:
         for wave_type_tab in range(len(wave_type_list)):
             case_list = []
+            train_acc_list = []
+            val_acc_list = []
+            train_loss_list = []
+            val_loss_list = []
             for each_case in case:
                 FLAGS.option = each_case
                 if each_case == '1L' or each_case == '2L' or 'AL' == each_case:
                     FLAGS.is_multi_scale = False
+                    FLAGS.learning_rate = 0.001
                 else:
                     FLAGS.is_multi_scale = True
                     FLAGS.wave_type = wave_type_list[wave_type_tab]
@@ -213,9 +225,16 @@ def main(unused_argv):
 
                 train_acc,val_acc,train_loss,val_loss = train(filename, cross_cv,tab_cross_cv)
                 case_list.append(case_label[each_case])
+                train_acc_list.append(train_acc)
+                val_acc_list.append(val_acc)
+                train_loss_list.append(train_loss)
+                val_loss_list.append(val_loss)
 
-            visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc,val_acc)
-            visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss, val_loss)
+            print(case_list)
+            print(train_acc_list)
+            print(val_loss_list)
+            visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
+            visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
 
 
 #----------------------------------For comparison------------------------------------------------------

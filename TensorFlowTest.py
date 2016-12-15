@@ -42,7 +42,7 @@ B = tf.constant(np.arange(13,25), shape=[4, 3, 2],dtype=tf.float32)
 #B = tf.gather(tf.reshape(A,(6,4,5)),[0])
 #C = tf.div(A,B)
 #C = batch_vm2(B,A)
-C = tf.matmul(A,B)
+C = tf.batch_mul(A,B)
 
 
 output_A = tf.Print(A,[A],message = "A shape is :", first_n=4096, summarize=40)

@@ -423,8 +423,7 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
 
         #min_number = min(len(train_dataX),len(test_dataX))
 
-        print(str(tab_cross + 1) + "th Cross Validation is running and the training size is " + \
-            str(len(train_dataX)) + ", testing size is " + str(len(test_dataY)) + "......")
+        print(str(tab_cross + 1) + "th Cross Validation is running and the training size is ")
 
         return train_dataX,train_dataY,test_dataX,test_dataY
 
@@ -484,15 +483,15 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
     Y_Training_Encoder = LabelEncoder()
     Y_Training_Encoder.fit(Y_Training)
-    encoded_Y1 = Y_Training_Encoder.transform(Y_Training)
+    Y_Training = Y_Training_Encoder.transform(Y_Training)
     # convert integers to dummy variables (i.e. one hot encoded)
-    Y_Training = np_utils.to_categorical(encoded_Y1)
+    Y_Training = np_utils.to_categorical(Y_Training)
 
     Y_Testing_Encoder = LabelEncoder()
     Y_Testing_Encoder.fit(Y_Testing)
-    encoded_Y2 = Y_Testing_Encoder.transform(Y_Testing)
+    Y_Testing = Y_Testing_Encoder.transform(Y_Testing)
     # convert integers to dummy variables (i.e. one hot encoded)
-    Y_Testing = np_utils.to_categorical(encoded_Y2)
+    Y_Testing = np_utils.to_categorical(Y_Testing)
 
     if Multi_Scale == False:
         return X_Training, Y_Training, X_Testing, Y_Testing

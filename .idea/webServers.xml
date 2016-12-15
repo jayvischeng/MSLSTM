@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="f74dc2fe-ba8a-453d-a777-4b41551c7acb" name="ubt16a.cs.cityu.edu.hk" url="http://ubt16a.cs.cityu.edu.hk">
+        <fileTransfer host="ubt16a.cs.cityu.edu.hk" port="22" rootFolder="/home/grads/mcheng223" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="e3ce4efc-e743-4431-a8cd-42f81ea5a1da" name="10.37.1.122" url="http://10.37.1.122">
+        <fileTransfer host="10.37.1.122" port="22" rootFolder="/home/chengmin" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+      <webServer id="c3192aaa-33e5-485d-928b-66995b94e093" name="htcc1g.cs.cityu.edu.hk" url="http://htcc1g.cs.cityu.edu.hk">
+        <fileTransfer host="htcc1g.cs.cityu.edu.hk" port="22" rootFolder="/home/grads/mcheng223" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

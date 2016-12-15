@@ -2,8 +2,127 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c4b08d6-c2c8-4ede-9305-d666174e6a9a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480838580.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480838662.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480838686.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480838743.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480838835.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480839152.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480839261.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480839475.bogon" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480839865.lb125105.cs.cityu.edu.hk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480839936.lb125105.cs.cityu.edu.hk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1480839951.lb125105.cs.cityu.edu.hk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481005713.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481015569.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481028693.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481028788.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481029020.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481029358.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481031268.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481031745.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481436323.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481436340.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481436440.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444080.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444101.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444343.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444354.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444388.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444441.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444451.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444503.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444557.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481444585.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445071.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445168.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445266.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445469.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445640.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445671.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445717.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445769.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445805.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481445913.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481446010.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481446141.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481446190.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481446297.chengmindeMBP" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481533393.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481533441.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481533545.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481536343.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481536412.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481537478.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481537605.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481537722.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481537822.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481537924.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481538028.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481538141.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481538262.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481538372.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481538478.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481539290.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481540046.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481540299.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481540560.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481540613.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481541399.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481541816.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542070.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542490.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542561.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542575.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542589.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542601.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542615.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542627.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542642.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542655.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542669.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542683.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542698.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542712.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542726.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542741.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542755.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542770.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542787.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542804.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542821.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542837.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542932.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542946.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542959.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542972.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481542989.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543002.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543015.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543028.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543041.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543055.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543070.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543084.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543098.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543111.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543125.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543139.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543153.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543167.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543181.chengmindeMacBook-Pro.local" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/log/events.out.tfevents.1481543196.chengmindeMacBook-Pro.local" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TensorFlowTest.py" afterPath="$PROJECT_DIR$/TensorFlowTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evaluation.py" afterPath="$PROJECT_DIR$/evaluation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/loaddata.py" afterPath="$PROJECT_DIR$/loaddata.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mslstm.py" afterPath="$PROJECT_DIR$/mslstm.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt" afterPath="$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/train.py" afterPath="$PROJECT_DIR$/train.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/visualize.py" afterPath="$PROJECT_DIR$/visualize.py" />
     </list>
     <ignored path="MSLSTM.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -15,17 +134,19 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MSLSTM$da2.coverage" NAME="da2 Coverage Results" MODIFIED="1480561517203" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$train2.coverage" NAME="train2 Coverage Results" MODIFIED="1480837146893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MSLSTM$evaluation.coverage" NAME="evaluation Coverage Results" MODIFIED="1481120078899" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MSLSTM$TensorFlowTest.coverage" NAME="TensorFlowTest Coverage Results" MODIFIED="1481702916809" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MSLSTM$da.coverage" NAME="da Coverage Results" MODIFIED="1480522373096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$AA2.coverage" NAME="AA2 Coverage Results" MODIFIED="1480835718065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$TensorFlowTest.coverage" NAME="TensorFlowTest Coverage Results" MODIFIED="1481787135141" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$loaddata.coverage" NAME="loaddata Coverage Results" MODIFIED="1481444571073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MSLSTM$mslstm.coverage" NAME="mslstm Coverage Results" MODIFIED="1481031706680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$visualize.coverage" NAME="visualize Coverage Results" MODIFIED="1481798791990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$da.coverage" NAME="da Coverage Results" MODIFIED="1480522373096" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$evaluation.coverage" NAME="evaluation Coverage Results" MODIFIED="1481795308561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$da2.coverage" NAME="da2 Coverage Results" MODIFIED="1480561517203" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MSLSTM$sclearn.coverage" NAME="sclearn Coverage Results" MODIFIED="1481528743102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/baselines" />
-    <SUITE FILE_PATH="coverage/MSLSTM$train.coverage" NAME="train Coverage Results" MODIFIED="1481708025697" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$mslstm.coverage" NAME="mslstm Coverage Results" MODIFIED="1481031706680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MSLSTM$train.coverage" NAME="train Coverage Results" MODIFIED="1481807081307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -39,8 +160,8 @@
       <file leaf-file-name="train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="199" column="20" lean-forward="false" selection-start-line="199" selection-start-column="20" selection-end-line="199" selection-end-column="20" />
+            <state relative-caret-position="89">
+              <caret line="201" column="22" selection-start-line="201" selection-start-column="22" selection-end-line="201" selection-end-column="22" />
               <folding>
                 <element signature="e#65#96#0" expanded="true" />
               </folding>
@@ -48,95 +169,75 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TensorFlow_LogHB_AS_Leak.txt.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt">
+      <file leaf-file-name="nn-keras.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/baselines/nn-keras.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="149" column="39" selection-start-line="149" selection-start-column="39" selection-end-line="149" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="evaluation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/evaluation.py">
+      <file leaf-file-name="sclearn.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/baselines/sclearn.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+            <state relative-caret-position="108">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mslstm.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mslstm.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1800">
-              <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-              <folding>
-                <element signature="e#65#96#0" expanded="true" />
-              </folding>
-            </state>
+      <file leaf-file-name="Test_0_1L.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test_0_1L.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TensorFlowTest.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TensorFlowTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="96" column="11" lean-forward="true" selection-start-line="96" selection-start-column="11" selection-end-line="96" selection-end-column="11" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-                <element signature="e#98#439#0" expanded="false" />
-              </folding>
-            </state>
+      <file leaf-file-name="Test_0_2L.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test_0_2L.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="60">
-                <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
+      <file leaf-file-name="Test_1_1L.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test_1_1L.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="visualize.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visualize.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <element signature="e#5673#6114#0" expanded="false" />
-                <element signature="e#7759#9394#0" expanded="false" />
-              </folding>
-            </state>
+      <file leaf-file-name="Test_1_2L.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Test_1_2L.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="da.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../MSLSTM 2/da.py">
+      <file leaf-file-name="TensorFlow_LogHB_Slammer.txt.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/output/TensorFlow_LogHB_Slammer.txt.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="784" column="34" lean-forward="false" selection-start-line="784" selection-start-column="16" selection-end-line="784" selection-end-column="34" />
+            <state relative-caret-position="536">
+              <caret line="30" column="33" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comparison_Log_HB_AS_Leak.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="9" />
-              <folding />
-            </state>
+      <file leaf-file-name="Train_0_1L.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Train_0_1L.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Train_1_1L.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Train_1_1L.png">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -208,20 +309,20 @@
         <option value="$PROJECT_DIR$/da.py" />
         <option value="$PROJECT_DIR$/da2.py" />
         <option value="$PROJECT_DIR$/AD.py" />
-        <option value="$PROJECT_DIR$/evaluation.py" />
         <option value="$PROJECT_DIR$/compare.py" />
-        <option value="$PROJECT_DIR$/baselines/sclearn.py" />
         <option value="$PROJECT_DIR$/baselines/nn-keras.py" />
-        <option value="$PROJECT_DIR$/loaddata.py" />
         <option value="$PROJECT_DIR$/mul_wave_test.py" />
         <option value="$PROJECT_DIR$/AUC.py" />
         <option value="$PROJECT_DIR$/PW.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/SA.py" />
-        <option value="$PROJECT_DIR$/TensorFlowTest.py" />
-        <option value="$PROJECT_DIR$/mslstm.py" />
         <option value="$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt" />
+        <option value="$PROJECT_DIR$/TensorFlowTest.py" />
+        <option value="$PROJECT_DIR$/loaddata.py" />
+        <option value="$PROJECT_DIR$/evaluation.py" />
         <option value="$PROJECT_DIR$/visualize.py" />
+        <option value="$PROJECT_DIR$/mslstm.py" />
+        <option value="$PROJECT_DIR$/baselines/sclearn.py" />
         <option value="$PROJECT_DIR$/train.py" />
       </list>
     </option>
@@ -233,9 +334,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1436" />
-    <option name="y" value="27" />
-    <option name="width" value="1491" />
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
     <option name="height" value="697" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -260,7 +360,16 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
@@ -276,10 +385,15 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="MSLSTM" />
@@ -290,8 +404,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="output" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MSLSTM" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="baselines" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -300,12 +443,13 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="web.server" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -355,24 +499,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="loaddata" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="MSLSTM" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/loaddata.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="sclearn" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -409,6 +535,24 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="visualize" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="MSLSTM" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/visualize.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="BashConfigurationType" factoryName="Bash">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
@@ -438,12 +582,6 @@
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
-      <config-file value="" />
-      <node-interpreter value="project" />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -518,7 +656,7 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run" />
+      <command value="run-script" />
       <scripts />
       <node-interpreter value="project" />
       <envs />
@@ -637,17 +775,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.train" />
       <item index="1" class="java.lang.String" itemvalue="Python.evaluation" />
-      <item index="2" class="java.lang.String" itemvalue="Python.loaddata" />
-      <item index="3" class="java.lang.String" itemvalue="Python.sclearn" />
-      <item index="4" class="java.lang.String" itemvalue="Python.TensorFlowTest" />
+      <item index="2" class="java.lang.String" itemvalue="Python.sclearn" />
+      <item index="3" class="java.lang.String" itemvalue="Python.TensorFlowTest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.visualize" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.train" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TensorFlowTest" />
-        <item index="2" class="java.lang.String" itemvalue="Python.sclearn" />
-        <item index="3" class="java.lang.String" itemvalue="Python.loaddata" />
-        <item index="4" class="java.lang.String" itemvalue="Python.evaluation" />
+        <item index="1" class="java.lang.String" itemvalue="Python.visualize" />
+        <item index="2" class="java.lang.String" itemvalue="Python.evaluation" />
+        <item index="3" class="java.lang.String" itemvalue="Python.TensorFlowTest" />
+        <item index="4" class="java.lang.String" itemvalue="Python.sclearn" />
       </list>
     </recent_temporary>
   </component>
@@ -896,23 +1034,47 @@
       <option name="project" value="LOCAL" />
       <updated>1481707943382</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="updated train function">
+      <created>1481708037296</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1481708037296</updated>
+    </task>
+    <task id="LOCAL-00035" summary="updated train function">
+      <created>1481733125757</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1481733125757</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="1436" y="27" width="1491" height="697" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="697" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18909593" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298791" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24289773" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39896372" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3747841" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14802065" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3385147" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34715027" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28432956" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711443" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14914773" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37562189" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.45423144" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4559659" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -949,81 +1111,35 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/loaddata.py</url>
-          <line>483</line>
+          <line>453</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/baselines/sclearn.py</url>
           <line>169</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/train.py</url>
+          <line>108</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BACKUP/da.py" />
-    <entry file="file://$PROJECT_DIR$/db2.py" />
-    <entry file="file://$PROJECT_DIR$/evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BACKUP/da2.py" />
-    <entry file="file://$PROJECT_DIR$/BACKUP/AA2.py" />
-    <entry file="file://$PROJECT_DIR$/BACKUP/da.py" />
-    <entry file="file://$PROJECT_DIR$/db2.py" />
-    <entry file="file://$PROJECT_DIR$/Epoch_Loss_HB_Code_Red_I.txt.png" />
-    <entry file="file://$PROJECT_DIR$/evaluation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Epoch_Loss_HB_Code_Red_I.txt.png" />
-    <entry file="file://$PROJECT_DIR$/mslstm.py" />
-    <entry file="file://$USER_HOME$/.pyenv/versions/MyFlaskEnv/lib/python2.7/site-packages/tensorflow/python/platform/flags.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BGP_Data/HB_AS_Leak.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.pyenv/versions/MyFlaskEnv/lib/python2.7/site-packages/tensorflow/python/ops/gradients.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log/events.out.tfevents.1480838580.bogon">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log/events.out.tfevents.1480839261.bogon">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="65980">
-          <caret line="3299" column="0" lean-forward="false" selection-start-line="3299" selection-start-column="0" selection-end-line="3299" selection-end-column="0" />
+          <caret line="3299" column="0" selection-start-line="3299" selection-start-column="0" selection-end-line="3299" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.pyenv/versions/MyFlaskEnv/lib/python2.7/site-packages/tensorflow/python/ops/rnn.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2360">
-          <caret line="133" column="14" lean-forward="false" selection-start-line="133" selection-start-column="14" selection-end-line="133" selection-end-column="14" />
+          <caret line="133" column="14" selection-start-line="133" selection-start-column="14" selection-end-line="133" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -1035,24 +1151,6 @@
     <entry file="file://$PROJECT_DIR$/compare.py" />
     <entry file="file://$PROJECT_DIR$/db2.py" />
     <entry file="file://$PROJECT_DIR$/Comparison_Log_HB_AS_Leak.txt.txt" />
-    <entry file="file://$PROJECT_DIR$/baselines/nn-keras.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="149" column="39" lean-forward="false" selection-start-line="149" selection-start-column="39" selection-end-line="149" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/baselines/sclearn.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="797">
-          <caret line="183" column="0" lean-forward="false" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#17#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train2.py" />
     <entry file="file://$PROJECT_DIR$/BACKUP/AA2.py" />
     <entry file="file://$PROJECT_DIR$/Numpy_Test.py" />
     <entry file="file://$PROJECT_DIR$/BACKUP/testing.py" />
@@ -1062,81 +1160,60 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AUC.py" />
     <entry file="file://$PROJECT_DIR$/BACKUP/da2.py" />
     <entry file="file://$PROJECT_DIR$/PW.py" />
-    <entry file="file://$PROJECT_DIR$/loaddata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="476" column="24" lean-forward="false" selection-start-line="476" selection-start-column="24" selection-end-line="476" selection-end-column="24" />
-          <folding>
-            <element signature="e#24#35#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/da.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4600">
-          <caret line="245" column="32" lean-forward="false" selection-start-line="245" selection-start-column="0" selection-end-line="246" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="60">
-            <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/da.py" />
     <entry file="file://$PROJECT_DIR$/output/Comparison_Log_HB_AS_Leak.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="9" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="9" />
-          <folding />
+        <state relative-caret-position="144">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/output/TensorFlow_LogHB_AS_Leak.txt.txt">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SA.py" />
+    <entry file="file://$PROJECT_DIR$/da2.py" />
+    <entry file="file://$PROJECT_DIR$/../MSLSTM 2/da.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14076">
+          <caret line="784" column="34" selection-start-line="784" selection-start-column="16" selection-end-line="784" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1656">
+          <caret line="101" column="0" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-747">
-          <caret line="21" column="19" lean-forward="true" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/da2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="570" column="12" lean-forward="true" selection-start-line="569" selection-start-column="0" selection-end-line="743" selection-end-column="93" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TensorFlowTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="96" column="11" lean-forward="true" selection-start-line="96" selection-start-column="11" selection-end-line="96" selection-end-column="11" />
+        <state relative-caret-position="612">
+          <caret line="47" column="30" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="false" />
             <element signature="e#98#439#0" expanded="false" />
           </folding>
         </state>
@@ -1144,51 +1221,154 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
+        <state relative-caret-position="182">
+          <caret line="78" column="23" selection-start-line="78" selection-start-column="23" selection-end-line="78" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../MSLSTM 2/da.py">
+    <entry file="file://$PROJECT_DIR$/picture/Tab_B_Epoch_ACC_HB_AS_Leak.txt_SW_20_LR_0.002.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/picture/Tab_B_Epoch_ACC_HB_AS_Leak.txt_SW_20_LR_0.02.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/picture/Tab_B_Epoch_Loss_HB_AS_Leak.txt_SW_20_LR_0.02.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/loaddata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="784" column="34" lean-forward="false" selection-start-line="784" selection-start-column="16" selection-end-line="784" selection-end-column="34" />
-          <folding />
+        <state relative-caret-position="-3191">
+          <caret line="349" column="22" selection-start-line="349" selection-start-column="22" selection-end-line="349" selection-end-column="22" />
+          <folding>
+            <element signature="e#24#35#0" expanded="true" />
+          </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Train.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visualize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="199">
+          <caret line="132" column="19" selection-start-line="132" selection-start-column="19" selection-end-line="132" selection-end-column="19" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#5673#6114#0" expanded="false" />
-            <element signature="e#7759#9394#0" expanded="false" />
+            <element signature="e#8250#9885#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Train_1L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test_1L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pip-8.1.1.tar.gz">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mslstm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1800">
-          <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        <state relative-caret-position="102">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
           <folding>
             <element signature="e#65#96#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Train_0_1L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Train_1_1L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/baselines/nn-keras.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="149" column="39" selection-start-line="149" selection-start-column="39" selection-end-line="149" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/baselines/sclearn.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test_0_1L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test_0_2L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test_1_1L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Test_1_2L.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/TensorFlow_LogHB_Slammer.txt.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="30" column="33" selection-start-line="18" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="199" column="20" lean-forward="false" selection-start-line="199" selection-start-column="20" selection-end-line="199" selection-end-column="20" />
+        <state relative-caret-position="89">
+          <caret line="201" column="22" selection-start-line="201" selection-start-column="22" selection-end-line="201" selection-end-column="22" />
           <folding>
             <element signature="e#65#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="webServersAuthStorage">
+    <data>AAABkCX/EoMMnYXSyBJHWcPc2Ovn9/i548sEEbKGIgCnJSxrNWRHGXV0wI2rbbV3GcKcbP0ka1hKIO4LfAwd2NjFGKZPuLuapwaqrJ0oY1H9y7k3z99FU9zHX7OH7Xh9v8sV2dy+KxPsoBZDfIu/8DJnNyTZjg2d//gPn/YMxTzE6hyZNLGm3sYGp0SoK/mLAAegCel6ZPJLdtcq3wBDID+bwZxYexSVdPVogO796LwEUASdtJdk6RqqgDqDSHZQGFuoSWGyR22adLqjxgBTnPhFEyWuYlzryYCzgy18KEaKOm4m7OeUZzXf6wpDVaBGxYaUrlvI/2sbo0UsAPmcoc11kablmIsVk1ALgmsU6oaSMrjpbkrmdB5NjUJmjwLPwVSonfjeglZylWvmYGovvlj34RmbsEzTFqHNxc7AvDvvqyQO6Xpo73+o5oLqqk5qvEUwbhVQwKVHbYmzsJ+BE2tkEfY/rnBmoNy/QmYf3hyEQ8niYliZPnYB8KXX5yl8+LGYzrnulJdYKFz98JNX+JhUeCi7pthXBe7Qmx7a5sO/9TvH</data>
   </component>
 </project>
