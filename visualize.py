@@ -1,9 +1,10 @@
-import os
 import matplotlib
+matplotlib.use('GTKAgg')
+#matplotlib.rcParams['backend'] = 'GTKCairo'
+import os
 import numpy as np
 #import seaborn as sns
 import matplotlib.pyplot as plt
-#matplotlib.rcParams['backend'] = 'GTKCairo'
 def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
@@ -32,10 +33,10 @@ def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learni
     plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
     if corss_val_label == 0:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=400)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
+        #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
     else:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"), dpi=400)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=400)
+        #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=400)
 
 def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learning_rate,train_loss_list,val_loss_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
@@ -56,12 +57,13 @@ def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learn
     plt.tick_params(labelsize=12)
     plt.legend(loc='upper right',fontsize=8)
     plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
+
     if cross_val_label == 0:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=400)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
+        #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
     else:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".pdf"), dpi=400)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".png"), dpi=400)
+        #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".png"), dpi=400)
 
 def weight_plotting(filename,sequence_window,corss_val_label,learning_rate,weight_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
@@ -103,10 +105,10 @@ def weight_plotting(filename,sequence_window,corss_val_label,learning_rate,weigh
     plt.tight_layout()
     if corss_val_label == 0:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".pdf"), dpi=600)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".png"), dpi=600)
+        #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".png"), dpi=600)
     else:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".pdf"),dpi=600)
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".png"),dpi=600)
+        #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".png"),dpi=600)
 
 def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super_title',save_fig='save_fig'):
     X = [i+1 for i in range(len(Data[0]))]
@@ -131,13 +133,20 @@ def Quxian_Plotting(dataX,dataY,feature,name):
         y.append(dataX[i][:,feature][-1])
     x = [i for i in range(len(y))]
     z = [i  for i in range(len(dataY)) if int(dataY[i][0]) == 1]
+    print("1111111111111111111")
     plt.plot(x,np.array(y),'b')
+    print("2222222222222222222")
     plt.plot(z,np.array(y)[z],'r')
+    print("3333333333333333333")
     plt.tight_layout()
+    print("4444444444444444444")
     plt.grid()
-    plt.savefig(name+'.png',dpi=400)
+    print("5555555555555555555")
     plt.clf()
     #plt.show()
+    print("6666666666666666666")
+    plt.savefig(name + '.pdf', dpi=400)
+
 
 #A1 = [51.5,54.2,55.1,55.4,55.8,57.3,49.6,52.2,63.4,63.5]#"AS_LEAK"
 #A2 = [50.6,53.9,55.3,54.3,56.8,52.7,54.7,52.1,63.3,63.3]
@@ -170,7 +179,7 @@ def plotAUC(method_list,Parameters):
     plt.legend(loc="lower right", fontsize=10)
     plt.tick_params(labelsize=12)
     plt.grid()
-    plt.savefig("_AUC.png", dpi=800)
+    #plt.savefig("_AUC.png", dpi=800)
     plt.savefig("_AUC.pdf", dpi=800)
 #------------------------------------------Plotting STAT-----------------------------------------------------
 def _plotting(filename, subtitle, method):
@@ -238,8 +247,8 @@ def plotStat(filename, Method_List):
         _plotting(filename_, subtitle[tab + 1], Method_List[tab])
 
     plt.tight_layout()
-    plt.savefig("StateFalseAlarm_" + filename + ".png", dpi=400)
-    plt.show()
+    plt.savefig("StateFalseAlarm_" + filename + ".pdf", dpi=400)
+    #plt.show()
 #------------------------------------------Plotting Wavelet-----------------------------------------------------
 def PlotWavelet(filename_result,filename_result2):
     filename_list_label = ["AS_Leak","Slammer","Nimda","Code_Red_I"]
@@ -274,7 +283,7 @@ def PlotWavelet(filename_result,filename_result2):
     plt.tick_params(labelsize=12)
     plt.xlabel("Scale Levels",fontsize=12)
     plt.grid()
-    plt.savefig("Wave_Let_"+'_'+str(0)+'_'+".png",dpi=400)
+    plt.savefig("Wave_Let_"+'_'+str(0)+'_'+".df",dpi=400)
     plt.title("Wavelet Family: Daubechies/Filter Length: 2")
     #plt.show()
 

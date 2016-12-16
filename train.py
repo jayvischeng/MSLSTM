@@ -57,6 +57,7 @@ def train(filename,cross_cv,tab_cross_cv):
                                                             Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
                                                             Wave_Type=FLAGS.wave_type)
 
+        print("aaaaaaaaaaaaaaaaaaaaaaaaa")
         with tf.Graph().as_default():
         #with tf.variable_scope("middle")as scope:
             tf.set_random_seed(1337)
@@ -65,14 +66,15 @@ def train(filename,cross_cv,tab_cross_cv):
             data_x,data_y = mslstm.inputs(FLAGS.option)
             prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
             loss = mslstm.loss(prediction, label)
-            optimizer,train_op = mslstm.train(loss)
+            optimizer = mslstm.train(loss)
             minimize = optimizer.minimize(loss)
             correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
             accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-            summary_op = tf.merge_all_summaries()
+            #summary_op = tf.merge_all_summaries()
 
-            init_op = tf.initialize_all_variables()
+            init_op = tf.global_variables_initializer()
+
             sess = tf.Session()
             sess.run(init_op)
 
@@ -89,8 +91,9 @@ def train(filename,cross_cv,tab_cross_cv):
             no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
             visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
-            visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+            #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
 
+            print("bbbbbb")
             for i in range(FLAGS.max_epochs):
                 #if early_stopping > 0:
                     #pass

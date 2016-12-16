@@ -25,14 +25,14 @@ def ReverseEncoder(y):
     return temp
 
 
-def evaluation(True,Predict,positive_label=0,negative_label=1):
+def evaluation(label,predict,positive_label=0,negative_label=1):
     try:
-        Output_Class = [[] for i in range(len(True[0]))]
+        Output_Class = [[] for i in range(len(label[0]))]
     except:
-        Output_Class = [[] for i in range(len(True))]
-    if len(Predict) == len(True):
-        for tab_sample in range(len(True)):
-            max_index = Predict[tab_sample].argmax(axis=0)
+        Output_Class = [[] for i in range(len(label))]
+    if len(predict) == len(label):
+        for tab_sample in range(len(label)):
+            max_index = predict[tab_sample].argmax(axis=0)
             for tab_class in range(len(Output_Class)):
                 if tab_class == max_index:
                     Output_Class[tab_class].append(1)
@@ -45,18 +45,18 @@ def evaluation(True,Predict,positive_label=0,negative_label=1):
     ac_negative = 0
 
     for tab_class in range(len(Output_Class)):
-        if True[0][tab_class] == negative_label:
+        if label[0][tab_class] == negative_label:
             predict_negative = Output_Class[tab_class].count(1)
-            total_negative = list(np.transpose(True)[tab_class]).count(1)
+            total_negative = list(np.transpose(label)[tab_class]).count(1)
 
-            for tab_sample in range(len(True)):
-                if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(True[tab_sample][tab_class]) :
+            for tab_sample in range(len(label)):
+                if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]) :
                     ac_negative += 1
-        elif True[0][tab_class] == positive_label:
+        elif label[0][tab_class] == positive_label:
             predict_positive = Output_Class[tab_class].count(1)
-            total_positive = list(np.transpose(True)[tab_class]).count(1)
-            for tab_sample in range(len(True)):
-                if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(True[tab_sample][tab_class]):
+            total_positive = list(np.transpose(label)[tab_class]).count(1)
+            for tab_sample in range(len(label)):
+                if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]):
                     ac_positive += 1
 
     #try:
@@ -68,15 +68,15 @@ def evaluation(True,Predict,positive_label=0,negative_label=1):
     except:
         ACC_A = float(ac_positive) * 100 / (predict_positive + 1)
 
-    #PlottingAUC(ReverseEncoder(True),ReverseEncoder(np.transpose(np.array(Output_Class))))
-    fpr,tpr,auc = ComputeAUC(True,Predict)
+    #PlottingAUC(ReverseEncoder(label),ReverseEncoder(np.transpose(np.array(Output_Class))))
+    fpr,tpr,auc = ComputeAUC(label,predict)
     #AUC = auc
-    AUC = roc_auc_score(True,np.transpose(np.array(Output_Class)))
+    AUC = roc_auc_score(label,np.transpose(np.array(Output_Class)))
     G_MEAN=np.sqrt(float(ac_positive*ac_negative)/(total_negative*total_positive))
 
     PRECISION = ACC_A
     RECALL = float(ac_positive) / total_positive
-    ACCURACY = round(float(ac_positive + ac_negative) / len(True), 5)
+    ACCURACY = round(float(ac_positive + ac_negative) / len(label), 5)
     try:
         F1_SCORE = round((2 * PRECISION * RECALL) / (PRECISION + RECALL), 5)
     except:

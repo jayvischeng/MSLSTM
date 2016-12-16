@@ -278,8 +278,8 @@ def train(loss):
       #tf.histogram_summary(var.op.name + '/gradients', grad)
 
   #_train_op = _optimizer.apply_gradients(_grads, global_step=global_step)
-  _train_op = None
-  return _optimizer,_train_op
+  #_train_op = None
+  return _optimizer
 
 
 

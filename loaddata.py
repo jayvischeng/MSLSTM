@@ -61,9 +61,9 @@ def LoadData(input_data_path,filename):
                 else:
                     val[-1] = positive_sign
                 try:
-                    val=map(lambda a:float(a),val)
+                    val=list(map(lambda a:float(a),val))
                 except:
-                    val=map(lambda a:str(a),val)
+                    val=list(map(lambda a:str(a),val))
 
                 val[-1]=int(val[-1])
                 Data.append(val)
@@ -168,8 +168,8 @@ def MyEvaluation(Y_Testing, Result):
         print("Error!!!")
     else:
         for tab1 in range(len(Result)):
-            temp_result = map(lambda a:int(round(a)),Result[tab1])
-            temp_true = map(lambda a:int(round(a)),Y_Testing[tab1])
+            temp_result = list(map(lambda a:int(round(a)),Result[tab1]))
+            temp_true = list(map(lambda a:int(round(a)),Y_Testing[tab1]))
             if list(temp_result) == list(temp_true):
                 acc += 1
     return round(float(acc)/len(Result),3)
@@ -410,14 +410,14 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
         train_index = np.append(neg_train_index, pos_train_index, axis=0)
         train_index.sort()
 
-        train_index = map(lambda a: int(a), train_index)
+        train_index = list(map(lambda a: int(a), train_index))
         train_dataX = dataX[train_index, :]
         train_dataY = dataY[train_index]
 
         test_index = np.append(neg_test_index, pos_test_index, axis=0)
         test_index.sort()
 
-        test_index = map(lambda a: int(a), test_index)
+        test_index = list(map(lambda a: int(a), test_index))
         test_dataX = dataX[test_index, :]
         test_dataY = dataY[test_index]
 
@@ -555,11 +555,11 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
 
         Training_Data_Index=np.append(Negative_Data_Index_Training,Positive_Data_Index_Training,axis=0)
         Training_Data_Index.sort()
-        Training_Data_Index = map(lambda a:int(a),Training_Data_Index)
+        Training_Data_Index = list(map(lambda a:int(a),Training_Data_Index))
         Training_Data = Data_[Training_Data_Index,:]
         Testing_Data_Index=np.append(Negative_Data_Index_Testing,Positive_Data_Index_Testing,axis=0)
         Testing_Data_Index.sort()
-        Testing_Data_Index = map(lambda a:int(a),Testing_Data_Index)
+        Testing_Data_Index = list(map(lambda a:int(a),Testing_Data_Index))
         Testing_Data = Data_[Testing_Data_Index,:]
 
 
