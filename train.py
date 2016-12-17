@@ -93,7 +93,6 @@ def train(filename,cross_cv,tab_cross_cv):
             visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
             #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
 
-            print("bbbbbb")
             for i in range(FLAGS.max_epochs):
                 #if early_stopping > 0:
                     #pass
