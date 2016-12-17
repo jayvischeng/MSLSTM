@@ -51,7 +51,6 @@ def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learn
         plt.plot(x, val_loss_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val acc')
 
     plt.xlabel('Epoch',fontsize=12)
-    plt.ylim(0.2,0.85)
     plt.ylabel('Loss',fontsize=12)
     plt.grid()
     plt.tick_params(labelsize=12)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CityU_LAB">
+  <component name="PublishConfigData" autoUpload="Always" serverName="CityU_PC">
     <serverData>
       <paths name="CityU_LAB">
         <serverdata>
@@ -12,7 +12,7 @@
       <paths name="CityU_PC">
         <serverdata>
           <mappings>
-            <mapping deploy="/data/MSLSTM" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/cheng/data/MSLSTM" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

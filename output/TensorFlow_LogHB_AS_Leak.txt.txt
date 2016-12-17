@@ -82,3 +82,5 @@ AL_____epoch:100,_____learning rate:0.001,_____multi_scale:False
 F1_SCORE: 0.691,	AUC: 0.71,	G_MEAN: 0.707,	ACCURACY: 0.71,	
 AL_____epoch:100,_____learning rate:0.001,_____multi_scale:False
 F1_SCORE: 0.646,	AUC: 0.558,	G_MEAN: 0.502,	ACCURACY: 0.559,	
+1L_____epoch:200,_____learning rate:0.01,_____multi_scale:False
+F1_SCORE: 0.624,	AUC: 0.625,	G_MEAN: 0.625,	ACCURACY: 0.625,	

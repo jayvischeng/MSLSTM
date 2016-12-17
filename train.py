@@ -6,8 +6,12 @@ from __future__ import division
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 import os
-from baselines import sclearn
+import time
+start = time.time()
+import baselines
+
 import evaluation
+
 from collections import defaultdict
 import tensorflow as tf
 import mslstm
@@ -27,7 +31,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',2000,"""Batch size""")
-flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',2,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -52,6 +56,7 @@ def train(filename,cross_cv,tab_cross_cv):
         result_list_dict[each] = []
     for tab_cv in range(cross_cv):
         if tab_cv == tab_cross_cv: continue
+
         x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
                                                             filename, FLAGS.sequence_window, tab_cv, cross_cv,
                                                             Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
@@ -91,8 +96,9 @@ def train(filename,cross_cv,tab_cross_cv):
             no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
             visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
-            #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
-
+            visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+            if not os.path.isdir(os.path.join(os.getcwd(), "DDD")):
+                os.makedirs(os.path.join(os.getcwd(), "DDD"))
             for i in range(FLAGS.max_epochs):
                 #if early_stopping > 0:
                     #pass
@@ -222,17 +228,27 @@ def main(unused_argv):
                     FLAGS.is_multi_scale = True
                     FLAGS.wave_type = wave_type_list[wave_type_tab]
                     FLAGS.scale_levels = multi_scale_value_list[wave_type_tab]
-
-                train_acc,val_acc,train_loss,val_loss = train(filename, cross_cv,tab_cross_cv)
+                try:
+                    if not os.path.isdir(os.path.join(os.getcwd(), "BBB")):
+                        os.makedirs(os.path.join(os.getcwd(), "BBB"))
+                    train_acc,val_acc,train_loss,val_loss = train(filename, cross_cv,tab_cross_cv)
+                except:
+                    end = time.time()
+                    print("The time elapsed :  "+ str(end-start) + ' seconds.\n')
+                    print(each_case)
+                    print(filename)
+                    print(cross_cv)
+                    print(tab_cross_cv)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
                 val_acc_list.append(val_acc)
                 train_loss_list.append(train_loss)
                 val_loss_list.append(val_loss)
 
-            print(case_list)
-            print(train_acc_list)
-            print(val_loss_list)
+            #print(case_list)
+            #print(train_acc_list)
+            #print(val_loss_list)
+
             visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
             visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
 
@@ -241,9 +257,11 @@ def main(unused_argv):
     #method_list1 = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #method_list2 = ["MLP","RNN","LSTM"]
     #for each_method in method_list1:
-       #sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
+       #baselines.sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
     #for each_method in method_list2:
-        #sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
+        #baselines.sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
 
 if __name__ == "__main__":
+    if not os.path.isdir(os.path.join(os.getcwd(), "BBB")):
+        os.makedirs(os.path.join(os.getcwd(), "BBB"))
     tf.app.run()
