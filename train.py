@@ -26,9 +26,9 @@ flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
-flags.DEFINE_string('batch_size',200,"""Batch size""")
-flags.DEFINE_string('max_epochs',100,"""Number of epochs to run""")
-flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
+flags.DEFINE_string('batch_size',2000,"""Batch size""")
+flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
+flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
 flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
@@ -153,7 +153,6 @@ def train(filename,cross_cv,tab_cross_cv):
 
         for each_eval, each_result in results.items():
             result_list_dict[each_eval].append(each_result)
-        print(result_list_dict)
 
 
     with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
@@ -207,7 +206,7 @@ def main(unused_argv):
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
     cross_cv = 2
-    tab_cross_cv = 1
+    tab_cross_cv = 0
 
     for filename in filename_list:
         for wave_type_tab in range(len(wave_type_list)):
@@ -220,7 +219,6 @@ def main(unused_argv):
                 FLAGS.option = each_case
                 if each_case == '1L' or each_case == '2L' or 'AL' == each_case:
                     FLAGS.is_multi_scale = False
-                    FLAGS.learning_rate = 0.001
                 else:
                     FLAGS.is_multi_scale = True
                     FLAGS.wave_type = wave_type_list[wave_type_tab]
