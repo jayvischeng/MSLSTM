@@ -47,8 +47,8 @@ def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learn
     x = [i+1 for i in range(epoch)]
     plt.figure()
     for tab in range(len(case_list)):
-        plt.plot(x,train_loss_list[tab],color_list[tab],label=case_list[tab] + ' train acc')
-        plt.plot(x, val_loss_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val acc')
+        plt.plot(x,train_loss_list[tab],color_list[tab],label=case_list[tab] + ' train loss')
+        plt.plot(x, val_loss_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val loss')
 
     plt.xlabel('Epoch',fontsize=12)
     plt.ylabel('Loss',fontsize=12)
@@ -132,18 +132,12 @@ def Quxian_Plotting(dataX,dataY,feature,name):
         y.append(dataX[i][:,feature][-1])
     x = [i for i in range(len(y))]
     z = [i  for i in range(len(dataY)) if int(dataY[i][0]) == 1]
-    print("1111111111111111111")
     plt.plot(x,np.array(y),'b')
-    print("2222222222222222222")
     plt.plot(z,np.array(y)[z],'r')
-    print("3333333333333333333")
     plt.tight_layout()
-    print("4444444444444444444")
     plt.grid()
-    print("5555555555555555555")
     plt.clf()
     #plt.show()
-    print("6666666666666666666")
     plt.savefig(name + '.pdf', dpi=400)
 
 

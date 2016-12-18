@@ -5,6 +5,7 @@ import time
 import random
 import shutil
 import os
+import sys
 start = time.time()
 import numpy as np
 from numpy import *
@@ -14,6 +15,9 @@ from keras.utils import np_utils
 import matplotlib
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
+def pprint(msg):
+    print(msg)
+    sys.stderr.write(msg+'\n')
 def get_auc(arr_score, arr_label, pos_label):
     score_label_list = []
     for index in xrange(len(arr_score)):
@@ -377,7 +381,7 @@ def Mix_Multi_Scale1(trainX_multi,trainY,pooling_type):
     return np.array(temp_trainX),trainY
 
 def returnTabData(current_cv,cross_cv,dataX,dataY):
-    global positive_sign,negative_sign
+    global positive_sign,negative_sign,filename
 
     positive_index = returnPositiveIndex(dataY, negative_sign)
     negative_index = returnNegativeIndex(dataY, negative_sign)
@@ -423,7 +427,8 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
 
         #min_number = min(len(train_dataX),len(test_dataX))
 
-        print(str(tab_cross + 1) + "th Cross Validation is running and the training size is ")
+        pprint(str(tab_cross + 1) + "th Cross Validation of "+filename+" is running and the training size is shape("+str(len(train_dataX))+','+str(len(train_dataX[0]))+').')
+        pprint(str(tab_cross + 1) + "th Cross Validation of "+filename+" is running and the testing size is shape("+str(len(test_dataX))+','+str(len(test_dataX[0]))+').')
 
         return train_dataX,train_dataY,test_dataX,test_dataY
 
@@ -431,7 +436,7 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
 
 def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=True,Wave_Let_Scale=-1,Wave_Type="db1",Time_Scale_Size=1):
 
-    global positive_sign,negative_sign,output_folder
+    global positive_sign,negative_sign,output_folder,filename
     positive_sign = 0
     negative_sign = 1
     output_folder = "output"
@@ -441,6 +446,7 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
 
     Data_=LoadData(Fila_Path,FileName)
+    filename = FileName
     scaler = preprocessing.StandardScaler()
 
    # X_,Y_,X_Validation, Y_Validation = returnTabData(0, 3, Data_[:,:-1],Data_[:,-1])
@@ -680,7 +686,7 @@ if __name__=='__main__':
         else:
             training_level = 10
             is_multi_scale = True
-        print(eachfile+ " is processing---------------------------------------------------------------------------------------------")
+        pprint(eachfile+ " is processing---------------------------------------------------------------------------------------------")
         x_train, y_train,x_test, y_test = GetData(pooling_type,is_add_noise,noise_ratio,'Attention',filepath, filename, sequence_window,tab_cv,cross_cv,Multi_Scale=is_multi_scale,Wave_Let_Scale=training_level,Wave_Type=wave_type)
 
         #for lstm_size in lstm_size_list:

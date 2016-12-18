@@ -142,12 +142,8 @@ def inference(data,label,option):
         #m_temp = [tf.matmul(u_current_levels[i],val3[i]) for i in range(FLAGS.batch_size)]
         #m_temp = tf.reshape(m_temp,(-1,200,FLAGS.batch_size))
         m_temp = tf.matmul(u_current_levels,val)
-        print("AAAAAAAAAAAAA")
-        print(u_current_levels.get_shape())
-        print(val.get_shape())
         #print((tf.matmul(last, weight_h) + bias_h).get_shape())
         #print((tf.exp(batch_vm(u_current_levels_temp, tf.transpose(u_w)))).get_shape())
-        print(m_temp.get_shape())
         m_temp = tf.reshape(m_temp,(-1,FLAGS.num_neurons1))
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
