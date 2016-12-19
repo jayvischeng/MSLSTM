@@ -44,7 +44,7 @@ def pprint(msg):
     if not 'Warning' in msg:
         sys.stdout = printlog.PyLogger('')
         print(msg)
-        #sys.stderr.write(msg+'\n')
+        sys.stderr.write(msg+'\n')
         #sys.stdout.flush()
 def sess_run(commander,data,label):
     global sess, data_x, data_y
