@@ -207,8 +207,8 @@ def main(unused_argv):
     #multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
 
     #case = ['1L','2L','AL','HL','HAL']
-    #case = ['1L','2L','AL']
-    case = ['HL']
+    case = ['1L','2L','AL','HL']
+    #case = ['HL']
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
