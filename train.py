@@ -197,8 +197,8 @@ def train(filename,cross_cv,tab_cross_cv):
     """
 def main(unused_argv):
     #main function
-    filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
-    #filename_list = ["HB_Slammer.txt"]
+    #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
+    filename_list = ["HB_AS_Leak.txt"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['db1']
@@ -207,7 +207,8 @@ def main(unused_argv):
     #multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
 
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['1L','2L','AL']
+    #case = ['1L','2L','AL']
+    case = ['HL']
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 

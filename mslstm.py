@@ -50,7 +50,7 @@ def loss(predict,label):
     cost_cross_entropy = tf.reduce_mean(
         tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
 
-    #tf.scalar_summary("loss", cost_cross_entropy)
+    tf.scalar_summary("loss_c", cost_cross_entropy)
     return cost_cross_entropy
 
 def print_info(tensor,name):
