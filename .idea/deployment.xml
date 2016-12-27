@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CityU_PC">
+  <component name="PublishConfigData" autoUpload="Always" serverName="CityU_LAB">
     <serverData>
       <paths name="CityU_LAB">
         <serverdata>
           <mappings>
-            <mapping deploy="/MSLSTM" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/UCR_TS_Archive_2015" />
-          </excludedPaths>
-        </serverdata>
-      </paths>
-      <paths name="CityU_PC">
-        <serverdata>
-          <mappings>
-            <mapping deploy="/home/cheng/data/MSLSTM" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/data/MSLSTM" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/UCR_TS_Archive_2015" />

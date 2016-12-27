@@ -8,7 +8,7 @@ import printlog
 import datetime
 import os
 import time
-import baselines
+from baselines import sclearn
 import evaluation
 from collections import defaultdict
 import tensorflow as tf
@@ -30,7 +30,7 @@ flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
 flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
-flags.DEFINE_string('learning_rate',0.002,"""Learning rate""")
+flags.DEFINE_string('learning_rate',0.02,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
 flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
@@ -50,115 +50,109 @@ def sess_run(commander,data,label):
     global sess, data_x, data_y
     return sess.run(commander, {data_x: data, data_y: label})
 
-
-def train(filename,cross_cv,tab_cross_cv):
+def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     global sess, data_x, data_y
-    result_list_dict = defaultdict(list)
-    evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
-    for each in evaluation_list:
-        result_list_dict[each] = []
-    for tab_cv in range(cross_cv):
-        if tab_cv == tab_cross_cv: continue
+    FLAGS.option = method
 
-        x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
-                                                            filename, FLAGS.sequence_window, tab_cv, cross_cv,
-                                                            Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
-                                                            Wave_Type=FLAGS.wave_type)
+    x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
+                                                        filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                                        Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
+                                                        Wave_Type=FLAGS.wave_type)
 
-        with tf.Graph().as_default():
-        #with tf.variable_scope("middle")as scope:
-            tf.set_random_seed(1337)
+    with tf.Graph().as_default():
+    #with tf.variable_scope("middle")as scope:
+        tf.set_random_seed(1337)
 
-            #global_step = tf.Variable(0,name="global_step",trainable=False)
-            data_x,data_y = mslstm.inputs(FLAGS.option)
-            prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
-            loss = mslstm.loss(prediction, label)
-            optimizer = mslstm.train(loss)
-            minimize = optimizer.minimize(loss)
-            correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
-            accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+        #global_step = tf.Variable(0,name="global_step",trainable=False)
+        data_x,data_y = mslstm.inputs(FLAGS.option)
+        prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
+        loss = mslstm.loss(prediction, label)
+        optimizer = mslstm.train(loss)
+        minimize = optimizer.minimize(loss)
+        correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
+        accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-            #summary_op = tf.merge_all_summaries()
+        #summary_op = tf.merge_all_summaries()
 
-            init_op = tf.global_variables_initializer()
+        init_op = tf.global_variables_initializer()
 
-            sess = tf.Session()
-            sess.run(init_op)
+        sess = tf.Session()
+        sess.run(init_op)
 
 
-            #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
-            #saver = tf.train.Saver()
+        #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
+        #saver = tf.train.Saver()
 
-            epoch_training_loss_list = []
-            epoch_training_acc_list = []
-            epoch_val_loss_list = []
-            epoch_val_acc_list = []
-            #weight_list = []
-            early_stopping = 100
-            no_of_batches = int(len(x_train) / FLAGS.batch_size)
+        epoch_training_loss_list = []
+        epoch_training_acc_list = []
+        epoch_val_loss_list = []
+        epoch_val_acc_list = []
+        #weight_list = []
+        early_stopping = 100
+        no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
-            visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
-            visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
-            for i in range(FLAGS.max_epochs):
-                #if early_stopping > 0:
-                    #pass
-                #else:
-                    #break
-                ptr = 0
+        visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
+        visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+        for i in range(FLAGS.max_epochs):
+            #if early_stopping > 0:
+                #pass
+            #else:
+                #break
+            ptr = 0
 
-                for j in range(no_of_batches):
-                    #pprint(str(i+1)+'th epoches,'+str(j+1)+'th batches')
-                    inp, out = x_train[ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
-                    inp2, out2 = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
+            for j in range(no_of_batches):
+                #pprint(str(i+1)+'th epoches,'+str(j+1)+'th batches')
+                inp, out = x_train[ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
+                inp2, out2 = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
 
-                    #inp, out = x_train[:, ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
-                    #inp2, out2 = x_test[:, ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
+                #inp, out = x_train[:, ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
+                #inp2, out2 = x_test[:, ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
 
-                    ptr += FLAGS.batch_size
-                    sess_run(minimize,inp,out)
-                    training_acc, training_loss = sess_run((accuracy,loss),inp,out)
-                    val_acc, val_loss = sess_run((accuracy,loss),inp2,out2)
+                ptr += FLAGS.batch_size
+                sess_run(minimize,inp,out)
+                training_acc, training_loss = sess_run((accuracy,loss),inp,out)
+                val_acc, val_loss = sess_run((accuracy,loss),inp2,out2)
 
-                    #if j%5 == 0:
-                        #summary_str = sess.run(summary_op, {data_x: inp, data_y: out})
-                        #summary_writer.add_summary(summary_str, i * no_of_batches)
+                #if j%5 == 0:
+                    #summary_str = sess.run(summary_op, {data_x: inp, data_y: out})
+                    #summary_writer.add_summary(summary_str, i * no_of_batches)
 
-                epoch_training_loss_list.append(training_loss)
-                epoch_training_acc_list.append(training_acc)
-                epoch_val_loss_list.append(val_loss)
-                epoch_val_acc_list.append(val_acc)
+            epoch_training_loss_list.append(training_loss)
+            epoch_training_acc_list.append(training_acc)
+            epoch_val_loss_list.append(val_loss)
+            epoch_val_acc_list.append(val_acc)
 
-                pprint(FLAGS.option+"_Epoch%s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (str(training_acc), str(training_loss)) \
-                      + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)))
+            pprint(FLAGS.option+"_Epoch%s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (str(training_acc), str(training_loss)) \
+                  + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)))
 
-                try:
-                    max_val_acc = epoch_val_acc_list[-2]
-                except:
-                    max_val_acc = 0
+            try:
+                max_val_acc = epoch_val_acc_list[-2]
+            except:
+                max_val_acc = 0
 
-                if epoch_val_acc_list[-1] < max_val_acc:
-                    early_stopping -= 1
-                elif epoch_val_acc_list[-1] >= max_val_acc:
-                    early_stopping = 10
+            if epoch_val_acc_list[-1] < max_val_acc:
+                early_stopping -= 1
+            elif epoch_val_acc_list[-1] >= max_val_acc:
+                early_stopping = 10
 
 
-            weight_list = []
-            result = sess.run(prediction, {data_x:x_test, data_y: y_test})
-            #for t in range(int(len(y_test)/FLAGS.batch_size)):
-                #inp_test, out_test = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
-                #result.append(sess.run(prediction, {data_x:inp_test, data_y: out_test}))
-                #weight_list.append(sess.run(out_put_u_w_scale, {data_original_train: inp_test, target: out_test}))
-                #ptr += FLAGS.batch_size
-            #x_ = [i for i in range(FLAGS.scale_levels)]
-            #y_ = [i for i in range(int(len(y_test)/FLAGS.batch_size))]
-            #x_,y_ = np.meshgrid(x_,y_)
-            #plt.plot(np.array(x_),np.array(y_),np.array(result))
-            #plt.show()
-        sess.close()
-        results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
+        weight_list = []
+        result = sess.run(prediction, {data_x:x_test, data_y: y_test})
+        #for t in range(int(len(y_test)/FLAGS.batch_size)):
+            #inp_test, out_test = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
+            #result.append(sess.run(prediction, {data_x:inp_test, data_y: out_test}))
+            #weight_list.append(sess.run(out_put_u_w_scale, {data_original_train: inp_test, target: out_test}))
+            #ptr += FLAGS.batch_size
+        #x_ = [i for i in range(FLAGS.scale_levels)]
+        #y_ = [i for i in range(int(len(y_test)/FLAGS.batch_size))]
+        #x_,y_ = np.meshgrid(x_,y_)
+        #plt.plot(np.array(x_),np.array(y_),np.array(result))
+        #plt.show()
+    sess.close()
+    results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
 
-        for each_eval, each_result in results.items():
-            result_list_dict[each_eval].append(each_result)
+    for each_eval, each_result in results.items():
+        result_list_dict[each_eval].append(each_result)
 
 
     with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
@@ -173,7 +167,7 @@ def train(filename,cross_cv,tab_cross_cv):
         fout.write('\n')
 
     return epoch_training_acc_list,epoch_val_acc_list,epoch_training_loss_list,epoch_val_loss_list
-    """
+"""
             try:
                 weight_list = []
                 result = []1
@@ -194,8 +188,32 @@ def train(filename,cross_cv,tab_cross_cv):
                 plt.show()
             except:
                 pass
-    """
+"""
+def train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
+    return sclearn.Basemodel(method,filename,cross_cv,tab_cross_cv)
+def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
+    global sess, data_x, data_y
+    result_list_dict = defaultdict(list)
+    evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
+    for each in evaluation_list:
+        result_list_dict[each] = []
+    for tab_cv in range(cross_cv):
+        if tab_cv == tab_cross_cv: continue
+        if 'L' in method:
+            if method == '1L' or method == '2L' or 'AL' == method:
+                FLAGS.is_multi_scale = False
+            else:
+                FLAGS.is_multi_scale = True
+                FLAGS.wave_type = wave_type
+            return train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
+        else:
+            sys.stdout = tempstdout
+            return train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
+
+
 def main(unused_argv):
+    global tempstdout
+
     #main function
     #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
     filename_list = ["HB_AS_Leak.txt"]
@@ -207,59 +225,49 @@ def main(unused_argv):
     #multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
 
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['1L','2L','AL','HL']
-    #case = ['HL']
+    #case = ['1L','2L','AL','HL']
+    case = ['1L']
+    #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
+    # method_list2 = ["MLP","RNN","LSTM"]
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
     cross_cv = 2
-    tab_cross_cv = 0
+    tab_cross_cv = 1
+    wave_type = wave_type_list[0]
 
     for filename in filename_list:
-        for wave_type_tab in range(len(wave_type_list)):
-            case_list = []
-            train_acc_list = []
-            val_acc_list = []
-            train_loss_list = []
-            val_loss_list = []
-            for each_case in case:
-                FLAGS.option = each_case
-                if each_case == '1L' or each_case == '2L' or 'AL' == each_case:
-                    FLAGS.is_multi_scale = False
-                else:
-                    FLAGS.is_multi_scale = True
-                    FLAGS.wave_type = wave_type_list[wave_type_tab]
-                    FLAGS.scale_levels = multi_scale_value_list[wave_type_tab]
-                train_acc,val_acc,train_loss,val_loss = train(filename, cross_cv,tab_cross_cv)
+        case_list = []
+        train_acc_list = []
+        val_acc_list = []
+        train_loss_list = []
+        val_loss_list = []
 
-                #pprint(each_case)
-                #pprint(filename)
-                #pprint(cross_cv)
-                #pprint(tab_cross_cv)
+        for each_case in case:
+            if not 1>0:
+                train_acc,val_acc,train_loss,val_loss = train(each_case,filename, cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
                 val_acc_list.append(val_acc)
                 train_loss_list.append(train_loss)
                 val_loss_list.append(val_loss)
 
-            #pprint(case_list)
-            #pprint(train_acc_list)
-            #pprint(val_loss_list)
+                visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
+                visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+            else:
+                train(each_case, filename, cross_cv, tab_cross_cv, wave_type)
 
-            visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
-            visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
 
 #----------------------------------For comparison------------------------------------------------------
-    #method_list1 = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
-    #method_list2 = ["MLP","RNN","LSTM"]
-    #for each_method in method_list1:
-       #baselines.sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
+
     #for each_method in method_list2:
         #baselines.sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
 
 if __name__ == "__main__":
-    pprint("-----------------------------------------------------------------------------"+str(datetime.datetime.now())+"----------------------------------------------------------")
+    global tempstdout
+    tempstdout = sys.stdout
+    pprint("------------------------------------------------"+str(datetime.datetime.now())+"--------------------------------------------")
     start = time.time()
     tf.app.run()

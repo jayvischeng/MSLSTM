@@ -132,3 +132,9 @@ F1_SCORE: 0.623,	AUC: 0.669,	G_MEAN: 0.657,	ACCURACY: 0.668,
 F1_SCORE: 0.497,	AUC: 0.617,	G_MEAN: 0.569,	ACCURACY: 0.616,	
 AL_____epoch:2,_____learning rate:0.01,_____multi_scale:False
 F1_SCORE: 0.588,	AUC: 0.595,	G_MEAN: 0.595,	ACCURACY: 0.595,	
+1L_____epoch:200,_____learning rate:0.02,_____multi_scale:False
+F1_SCORE: 0.641,	AUC: 0.609,	G_MEAN: 0.603,	ACCURACY: 0.61,	
+1L_____epoch:200,_____learning rate:0.02,_____multi_scale:False
+F1_SCORE: 0.627,	AUC: 0.647,	G_MEAN: 0.645,	ACCURACY: 0.647,	
+1L_____epoch:200,_____learning rate:0.02,_____multi_scale:False
+F1_SCORE: 0.627,	AUC: 0.647,	G_MEAN: 0.645,	ACCURACY: 0.647,	

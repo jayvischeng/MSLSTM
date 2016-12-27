@@ -20,11 +20,12 @@ def batch_vm2(x, m):
 
 
 import numpy as np
+import random
 #A = tf.Variable(tf.truncated_normal(shape=[2,3,2]))
-A = tf.constant(np.arange(1,13), shape=[4,2,3],dtype=tf.float32)
+A = tf.constant(np.array([1,2,1,1,2]), shape=[1,5],dtype=tf.float32)
 #A = tf.reshape(A,(4,2,3))
 #B = tf.Variable(tf.truncated_normal(shape=[2,3,2]))
-B = tf.constant(np.arange(13,25), shape=[4, 3, 2],dtype=tf.float32)
+B = tf.constant(np.array([2,1,1,1,1]), shape=[1,5],dtype=tf.float32)
 #B = tf.tranpose(tf.truncated_normal([2,3,4]))
 
 #B = tf.Variable(tf.constant(0.1,shape = [1,10]))
@@ -42,13 +43,14 @@ B = tf.constant(np.arange(13,25), shape=[4, 3, 2],dtype=tf.float32)
 #B = tf.gather(tf.reshape(A,(6,4,5)),[0])
 #C = tf.div(A,B)
 #C = batch_vm2(B,A)
-C = tf.batch_mul(A,B)
-
-
+C = tf.nn.sigmoid_cross_entropy_with_logits(A, B, name=None)
+D = tf.reduce_mean(C)
+E = tf.reduce_sum(C)/5.0
 output_A = tf.Print(A,[A],message = "A shape is :", first_n=4096, summarize=40)
 output_B = tf.Print(B,[B],message = "B  is :", first_n=4096, summarize=40)
 output_C = tf.Print(C,[C],message = "C shape is :", first_n=4096, summarize=40)
-#output_D = tf.Print(D,[D],message = "D shape is :", first_n=4096, summarize=40)
+output_D = tf.Print(D,[D],message = "D shape is :", first_n=4096, summarize=40)
+output_E = tf.Print(E,[E],message = "E shape is :", first_n=4096, summarize=40)
 
 #B = C
 #C = tf.div(B,tf.gather(tf.gather(tf.cumsum(B,axis = 1),0),5))
@@ -61,6 +63,8 @@ sess.run(tf.initialize_all_variables())
 sess.run(output_A)
 sess.run(output_B)
 sess.run(output_C)
+sess.run(output_D)
+sess.run(output_E)
 
 
 

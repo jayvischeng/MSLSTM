@@ -10,14 +10,6 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
-      <webServer id="839aac61-07ec-4d15-ae85-fb8633086116" name="CityU_PC" url="http://10.37.1.161">
-        <fileTransfer host="10.37.1.161" port="22" accessType="SFTP">
-          <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" />
-          </advancedOptions>
-          <option name="port" value="22" />
-        </fileTransfer>
-      </webServer>
     </option>
   </component>
 </project>

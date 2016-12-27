@@ -4,8 +4,14 @@ mincheng:mc.cheng@my.cityu.edu.hk
 """
 from __future__ import division
 import tensorflow as tf
+import printlog
+import sys
 FLAGS = tf.app.flags.FLAGS
-
+def pprint(msg):
+    if not 'Warning' in msg:
+        sys.stdout = printlog.PyLogger('')
+        print(msg)
+        sys.stderr.write(msg+'\n')
 def inputs(option):
     if option == '1L' or option == '2L' or option == 'AL':
         data_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.sequence_window, FLAGS.input_dim])
@@ -47,9 +53,9 @@ def normalized_scale_levels(scales_list):
 
 def loss(predict,label):
     #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
-    cost_cross_entropy = tf.reduce_mean(
-        tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
-
+    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    #cost_cross_entropy = tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))/FLAGS.batch_size  # Sigmoid
+    pprint("the length of predict is "+str(predict.get_shape()[0]) + "and the batch_size is "+str(FLAGS.batch_size))
     tf.scalar_summary("loss_c", cost_cross_entropy)
     return cost_cross_entropy
 
@@ -216,11 +222,7 @@ def inference(data,label,option):
         # u_w_scales_normalized = tf.Variable(tf.constant(1.0/number_scale_levels,shape=[1,number_scale_levels]), name="u_w")
         # u_w_scales_normalized = normalized_scale_levels(u_w_scales_normalized)
         # u_w = tf.Variable(tf.random_normal(shape=[1,sequence_window]), name="u_w")
-
-
-
         # output_data_original_train = tf.Print(data_original_train,[data_original_train],"The Original Train  is :",first_n=4096,summarize=40)
-
         # data_original_train = tf.placeholder(tf.float32,[batch_size,sequence_window,input_dim])
 
         u_w_AAA = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w_AAA")
@@ -255,8 +257,6 @@ def inference(data,label,option):
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(target.get_shape()[1])]))
         bias = tf.Variable(tf.constant(0.1, shape=[target.get_shape()[1]]))
         prediction = tf.nn.softmax(tf.matmul(m_total, weight) + bias)
-
-
 
 
     return prediction,label

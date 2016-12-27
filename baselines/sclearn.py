@@ -11,12 +11,10 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import loaddata
 import os
-
 flags = tf.app.flags
-
 FLAGS = flags.FLAGS
 
-def Basemodel(_model,filename,cross_cv):
+def Basemodel(_model,filename,cross_cv,tab_crosscv):
     filepath = FLAGS.data_dir
     sequence_window = FLAGS.sequence_window
     is_multi_scale = FLAGS.is_multi_scale
@@ -33,10 +31,11 @@ def Basemodel(_model,filename,cross_cv):
     # num_selected_features = 32#Slammer tab=0
     num_selected_features = 33  # Nimda tab=1
     for tab_cv in range(cross_cv):
+        if tab_crosscv == tab_cv:continue
         if _model == "SVM":
             x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
                                                                                             filepath, filename,
-                                                                                            sequence_window, tab_cv,
+                                                                                            sequence_window, tab_crosscv,
                                                                                             cross_cv,
                                                                                             Multi_Scale=is_multi_scale,
                                                                                             Wave_Let_Scale=training_level,
@@ -44,7 +43,7 @@ def Basemodel(_model,filename,cross_cv):
 
             print(_model + " is running..............................................")
             y_train = y_train0
-            clf = svm.SVC(kernel="rbf", gamma=0.00001, C=100000, probability=True)
+            clf = svm.SVC(kernel="rbf", gamma=0.001, C=5000, probability=True)
             print(x_train.shape)
             clf.fit(x_train, y_train)
             result = clf.predict_proba(x_test)
@@ -187,7 +186,7 @@ def Basemodel(_model,filename,cross_cv):
             for eachk, eachv in result_list_dict.items():
                 fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
             fout.write('\n')
-
+    print(results)
     return results
     # return epoch_training_loss_list,epoch_val_loss_list
 

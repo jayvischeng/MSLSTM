@@ -613,7 +613,7 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
         encoded_Y2 = Y_Testing_Encoder.transform(Y_Testing)
         # convert integers to dummy variables (i.e. one hot encoded)
         Y_Testing = np_utils.to_categorical(encoded_Y2)
-        return X_Training,Y_Training,np.array(Training_Data[:, -1]),X_Testing,Y_Testing,np.array(Testing_Data[:, -1])
+        return X_Training[20:],Y_Training[20:],np.array(Training_Data[:, -1])[20:],X_Testing[20:],Y_Testing[20:],np.array(Testing_Data[:, -1])[20:]
 
 
 def get_all_subfactors(number):
