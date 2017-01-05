@@ -19,18 +19,18 @@ import visualize
 
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
-flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
+flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
-flags.DEFINE_string('num_neurons1',200,"""Number of hidden units""")
-flags.DEFINE_string('num_neurons2',200,"""Number of hidden units""")
+flags.DEFINE_string('num_neurons1',150,"""Number of hidden units""")
+flags.DEFINE_string('num_neurons2',100,"""Number of hidden units""")
 flags.DEFINE_string('sequence_window',20,"""Sequence window size""")
 flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
-flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
-flags.DEFINE_string('learning_rate',0.02,"""Learning rate""")
+flags.DEFINE_string('max_epochs',250,"""Number of epochs to run""")
+flags.DEFINE_string('learning_rate',0.1,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
 flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
@@ -45,6 +45,8 @@ def pprint(msg):
         sys.stdout = printlog.PyLogger('')
         print(msg)
         sys.stderr.write(msg+'\n')
+
+
         #sys.stdout.flush()
 def sess_run(commander,data,label):
     global sess, data_x, data_y
@@ -78,8 +80,6 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
         sess = tf.Session()
         sess.run(init_op)
-
-
         #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
         #saver = tf.train.Saver()
 
@@ -200,9 +200,15 @@ def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
     for tab_cv in range(cross_cv):
         if tab_cv == tab_cross_cv: continue
         if 'L' in method:
-            if method == '1L' or method == '2L' or 'AL' == method:
+            sys.stdout = tempstdout
+            if method == '1L' or method == '2L':
+                FLAGS.learning_rate = 0.05
+                FLAGS.is_multi_scale = False
+            elif 'AL' == method:
+                FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             else:
+                FLAGS.learning_rate = 0.05
                 FLAGS.is_multi_scale = True
                 FLAGS.wave_type = wave_type
             return train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
@@ -225,8 +231,9 @@ def main(unused_argv):
     #multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
 
     #case = ['1L','2L','AL','HL','HAL']
-    #case = ['1L','2L','AL','HL']
-    case = ['1L']
+    #case = ['1L','AL']
+    case = ['1L','HL']
+    #case = ['HL','AL','HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     # method_list2 = ["MLP","RNN","LSTM"]
 
@@ -244,7 +251,7 @@ def main(unused_argv):
         val_loss_list = []
 
         for each_case in case:
-            if not 1>0:
+            if 1>0:
                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename, cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
