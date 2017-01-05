@@ -32,10 +32,10 @@ def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learni
     plt.legend(loc='lower right',fontsize=8)
     plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
     if corss_val_label == 0:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"2Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+".pdf"),dpi=400)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
     else:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"), dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"2Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+".pdf"), dpi=400)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_ACC_" + filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"), dpi=400)
 
 def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learning_rate,train_loss_list,val_loss_list):
@@ -58,10 +58,10 @@ def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learn
     plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
 
     if cross_val_label == 0:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".pdf"),dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"2Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+".pdf"),dpi=400)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
     else:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".pdf"), dpi=400)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"2Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window) + ".pdf"), dpi=400)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Epoch_Loss_" + filename + "_SW_" + str(sequence_window)+"_LR_"+str(learning_rate) + ".png"), dpi=400)
 
 def weight_plotting(filename,sequence_window,corss_val_label,learning_rate,weight_list):
@@ -103,10 +103,10 @@ def weight_plotting(filename,sequence_window,corss_val_label,learning_rate,weigh
     """
     plt.tight_layout()
     if corss_val_label == 0:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".pdf"), dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"ATab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".pdf"), dpi=600)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Weight_list_" + filename + "_SW_" + str(sequence_window) +"_LR_"+str(learning_rate) + ".png"), dpi=600)
     else:
-        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".pdf"),dpi=600)
+        plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"ATab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".pdf"),dpi=600)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_B_Weight_list_"+filename+"_SW_"+str(sequence_window)+".png"),dpi=600)
 
 def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super_title',save_fig='save_fig'):
