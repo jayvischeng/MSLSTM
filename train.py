@@ -16,7 +16,7 @@ import mslstm
 import loaddata
 import numpy as np
 import visualize
-
+from baselines import nnkeras,sclearn
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
@@ -253,11 +253,11 @@ def main(unused_argv):
 
     #case = ['1L','2L','AL','HL','HAL']
     #case = ['1L','AL']
-    case = ['HAL']
+    #case = ['HAL']
     #case = ['HL','AL','HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
-    # method_list2 = ["MLP","RNN","LSTM"]
-
+    #case = ["MLP","RNN","LSTM"]
+    case = ["LSTM"]
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
     cross_cv = 2
@@ -272,7 +272,7 @@ def main(unused_argv):
         val_loss_list = []
 
         for each_case in case:
-            if 1>0:
+            if 1<0: #
                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename, cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
@@ -283,7 +283,12 @@ def main(unused_argv):
                 visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
                 visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
             else:
-                train(each_case, filename, cross_cv, tab_cross_cv, wave_type)
+
+                #train(each_case, filename, cross_cv, tab_cross_cv, wave_type)
+                sys.stdout = tempstdout
+                #sclearn.Basemodel(each_case,"HB_AS_Leak.txt",2,0)
+
+                nnkeras.Basemodel(each_case,"HB_AS_Leak.txt",2,0)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
