@@ -7,9 +7,9 @@ import tensorflow as tf
 import printlog
 import sys
 FLAGS = tf.app.flags.FLAGS
-def pprint(msg):
+def pprint(msg,method=''):
     if not 'Warning' in msg:
-        sys.stdout = printlog.PyLogger('')
+        sys.stdout = printlog.PyLogger('',method)
         print(msg)
         sys.stderr.write(msg+'\n')
 def inputs(option):
@@ -67,18 +67,18 @@ def print_info(tensor,name):
 
 def inference(data,label,option):
     if option == '1L':#pure one-layer lstm
-
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
-
-        val = tf.transpose(val, [1, 0, 2])
-        last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        #val = tf.transpose(val, [1, 0, 2])
+        #last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        last = tf.gather(tf.transpose(val, [1, 0, 2]), int(val.get_shape()[1]) - 1)
 
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
         #tf.scalar_summary("weight", weight)
+
     elif option == '2L':#two-layer lstm
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
@@ -105,7 +105,7 @@ def inference(data,label,option):
         # scale_weight = tf.mul(scale_weight,tf.exp(tf.sub(total_error,training_error)))
         print(tf.gather(training_error, 0).get_shape())
         data2 = tf.mul(scale_weight, data_for_lstm)
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data2, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
@@ -117,51 +117,49 @@ def inference(data,label,option):
         #u_w_scales_normalized = tf.Variable(tf.constant(1.0 / FLAGS.scale_levels, shape=[1, FLAGS.scale_levels]),name="u_w")
         #u_w_scales_normalized = normalized_scale_levels(u_w_scales_normalized)
         #u_w = tf.Variable(tf.random_normal(shape=[1, FLAGS.scale_levels]), name="u_w")
-        u_w = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w")
-        u_w_one = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window,1]),name="u_w_one")
-        #data = tf.transpose(data,[1,0,2,3])
-        #data1 = tf.transpose(data, [1, 2, 3, 0])
-        #data_merged = batch_vm2(data1, tf.transpose(u_w_scales_normalized))
-        #data_merged = tf.reshape(data_merged, (-1, FLAGS.sequence_window, FLAGS.input_dim))
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
-        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        u_ = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w")
+        w_ones = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window,1]),name="u_w_one")
 
-        #val1 = tf.transpose(val, [1, 0, 2])
-        #last = tf.gather(val, int(val1.get_shape()[0]) - 1)
-        #val = tf.transpose(val, [1, 0, 2])
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        #last = tf.gather(tf.transpose(val, [1, 0, 2]), int(val.get_shape()[1]) - 1)
+
         val2 = tf.reshape(val,(-1,FLAGS.num_neurons1))
         weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.sequence_window]),name='weight_h')
         bias_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.sequence_window]))
-        u_current_levels_temp = tf.reshape((tf.matmul(val2, weight_h) + bias_h),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
+        u_levels = tf.reshape((tf.matmul(val2, weight_h) + bias_h),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
 
-        u_current_levels_temp2 = tf.transpose(u_current_levels_temp,[2,1,0])
-        u_current_levels_temp2 = tf.reshape(u_current_levels_temp2,(20,-1))
-        u_current_levels_temp3 = tf.exp(tf.matmul(u_w,u_current_levels_temp2))
-        u_current_levels_temp4 = tf.reshape(u_current_levels_temp3,(-1,20))
-        u_current_levels_temp5 = tf.matmul(u_current_levels_temp4,u_w_one)
 
-        u_current_levels = tf.div(u_current_levels_temp4, u_current_levels_temp5)
-        #val3 = tf.transpose(val,[1,2,0])
-        #val4 = tf.reshape(val3,(20,-1))
-        u_current_levels = tf.reshape(u_current_levels,(-1,1,20))
-        #m_temp = [tf.matmul(u_current_levels[i],val3[i]) for i in range(FLAGS.batch_size)]
-        #m_temp = tf.reshape(m_temp,(-1,200,FLAGS.batch_size))
-        m_temp = tf.matmul(u_current_levels,val)
-        #print((tf.matmul(last, weight_h) + bias_h).get_shape())
-        #print((tf.exp(batch_vm(u_current_levels_temp, tf.transpose(u_w)))).get_shape())
-        m_temp = tf.reshape(m_temp,(-1,FLAGS.num_neurons1))
+        #u_levels2 = tf.transpose(u_levels,[0,1,2])#A
+        #u_levels2 = tf.transpose(u_levels,[0,2,1])#not
+
+        #u_levels2 = tf.transpose(u_levels,[1,0,2])#B
+        #u_levels2 = tf.transpose(u_levels,[1,2,0])#not
+
+        u_levels2 = tf.transpose(u_levels,[2,0,1])#
+        #u_levels2 = tf.transpose(u_levels,[2,1,0])#
+
+
+        u_levels2 = tf.reshape(u_levels2,(FLAGS.sequence_window,-1))
+        u_levels_t = tf.exp(tf.matmul(u_,u_levels2))
+        w_t = tf.reshape(u_levels_t,(-1,FLAGS.sequence_window))
+        w_ = tf.matmul(w_t,w_ones)
+
+        u_w = tf.div(w_t, w_)
+        u_w = tf.reshape(u_w,(-1,1,FLAGS.sequence_window))
+        m_t = tf.reshape(tf.matmul(u_w,val),(-1,FLAGS.num_neurons1))
 
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
-        prediction = tf.nn.softmax(tf.matmul(m_temp, weight) + bias)
+        prediction = tf.nn.softmax(tf.matmul(m_t, weight) + bias)
 
     elif option == 'HL': #hierarchy lstm
         data_train1 = tf.transpose(data, [0, 2, 1, 3])
         data_train1 = tf.reshape(data_train1,(-1,FLAGS.scale_levels,FLAGS.input_dim))
         #data_original_train2 = tf.reshape(data_original_train1,(FLAGS.batch_size*FLAGS.sequence_window,FLAGS.scale_levels,FLAGS.input_dim))
 
-        with tf.variable_scope('1stlayer'):
-            lstm_cell1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid,state_is_tuple=True)
+        with tf.variable_scope('1stlayer_hl'):
+            lstm_cell1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,state_is_tuple=True)
             val1, state1 = tf.nn.dynamic_rnn(lstm_cell1, data_train1, dtype=tf.float32)
 
             temp1 = tf.transpose(val1, [1, 0, 2])
@@ -169,8 +167,8 @@ def inference(data,label,option):
 
         temp2 = tf.reshape(last1,(-1,FLAGS.sequence_window,FLAGS.num_neurons1))
 
-        with tf.variable_scope('2ndlayer'):
-            lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
+        with tf.variable_scope('2ndlayer_hl'):
+            lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
             val2, state2 = tf.nn.dynamic_rnn(lstm_cell2, temp2, dtype=tf.float32)
 
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
@@ -185,57 +183,89 @@ def inference(data,label,option):
         data_train1 = tf.reshape(data_train1, (-1, FLAGS.scale_levels, FLAGS.input_dim))
         # data_original_train2 = tf.reshape(data_original_train1,(FLAGS.batch_size*FLAGS.sequence_window,FLAGS.scale_levels,FLAGS.input_dim))
 
-        with tf.variable_scope('1stlayer'):
+        with tf.variable_scope('1stlayer_hal'):
             u_w_1 = tf.Variable(tf.random_normal(shape=[1, FLAGS.scale_levels]), name="u_w_1")
             u_w_one_1 = tf.Variable(tf.constant(1.0, shape=[FLAGS.scale_levels, 1]), name="u_w_one_1")
-            lstm_cell_1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
+            lstm_cell_1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
             val_1, state_1 = tf.nn.dynamic_rnn(lstm_cell_1, data_train1, dtype=tf.float32)
             val_1_2 = tf.reshape(val_1, (-1, FLAGS.num_neurons1))
             weight_1_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.scale_levels]), name='weight_1_h')
             bias_1_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.scale_levels]))
-            u_current_levels_temp_1 = tf.reshape((tf.matmul(val_1_2, weight_1_h) + bias_1_h),
+            u_levels1 = tf.reshape((tf.matmul(val_1_2, weight_1_h) + bias_1_h),
                                                (-1, FLAGS.scale_levels, FLAGS.scale_levels))
+            temp1 = tf.transpose(val_1, [1, 0, 2])
+            #last1 = tf.gather(temp1, int(temp1.get_shape()[0]) - 1)
 
-            u_current_levels_temp_1_2 = tf.transpose(u_current_levels_temp_1, [2, 1, 0])
-            u_current_levels_temp_1_2 = tf.reshape(u_current_levels_temp_1_2, (FLAGS.scale_levels, -1))
-            u_current_levels_temp_1_3 = tf.exp(tf.matmul(u_w_1, u_current_levels_temp_1_2))
-            u_current_levels_temp_1_4 = tf.reshape(u_current_levels_temp_1_3, (-1, FLAGS.scale_levels))
-            u_current_levels_temp_1_5 = tf.matmul(u_current_levels_temp_1_4, u_w_one_1)
+            #u_levels1_2 = tf.transpose(u_levels1, [2, 1, 0])
+            u_levels1_2 = tf.transpose(u_levels1, [2, 0, 1])
 
-            u_current_levels_1 = tf.div(u_current_levels_temp_1_4, u_current_levels_temp_1_5)
-            u_current_levels_1 = tf.reshape(u_current_levels_1, (-1, 1, FLAGS.scale_levels))
-            m_temp_1 = tf.matmul(u_current_levels_1, val_1)
+            u_levels1_2 = tf.reshape(u_levels1_2, (FLAGS.scale_levels, -1))
+            u_levels1_t = tf.exp(tf.matmul(u_w_1, u_levels1_2))
+            w1_t = tf.reshape(u_levels1_t, (-1, FLAGS.scale_levels))
+            w1_ = tf.matmul(w1_t, u_w_one_1)
 
+            u_w1 = tf.div(w1_t, w1_)
+            u_w1 = tf.reshape(u_w1, (-1, 1, FLAGS.scale_levels))
+            m_temp_1 = tf.matmul(u_w1, val_1)
+
+        #with tf.variable_scope('1stlayer_hl'):
+            #lstm_cell1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,state_is_tuple=True)
+            #val1, state1 = tf.nn.dynamic_rnn(lstm_cell1, data_train1, dtype=tf.float32)
+
+            #temp1 = tf.transpose(val1, [1, 0, 2])
+            #last1 = tf.gather(temp1, int(temp1.get_shape()[0]) - 1)
         temp2 = tf.reshape(m_temp_1, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
-        with tf.variable_scope('2ndlayer'):
+        #temp2 = tf.reshape(last1, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
+
+        #with tf.variable_scope('2ndlayer_hl'):
+            #lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+            #val2, state2 = tf.nn.dynamic_rnn(lstm_cell2, temp2, dtype=tf.float32)
+
+        #weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
+        #bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
+
+        #val = tf.transpose(val2, [1, 0, 2])
+        #last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+
+
+
+        with tf.variable_scope('2ndlayer_hal'):
 
             u_w_2 = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w_2")
             u_w_one_2 = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window, 1]), name="u_w_one_2")
-            lstm_cell_2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons2, forget_bias=1.0, activation=tf.nn.sigmoid)
+            lstm_cell_2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons2, forget_bias=1.0, activation=tf.nn.tanh)
             val_2, state_2 = tf.nn.dynamic_rnn(lstm_cell_2, temp2, dtype=tf.float32)
             val_2_2 = tf.reshape(val_2, (-1, FLAGS.num_neurons2))
             weight_2_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons2, FLAGS.sequence_window]), name='weight_2_h')
             bias_2_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.sequence_window]))
-            u_current_levels_temp_2 = tf.reshape((tf.matmul(val_2_2, weight_2_h) + bias_2_h),
+            u_levels2 = tf.reshape((tf.matmul(val_2_2, weight_2_h) + bias_2_h),
                                                (-1, FLAGS.sequence_window, FLAGS.sequence_window))
 
-            u_current_levels_temp_2_2 = tf.transpose(u_current_levels_temp_2, [2, 1, 0])
-            u_current_levels_temp_2_2 = tf.reshape(u_current_levels_temp_2_2, (FLAGS.sequence_window, -1))
-            u_current_levels_temp_2_3 = tf.exp(tf.matmul(u_w_2, u_current_levels_temp_2_2))
-            u_current_levels_temp_2_4 = tf.reshape(u_current_levels_temp_2_3, (-1, FLAGS.sequence_window))
-            u_current_levels_temp_2_5 = tf.matmul(u_current_levels_temp_2_4, u_w_one_2)
+            #u_levels2_2 = tf.transpose(u_levels2, [2, 1, 0])
+            u_levels2_2 = tf.transpose(u_levels2, [2, 0, 1])
 
-            u_current_levels_2 = tf.div(u_current_levels_temp_2_4, u_current_levels_temp_2_5)
-            u_current_levels_2 = tf.reshape(u_current_levels_2, (-1, 1, FLAGS.sequence_window))
+            u_levels2_2 = tf.reshape(u_levels2_2, (FLAGS.sequence_window, -1))
+            u_levels2_t = tf.exp(tf.matmul(u_w_2, u_levels2_2))
+            w2_t = tf.reshape(u_levels2_t, (-1, FLAGS.sequence_window))
+            w2_ = tf.matmul(w2_t, u_w_one_2)
 
-            m_temp_2 = tf.matmul(u_current_levels_2, val_2)
+            u_w2 = tf.div(w2_t, w2_)
+            u_w2 = tf.reshape(u_w2, (-1, 1, FLAGS.sequence_window))
+            m_temp_2 = tf.matmul(u_w2, val_2)
 
             m_temp = tf.reshape(m_temp_2, (-1, FLAGS.num_neurons2))
-
             weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons2, int(label.get_shape()[1])]), name='weight2')
             bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
         prediction = tf.nn.softmax(tf.matmul(m_temp, weight) + bias)
+
+
+
+
+
+
+
 
         """
         data1 = tf.transpose(data,[0,2,3,1])
