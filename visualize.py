@@ -1,5 +1,5 @@
 import matplotlib
-matplotlib.use('GTKAgg')
+#matplotlib.use('GTKAgg')
 #matplotlib.rcParams['backend'] = 'GTKCairo'
 import os
 import numpy as np
@@ -23,7 +23,7 @@ def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learni
         plt.plot(x, val_acc_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val acc')
     plt.xlabel('Epoch',fontsize=12)
     if 'AS' in filename:
-        plt.ylim(0.0,1.0)
+        plt.ylim(0.4,1.05)
     else:
         plt.ylim(0.05,1.05)
     plt.ylabel('Accuracy',fontsize=12)
