@@ -328,3 +328,5 @@ HL_____epoch:250,____wavelet:db1,_____learning rate:0.002,_____multi_scale:True,
 F1_SCORE: 0.689,	AUC: 0.698,	G_MEAN: 0.698,	ACCURACY: 0.698,	
 HL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
 F1_SCORE: 0.777,	AUC: 0.769,	G_MEAN: 0.768,	ACCURACY: 0.769,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+F1_SCORE: 0.863,	AUC: 0.844,	G_MEAN: 0.833,	ACCURACY: 0.844,	
