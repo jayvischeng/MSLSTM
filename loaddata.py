@@ -511,7 +511,7 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
 
 def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
-
+    print("")
     global positive_sign,negative_sign
     output_folder = "output"
 
@@ -545,7 +545,6 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
         Positive_Data_Index_Testing=[]
         Negative_Data_Index_Training=[]
         Negative_Data_Index_Testing=[]
-
         for tab_positive in range(len(PositiveIndex)):
             if int((Cross_CV-tab_cross-1)*len(Pos_Data)/Cross_CV)<=tab_positive<int((Cross_CV-tab_cross)*len(Pos_Data)/Cross_CV):
                 Positive_Data_Index_Testing.append(PositiveIndex[tab_positive])
