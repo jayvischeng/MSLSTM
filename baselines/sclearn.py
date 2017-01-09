@@ -1,6 +1,8 @@
 import evaluation
 from sklearn.feature_selection import RFE
 from collections import defaultdict
+import printlog
+
 import numpy as np
 from numpy import *
 from sklearn import tree
@@ -11,9 +13,18 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import loaddata
 import os
+import sys
+
 flags = tf.app.flags
 FLAGS = flags.FLAGS
-
+def pprint(msg,method=''):
+    if not 'Warning' in msg:
+        sys.stdout = printlog.PyLogger('',method)
+        print(msg)
+        try:
+            sys.stderr.write(msg+'\n')
+        except:
+            pass
 def Basemodel(_model,filename,cross_cv,tab_crosscv):
     filepath = FLAGS.data_dir
     sequence_window = FLAGS.sequence_window
