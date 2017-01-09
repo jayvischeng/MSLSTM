@@ -31,7 +31,7 @@ wave_type_list = ['db1']
 
 multi_scale_value_list = [2, 3, 4, 5, 6, 10]
 # multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
-case_ = ['1L','AL','HL']
+case_ = ['1L','HAL','AL','HL']
 # case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
 # method_list2 = ["MLP","RNN","LSTM"]
 
