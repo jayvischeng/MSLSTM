@@ -23,14 +23,14 @@ def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learni
         plt.plot(x, val_acc_list[tab], color_list[len(case_list)+tab],label=case_list[tab] +' val acc')
     plt.xlabel('Epoch',fontsize=12)
     if 'AS' in filename:
-        plt.ylim(0.4,1.05)
+        plt.ylim(0.3,1.05)
     else:
         plt.ylim(0.05,1.05)
     plt.ylabel('Accuracy',fontsize=12)
     plt.tick_params(labelsize=12)
     plt.grid()
     plt.legend(loc='lower right',fontsize=8)
-    plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
+    plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window))
     if corss_val_label == 0:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"2Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+".pdf"),dpi=400)
         #plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"Tab_A_Epoch_ACC_"+filename + "_SW_"+str(sequence_window)+"_LR_"+str(learning_rate)+".png"),dpi=400)
@@ -55,7 +55,7 @@ def epoch_loss_plotting(filename,case_list,sequence_window,cross_val_label,learn
     plt.grid()
     plt.tick_params(labelsize=12)
     plt.legend(loc='upper right',fontsize=8)
-    plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window)+"/lr: "+str(learning_rate))
+    plt.title(filename.split('.')[0].replace('HB_','')+'/sw: '+str(sequence_window))
 
     if cross_val_label == 0:
         plt.savefig(os.path.join(os.path.join(os.getcwd(),'picture'),"2Tab_A_Epoch_Loss_"+filename+"_SW_"+str(sequence_window)+"_LR_"+".pdf"),dpi=400)
@@ -179,14 +179,14 @@ def _plotting(filename, subtitle, method):
     # Predict = []
     # True = []
     Temp = []
-    with open(os.path.join(os.getcwd(), filename))as fin:
+    with open(os.path.join(os.path.join(os.getcwd(),'stat'), filename))as fin:
         for each in fin.readlines():
             Temp.append(int(each))
             # val = each.split('\t\t')
             # Predict.append(int(val[0].strip()))
             # True.append(int(float(val[-1].strip())))
 
-    Temp = Temp[2340:4740]
+    #Temp = Temp[0:4740]
 
     if "SVM" in filename:
         print(Temp)
@@ -218,7 +218,7 @@ def _plotting(filename, subtitle, method):
     # bbox_transform=plt.gcf().transFigure)
     # plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
     plt.xlabel('(' + subtitle + ')' + "  " + method)
-    x = len(X) / 2
+    x = (len(X) / 2)+70
     plt.xticks([1, 400, 800, 1200, 1600, 2000, 2500])
     # plt.grid()
     # plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.1)
@@ -236,7 +236,7 @@ def plotStat(filename, Method_List):
 
     for tab in range(len(Method_List)):
         filename_ = "StatFalseAlarm_" + filename + "_" + Method_List[tab] + "_" + "_Predict.txt"
-        plt.subplot(3, 3, tab + 1)
+        plt.subplot(3, 3, tab + 2)
         _plotting(filename_, subtitle[tab + 1], Method_List[tab])
 
     plt.tight_layout()
