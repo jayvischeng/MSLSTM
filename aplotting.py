@@ -31,7 +31,12 @@ wave_type_list = ['db1']
 
 multi_scale_value_list = [2, 3, 4, 5, 6, 10]
 # multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
-case_ = ['1L','HAL','AL','HL']
+#case_ = ['1L','HAL','AL','HL']
+#case_ = ['1L','2L','AL','HL','HAL']
+case_ = ['AL','HL','HAL']
+#case_ = ['1L','2L','HL']
+#case_ = ['AL','HL','HAL']
+
 # case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
 # method_list2 = ["MLP","RNN","LSTM"]
 
@@ -40,6 +45,7 @@ case_list = [case_label[k] for k in case_]
 cross_cv = 2
 tab_cross_cv = 1
 wave_type = wave_type_list[0]
+hidden_units = 64
 file_list = [('server_'+i+'_'+filename+'.log') for i in case_]
 folder = os.path.join(os.getcwd(),'tmp')
 train_acc_list = []
@@ -58,3 +64,5 @@ visualize.epoch_acc_plotting(filename, case_list, sequence_window, tab_cross_cv,
 visualize.epoch_loss_plotting(filename, case_list, sequence_window, tab_cross_cv, learning_rate,
                               train_loss_list, val_loss_list)
 
+
+visualize.plotStat(filename,case_)
