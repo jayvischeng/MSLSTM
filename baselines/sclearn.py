@@ -2,7 +2,7 @@ import evaluation
 from sklearn.feature_selection import RFE
 from collections import defaultdict
 import printlog
-
+import ucr_load_data
 import numpy as np
 from numpy import *
 from sklearn import tree
@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import loaddata
 import os
 import sys
-
+from sklearn.neighbors import KNeighborsClassifier
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 def pprint(msg,method=''):
@@ -25,7 +25,7 @@ def pprint(msg,method=''):
             sys.stderr.write(msg+'\n')
         except:
             pass
-def Basemodel(_model,filename,cross_cv,tab_crosscv):
+def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
     filepath = FLAGS.data_dir
     sequence_window = FLAGS.sequence_window
     is_multi_scale = FLAGS.is_multi_scale
@@ -43,21 +43,39 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
     num_selected_features = 33  # Nimda tab=1
     for tab_cv in range(cross_cv):
         if tab_crosscv == tab_cv:continue
-        if _model == "SVM":
-            x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-                                                                                            filepath, filename,
-                                                                                            sequence_window, tab_crosscv,
-                                                                                            cross_cv,
-                                                                                            Multi_Scale=is_multi_scale,
-                                                                                            Wave_Let_Scale=training_level,
-                                                                                            Normalize=0)
+        if _model == '1NN':
+            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
+            print(_model + " is running..............................................")
+            clf = KNeighborsClassifier(n_neighbors=1)
+            clf.fit(x_train, y_train)
+            result = clf.predict(x_test)
+
+
+
+
+
+
+
+
+
+
+
+        elif _model == "SVM":
+            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
+            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
+            #                                                                                filepath, filename,
+            #                                                                                sequence_window, tab_crosscv,
+            #                                                                                cross_cv,
+             #                                                                               Multi_Scale=is_multi_scale,
+             #                                                                               Wave_Let_Scale=training_level,
+              #                                                                              Normalize=0)
 
             print(_model + " is running..............................................")
-            y_train = y_train0
+            #y_train = y_train0
             clf = svm.SVC(kernel="rbf", gamma=0.001, C=5000, probability=True)
             print(x_train.shape)
             clf.fit(x_train, y_train)
-            result = clf.predict_proba(x_test)
+            result = clf.predict(x_test)
 
         elif _model == "SVMF":
             x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
@@ -125,19 +143,19 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
             result = selector.predict_proba(x_test)
 
         elif _model == "NB":
-            x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-                                                                                            filepath, filename,
-                                                                                            sequence_window, tab_cv,
-                                                                                            cross_cv,
-                                                                                            Multi_Scale=is_multi_scale,
-                                                                                            Wave_Let_Scale=training_level,
-                                                                                            Normalize=1)
-
+            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
+             #                                                                               filepath, filename,
+             #                                                                               sequence_window, tab_cv,
+             #                                                                               cross_cv,
+             #                                                                               Multi_Scale=is_multi_scale,
+             #                                                                               Wave_Let_Scale=training_level,
+            #                                                                                Normalize=1)
+            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
             print(_model + " is running..............................................")
-            y_train = y_train0
+            #y_train = y_train0
             clf = MultinomialNB()
             clf.fit(x_train, y_train)
-            result = clf.predict_proba(x_test)
+            result = clf.predict(x_test)
 
         elif _model == "DT":
             x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
@@ -171,18 +189,24 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
             clf.fit(x_train, y_train)
             result = clf.predict_proba(x_test)
 
-
+        print(y_test)
+        print(result)
+        print(len(y_test))
+        print(len(result))
         results = evaluation.evaluation(y_test, result)  # Computing ACCURACY,F1-score,..,etc
-        y_test2 = np.array(evaluation.ReverseEncoder(y_test))
-        result2 = np.array(evaluation.ReverseEncoder(result))
-        # Statistics False Alarm Rate
-        if tab_cv == 2:
-            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_True"), "w") as fout:
-                for tab in range(len(y_test2)):
-                    fout.write(str(int(y_test2[tab])) + '\n')
-            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
-                for tab in range(len(result2)):
-                    fout.write(str(int(result2[tab])) + '\n')
+        try:
+            y_test2 = np.array(evaluation.ReverseEncoder(y_test))
+            result2 = np.array(evaluation.ReverseEncoder(result))
+            # Statistics False Alarm Rate
+            if tab_cv == 2:
+                with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_True"), "w") as fout:
+                    for tab in range(len(y_test2)):
+                        fout.write(str(int(y_test2[tab])) + '\n')
+                with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
+                    for tab in range(len(result2)):
+                        fout.write(str(int(result2[tab])) + '\n')
+        except:
+            pass
 
         for each_eval, each_result in results.items():
             result_list_dict[each_eval].append(each_result)
