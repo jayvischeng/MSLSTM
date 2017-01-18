@@ -26,6 +26,7 @@ def ReverseEncoder(y):
 
 
 def evaluation(label,predict,positive_label=0,negative_label=1):
+
     try:
         Output_Class = [[] for i in range(len(label[0]))]
     except:
@@ -43,21 +44,32 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
 
     ac_positive = 0
     ac_negative = 0
-
+    correct = 0
+    error_rate_flag = False
     for tab_class in range(len(Output_Class)):
-        if label[0][tab_class] == negative_label:
-            predict_negative = Output_Class[tab_class].count(1)
-            total_negative = list(np.transpose(label)[tab_class]).count(1)
+        try:
+            if label[0][tab_class] == negative_label:
+                predict_negative = Output_Class[tab_class].count(1)
+                total_negative = list(np.transpose(label)[tab_class]).count(1)
 
-            for tab_sample in range(len(label)):
-                if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]) :
-                    ac_negative += 1
-        elif label[0][tab_class] == positive_label:
-            predict_positive = Output_Class[tab_class].count(1)
-            total_positive = list(np.transpose(label)[tab_class]).count(1)
-            for tab_sample in range(len(label)):
-                if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]):
-                    ac_positive += 1
+                for tab_sample in range(len(label)):
+                    if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]) :
+                        ac_negative += 1
+            elif label[0][tab_class] == positive_label:
+                predict_positive = Output_Class[tab_class].count(1)
+                total_positive = list(np.transpose(label)[tab_class]).count(1)
+                for tab_sample in range(len(label)):
+                    if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]):
+                        ac_positive += 1
+        except:
+            #output class error rate
+            error_rate_flag = True
+            print(predict)
+            print(label)
+            if predict[tab_class] == label[tab_class]: correct += 1
+    if error_rate_flag == True:
+        print("Error Rate is :"+str((len(Output_Class) - correct)/float(len(Output_Class))))
+        return {"Error_Rate":(len(Output_Class) - correct)/float(len(Output_Class))}
 
     #try:
         #ACC_R = float(ac_negative) / predict_negative
