@@ -16,12 +16,13 @@ import mslstm
 import loaddata
 import numpy as np
 import visualize
+import ucr_load_data
 from baselines import nnkeras,sclearn
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',True,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
-flags.DEFINE_string('num_neurons1',100,"""Number of hidden units""")
+flags.DEFINE_string('num_neurons1',32,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
 flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
 flags.DEFINE_string('sequence_window',20,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
@@ -30,7 +31,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','db1',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
-flags.DEFINE_string('max_epochs',250,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.1,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -41,19 +42,28 @@ flags.DEFINE_string('output','./output/',"""Directory where to write the results
 FLAGS = flags.FLAGS
 
 def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
+    #print("aaa")
+    #print(inputs.shape)
+    #print(targets.shape)
     assert inputs.shape[0] == targets.shape[0]
+
     if shuffle:
         indices = np.arange(inputs.shape[0])
         np.random.shuffle(indices)
+
     for start_idx in range(0, inputs.shape[0] - batchsize + 1, batchsize):
         if shuffle:
+            #print("ccc")
+
             excerpt = indices[start_idx:start_idx + batchsize]
+
         else:
             excerpt = slice(start_idx, start_idx + batchsize)
+        #print("ccc")
         yield inputs[excerpt], targets[excerpt]
 def pprint(msg,method=''):
     if not 'Warning' in msg:
-        sys.stdout = printlog.PyLogger('',method)
+        sys.stdout = printlog.PyLogger('',method+'_'+str(FLAGS.num_neurons1))
         print(msg)
         try:
             sys.stderr.write(msg+'\n')
@@ -74,6 +84,17 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                                                         filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
                                                         Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
                                                         Wave_Type=FLAGS.wave_type)
+
+    #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+
+    FLAGS.sequence_window = x_train.shape[len(x_train.shape)-2]
+    #FLAGS.sequence_window = 900
+    FLAGS.input_dim = x_train.shape[-1]
+    FLAGS.number_class = y_train.shape[1]
+    try:
+        FLAGS.scale_levels = x_train.shape[1]
+    except:
+        pass
 
     with tf.Graph().as_default():
     #with tf.variable_scope("middle")as scope:
@@ -105,8 +126,8 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         early_stopping = 100
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
-        visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
-        visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+        #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
+        #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
         for i in range(FLAGS.max_epochs):
             #if early_stopping > 0:
                 #pass
@@ -115,13 +136,17 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
             ptr = 0
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
+                #print("bbb")
+                #print(inp.shape)
                 sess_run(minimize,inp,out)
+                #sess_run(output_u_w1,inp,out)
+
                 training_acc, training_loss = sess_run((accuracy, loss), inp, out)
                 #sys.stdout = tempstdout
 
                 val_acc, val_loss = sess_run((accuracy, loss), x_test, y_test)
             pprint(
-                FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (
+                FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 10 + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
                 + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
             #for j in range(no_of_batches):
@@ -171,6 +196,14 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         #plt.show()
     sess.close()
     results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
+    y_test2 = np.array(evaluation.ReverseEncoder(y_test))
+    result2 = np.array(evaluation.ReverseEncoder(result))
+    with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_True.txt"), "w") as fout:
+        for tab in range(len(y_test2)):
+            fout.write(str(int(y_test2[tab])) + '\n')
+    with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_" + method + "_" + "_Predict.txt"), "w") as fout:
+        for tab in range(len(result2)):
+            fout.write(str(int(result2[tab])) + '\n')
 
     for each_eval, each_result in results.items():
         result_list_dict[each_eval].append(each_result)
@@ -178,9 +211,9 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
     with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
         if not FLAGS.is_multi_scale:
-            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "\n"
+            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
         else:
-            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "\n"
+            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
 
         fout.write(outfileline)
         for eachk, eachv in result_list_dict.items():
@@ -223,13 +256,13 @@ def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
         if 'L' in method:
             sys.stdout = tempstdout
             if method == '1L' or method == '2L':
-                FLAGS.learning_rate = 0.04
+                FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                FLAGS.learning_rate = 0.04
+                FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             else:
-                FLAGS.learning_rate = 0.1
+                FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = True
                 FLAGS.wave_type = wave_type
             return train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
@@ -243,6 +276,7 @@ def main(unused_argv):
 
     #main function
     #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
+    #filename_list = ["HB_AS_Leak.txt"]
     filename_list = ["HB_AS_Leak.txt"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
@@ -253,15 +287,15 @@ def main(unused_argv):
 
     #case = ['1L','2L','AL','HL','HAL']
     #case = ['1L','AL']
-    #case = ['HAL']
+    case = ['HAL']
     #case = ['HL','AL','HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
-    case = ["LSTM"]
+    #case = ["HAL"]
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
     cross_cv = 2
-    tab_cross_cv = 0
+    tab_cross_cv = 1
     wave_type = wave_type_list[0]
 
     for filename in filename_list:
@@ -272,7 +306,7 @@ def main(unused_argv):
         val_loss_list = []
 
         for each_case in case:
-            if 1<0: #
+            if 1>0: #
                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename, cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
@@ -286,9 +320,9 @@ def main(unused_argv):
 
                 #train(each_case, filename, cross_cv, tab_cross_cv, wave_type)
                 sys.stdout = tempstdout
-                #sclearn.Basemodel(each_case,"HB_AS_Leak.txt",2,0)
+                sclearn.Basemodel(each_case,"HB_AS_Leak.txt",2,0)
 
-                nnkeras.Basemodel(each_case,"HB_AS_Leak.txt",2,0)
+                #nnkeras.Basemodel(each_case,"HB_AS_Leak.txt",2,0)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
