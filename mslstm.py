@@ -6,6 +6,7 @@ from __future__ import division
 import tensorflow as tf
 import printlog
 import sys
+#from tensorflow.nn.rnn_cell import GRUCell
 FLAGS = tf.app.flags.FLAGS
 def pprint(msg,method=''):
     if not 'Warning' in msg:
@@ -50,16 +51,41 @@ def batch_vm2(x, m):
 def normalized_scale_levels(scales_list):
     return tf.div(scales_list,tf.gather(tf.gather(tf.cumsum(scales_list, axis=1), 0), int(scales_list.get_shape()[1]-1)))
 
-
+def length(sequence):
+    used = tf.sign(tf.reduce_max(tf.abs(sequence), reduction_indices=2))
+    length = tf.reduce_sum(used, reduction_indices=1)
+    length = tf.cast(length, tf.int32)
+    return length
+def last_relevant(output, length):
+    batch_size = tf.shape(output)[0]
+    max_length = tf.shape(output)[1]
+    out_size = int(output.get_shape()[2])
+    index = tf.range(0, batch_size) * max_length + (length - 1)
+    flat = tf.reshape(output, [-1, out_size])
+    relevant = tf.gather(flat, index)
+    return relevant
 def loss(predict,label):
+
     #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
     #cost_cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None)  # Sigmoid
 
     cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
     #cost_cross_entropy = tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))/（FLAGS.batch_size*FLAGS.number_class）  # Sigmoid
 
-    pprint("the length of predict is "+str(predict.get_shape()[0]) + "and the batch_size is "+str(FLAGS.batch_size))
-    tf.scalar_summary("loss_c", cost_cross_entropy)
+    #pprint("the length of predict is "+str(predict.get_shape()[0]) + "and the batch_size is "+str(FLAGS.batch_size))
+    #tf.scalar_summary("loss_c", cost_cross_entropy)
+
+    #--------------------------------------------- Compute cross entropy for each frame.
+    cross_entropy = label * tf.log(predict)
+    cross_entropy = -tf.reduce_sum(cross_entropy, reduction_indices=1)
+    #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    mask = tf.sign(tf.reduce_max(tf.abs(label), reduction_indices=1))
+    cross_entropy *= mask
+    # Average over actual sequence lengths.
+    cross_entropy = tf.reduce_sum(cross_entropy, reduction_indices=0)
+    cross_entropy /= tf.reduce_sum(mask, reduction_indices=0)
+    #return tf.reduce_mean(cross_entropy)
+    #-----------------------------------------------------------------------------------
     return cost_cross_entropy
 
 def print_info(tensor,name):
@@ -68,11 +94,13 @@ def print_info(tensor,name):
 def inference(data,label,option):
     if option == '1L':#pure one-layer lstm
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        #val, state = tf.nn.dynamic_rnn(tf.nn.rnn_cell.GRUCell(FLAGS.num_neurons1),data,dtype=tf.float32,sequence_length=length(data),)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
-        #val = tf.transpose(val, [1, 0, 2])
-        #last = tf.gather(val, int(val.get_shape()[0]) - 1)
-        last = tf.gather(tf.transpose(val, [1, 0, 2]), int(val.get_shape()[1]) - 1)
+        #last = last_relevant(val,length(val))
+        val = tf.transpose(val, [1, 0, 2])
+        last = tf.gather(val, int(val.get_shape()[0]) - 1)
 
+        #last = tf.gather(tf.transpose(val, [1, 0, 2]), int(val.get_shape()[1]) - 1)
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
@@ -80,7 +108,7 @@ def inference(data,label,option):
         #tf.scalar_summary("weight", weight)
 
     elif option == '2L':#two-layer lstm
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.sigmoid)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
@@ -130,13 +158,13 @@ def inference(data,label,option):
         u_levels = tf.reshape((tf.matmul(val2, weight_h) + bias_h),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
 
 
-        #u_levels2 = tf.transpose(u_levels,[0,1,2])#A
+        u_levels2 = tf.transpose(u_levels,[0,1,2])#A+
         #u_levels2 = tf.transpose(u_levels,[0,2,1])#not
 
         #u_levels2 = tf.transpose(u_levels,[1,0,2])#B
         #u_levels2 = tf.transpose(u_levels,[1,2,0])#not
 
-        u_levels2 = tf.transpose(u_levels,[2,0,1])#
+        #u_levels2 = tf.transpose(u_levels,[2,0,1])#A
         #u_levels2 = tf.transpose(u_levels,[2,1,0])#
 
 
@@ -183,6 +211,7 @@ def inference(data,label,option):
         data_train1 = tf.reshape(data_train1, (-1, FLAGS.scale_levels, FLAGS.input_dim))
         # data_original_train2 = tf.reshape(data_original_train1,(FLAGS.batch_size*FLAGS.sequence_window,FLAGS.scale_levels,FLAGS.input_dim))
 
+
         with tf.variable_scope('1stlayer_hal'):
             u_w_1 = tf.Variable(tf.random_normal(shape=[1, FLAGS.scale_levels]), name="u_w_1")
             u_w_one_1 = tf.Variable(tf.constant(1.0, shape=[FLAGS.scale_levels, 1]), name="u_w_one_1")
@@ -193,11 +222,17 @@ def inference(data,label,option):
             bias_1_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.scale_levels]))
             u_levels1 = tf.reshape((tf.matmul(val_1_2, weight_1_h) + bias_1_h),
                                                (-1, FLAGS.scale_levels, FLAGS.scale_levels))
-            temp1 = tf.transpose(val_1, [1, 0, 2])
+            #temp1 = tf.transpose(val_1, [1, 0, 2])
             #last1 = tf.gather(temp1, int(temp1.get_shape()[0]) - 1)
 
+            #u_levels1_2 = tf.transpose(u_levels1, [0, 1, 2])#A?
+            #u_levels1_2 = tf.transpose(u_levels1, [0, 2, 1])
+
+            #u_levels1_2 = tf.transpose(u_levels1, [1, 0, 2])
+            u_levels1_2 = tf.transpose(u_levels1, [1, 2, 0])#A?
+
+            #u_levels1_2 = tf.transpose(u_levels1, [2, 0, 1])
             #u_levels1_2 = tf.transpose(u_levels1, [2, 1, 0])
-            u_levels1_2 = tf.transpose(u_levels1, [2, 0, 1])
 
             u_levels1_2 = tf.reshape(u_levels1_2, (FLAGS.scale_levels, -1))
             u_levels1_t = tf.exp(tf.matmul(u_w_1, u_levels1_2))
@@ -206,7 +241,14 @@ def inference(data,label,option):
 
             u_w1 = tf.div(w1_t, w1_)
             u_w1 = tf.reshape(u_w1, (-1, 1, FLAGS.scale_levels))
+            #print("lalalalalla")
+            #print(u_w1.get_shape())
+            #print(val_1.get_shape())
+            #output_u_w1 = tf.Print(u_w1, [u_w1],"The U_W is :", first_n=4096, summarize=40)
+
             m_temp_1 = tf.matmul(u_w1, val_1)
+
+
 
         #with tf.variable_scope('1stlayer_hl'):
             #lstm_cell1 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,state_is_tuple=True)
@@ -214,24 +256,22 @@ def inference(data,label,option):
 
             #temp1 = tf.transpose(val1, [1, 0, 2])
             #last1 = tf.gather(temp1, int(temp1.get_shape()[0]) - 1)
-        temp2 = tf.reshape(m_temp_1, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
         #temp2 = tf.reshape(last1, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
+        temp2 = tf.reshape(m_temp_1, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
 
-        #with tf.variable_scope('2ndlayer_hl'):
-            #lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
-            #val2, state2 = tf.nn.dynamic_rnn(lstm_cell2, temp2, dtype=tf.float32)
+        with tf.variable_scope('2ndlayer_hl'):
+            lstm_cell2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons2, forget_bias=1.0, activation=tf.nn.tanh)
+            val2, state2 = tf.nn.dynamic_rnn(lstm_cell2, temp2, dtype=tf.float32)
 
-        #weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
-        #bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
+        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons2, int(label.get_shape()[1])]),name='weight')
+        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
-        #val = tf.transpose(val2, [1, 0, 2])
-        #last = tf.gather(val, int(val.get_shape()[0]) - 1)
-        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        val = tf.transpose(val2, [1, 0, 2])
+        last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
 
-
-
+        """
         with tf.variable_scope('2ndlayer_hal'):
-
             u_w_2 = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w_2")
             u_w_one_2 = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window, 1]), name="u_w_one_2")
             lstm_cell_2 = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons2, forget_bias=1.0, activation=tf.nn.tanh)
@@ -242,8 +282,14 @@ def inference(data,label,option):
             u_levels2 = tf.reshape((tf.matmul(val_2_2, weight_2_h) + bias_2_h),
                                                (-1, FLAGS.sequence_window, FLAGS.sequence_window))
 
+            u_levels2_2 = tf.transpose(u_levels2, [0, 1, 2])#A+?
+            #u_levels2_2 = tf.transpose(u_levels2, [0, 2, 1])
+
+            #u_levels2_2 = tf.transpose(u_levels2, [1, 0, 2])
+            #u_levels2_2 = tf.transpose(u_levels2, [1, 2, 0])#A?
+
+            #u_levels2_2 = tf.transpose(u_levels2, [2, 0, 1])
             #u_levels2_2 = tf.transpose(u_levels2, [2, 1, 0])
-            u_levels2_2 = tf.transpose(u_levels2, [2, 0, 1])
 
             u_levels2_2 = tf.reshape(u_levels2_2, (FLAGS.sequence_window, -1))
             u_levels2_t = tf.exp(tf.matmul(u_w_2, u_levels2_2))
@@ -259,6 +305,8 @@ def inference(data,label,option):
             bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
 
         prediction = tf.nn.softmax(tf.matmul(m_temp, weight) + bias)
+        """
+
 
 
 
@@ -345,7 +393,6 @@ def train(loss):
   #_train_op = _optimizer.apply_gradients(_grads, global_step=global_step)
   #_train_op = None
   return _optimizer
-
 
 
 
