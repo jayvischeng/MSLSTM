@@ -330,3 +330,145 @@ HL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_
 F1_SCORE: 0.777,	AUC: 0.769,	G_MEAN: 0.768,	ACCURACY: 0.769,	
 HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
 F1_SCORE: 0.863,	AUC: 0.844,	G_MEAN: 0.833,	ACCURACY: 0.844,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.782,	G_MEAN: 0.77,	AUC: 0.781,	F1_SCORE: 0.807,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+G_MEAN: 0.751,	ACCURACY: 0.76,	AUC: 0.76,	F1_SCORE: 0.786,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.762,	F1_SCORE: 0.791,	G_MEAN: 0.751,	ACCURACY: 0.763,	
+1L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+ACCURACY: 0.721,	G_MEAN: 0.688,	AUC: 0.722,	F1_SCORE: 0.644,	
+2L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+G_MEAN: 0.675,	F1_SCORE: 0.633,	ACCURACY: 0.697,	AUC: 0.698,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+ACCURACY: 0.738,	AUC: 0.738,	F1_SCORE: 0.681,	G_MEAN: 0.716,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+AUC: 0.714,	F1_SCORE: 0.63,	ACCURACY: 0.713,	G_MEAN: 0.677,	
+1L_____epoch:250,_____learning rate:0.02,_____multi_scale:False
+F1_SCORE: 0.666,	G_MEAN: 0.703,	ACCURACY: 0.725,	AUC: 0.725,	
+2L_____epoch:250,_____learning rate:0.02,_____multi_scale:False
+F1_SCORE: 0.638,	AUC: 0.717,	G_MEAN: 0.683,	ACCURACY: 0.717,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+G_MEAN: 0.71,	F1_SCORE: 0.7,	ACCURACY: 0.711,	AUC: 0.711,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+AUC: 0.732,	ACCURACY: 0.731,	F1_SCORE: 0.674,	G_MEAN: 0.71,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+AUC: 0.751,	G_MEAN: 0.732,	F1_SCORE: 0.7,	ACCURACY: 0.75,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+F1_SCORE: 0.731,	G_MEAN: 0.751,	AUC: 0.758,	ACCURACY: 0.758,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+ACCURACY: 0.723,	G_MEAN: 0.691,	AUC: 0.724,	F1_SCORE: 0.648,	
+AL_____epoch:250,_____learning rate:0.01,_____multi_scale:False
+G_MEAN: 0.687,	AUC: 0.719,	F1_SCORE: 0.643,	ACCURACY: 0.718,	
+1L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+F1_SCORE: 0.674,	AUC: 0.726,	ACCURACY: 0.725,	G_MEAN: 0.708,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+AUC: 0.754,	ACCURACY: 0.753,	G_MEAN: 0.738,	F1_SCORE: 0.709,	,,,,,,,,,,,,,,,,,,,,,,,,,,
+1L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+ACCURACY: 0.742,	F1_SCORE: 0.691,	AUC: 0.743,	G_MEAN: 0.724,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+ACCURACY: 0.755,	AUC: 0.755,	F1_SCORE: 0.711,	G_MEAN: 0.739,	
+1L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+G_MEAN: 0.726,	AUC: 0.745,	ACCURACY: 0.744,	F1_SCORE: 0.694,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+G_MEAN: 0.738,	AUC: 0.753,	ACCURACY: 0.753,	F1_SCORE: 0.71,	
+HL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.764,	G_MEAN: 0.732,	F1_SCORE: 0.698,	ACCURACY: 0.763,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.751,	ACCURACY: 0.75,	F1_SCORE: 0.718,	G_MEAN: 0.741,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+F1_SCORE: 0.673,	ACCURACY: 0.718,	AUC: 0.719,	G_MEAN: 0.705,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.758,	AUC: 0.759,	G_MEAN: 0.752,	F1_SCORE: 0.733,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.608,	G_MEAN: 0.605,	F1_SCORE: 0.587,	ACCURACY: 0.607,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.679,	F1_SCORE: 0.674,	G_MEAN: 0.679,	ACCURACY: 0.679,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.558,	AUC: 0.559,	G_MEAN: 0.551,	F1_SCORE: 0.513,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+G_MEAN: 0.74,	F1_SCORE: 0.721,	ACCURACY: 0.745,	AUC: 0.745,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.746,	F1_SCORE: 0.724,	ACCURACY: 0.746,	G_MEAN: 0.741,	
+AL_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+F1_SCORE: 0.672,	ACCURACY: 0.597,	G_MEAN: 0.551,	AUC: 0.596,	
+1L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+AUC: 0.557,	G_MEAN: 0.468,	F1_SCORE: 0.661,	ACCURACY: 0.558,	
+2L_____epoch:250,_____learning rate:0.04,_____multi_scale:False
+G_MEAN: 0.52,	F1_SCORE: 0.685,	ACCURACY: 0.594,	AUC: 0.593,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.61,	F1_SCORE: 0.546,	G_MEAN: 0.593,	AUC: 0.61,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.768,	AUC: 0.768,	F1_SCORE: 0.801,	G_MEAN: 0.75,	
+HL_____epoch:250,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:10
+F1_SCORE: 0.777,	ACCURACY: 0.769,	G_MEAN: 0.768,	AUC: 0.769,	
+1L_____epoch:50,_____learning rate:0.04,_____multi_scale:False
+ACCURACY: 0.403,	AUC: 0.535,	F1_SCORE: 1.646,	G_MEAN: 0.8,	
+HL_____epoch:50,____wavelet:db1,_____learning rate:0.04,_____multi_scale:True,_____train_set_using_level:6
+F1_SCORE: 1.058,	G_MEAN: 0.688,	AUC: 0.535,	ACCURACY: 0.425,	
+HL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.915,	F1_SCORE: 0.921,	G_MEAN: 0.91,	AUC: 0.914,	
+HL_____epoch:250,____wavelet:db1,_____learning rate:0.1,_____multi_scale:True,_____train_set_using_level:10
+G_MEAN: 0.536,	ACCURACY: 0.642,	AUC: 0.644,	F1_SCORE: 0.446,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+ACCURACY: 0.613,	F1_SCORE: 0.372,	AUC: 0.614,	G_MEAN: 0.478,	
+HL_____epoch:250,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+F1_SCORE: 0.421,	AUC: 0.633,	ACCURACY: 0.632,	G_MEAN: 0.517,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+G_MEAN: 0.791,	ACCURACY: 0.803,	AUC: 0.803,	F1_SCORE: 0.772,	
+HAL_____epoch:250,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+F1_SCORE: 0.814,	ACCURACY: 0.803,	AUC: 0.803,	G_MEAN: 0.801,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+F1_SCORE: 0.843,	ACCURACY: 0.841,	AUC: 0.841,	G_MEAN: 0.841,	
+HL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+G_MEAN: 0.631,	AUC: 0.699,	F1_SCORE: 0.569,	ACCURACY: 0.698,	
+AL_____epoch:200,_____learning rate:0.04,_____multi_scale:Falsehidden_nodes: 100/32
+ACCURACY: 0.759,	F1_SCORE: 0.709,	AUC: 0.76,	G_MEAN: 0.74,	
+1L_____epoch:200,_____learning rate:0.01,_____multi_scale:Falsehidden_nodes: 100/32
+G_MEAN: 0.693,	ACCURACY: 0.721,	F1_SCORE: 0.652,	AUC: 0.721,	
+2L_____epoch:200,_____learning rate:0.01,_____multi_scale:Falsehidden_nodes: 100/32
+AUC: 0.708,	F1_SCORE: 0.615,	ACCURACY: 0.707,	G_MEAN: 0.666,	
+HL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+G_MEAN: 0.743,	ACCURACY: 0.77,	AUC: 0.771,	F1_SCORE: 0.711,	
+HL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10
+AUC: 0.771,	G_MEAN: 0.743,	F1_SCORE: 0.711,	ACCURACY: 0.77,	
+AL_____epoch:200,_____learning rate:0.02,_____multi_scale:Falsehidden_nodes: 64/32
+ACCURACY: 0.714,	G_MEAN: 0.693,	F1_SCORE: 0.656,	AUC: 0.714,	
+1L_____epoch:200,_____learning rate:0.02,_____multi_scale:Falsehidden_nodes: 64/32
+F1_SCORE: 0.663,	AUC: 0.726,	ACCURACY: 0.725,	G_MEAN: 0.701,	
+2L_____epoch:200,_____learning rate:0.02,_____multi_scale:Falsehidden_nodes: 64/32
+ACCURACY: 0.73,	F1_SCORE: 0.667,	G_MEAN: 0.705,	AUC: 0.731,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:2hidden_nodes: 32/16
+AUC: 0.723,	F1_SCORE: 0.648,	ACCURACY: 0.722,	G_MEAN: 0.69,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:3hidden_nodes: 32/16
+AUC: 0.731,	F1_SCORE: 0.662,	G_MEAN: 0.702,	ACCURACY: 0.73,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:4hidden_nodes: 32/16
+G_MEAN: 0.712,	F1_SCORE: 0.675,	ACCURACY: 0.739,	AUC: 0.74,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:5hidden_nodes: 32/16
+G_MEAN: 0.729,	ACCURACY: 0.751,	F1_SCORE: 0.697,	AUC: 0.752,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:6hidden_nodes: 32/16
+F1_SCORE: 0.711,	AUC: 0.761,	G_MEAN: 0.741,	ACCURACY: 0.761,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:7hidden_nodes: 32/16
+ACCURACY: 0.778,	G_MEAN: 0.763,	AUC: 0.779,	F1_SCORE: 0.737,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:8hidden_nodes: 32/16
+AUC: 0.801,	F1_SCORE: 0.797,	G_MEAN: 0.801,	ACCURACY: 0.801,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:9hidden_nodes: 32/16
+G_MEAN: 0.792,	AUC: 0.794,	F1_SCORE: 0.805,	ACCURACY: 0.794,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:2hidden_nodes: 32/16
+AUC: 0.723,	ACCURACY: 0.722,	F1_SCORE: 0.648,	G_MEAN: 0.691,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:3hidden_nodes: 32/16
+F1_SCORE: 0.662,	G_MEAN: 0.702,	ACCURACY: 0.731,	AUC: 0.732,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:4hidden_nodes: 32/16
+ACCURACY: 0.739,	G_MEAN: 0.712,	AUC: 0.74,	F1_SCORE: 0.675,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:5hidden_nodes: 32/16
+G_MEAN: 0.728,	AUC: 0.751,	F1_SCORE: 0.695,	ACCURACY: 0.751,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:6hidden_nodes: 32/16
+G_MEAN: 0.744,	F1_SCORE: 0.715,	ACCURACY: 0.763,	AUC: 0.764,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:7hidden_nodes: 32/16
+F1_SCORE: 0.738,	ACCURACY: 0.779,	G_MEAN: 0.763,	AUC: 0.779,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:8hidden_nodes: 32/16
+G_MEAN: 0.8,	ACCURACY: 0.8,	AUC: 0.8,	F1_SCORE: 0.795,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:9hidden_nodes: 32/16
+ACCURACY: 0.796,	G_MEAN: 0.794,	F1_SCORE: 0.806,	AUC: 0.795,	
+HAL_____epoch:200,____wavelet:db1,_____learning rate:0.02,_____multi_scale:True,_____train_set_using_level:10hidden_nodes: 32/16
+ACCURACY: 0.844,	AUC: 0.844,	F1_SCORE: 0.844,	G_MEAN: 0.844,	
