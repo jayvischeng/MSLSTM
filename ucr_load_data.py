@@ -60,7 +60,7 @@ def load_ucr_data(is_multi_scale=False,filename='wafer'):
     print(filelist)
     count = 0
     for each in filelist:
-        if each==filename: pass
+        if each == filename: pass
         else:continue
         print(each)
         train_file = os.path.join(os.path.join(input_folder,each),each+'_TRAIN')
@@ -86,6 +86,8 @@ def load_ucr_data(is_multi_scale=False,filename='wafer'):
     testY = np.array(testY)
     print("TEMP IS ")
     print(trainX.shape)
+    print(trainY[0])
+
     #merged_index = return_merged_index(trainX, testX)
 
     trainY_encoder = LabelEncoder()
@@ -119,14 +121,13 @@ def load_ucr_data(is_multi_scale=False,filename='wafer'):
         return trainX_M2,trainY,testX_M2,testY
     #trainX2 = np.reshape(trainX[:,merged_index],(len(trainX),len(merged_index),1))
     #testX2 = np.reshape(testX[:,merged_index],(len(testX),len(merged_index),1))
-    trainX2,testX2 = return_merged_index(trainX, testX)
-    trainX2 = np.reshape(trainX2,(len(trainX2),len(trainX2[0]),1))
-    testX2 = np.reshape(testX2,(len(testX2),len(testX2[0]),1))
+    #trainX2,testX2 = return_merged_index(trainX, testX)
 
-    print(trainX.shape)
-    print(trainX2.shape)
-    trainX = np.reshape(trainX,(len(trainX),len(trainX[0]),1))
-    testX = np.reshape(testX,(len(testX),len(testX[0]),1))
+    #trainX2 = np.reshape(trainX2,(len(trainX2),len(trainX2[0]),1))
+    #testX2 = np.reshape(testX2,(len(testX2),len(testX2[0]),1))
+
+    #trainX = np.reshape(trainX,(len(trainX),len(trainX[0]),1))
+    #testX = np.reshape(testX,(len(testX),len(testX[0]),1))
 
     return trainX,trainY,testX,testY
 
