@@ -50,16 +50,6 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
             clf.fit(x_train, y_train)
             result = clf.predict(x_test)
 
-
-
-
-
-
-
-
-
-
-
         elif _model == "SVM":
             x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
             #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
