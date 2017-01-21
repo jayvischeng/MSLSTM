@@ -1,7 +1,11 @@
 # MSLSTM: A Multi-Scale Long Short-Term Memory Model
 ###The first edition of multi-LSTM
 ## Dependencies
-Keras (Tensorflow backend), Numpy.
+numpy
+scikit-leran
+tensorflow
+matplotlib
+Keras (Tensorflow backend).
 
 ## Cite
 If you find either the codes or the results are helpful to your work, please kindly cite our paper 
