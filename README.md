@@ -2,6 +2,7 @@
 ###The first edition of multi-LSTM
 ## Dependencies
 numpy
+PyWavelets
 scikit-leran
 tensorflow
 matplotlib
