@@ -22,11 +22,11 @@ flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
-flags.DEFINE_string('num_neurons1',50,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
+flags.DEFINE_string('num_neurons1',32,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
 flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
-flags.DEFINE_string('sequence_window',270,"""Sequence window size""")
+flags.DEFINE_string('sequence_window',20,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
-flags.DEFINE_string('scale_levels',9,"""Scale level value""")
+flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
@@ -71,19 +71,19 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     global sess, data_x, data_y, tempstdout
     FLAGS.option = method
 
-    #x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
-    #                                                    filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-    #                                                    Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
-    #                                                    Wave_Type=FLAGS.wave_type)
-    #
-    x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+    x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
+                                                        filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                                        Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
+                                                        Wave_Type=FLAGS.wave_type)
+
+    #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
 
     if FLAGS.is_multi_scale:
         FLAGS.scale_levels = x_train.shape[1]
         FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        FLAGS.batch_size = int(y_train.shape[0] / 2)
+        FLAGS.batch_size = int(y_train.shape[0])
     else:
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
@@ -103,9 +103,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
         #summary_op = tf.merge_all_summaries()
-
         init_op = tf.global_variables_initializer()
-
         sess = tf.Session()
         sess.run(init_op)
         #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
@@ -115,7 +113,6 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         epoch_training_acc_list = []
         epoch_val_loss_list = []
         epoch_val_acc_list = []
-        #weight_list = []
         early_stopping = 10
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
@@ -126,17 +123,21 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 pass
             else:
                 break
+            #weight_list = []
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
                 sess_run(minimize,inp,out)
-                #sess_run(output_u_w1,inp,out)
+                #print("hahahahahhahahahhahha")
+                #weights = sess_run(output_u_w1, inp, out)
+                #print(weights.shape)
+                #weight_list.extend(weights)
 
                 training_acc, training_loss = sess_run((accuracy, loss), inp, out)
                 #sys.stdout = tempstdout
 
                 val_acc, val_loss = sess_run((accuracy, loss), x_test, y_test)
             pprint(
-                FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 10 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>>>=" + "train_accuracy: %s, train_loss: %s" % (
+                FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 5 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
                 + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
 
@@ -220,16 +221,16 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    filename_list = ["BirdChicken"]
+    filename_list = ["HB_AS_Leak.txt"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
-    wave_type_list = ['coif1']
+    wave_type_list = ['haar']
 
     multi_scale_value_list = [2,3,4,5,6,10]
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['AL']
+    case = ['HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 
@@ -253,8 +254,8 @@ def main(unused_argv):
                 train_loss_list.append(train_loss)
                 val_loss_list.append(val_loss)
 
-                visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
-                visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+                #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
+                #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
             else:
 
                 sys.stdout = tempstdout

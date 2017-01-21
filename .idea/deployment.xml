@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CityU_LAB">
+  <component name="PublishConfigData" autoUpload="Always" serverName="CityUPC">
     <serverData>
+      <paths name="CityUPC">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Dropbox/MSLSTM" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="CityU_LAB">
         <serverdata>
           <mappings>
-            <mapping deploy="/data/MSLSTM" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/MSLSTM" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/UCR_TS_Archive_2015" />
