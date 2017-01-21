@@ -113,7 +113,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         epoch_training_acc_list = []
         epoch_val_loss_list = []
         epoch_val_acc_list = []
-        early_stopping = 10
+        early_stopping = 100
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
         #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
@@ -205,10 +205,10 @@ def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
                 FLAGS.learning_rate = 0.1
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                FLAGS.learning_rate = 0.001
+                FLAGS.learning_rate = 0.1
                 FLAGS.is_multi_scale = False
             else:
-                FLAGS.learning_rate = 0.02
+                FLAGS.learning_rate = 0.04
                 FLAGS.is_multi_scale = True
                 FLAGS.wave_type = wave_type
             return train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
@@ -230,7 +230,7 @@ def main(unused_argv):
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['HAL']
+    case = ['AL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 
