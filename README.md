@@ -1,4 +1,5 @@
 # MSLSTM: A Multi-Scale Long Short-Term Memory Model
+
 ### Introduction
 We extract statistical features and build models to identify anomalous bgp traffic based on several typical anomaly event data sets. 
 This package includes multi-scale LSTM, attention based multi-scale LSTM, hierarchy attention based multi-scale LSTM as well as baselines (1-layer LSTM, 2-Layer LSTM, RNN and traditional machine learning methods).
