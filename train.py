@@ -42,9 +42,6 @@ flags.DEFINE_string('output','./output/',"""Directory where to write the results
 FLAGS = flags.FLAGS
 
 def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
-    #print("aaa")
-    #print(inputs.shape)
-    #print(targets.shape)
     assert inputs.shape[0] == targets.shape[0]
 
     if shuffle:
@@ -53,13 +50,9 @@ def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
 
     for start_idx in range(0, inputs.shape[0] - batchsize + 1, batchsize):
         if shuffle:
-            #print("ccc")
-
             excerpt = indices[start_idx:start_idx + batchsize]
-
         else:
             excerpt = slice(start_idx, start_idx + batchsize)
-        #print("ccc")
         yield inputs[excerpt], targets[excerpt]
 def pprint(msg,method=''):
     if not 'Warning' in msg:
@@ -69,8 +62,6 @@ def pprint(msg,method=''):
             sys.stderr.write(msg+'\n')
         except:
             pass
-
-
         #sys.stdout.flush()
 def sess_run(commander,data,label):
     global sess, data_x, data_y
@@ -125,21 +116,18 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         epoch_val_loss_list = []
         epoch_val_acc_list = []
         #weight_list = []
-        early_stopping = 100
+        early_stopping = 10
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
         #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
         #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
         for i in range(FLAGS.max_epochs):
-            #if early_stopping > 0:
-                #pass
-            #else:
-                #break
-            ptr = 0
+            if early_stopping > 0:
+                pass
+            else:
+                break
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
-                #print("bbb")
-                #print(inp.shape)
                 sess_run(minimize,inp,out)
                 #sess_run(output_u_w1,inp,out)
 
@@ -151,27 +139,11 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 10 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
                 + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
-            #for j in range(no_of_batches):
-                #pprint(str(i+1)+'th epoches,'+str(j+1)+'th batches')
-                #inp, out = x_train[ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
-                #inp2, out2 = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
-                #inp, out = x_train[:, ptr:ptr + FLAGS.batch_size], y_train[ptr:ptr + FLAGS.batch_size]
-                #inp2, out2 = x_test[:, ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
-                #ptr += FLAGS.batch_size
-                #sess_run(minimize,inp,out)
-                #training_acc, training_loss = sess_run((accuracy,loss),inp,out)
-                #val_acc, val_loss = sess_run((accuracy,loss),inp2,out2)
-                #if j%5 == 0:
-                    #summary_str = sess.run(summary_op, {data_x: inp, data_y: out})
-                    #summary_writer.add_summary(summary_str, i * no_of_batches)
 
             epoch_training_loss_list.append(training_loss)
             epoch_training_acc_list.append(training_acc)
             epoch_val_loss_list.append(val_loss)
             epoch_val_acc_list.append(val_acc)
-
-            #pprint(FLAGS.option+"_Epoch%s" % (str(i + 1)) + ">" * 20 + "=" + "train_accuracy: %s, train_loss: %s" % (str(training_acc), str(training_loss)) \
-                  #+ ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)),method+'_'+filename)
 
             try:
                 max_val_acc = epoch_val_acc_list[-2]
@@ -186,20 +158,12 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
         weight_list = []
         result = sess.run(prediction, {data_x:x_test, data_y: y_test})
-        #for t in range(int(len(y_test)/FLAGS.batch_size)):
-            #inp_test, out_test = x_test[ptr:ptr + FLAGS.batch_size], y_test[ptr:ptr + FLAGS.batch_size]
-            #result.append(sess.run(prediction, {data_x:inp_test, data_y: out_test}))
-            #weight_list.append(sess.run(out_put_u_w_scale, {data_original_train: inp_test, target: out_test}))
-            #ptr += FLAGS.batch_size
-        #x_ = [i for i in range(FLAGS.scale_levels)]
-        #y_ = [i for i in range(int(len(y_test)/FLAGS.batch_size))]
-        #x_,y_ = np.meshgrid(x_,y_)
-        #plt.plot(np.array(x_),np.array(y_),np.array(result))
-        #plt.show()
+
     sess.close()
     results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
     result2 = np.array(evaluation.ReverseEncoder(result))
+
     with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_True.txt"), "w") as fout:
         for tab in range(len(y_test2)):
             fout.write(str(int(y_test2[tab])) + '\n')
@@ -223,28 +187,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         fout.write('\n')
 
     return epoch_training_acc_list,epoch_val_acc_list,epoch_training_loss_list,epoch_val_loss_list
-"""
-            try:
-                weight_list = []
-                result = []1
-                ptr = 0
-                for t in range(int(len(y_test) / batch_size)):
 
-                    inp_test, out_test = x_test[:, ptr:ptr + batch_size], y_test[ptr:ptr + batch_size]
-                    if len(inp_test[0]) != batch_size: continue
-
-                    result.append(sess.run(prediction, {data_x: inp_test, data_y: out_test}))
-                    weight_list.append(sess.run(out_put_u_w_scale, {data_x: inp_test, data_y: out_test}))
-
-                    ptr += batch_size
-                x_ = [i for i in range(number_scale_levels)]
-                y_ = [i for i in range(int(len(y_test) / batch_size))]
-                x_, y_ = np.meshgrid(x_, y_)
-                plt.plot(np.array(x_), np.array(y_), np.array(result))
-                plt.show()
-            except:
-                pass
-"""
 def train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     return sclearn.Basemodel(method,filename,cross_cv,tab_cross_cv)
 def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
@@ -277,24 +220,18 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
-    #filename_list = ["HB_AS_Leak.txt"]
     filename_list = ["BirdChicken"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['coif1']
 
     multi_scale_value_list = [2,3,4,5,6,10]
-    #multi_scale_value_list = [2,2,2,2,3,3,3,3,4,4]
 
+    case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    #case = ['1L','AL']
     case = ['AL']
-    #case = ['HL','AL','HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
-    #case = ["HAL"]
-    case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
 
     cross_cv = 2
     tab_cross_cv = 1
@@ -320,19 +257,13 @@ def main(unused_argv):
                 visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
             else:
 
-                #train(each_case, filename, cross_cv, tab_cross_cv, wave_type)
                 sys.stdout = tempstdout
                 #sclearn.Basemodel(each_case,filename,cross_cv,tab_cross_cv)
-
                 nnkeras.Basemodel(each_case,filename,cross_cv,tab_cross_cv)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
 
-#----------------------------------For comparison------------------------------------------------------
-
-    #for each_method in method_list2:
-        #baselines.sclearn.Basemodel(each_method,"HB_AS_Leak.txt",2)
 
 if __name__ == "__main__":
     global tempstdout
