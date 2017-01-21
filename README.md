@@ -1,11 +1,11 @@
 # MSLSTM: A Multi-Scale Long Short-Term Memory Model
 ###The first edition of multi-LSTM
 ## Dependencies
-numpy
-PyWavelets
-scikit-leran
-tensorflow
-matplotlib
+numpy,
+PyWavelets,
+scikit-leran,
+tensorflow,
+matplotlib,
 Keras (Tensorflow backend).
 
 ## Cite
