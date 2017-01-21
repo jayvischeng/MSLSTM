@@ -126,8 +126,8 @@ def load_ucr_data(is_multi_scale=False,filename='wafer'):
     #trainX2 = np.reshape(trainX2,(len(trainX2),len(trainX2[0]),1))
     #testX2 = np.reshape(testX2,(len(testX2),len(testX2[0]),1))
 
-    #trainX = np.reshape(trainX,(len(trainX),len(trainX[0]),1))
-    #testX = np.reshape(testX,(len(testX),len(testX[0]),1))
+    trainX = np.reshape(trainX,(len(trainX),len(trainX[0]),1))
+    testX = np.reshape(testX,(len(testX),len(testX[0]),1))
 
     return trainX,trainY,testX,testY
 

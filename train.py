@@ -279,7 +279,7 @@ def main(unused_argv):
     #main function
     #filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
     #filename_list = ["HB_AS_Leak.txt"]
-    filename_list = ["50words"]
+    filename_list = ["BirdChicken"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['coif1']
@@ -289,7 +289,7 @@ def main(unused_argv):
 
     #case = ['1L','2L','AL','HL','HAL']
     #case = ['1L','AL']
-    case = ['MLP']
+    case = ['1L']
     #case = ['HL','AL','HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
@@ -308,7 +308,7 @@ def main(unused_argv):
         val_loss_list = []
 
         for each_case in case:
-            if 1<0: #
+            if 1>0: #
                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename, cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
