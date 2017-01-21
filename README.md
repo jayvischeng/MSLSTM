@@ -18,4 +18,6 @@ If you find either the codes or the results are helpful to your work, please kin
 ##### [**Multi-Scale Long Short-Term Memory Model for BGP Anomaly Detection**] (https://arxiv.org/submit/1783627/view)
 ### License
 This project is licensed under the MIT License.
+
+If had any problem, please send me email: mc.cheng@my.cityu.edu.hk
  
