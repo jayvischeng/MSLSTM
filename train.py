@@ -289,7 +289,7 @@ def main(unused_argv):
 
     #case = ['1L','2L','AL','HL','HAL']
     #case = ['1L','AL']
-    case = ['1L']
+    case = ['AL']
     #case = ['HL','AL','HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
