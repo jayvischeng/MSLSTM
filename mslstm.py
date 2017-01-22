@@ -214,7 +214,9 @@ def inference(data,label,option):
     #try:
      #   return output_u_w,prediction,label
     #except:
-    return output_u_w,prediction,label
+    #weights = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window*FLAGS.batch_size, 1,FLAGS.scale_levels]),name="weights")
+    #tf.assign(weights,u_w_bottom)
+    return u_w_bottom,prediction,label
 
 def train(loss):
 

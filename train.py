@@ -43,13 +43,18 @@ flags.DEFINE_string('output','./output/',"""Directory where to write the results
 FLAGS = flags.FLAGS
 
 def return_max_index(mylist):
+    pprint("aaa")
+    pprint(mylist)
     temp = []
+    temp2 = []
     for tab in range(len(mylist)):
         each = list(mylist[tab])
         if tab%FLAGS.sequence_window == 0:
+            temp2.append(each)
             temp.append(each.index(max(each)))
-    print("abc")
-    print(temp)
+    pprint("abc")
+    pprint(temp)
+    pprint(temp2)
     a = [i for i in range(len(temp))]
     plt.plot(a,temp,'b')
     plt.show()
@@ -69,7 +74,8 @@ def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
             excerpt = slice(start_idx, start_idx + batchsize)
         yield inputs[excerpt], targets[excerpt]
 def pprint(msg,method=''):
-    if not 'Warning' in msg:
+    #if not 'Warning' in msg:
+    if 1>0:
         sys.stdout = printlog.PyLogger('',method+'_'+str(FLAGS.num_neurons1))
         print(msg)
         try:
@@ -77,12 +83,12 @@ def pprint(msg,method=''):
         except:
             pass
         #sys.stdout.flush()
-def sess_run(commander,data,label):
-    global sess, data_x, data_y
-    return sess.run(commander, {data_x: data, data_y: label})
+#def sess_run(commander,data,label):
+    #global sess, data_x, data_y
+    #return sess.run(commander, {data_x: data, data_y: label})
 
 def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
-    global sess, data_x, data_y, tempstdout
+    global tempstdout
     FLAGS.option = method
 
     x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
@@ -103,8 +109,9 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
         FLAGS.batch_size = int(y_train.shape[0])
-    with tf.Graph().as_default():
-    #with tf.variable_scope("middle")as scope:
+    #g = tf.Graph()
+    #with g.as_default():
+    with tf.variable_scope("middle")as scope:
         tf.set_random_seed(1337)
 
         #global_step = tf.Variable(0,name="global_step",trainable=False)
@@ -117,12 +124,19 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
         #summary_op = tf.merge_all_summaries()
+
+        weights = tf.Variable(tf.constant(0.321, shape=[len(y_test)*FLAGS.sequence_window, 1, FLAGS.scale_levels]),
+                              name="weights123")
+
+        saver = tf.train.Saver({"my_weights": weights})
+
         init_op = tf.global_variables_initializer()
         sess = tf.Session()
+    #init_op = tf.initialize_all_variables()
+    #with tf.Session() as sess:
         sess.run(init_op)
         #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
         #saver = tf.train.Saver()
-
         epoch_training_loss_list = []
         epoch_training_acc_list = []
         epoch_val_loss_list = []
@@ -139,11 +153,11 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 #break
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
-                sess_run(minimize,inp,out)
-                training_acc, training_loss = sess_run((accuracy, loss), inp, out)
+                sess.run(minimize, {data_x: inp, data_y: out})
+                training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out})
                 #sys.stdout = tempstdout
 
-                val_acc, val_loss = sess_run((accuracy, loss), x_test, y_test)
+                val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_test, data_y:y_test})
             pprint(
                 FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 5 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
@@ -164,12 +178,18 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 early_stopping -= 1
             elif epoch_val_acc_list[-1] >= max_val_acc:
                 early_stopping = 10
+        pprint("fff111")
+        weights_results = sess.run(output_u_w, {data_x:x_test, data_y: y_test})
+        sess.run(weights.assign(weights_results))
 
-        weights = sess_run(output_u_w, x_test, y_test)
-
-        weight_list = return_max_index(weights)
+        #weights = output_u_w.eval(session=sess)
+        #weights = saver.restore(sess, "./tf_tmp/model.ckpt")
+        #pprint(weights)
+        #pprint("ggg")
+        #weight_list = return_max_index(weights)
         result = sess.run(prediction, {data_x:x_test, data_y: y_test})
 
+    saver.save(sess, "./tf_tmp/model.ckpt")
     sess.close()
     results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
@@ -202,7 +222,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 def train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     return sclearn.Basemodel(method,filename,cross_cv,tab_cross_cv)
 def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
-    global sess, data_x, data_y
+    global data_x, data_y
     result_list_dict = defaultdict(list)
     evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
     for each in evaluation_list:
