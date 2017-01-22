@@ -18,6 +18,7 @@ import numpy as np
 import visualize
 import ucr_load_data
 from baselines import nnkeras,sclearn
+import matplotlib.pyplot as plt
 flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
@@ -31,7 +32,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
-flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',10,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -41,6 +42,19 @@ flags.DEFINE_string('output','./output/',"""Directory where to write the results
 
 FLAGS = flags.FLAGS
 
+def return_max_index(mylist):
+    temp = []
+    for tab in range(len(mylist)):
+        each = list(mylist[tab])
+        if tab%FLAGS.sequence_window == 0:
+            temp.append(each.index(max(each)))
+    print("abc")
+    print(temp)
+    a = [i for i in range(len(temp))]
+    plt.plot(a,temp,'b')
+    plt.show()
+
+    return temp
 def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
     assert inputs.shape[0] == targets.shape[0]
 
@@ -95,7 +109,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
         #global_step = tf.Variable(0,name="global_step",trainable=False)
         data_x,data_y = mslstm.inputs(FLAGS.option)
-        prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
+        output_u_w,prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
         loss = mslstm.loss(prediction, label)
         optimizer = mslstm.train(loss)
         minimize = optimizer.minimize(loss)
@@ -117,21 +131,15 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
 
         #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
-        #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+        #visualize.Quxian_Plotting(x_test, y_test, 2, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
         for i in range(FLAGS.max_epochs):
             #if early_stopping > 0:
                 #pass
             #else:
                 #break
-            #weight_list = []
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
                 sess_run(minimize,inp,out)
-                #print("hahahahahhahahahhahha")
-                #weights = sess_run(output_u_w1, inp, out)
-                #print(weights.shape)
-                #weight_list.extend(weights)
-
                 training_acc, training_loss = sess_run((accuracy, loss), inp, out)
                 #sys.stdout = tempstdout
 
@@ -146,6 +154,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
             epoch_val_loss_list.append(val_loss)
             epoch_val_acc_list.append(val_acc)
 
+
             try:
                 max_val_acc = epoch_val_acc_list[-2]
             except:
@@ -156,8 +165,9 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
             elif epoch_val_acc_list[-1] >= max_val_acc:
                 early_stopping = 10
 
+        weights = sess_run(output_u_w, x_test, y_test)
 
-        weight_list = []
+        weight_list = return_max_index(weights)
         result = sess.run(prediction, {data_x:x_test, data_y: y_test})
 
     sess.close()

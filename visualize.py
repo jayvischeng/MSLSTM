@@ -132,12 +132,12 @@ def Quxian_Plotting(dataX,dataY,feature,name):
         y.append(dataX[i][:,feature][-1])
     x = [i for i in range(len(y))]
     z = [i  for i in range(len(dataY)) if int(dataY[i][0]) == 1]
+    print(len(y))
     plt.plot(x,np.array(y),'b')
-    plt.plot(z,np.array(y)[z],'r')
+    plt.plot(z,np.array(y)[z],'r.')
     plt.tight_layout()
     plt.grid()
-    plt.clf()
-    #plt.show()
+    plt.show()
     plt.savefig(name + '.pdf', dpi=400)
 
 

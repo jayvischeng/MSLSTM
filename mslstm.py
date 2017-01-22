@@ -211,8 +211,10 @@ def inference(data,label,option):
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
-
-    return prediction,label
+    #try:
+     #   return output_u_w,prediction,label
+    #except:
+    return output_u_w,prediction,label
 
 def train(loss):
 
