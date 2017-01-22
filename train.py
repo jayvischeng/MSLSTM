@@ -24,7 +24,7 @@ flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
 flags.DEFINE_string('num_neurons1',32,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
 flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
-flags.DEFINE_string('sequence_window',20,"""Sequence window size""")
+flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
 flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
@@ -83,7 +83,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        FLAGS.batch_size = int(y_train.shape[0])
+        #FLAGS.batch_size = int(y_train.shape[0])
     else:
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
@@ -119,10 +119,10 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
         #visualize.Quxian_Plotting(x_test, y_test, 0, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
         for i in range(FLAGS.max_epochs):
-            if early_stopping > 0:
-                pass
-            else:
-                break
+            #if early_stopping > 0:
+                #pass
+            #else:
+                #break
             #weight_list = []
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
@@ -230,7 +230,7 @@ def main(unused_argv):
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['AL']
+    case = ['HAL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 

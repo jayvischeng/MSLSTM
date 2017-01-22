@@ -195,6 +195,9 @@ def inference(data,label,option):
             w_bottom = tf.matmul(w_t, u_w_nor)
             u_w_bottom = tf.reshape(tf.div(w_t, w_bottom), (-1, 1, FLAGS.scale_levels))
             output_u_w = tf.Print(u_w_bottom, [u_w_bottom],"The U_W is :", first_n=4096, summarize=40)
+            print("AAA")
+            print(u_w_bottom.get_shape())
+            print(val_bottom.get_shape())
             m_temp = tf.matmul(u_w_bottom, val_bottom)
 
         temp = tf.reshape(m_temp, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
