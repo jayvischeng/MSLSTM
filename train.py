@@ -27,12 +27,12 @@ flags.DEFINE_string('num_neurons1',32,"""Number of hidden units""")#HAL(hn1=32,h
 flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
 flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
-flags.DEFINE_string('scale_levels',10,"""Scale level value""")
+flags.DEFINE_string('scale_levels',9,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
-flags.DEFINE_string('max_epochs',10,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -42,24 +42,7 @@ flags.DEFINE_string('output','./output/',"""Directory where to write the results
 
 FLAGS = flags.FLAGS
 
-def return_max_index(mylist):
-    pprint("aaa")
-    pprint(mylist)
-    temp = []
-    temp2 = []
-    for tab in range(len(mylist)):
-        each = list(mylist[tab])
-        if tab%FLAGS.sequence_window == 0:
-            temp2.append(each)
-            temp.append(each.index(max(each)))
-    pprint("abc")
-    pprint(temp)
-    pprint(temp2)
-    a = [i for i in range(len(temp))]
-    plt.plot(a,temp,'b')
-    plt.show()
 
-    return temp
 def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
     assert inputs.shape[0] == targets.shape[0]
 
@@ -159,7 +142,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
                 val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_test, data_y:y_test})
             pprint(
-                FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 5 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>>>=" + "train_accuracy: %s, train_loss: %s" % (
+                FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 3 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
                 + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
 
@@ -178,7 +161,6 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 early_stopping -= 1
             elif epoch_val_acc_list[-1] >= max_val_acc:
                 early_stopping = 10
-        pprint("fff111")
         weights_results = sess.run(output_u_w, {data_x:x_test, data_y: y_test})
         sess.run(weights.assign(weights_results))
 
