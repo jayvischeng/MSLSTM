@@ -27,7 +27,7 @@ flags.DEFINE_string('num_neurons1',32,"""Number of hidden units""")#HAL(hn1=32,h
 flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
 flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
-flags.DEFINE_string('scale_levels',9,"""Scale level value""")
+flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
