@@ -181,7 +181,7 @@ def inference(data,label,option):
         data_train = tf.reshape(data_train, (-1, FLAGS.scale_levels, FLAGS.input_dim))
         with tf.variable_scope('1stlayer_hal'):
             u_w_bottom = tf.Variable(tf.random_normal(shape=[1, FLAGS.scale_levels]), name="u_w_bottom")
-            u_w_nor = tf.Variable(tf.constant(1.0, shape=[FLAGS.scale_levels, 1]), name="u_w_one")
+            u_w_nor = tf.Variable(tf.constant(1.0, shape=[FLAGS.scale_levels, 1]), name="u_w_nor")
             lstm_cell_bottom = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
             val_bottom, state_bottom = tf.nn.dynamic_rnn(lstm_cell_bottom, data_train, dtype=tf.float32)
             val_val_bottom_ = tf.reshape(val_bottom, (-1, FLAGS.num_neurons1))
@@ -193,12 +193,8 @@ def inference(data,label,option):
             u_levels_t = tf.reshape(u_levels_t, (FLAGS.scale_levels, -1))
             w_t = tf.reshape(tf.exp(tf.matmul(u_w_bottom, u_levels_t)), (-1, FLAGS.scale_levels))
             w_bottom = tf.matmul(w_t, u_w_nor)
-            u_w_bottom = tf.reshape(tf.div(w_t, w_bottom), (-1, 1, FLAGS.scale_levels))
-            output_u_w = tf.Print(u_w_bottom, [u_w_bottom],"The U_W is :", first_n=4096, summarize=40)
-            print("AAA")
-            print(u_w_bottom.get_shape())
-            print(val_bottom.get_shape())
-            m_temp = tf.matmul(u_w_bottom, val_bottom)
+            u_w_bottom_final = tf.reshape(tf.div(w_t, w_bottom), (-1, 1, FLAGS.scale_levels))
+            m_temp = tf.matmul(u_w_bottom_final, val_bottom)
 
         temp = tf.reshape(m_temp, (-1, FLAGS.sequence_window, FLAGS.num_neurons1))
         with tf.variable_scope('2ndlayer_hl'):
