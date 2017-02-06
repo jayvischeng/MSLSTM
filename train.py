@@ -24,7 +24,7 @@ flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
-flags.DEFINE_string('num_neurons1',256,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
+flags.DEFINE_string('num_neurons1',120,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
 flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
 flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
@@ -33,7 +33,7 @@ flags.DEFINE_string('number_class',2,"""Number of output nodes""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
-flags.DEFINE_string('max_epochs',20,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',200,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
@@ -91,7 +91,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        #FLAGS.batch_size = int(y_train.shape[0])
+        FLAGS.batch_size = int(y_train.shape[0])
     else:
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
@@ -144,7 +144,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
                 sess.run(minimize, {data_x: inp, data_y: out})
-                training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out})
+                training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out},model.keep_prob:dropout)
                 #sys.stdout = tempstdout
 
                 val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_test, data_y:y_test})
@@ -191,6 +191,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     results = accuracy_score(y_test2, result2)
     print(y_test2)
     print(result2)
+    print(results)
     with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_True.txt"), "w") as fout:
         for tab in range(len(y_test2)):
             fout.write(str(int(y_test2[tab])) + '\n')
@@ -248,7 +249,7 @@ def main(unused_argv):
 
     #main function
     #filename_list = ["HB_AS_Leak.txt"]
-    filename_list = ["Adiac"]
+    filename_list = ["Two_Patterns"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
