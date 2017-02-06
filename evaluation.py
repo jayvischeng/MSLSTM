@@ -48,6 +48,7 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
     error_rate_flag = False
     for tab_class in range(len(Output_Class)):
         try:
+            error_rate_flag = True
             if label[0][tab_class] == negative_label:
                 predict_negative = Output_Class[tab_class].count(1)
                 total_negative = list(np.transpose(label)[tab_class]).count(1)
