@@ -70,17 +70,19 @@ def loss(predict,label):
     #cost_cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None)  # Sigmoid
 
     cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    #cost_cross_entropy = tf.reduce_mean(label * tf.log(predict))  # tanh
+
     #cost_cross_entropy = tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))/（FLAGS.batch_size*FLAGS.number_class）  # Sigmoid
 
     #--------------------------------------------- Compute cross entropy with various length--------------------------.
-    cross_entropy = label * tf.log(predict)
-    cross_entropy = -tf.reduce_sum(cross_entropy, reduction_indices=1)
+    #cross_entropy = label * tf.log(predict)
+    #cross_entropy = -tf.reduce_sum(cross_entropy, reduction_indices=1)
     #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
-    mask = tf.sign(tf.reduce_max(tf.abs(label), reduction_indices=1))
-    cross_entropy *= mask
+    #mask = tf.sign(tf.reduce_max(tf.abs(label), reduction_indices=1))
+    #cross_entropy *= mask
     # Average over actual sequence lengths.
-    cross_entropy = tf.reduce_sum(cross_entropy, reduction_indices=0)
-    cross_entropy /= tf.reduce_sum(mask, reduction_indices=0)
+    #cross_entropy = tf.reduce_sum(cross_entropy, reduction_indices=0)
+    #cross_entropy /= tf.reduce_sum(mask, reduction_indices=0)
     #return tf.reduce_mean(cross_entropy)
     #-----------------------------------------------------------------------------------
     return cost_cross_entropy
@@ -212,7 +214,8 @@ def inference(data,label,option):
     #except:
     #weights = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window*FLAGS.batch_size, 1,FLAGS.scale_levels]),name="weights")
     #tf.assign(weights,u_w_bottom)
-    return u_w_bottom,prediction,label
+    #return u_w_bottom,prediction,label
+    return prediction,label
 
 def train(loss):
 
