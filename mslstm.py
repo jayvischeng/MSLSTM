@@ -66,10 +66,10 @@ def last_relevant(output, length):
     return relevant
 def loss(predict,label):
 
-    #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
+    cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
     #cost_cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None)  # Sigmoid
 
-    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
     #cost_cross_entropy = tf.reduce_mean(label * tf.log(predict))  # tanh
 
     #cost_cross_entropy = tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))/（FLAGS.batch_size*FLAGS.number_class）  # Sigmoid
