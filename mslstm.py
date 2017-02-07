@@ -139,18 +139,23 @@ def inference(data,label,option):
         u_ = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w")
         w_ones = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window,1]),name="u_w_one")
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val_ = tf.reshape(val,(-1,FLAGS.num_neurons1))
+
         weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.sequence_window]),name='weight_h')
         bias_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.sequence_window]))
         u_levels = tf.reshape((tf.matmul(val_, weight_h) + bias_h),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
         u_levels_ = tf.transpose(u_levels,[0,1,2])
+
         u_levels_ = tf.reshape(u_levels_,(FLAGS.sequence_window,-1))
         u_levels_t = tf.exp(tf.matmul(u_,u_levels_))
         w_t = tf.reshape(u_levels_t,(-1,FLAGS.sequence_window))
+
         w_ = tf.matmul(w_t,w_ones)
         u_w = tf.div(w_t, w_)
         u_w = tf.reshape(u_w,(-1,1,FLAGS.sequence_window))
+
         m_t = tf.reshape(tf.matmul(u_w,val),(-1,FLAGS.num_neurons1))
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
