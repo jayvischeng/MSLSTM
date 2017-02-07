@@ -30,6 +30,7 @@ flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
 flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
+flags.DEFINE_string('max_grad_norm',2,"""Maximum gradient norm during training""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
@@ -40,6 +41,7 @@ flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
 flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
 flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
 flags.DEFINE_string('output','./output/',"""Directory where to write the results""")
+config['max_grad_norm'] = 5             #maximum gradient norm during training
 
 FLAGS = flags.FLAGS
 
