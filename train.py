@@ -30,7 +30,7 @@ flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
 flags.DEFINE_string('scale_levels',10,"""Scale level value""")
 flags.DEFINE_string('number_class',2,"""Number of output nodes""")
-flags.DEFINE_string('max_grad_norm',2,"""Maximum gradient norm during training""")
+flags.DEFINE_string('max_grad_norm',5,"""Maximum gradient norm during training""")
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',1000,"""Batch size""")
@@ -41,7 +41,6 @@ flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
 flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
 flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
 flags.DEFINE_string('output','./output/',"""Directory where to write the results""")
-config['max_grad_norm'] = 5             #maximum gradient norm during training
 
 FLAGS = flags.FLAGS
 
@@ -108,20 +107,16 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         data_x,data_y = mslstm.inputs(FLAGS.option)
         #output_u_w,prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
         prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
-
         loss = mslstm.loss(prediction, label)
         optimizer = mslstm.train(loss)
         minimize = optimizer.minimize(loss)
         correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
         accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-
         #summary_op = tf.merge_all_summaries()
-
         weights = tf.Variable(tf.constant(0.321, shape=[len(y_test)*FLAGS.sequence_window, 1, FLAGS.scale_levels]),
                               name="weights123")
 
         saver = tf.train.Saver({"my_weights": weights})
-
         init_op = tf.global_variables_initializer()
         sess = tf.Session()
     #init_op = tf.initialize_all_variables()
@@ -135,7 +130,6 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         epoch_val_acc_list = []
         early_stopping = 100
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
-
         #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
         #visualize.Quxian_Plotting(x_test, y_test, 2, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
         for i in range(FLAGS.max_epochs):
@@ -155,6 +149,9 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 str(training_acc), str(training_loss)) \
                 + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
 
+
+
+
             epoch_training_loss_list.append(training_loss)
             epoch_training_acc_list.append(training_acc)
             epoch_val_loss_list.append(val_loss)
@@ -164,7 +161,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
             try:
                 max_val_acc = epoch_val_acc_list[-2]
             except:
-                max_val_acc = 0
+                max_val_accnum_layers = 0
 
             if epoch_val_acc_list[-1] < max_val_acc:
                 early_stopping -= 1
