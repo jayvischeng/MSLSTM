@@ -75,13 +75,14 @@ def pprint(msg,method=''):
 def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     global tempstdout
     FLAGS.option = method
+    dropout = 0.8
 
-    #x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
-     #                                                   filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-     #                                                   Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
-     #                                                   Wave_Type=FLAGS.wave_type)
+    x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
+                                                        filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                                        Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
+                                                        Wave_Type=FLAGS.wave_type)
 
-    x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+    #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
     print(x_train.shape)
     print(y_train.shape)
     print(x_test.shape)
@@ -97,17 +98,20 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        FLAGS.batch_size = int(y_train.shape[0])
+        FLAGS.batch_size = 100
     #g = tf.Graph()
     #with g.as_default():
     with tf.variable_scope("middle")as scope:
         tf.set_random_seed(1337)
-
         #global_step = tf.Variable(0,name="global_step",trainable=False)
         data_x,data_y = mslstm.inputs(FLAGS.option)
         #output_u_w,prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
-        prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
-        loss = mslstm.loss(prediction, label)
+
+        is_training = tf.placeholder(tf.bool)
+
+
+        prediction, label = mslstm.inference(data_x,data_y,FLAGS.option,is_training)
+        loss = mslstm.loss_(prediction, label)
         optimizer = mslstm.train(loss)
         minimize = optimizer.minimize(loss)
         correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
@@ -139,11 +143,11 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 #break
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
-                sess.run(minimize, {data_x: inp, data_y: out})
-                training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out},model.keep_prob:dropout)
+                sess.run(minimize, {data_x: inp, data_y: out, is_training:True})
+                training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out,is_training:True})
                 #sys.stdout = tempstdout
 
-                val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_test, data_y:y_test})
+                val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_test, data_y:y_test,is_training:True})
             pprint(
                 FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 3 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
@@ -161,7 +165,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
             try:
                 max_val_acc = epoch_val_acc_list[-2]
             except:
-                max_val_accnum_layers = 0
+                max_val_acc = 0
 
             if epoch_val_acc_list[-1] < max_val_acc:
                 early_stopping -= 1
@@ -188,9 +192,9 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
     result2 = np.array(evaluation.ReverseEncoder(result))
     results = accuracy_score(y_test2, result2)
-    print(y_test2)
-    print(result2)
-    print(results)
+    #print(y_test2)
+    #print(result2)
+    #print(results)
     with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_True.txt"), "w") as fout:
         for tab in range(len(y_test2)):
             fout.write(str(int(y_test2[tab])) + '\n')
@@ -228,10 +232,10 @@ def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
         if 'L' in method:
             sys.stdout = tempstdout
             if method == '1L' or method == '2L':
-                FLAGS.learning_rate = 0.001
+                FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                FLAGS.learning_rate = 0.001
+                FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             else:
                 FLAGS.learning_rate = 0.05
@@ -247,8 +251,8 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    #filename_list = ["HB_AS_Leak.txt"]
-    filename_list = ["Two_Patterns"]
+    filename_list = ["HB_AS_Leak.txt"]
+    #filename_list = ["Two_Patterns"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
