@@ -6,6 +6,8 @@ from __future__ import division
 import tensorflow as tf
 import printlog
 import sys
+from BNLSTM import LSTMCell, BNLSTMCell, orthogonal_initializer
+
 #from tensorflow.nn.rnn_cell import GRUCell
 FLAGS = tf.app.flags.FLAGS
 def pprint(msg,method=''):
@@ -64,12 +66,12 @@ def last_relevant(output, length):
     flat = tf.reshape(output, [-1, out_size])
     relevant = tf.gather(flat, index)
     return relevant
-def loss(predict,label):
+def loss_(predict,label):
 
-    cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
+    #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
     #cost_cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None)  # Sigmoid
 
-    #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
     #cost_cross_entropy = tf.reduce_mean(label * tf.log(predict))  # tanh
 
     #cost_cross_entropy = tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))/（FLAGS.batch_size*FLAGS.number_class）  # Sigmoid
@@ -90,10 +92,11 @@ def loss(predict,label):
 def print_info(tensor,name):
     return tf.Print(tensor, [tensor.get_shape()], "The "+name+" shape is :", first_n=4096, summarize=40)
 
-def inference(data,label,option):
+def inference(data,label,option,is_training):
     if option == '1L':#pure one-layer lstm
+        lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
 
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
@@ -135,10 +138,11 @@ def inference(data,label,option):
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
 
     elif option == 'AL':
+        lstm_cell = BNLSTMCell(FLAGS.num_neurons1, training=is_training)
+        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
 
         u_ = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w")
         w_ones = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window,1]),name="u_w_one")
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
 
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val_ = tf.reshape(val,(-1,FLAGS.num_neurons1))
@@ -146,6 +150,7 @@ def inference(data,label,option):
         weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.sequence_window]),name='weight_h')
         bias_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.sequence_window]))
         u_levels = tf.reshape((tf.matmul(val_, weight_h) + bias_h),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
+
         u_levels_ = tf.transpose(u_levels,[0,1,2])
 
         u_levels_ = tf.reshape(u_levels_,(FLAGS.sequence_window,-1))
