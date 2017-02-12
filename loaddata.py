@@ -624,11 +624,39 @@ def get_all_subfactors(number):
             temp_list.append(i)
     temp_list.append(number)
     return temp_list
+def split_data(direc,ratio,trainX,trainY,testX,testY):
+  """Input:
+  direc: location of the UCR archive
+  ratio: ratio to split training and testset
+  dataset: name of the dataset in the UCR archive"""
+  print(trainX.shape)
+  print(trainY.shape)
 
+
+  DATA_X = np.concatenate((trainX,testX),axis=0)
+  DATA_Y = np.concatenate((trainY,testY),axis=0)
+
+  N = DATA_X.shape[0]
+
+  ratio = (ratio*N).astype(np.int32)
+  ind = np.random.permutation(N)
+  print("NNNNNNNN")
+  print(ind)
+  print(ratio)
+  X_train = DATA_X[ind[:ratio[0]],:]
+  X_val = DATA_X[ind[ratio[0]:ratio[1]],:]
+  X_test = DATA_X[ind[ratio[1]:],:]
+  # Targets have labels 1-indexed. We subtract one for 0-indexed
+  y_train = DATA_Y[ind[:ratio[0]]]
+  y_val = DATA_Y[ind[ratio[0]:ratio[1]]]
+  y_test = DATA_Y[ind[ratio[1]:]]
+  return X_train,X_val,X_test,y_train,y_val,y_test
 
 def set_style():
     plt.style.use(['seaborn-dark', 'seaborn-paper'])
     matplotlib.rc("font", family="serif")
+
+
 if __name__=='__main__':
     global filepath, filename, fixed_seed_num, sequence_window, number_class, hidden_units, input_dim, learning_rate, epoch, is_multi_scale, training_level, cross_cv
     # ---------------------------Fixed Parameters------------------------------
