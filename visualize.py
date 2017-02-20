@@ -139,7 +139,15 @@ def Quxian_Plotting(dataX,dataY,feature,name):
     plt.grid()
     plt.show()
     plt.savefig(name + '.pdf', dpi=400)
-
+def Quxian_Plotting_2(dataX,name):
+    y = list(dataX[0])
+    x = [i for i in range(len(y))]
+    print(len(y))
+    plt.plot(x,np.array(y),'b')
+    plt.tight_layout()
+    plt.grid()
+    plt.show()
+    plt.savefig(name + '_QUXIAN_2.pdf', dpi=400)
 
 #A1 = [51.5,54.2,55.1,55.4,55.8,57.3,49.6,52.2,63.4,63.5]#"AS_LEAK"
 #A2 = [50.6,53.9,55.3,54.3,56.8,52.7,54.7,52.1,63.3,63.3]
