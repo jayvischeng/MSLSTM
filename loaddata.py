@@ -222,7 +222,64 @@ def Multi_Scale_Wavelet0(trainX,trainY,level,is_multi=True):
             temp[current_level - 1].extend(np.transpose(x))
 
     return  np.array(temp),trainX,trainY
+def Multi_Scale_Plotting_2(dataA):
 
+    original = dataA[1]
+    #Obtain Level_2_D
+    print("original")
+    print(original)
+    plt.plot([i for i in range(len(original))],original,'b')
+    plt.xlabel("Time",fontsize=12)
+    plt.ylabel("Original",fontsize=12)
+    plt.tick_params(labelsize=12)
+    plt.grid(True)
+    plt.savefig("Original.png",dpi=400)
+    plt.show()
+    fig = plt.figure()
+    ax1 = fig.add_subplot(221)
+
+    level_ = 5
+    coeffs = pywt.wavedec(original, 'db1', level=level_)
+    newCoeffs = [coeffs[0],None,None,None,None,None]
+    new_ = pywt.waverec(newCoeffs,'db1')
+    plt.plot([i for i in range(len(new_))],new_,'b')
+    plt.xlabel("(a)")
+    plt.ylabel("Approximations")
+    ax1.grid(True)
+
+    ax1 = fig.add_subplot(222)
+    coeffs = pywt.wavedec(original, 'db1', level=level_)
+    newCoeffs = [None,coeffs[1],None,None,None,None]
+    new_ = pywt.waverec(newCoeffs,'db1')
+    plt.plot([i for i in range(len(new_))],new_,'b')
+    #plt.plot([i for i in range(len(coeffs[1]))],coeffs[1],'b')
+    plt.xlabel("(b)")
+    plt.ylabel("Details of level "+ str(level_))
+    ax1.grid(True)
+
+    ax1 = fig.add_subplot(223)
+    level_ = 4
+    coeffs = pywt.wavedec(original, 'db1', level=level_)
+    newCoeffs = [None,coeffs[1],None,None,None]
+    new_ = pywt.waverec(newCoeffs,'db1')
+    plt.plot([i for i in range(len(new_))],new_,'b')
+    #plt.plot([i for i in range(len(coeffs[2]))],coeffs[2],'b')
+    plt.xlabel("(c)")
+    plt.ylabel("Details of level "+str(level_))
+    ax1.grid(True)
+
+    ax1 = fig.add_subplot(224)
+    level_ = 3
+    coeffs = pywt.wavedec(original, 'db1', level=level_)
+    newCoeffs = [None,coeffs[1],None,None]
+    new_ = pywt.waverec(newCoeffs,'db1')
+    plt.plot([i for i in range(len(new_))],new_,'b')
+    #plt.plot([i for i in range(len(coeffs[3]))],coeffs[3],'b')
+    plt.xlabel("(d)")
+    plt.ylabel("Details of level "+str(level_))
+    ax1.grid(True)
+    plt.savefig("Wavelet Decomposition.png",dpi=400)
+    plt.show()
 def Multi_Scale_Plotting(dataMulti,dataA):
 
     selected_feature = 1
