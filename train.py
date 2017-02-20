@@ -77,12 +77,14 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     FLAGS.option = method
     dropout = 0.8
 
-    x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
-                                                        filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-                                                        Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
-                                                        Wave_Type=FLAGS.wave_type)
+    #x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
+    #                                                    filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+    #                                                   Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
+    #                                                    Wave_Type=FLAGS.wave_type)
 
-    #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+    x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+    visualize.Quxian_Plotting_2(x_train,"Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
+
     print(x_train.shape)
     print(y_train.shape)
     print(x_test.shape)
@@ -261,7 +263,7 @@ def main(unused_argv):
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['1L']
+    case = ['HL']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 
