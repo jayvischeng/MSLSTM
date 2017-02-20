@@ -83,7 +83,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     #                                                    Wave_Type=FLAGS.wave_type)
 
     x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
-    visualize.Quxian_Plotting_2(x_train,"Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
+    loaddata.Multi_Scale_Plotting_2(x_train)
 
     print(x_train.shape)
     print(y_train.shape)
@@ -253,8 +253,8 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    filename_list = ["HB_AS_Leak.txt"]
-    #filename_list = ["Two_Patterns"]
+    #filename_list = ["HB_AS_Leak.txt"]
+    filename_list = ["Two_Patterns"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
@@ -263,7 +263,7 @@ def main(unused_argv):
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['HL']
+    case = ['1L']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 
