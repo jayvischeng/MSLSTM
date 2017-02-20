@@ -180,17 +180,21 @@ def MyEvaluation(Y_Testing, Result):
 
 def Multi_Scale_Wavelet(trainX,trainY,level,is_multi=True,wave_type='db1'):
     temp = [[] for i in range(level)]
+    #temp = [[] for i in range(level + 1)]
     N = trainX.shape[0]
     if (is_multi == True) and (level > 1):
         for i in range(level):
+        #for i in range(level+1):
             x = []
             for _feature in range(len(trainX[0])):
                 coeffs = pywt.wavedec(trainX[:,_feature], wave_type, level=level)
-                current_level = level - i
-                for j in range(i+1,level+1):
-                    coeffs[j] = None
-                _rec = pywt.waverec(coeffs, wave_type)
-                x.append(_rec[:N])
+                current_level = level  - i
+                #current_level = level + 1 - i
+                #for j in range(i+1,level+1):
+                    #coeffs[j] = None
+                #_rec = pywt.waverec(coeffs, wave_type)
+                #x.append(_rec[:N])
+                x.append(coeffs[i+1])
 
             temp[current_level - 1].extend(np.transpose(np.array(x)))
 
@@ -415,6 +419,7 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
         train_index.sort()
 
         train_index = list(map(lambda a: int(a), train_index))
+        print(train_index)
         train_dataX = dataX[train_index, :]
         train_dataY = dataY[train_index]
 
