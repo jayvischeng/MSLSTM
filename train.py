@@ -56,11 +56,11 @@ def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
         if shuffle:
             excerpt = indices[start_idx:start_idx + batchsize]
         else:
-            excerpt = slice(start_idx, start_idx + batchsize)
+            excerpbt = slice(start_idx, start_idx + batchsize)
         yield inputs[excerpt], targets[excerpt]
 def pprint(msg,method=''):
     #if not 'Warning' in msg:
-    if 1>0:
+    if 1<0:
         sys.stdout = printlog.PyLogger('',method+'_'+str(FLAGS.num_neurons1))
         print(msg)
         try:
@@ -302,6 +302,9 @@ def main(unused_argv):
 if __name__ == "__main__":
     global tempstdout
     tempstdout = sys.stdout
+    os.chdir("/home/cheng/Dropbox/code/MSLSTM")
+    print("JHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJ")
+    print(os.getcwd())
     pprint("------------------------------------------------"+str(datetime.datetime.now())+"--------------------------------------------")
     start = time.time()
     tf.app.run()
