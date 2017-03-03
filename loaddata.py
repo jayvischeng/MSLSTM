@@ -80,7 +80,7 @@ def Compute_average_list(mylist):
         temp += float(mylist[i])
     return float(temp)/len(mylist)
 
-def reConstruction(window_size,data,label):
+def slidingFunc(window_size,data,label):
     newdata = []
     newlabel = []
     L = len(data)
@@ -519,7 +519,7 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
 
 
 
-def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=True,Wave_Let_Scale=-1,Wave_Type="db1",Time_Scale_Size=1):
+def GetData(poolingType,isNoise,noiseRatio,filePath,fileTrain_Val,fileTest,windowSize,currentCV,CV,multiClass="Bin",multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
 
     global positive_sign,negative_sign,output_folder,filename
     positive_sign = 0
@@ -530,25 +530,24 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
         os.makedirs(os.path.join(os.getcwd(),output_folder))
 
 
-    Data_=LoadData(Fila_Path,FileName)
-    filename = FileName
+    data_train_val=LoadData(filePath,fileTrain_Val)
+    data_test=LoadData(filePath,fileTest)
+
+    filename = FileName_Train_Val
     scaler = preprocessing.StandardScaler()
 
-   # X_,Y_,X_Validation, Y_Validation = returnTabData(0, 3, Data_[:,:-1],Data_[:,-1])
-    #X_Validation, Y_Validation = reConstruction(Window_Size, scaler.fit_transform(X_Validation),Y_Validation)
-
+    #X_,Y_,X_Validation, Y_Validation = returnTabData(0, 3, Data_[:,:-1],Data_[:,-1])
+    #X_Validation, Y_Validation = slidingFunc(Window_Size, scaler.fit_transform(X_Validation),Y_Validation)
     #Data_ = np.concatenate((X_,np.reshape(Y_,(len(Y_),1))),axis=1)
-    #print("aaaaaaaaaaaaaaa")
-    #print(Data_.shape)
 
     #Plotting_Sequence(Data_[:,0], Data_[:,-1])
-    if Is_Adding_Noise == True:
-        Data_ = Add_Noise(Noise_Ratio,Data_)
+    if isNoise == True:
+        Data_ = Add_Noise(noiseRatio,data_train_val)
 
     #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
-    if Multi_Scale == False:
-        Data_Sequenlized_X,Data_Sequenlized_Y = reConstruction(Window_Size, scaler.fit_transform(Data_[:, :-1]), Data_[:, -1])
-        X_Training, Y_Training,X_Testing,Y_Testing = returnTabData(Current_CV,Cross_CV,Data_Sequenlized_X,Data_Sequenlized_Y)
+    if multiScale == False:
+        dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_train_val[:, :-1]), data_train_val[:, -1])
+        trainX, trainY,valX,valY = returnTabData(currentCV,CV,dataSequenlized_X,dataSequenlized_Y)
 
     else:
         Scale_Level = Wave_Let_Scale
@@ -564,7 +563,7 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
 
         for tab_level in range(Scale_Level):
-            Data_Levels_X,Data_Levels_Y = reConstruction(Window_Size, scaler.fit_transform(Data_Multi_Level_X[tab_level]), Data_Y)
+            Data_Levels_X,Data_Levels_Y = slidingFunc(Window_Size, scaler.fit_transform(Data_Multi_Level_X[tab_level]), Data_Y)
             X_Training, Y_Training, X_Testing, Y_Testing = returnTabData(Current_CV, Cross_CV, Data_Levels_X,Data_Levels_Y)
             print("returnTabData_"+str(Data_Levels_X.shape))
             X_Training_Multi_Level_List[tab_level].extend(X_Training)
@@ -603,8 +602,7 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
     positive_sign=0
     negative_sign=1
     Data_=LoadData(Fila_Path,FileName)
-    #X_,Y_,X_Validation, Y_Validation = returnTabData(0, 4, Data_[:,:-1],Data_[:,-1])
-    #Data_ = np.concatenate((X_,np.reshape(Y_,(len(Y_),1))),axis=1)
+
 
     if Is_Adding_Noise == True:
         Data_ = Add_Noise(Noise_Ratio,Data_)
