@@ -204,17 +204,40 @@ def Multi_Scale_Wavelet(trainX,trainY,level,is_multi=True,wave_type='db1'):
             temp[current_level - 1].extend(trainX)
 
     return  np.array(temp),trainX,trainY
+def Multi_Scale_Wavelet0(trainX,trainY,level,is_multi=True,wave_type='db1'):
+    temp = [[] for i in range(level)]
+    N = trainX.shape[0]
+    if (is_multi == True) and (level > 1):
+        for i in range(level):
+            x = []
+            for _feature in range(len(trainX[0])):
+                coeffs = pywt.wavedec(trainX[:,_feature], wave_type, level=level)
+                current_level = level  - i
+                for j in range(i+1,level+1):
+                    coeffs[j] = None
+                _rec = pywt.waverec(coeffs, wave_type)
+                x.append(_rec[:N])
 
-def Multi_Scale_Wavelet0(trainX,trainY,level,is_multi=True):
+            temp[current_level - 1].extend(np.transpose(np.array(x)))
+
+    else:
+        for tab in range(level):
+            current_level = level - tab
+            temp[current_level - 1].extend(trainX)
+    print("ALA")
+    print((np.array(temp)).shape)
+
+    return  np.array(temp),trainX,trainY
+def Multi_Scale_Wavelet000(trainX,trainY,level,is_multi=True,wave_type='db1'):
     temp = [[] for i in range(level)]
     x = np.transpose(trainX)
     if is_multi == True:
         for i in range(level):
-            coeffs = pywt.wavedec(x[:,0], 'db1', level=level)
+            coeffs = pywt.wavedec(x[:,0], wave_type, level=level)
             current_level = level - i
             for j in range(i+1,level+1):
                 coeffs[j] = None
-            _rec = pywt.waverec(coeffs, 'db1')
+            _rec = pywt.waverec(coeffs, wave_type)
             temp[current_level-1].extend(np.transpose(_rec))
     else:
         for tab in range(level):
@@ -522,8 +545,6 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
     if Is_Adding_Noise == True:
         Data_ = Add_Noise(Noise_Ratio,Data_)
 
-
-
     #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
     if Multi_Scale == False:
         Data_Sequenlized_X,Data_Sequenlized_Y = reConstruction(Window_Size, scaler.fit_transform(Data_[:, :-1]), Data_[:, -1])
@@ -536,7 +557,7 @@ def GetData(Pooling_Type,Is_Adding_Noise,Noise_Ratio,Method,Fila_Path,FileName,W
 
         print("wave type is "+ str(Wave_Type)+" and the scale is "+str(Scale_Level))
 
-        Data_Multi_Level_X, Data_X, Data_Y = Multi_Scale_Wavelet(Data_[:, :-1],Data_[:, -1],Scale_Level,True,Wave_Type)
+        Data_Multi_Level_X, Data_X, Data_Y = Multi_Scale_Wavelet0(Data_[:, :-1],Data_[:, -1],Scale_Level,True,Wave_Type)
 
         #Plot the different scale
         #Multi_Scale_Plotting(Data_Multi_Level_X,Data_X)
