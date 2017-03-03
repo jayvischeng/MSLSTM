@@ -96,9 +96,9 @@ def print_info(tensor,name):
 
 def inference(data,label,option,is_training):
     if option == '1L':#pure one-layer lstm
-        lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
+        #lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
 
-        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
