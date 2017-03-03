@@ -17,7 +17,6 @@ import loaddata
 import numpy as np
 import visualize
 from sklearn.metrics import accuracy_score
-import ucr_load_data
 from baselines import nnkeras,sclearn
 import matplotlib.pyplot as plt
 flags = tf.app.flags
@@ -60,7 +59,7 @@ def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
         yield inputs[excerpt], targets[excerpt]
 def pprint(msg,method=''):
     #if not 'Warning' in msg:
-    if 1<0:
+    if 1>0:
         sys.stdout = printlog.PyLogger('',method+'_'+str(FLAGS.num_neurons1))
         print(msg)
         try:
@@ -77,18 +76,18 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     FLAGS.option = method
     dropout = 0.8
 
-    #x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
-    #                                                    filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-    #                                                   Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
-    #                                                    Wave_Type=FLAGS.wave_type)
+    x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
+                                                        filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                                       Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
+                                                        Wave_Type=FLAGS.wave_type)
 
-    x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
-    loaddata.Multi_Scale_Plotting_2(x_train)
+    #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+    #loaddata.Multi_Scale_Plotting_2(x_train)
 
-    print(x_train.shape)
-    print(y_train.shape)
-    print(x_test.shape)
-    print(y_test.shape)
+    #print(x_train.shape)
+    #print(y_train.shape)
+    #print(x_test.shape)
+    #print(y_test.shape)
 
     if FLAGS.is_multi_scale:
         FLAGS.scale_levels = x_train.shape[1]
@@ -110,8 +109,6 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         #output_u_w,prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
 
         is_training = tf.placeholder(tf.bool)
-
-
         prediction, label = mslstm.inference(data_x,data_y,FLAGS.option,is_training)
         loss = mslstm.loss_(prediction, label)
         optimizer = mslstm.train(loss)
@@ -154,8 +151,6 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 3 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
                 + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
-
-
 
 
             epoch_training_loss_list.append(training_loss)
@@ -253,8 +248,8 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    #filename_list = ["HB_AS_Leak.txt"]
-    filename_list = ["Two_Patterns"]
+    filename_list = ["HB_AS_Leak.txt"]
+    #filename_list = ["Two_Patterns"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
@@ -302,9 +297,9 @@ def main(unused_argv):
 if __name__ == "__main__":
     global tempstdout
     tempstdout = sys.stdout
-    os.chdir("/home/cheng/Dropbox/code/MSLSTM")
-    print("JHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJ")
-    print(os.getcwd())
+    #os.chdir("/home/cheng/Dropbox/code/MSLSTM")
+    #print("JHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJ")
+    #print(os.getcwd())
     pprint("------------------------------------------------"+str(datetime.datetime.now())+"--------------------------------------------")
     start = time.time()
     tf.app.run()
