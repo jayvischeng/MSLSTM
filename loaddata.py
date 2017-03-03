@@ -245,7 +245,7 @@ def Multi_Scale_Wavelet000(trainX,trainY,level,is_multi=True,wave_type='db1'):
             temp[current_level - 1].extend(np.transpose(x))
 
     return  np.array(temp),trainX,trainY
-def Multi_Scale_Plotting_2(dataA):
+def multi_scale_plotting_2(dataA):
 
     original = dataA[1]
     #Obtain Level_2_D
@@ -303,7 +303,7 @@ def Multi_Scale_Plotting_2(dataA):
     ax1.grid(True)
     plt.savefig("Wavelet Decomposition.png",dpi=400)
     plt.show()
-def Multi_Scale_Plotting(dataMulti,dataA):
+def multi_scale_plotting(dataMulti,dataA):
 
     selected_feature = 1
     original = dataA[:,selected_feature]
@@ -394,7 +394,7 @@ def Multi_Scale_Plotting(dataMulti,dataA):
     ax1.grid(True)
     plt.show()
 
-def Convergge(trainX,trainY,time_scale_size=1):
+def converge(trainX,trainY,time_scale_size=1):
     window_size = len(trainX[0])
     temp = []
     N = window_size/time_scale_size
@@ -435,7 +435,7 @@ def Fun(multiscaleSequences,case = 'max pooling'):
     return temp
 
 
-def Add_Noise(ratio,data):
+def add_nosie(ratio,data):
     w = 5
     x = data[:,:-1]
     _std = x.std(axis=0,ddof=0)
@@ -451,7 +451,7 @@ def Add_Noise(ratio,data):
         noise[i].append(base_instance[-1])
     noise = np.array(noise)
     return np.concatenate((data,noise),axis=0)
-def Mix_Multi_Scale1(trainX_multi,trainY,pooling_type):
+def mix_multi_scale1(trainX_multi,trainY,pooling_type):
     scale = len(trainX_multi)
     length = len(trainX_multi[0])
     temp_trainX = []
@@ -464,7 +464,7 @@ def Mix_Multi_Scale1(trainX_multi,trainY,pooling_type):
         temp_trainX.append(b)
     return np.array(temp_trainX),trainY
 
-def returnTabData(current_cv,cross_cv,dataX,dataY):
+def return_tabData(current_cv,cross_cv,dataX,dataY):
     global positive_sign,negative_sign,filename
 
     positive_index = returnPositiveIndex(dataY, negative_sign)
@@ -517,9 +517,51 @@ def returnTabData(current_cv,cross_cv,dataX,dataY):
 
         return train_dataX,train_dataY,test_dataX,test_dataY
 
+def one_hot(y_):
+    # Function to encode output labels from number indexes
+    # e.g.: [[5], [0], [3]] --> [[0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0]]
 
+    y_ = y_.reshape(len(y_))
+    n_values = np.max(y_) + 1
+    return np.eye(n_values)[np.array(y_, dtype=np.int32)]  # Returns FLOATS
+def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,fileTest,windowSize,currentCV,CV,multiClass="Bin",multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+    global positive_sign,negative_sign,output_folder,filename
+    positive_sign = 0
+    negative_sign = 1
+    output_folder = "output"
 
-def GetData(poolingType,isNoise,noiseRatio,filePath,fileTrain_Val,fileTest,windowSize,currentCV,CV,multiClass="Bin",multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+    if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
+        os.makedirs(os.path.join(os.getcwd(),output_folder))
+
+    data_test=LoadData(filePath,fileName)
+
+    scaler = preprocessing.StandardScaler()
+
+    #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
+    if multiScale == False:
+        testX,testY = slidingFunc(windowSize, scaler.fit_transform(data_test[:, :-1]), data_test[:, -1])
+
+    else:
+        testX_Multi = [[] for i in range(waveScale)]
+
+        print("wave type is "+ str(waveType)+" and the scale is "+str(waveScale))
+        data_testMulti, data_testX, data_testY = Multi_Scale_Wavelet0(data_test[:, :-1],data_test[:, -1],waveScale,True,waveType)
+
+        #Plot the different scale
+        #multi_scale_plotting(Data_Multi_Level_X,Data_X)
+        for tab_level in range(waveScale):
+            data_testX_level,data_testY_level = slidingFunc(windowSize, scaler.fit_transform(data_testMulti[tab_level]), data_testY)
+            testX_Multi[tab_level].extend(data_testX_level)
+
+    testY = one_hot(data_testY_level)
+
+    if multiScale == False:
+        return testX, testY
+
+    testX_Multi = np.array(testX_Multi).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
+    print("Input shape is"+str(testX_Multi.shape))
+    return testX_Multi,testY
+def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiClass="Bin",multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
 
     global positive_sign,negative_sign,output_folder,filename
     positive_sign = 0
@@ -530,69 +572,57 @@ def GetData(poolingType,isNoise,noiseRatio,filePath,fileTrain_Val,fileTest,windo
         os.makedirs(os.path.join(os.getcwd(),output_folder))
 
 
-    data_train_val=LoadData(filePath,fileTrain_Val)
-    data_test=LoadData(filePath,fileTest)
+    data_train_val=LoadData(filePath,fileName)
 
-    filename = FileName_Train_Val
+    filename = fileName
     scaler = preprocessing.StandardScaler()
-
-    #X_,Y_,X_Validation, Y_Validation = returnTabData(0, 3, Data_[:,:-1],Data_[:,-1])
-    #X_Validation, Y_Validation = slidingFunc(Window_Size, scaler.fit_transform(X_Validation),Y_Validation)
-    #Data_ = np.concatenate((X_,np.reshape(Y_,(len(Y_),1))),axis=1)
 
     #Plotting_Sequence(Data_[:,0], Data_[:,-1])
     if isNoise == True:
-        Data_ = Add_Noise(noiseRatio,data_train_val)
+        data_train_val = add_nosie(noiseRatio,data_train_val)
 
     #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_train_val[:, :-1]), data_train_val[:, -1])
-        trainX, trainY,valX,valY = returnTabData(currentCV,CV,dataSequenlized_X,dataSequenlized_Y)
+        trainX, trainY, valX, valY = return_tabData(currentCV,CV,dataSequenlized_X,dataSequenlized_Y)
 
     else:
-        Scale_Level = Wave_Let_Scale
-        X_Training_Multi_Level_List = [[] for i in range(Scale_Level)]
-        X_Testing_Multi_Level_List = [[] for i in range(Scale_Level)]
+        trainX_Multi = [[] for i in range(waveScale)]
+        valX_Multi = [[] for i in range(waveScale)]
 
-        print("wave type is "+ str(Wave_Type)+" and the scale is "+str(Scale_Level))
+        print("wave type is "+ str(waveType)+" and the scale is "+str(waveScale))
 
-        Data_Multi_Level_X, Data_X, Data_Y = Multi_Scale_Wavelet0(Data_[:, :-1],Data_[:, -1],Scale_Level,True,Wave_Type)
+        dataMulti, dataX, dataY = Multi_Scale_Wavelet0(data_train_val[:, :-1],data_train_val[:, -1],waveScale,True,waveType)
 
         #Plot the different scale
-        #Multi_Scale_Plotting(Data_Multi_Level_X,Data_X)
+        #multi_scale_plotting(Data_Multi_Level_X,Data_X)
+        for tab_level in range(waveScale):
+            dataX_level,dataY_level = slidingFunc(windowSize, scaler.fit_transform(dataMulti[tab_level]), dataY)
 
+            trainX,trainY,valX, valY = return_tabData(currentCV, CV, dataX_level,dataY_level)
+            print("returnTabData_"+str(dataX_level.shape))
+            trainX_Multi[tab_level].extend(trainX)
+            valX_Multi[tab_level].extend(valX)
 
-        for tab_level in range(Scale_Level):
-            Data_Levels_X,Data_Levels_Y = slidingFunc(Window_Size, scaler.fit_transform(Data_Multi_Level_X[tab_level]), Data_Y)
-            X_Training, Y_Training, X_Testing, Y_Testing = returnTabData(Current_CV, Cross_CV, Data_Levels_X,Data_Levels_Y)
-            print("returnTabData_"+str(Data_Levels_X.shape))
-            X_Training_Multi_Level_List[tab_level].extend(X_Training)
-            X_Testing_Multi_Level_List[tab_level].extend(X_Testing)
-
-    Y_Training_Encoder = LabelEncoder()
-    Y_Training_Encoder.fit(Y_Training)
-    Y_Training = Y_Training_Encoder.transform(Y_Training)
+    #trainYEr = LabelEncoder()
+    #trainYEr.fit(trainY)
+    #trainY = trainYEr.transform(trainY)
     # convert integers to dummy variables (i.e. one hot encoded)
-    Y_Training = np_utils.to_categorical(Y_Training)
+    #trainY = np_utils.to_categorical(trainY)
+    trainY = one_hot(trainY)
+    valY = one_hot(valY)
 
-    Y_Testing_Encoder = LabelEncoder()
-    Y_Testing_Encoder.fit(Y_Testing)
-    Y_Testing = Y_Testing_Encoder.transform(Y_Testing)
-    # convert integers to dummy variables (i.e. one hot encoded)
-    Y_Testing = np_utils.to_categorical(Y_Testing)
+    if multiScale == False:
+        return trainX, trainY, valX, valY
 
-    if Multi_Scale == False:
-        return X_Training, Y_Training, X_Testing, Y_Testing
-
-    A1 = np.array(X_Training_Multi_Level_List).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
-    A2 = np.array(X_Testing_Multi_Level_List).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
-    print("Input shape is"+str(A1.shape))
-    #return A1,Y_Training,A2,Y_Testing,X_Validation,Y_Validation
-    return A1,Y_Training,A2,Y_Testing
+    trainX_Multi = np.array(trainX_Multi).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
+    valX_Multi = np.array(valX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
+    print("Input shape is"+str(trainX_Multi.shape))
+    return trainX_Multi,trainY,valX_Multi,valY
 
 
 
-def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
+def getData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
     print("")
     global positive_sign,negative_sign
     output_folder = "output"
@@ -605,7 +635,7 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
 
 
     if Is_Adding_Noise == True:
-        Data_ = Add_Noise(Noise_Ratio,Data_)
+        Data_ = add_nosie(Noise_Ratio,Data_)
     if Normalize == 1 or  Normalize==10 or Normalize==11:
         scaler = preprocessing.MinMaxScaler()
     elif Normalize == 2:
