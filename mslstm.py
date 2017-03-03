@@ -116,7 +116,16 @@ def inference(data,label,option,is_training):
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+    elif option == '3L':#three-layer lstm
 
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        val = tf.transpose(val, [1, 0, 2])
+        last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
+        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
+        prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
     elif option == 'Boost':#boost lstm (prototype)
 
         data = tf.transpose(data,[1,0,2,3])
