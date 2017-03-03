@@ -20,7 +20,7 @@ import sys
 import os
 flags = tf.app.flags
 import matplotlib.pyplot as plt
-import ucr_load_data
+#import ucr_load_data
 
 FLAGS = flags.FLAGS
 
@@ -47,14 +47,14 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
         np.random.seed(1337)  # for reproducibility
         # using MLP to train
         if _model == "MLP":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(FLAGS.is_add_noise, FLAGS.noise_ratio,
-            #                                                                                FLAGS.data_dir, filename,
-            #                                                                                FLAGS.sequence_window, tab_crosscv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=FLAGS.is_multi_scale,
-            #                                                                                Wave_Let_Scale=FLAGS.scale_levels,
-            #                                                                                Normalize=0)
-            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+            x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(FLAGS.is_add_noise, FLAGS.noise_ratio,
+                                                                                            FLAGS.data_dir, filename,
+                                                                                            FLAGS.sequence_window, tab_crosscv,
+                                                                                            cross_cv,
+                                                                                            Multi_Scale=FLAGS.is_multi_scale,
+                                                                                            Wave_Let_Scale=FLAGS.scale_levels,
+                                                                                            Normalize=0)
+            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
             FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
             # FLAGS.sequence_window = 900
             FLAGS.input_dim = x_train.shape[-1]
@@ -118,18 +118,18 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
         elif _model == "LSTM":
             pprint(_model + " is running..............................................")
             start = time.clock()
-            #x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type,FLAGS.is_add_noise,
-            #                                                    FLAGS.noise_ratio,
-            #                                                    'Attention',
-            #                                                   FLAGS.data_dir,
-            #                                                    filename,
-            #                                                    FLAGS.sequence_window,
-            #                                                    tab_crosscv,
-            #                                                    cross_cv,
-            #                                                    Multi_Scale=False,
-            #                                                    Wave_Let_Scale=FLAGS.scale_levels)
+            x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type,FLAGS.is_add_noise,
+                                                                FLAGS.noise_ratio,
+                                                                'Attention',
+                                                               FLAGS.data_dir,
+                                                                filename,
+                                                                FLAGS.sequence_window,
+                                                                tab_crosscv,
+                                                                cross_cv,
+                                                                Multi_Scale=False,
+                                                                Wave_Let_Scale=FLAGS.scale_levels)
 
-            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
             FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
             FLAGS.sequence_window = 90
             FLAGS.input_dim = x_train.shape[-1]
