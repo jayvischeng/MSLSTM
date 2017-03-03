@@ -76,7 +76,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     FLAGS.option = method
     dropout = 0.8
 
-    x_train, y_train, x_test, y_test = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, 'Attention', FLAGS.data_dir,
+    x_train, y_train, x_val, y_val = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
                                                         filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
                                                        Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
                                                         Wave_Type=FLAGS.wave_type)
@@ -183,12 +183,12 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
     saver.save(sess, "./tf_tmp/model.ckpt")
     sess.close()
-    #results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
+    results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
     sys.stdout = tempstdout
 
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
     result2 = np.array(evaluation.ReverseEncoder(result))
-    results = accuracy_score(y_test2, result2)
+    #results = accuracy_score(y_test2, result2)
     #print(y_test2)
     #print(result2)
     #print(results)
@@ -228,7 +228,7 @@ def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
         if tab_cv == tab_cross_cv: continue
         if 'L' in method:
             sys.stdout = tempstdout
-            if method == '1L' or method == '2L':
+            if method == '1L' or method == '2L' or method == '3L':
                 FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
@@ -256,9 +256,9 @@ def main(unused_argv):
 
     multi_scale_value_list = [2,3,4,5,6,10]
 
-    case_label = {'1L':'LSTM','2L':'2-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
+    case_label = {'1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['1L']
+    case = ['2L']
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 
@@ -297,9 +297,6 @@ def main(unused_argv):
 if __name__ == "__main__":
     global tempstdout
     tempstdout = sys.stdout
-    #os.chdir("/home/cheng/Dropbox/code/MSLSTM")
-    #print("JHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHJ")
-    #print(os.getcwd())
     pprint("------------------------------------------------"+str(datetime.datetime.now())+"--------------------------------------------")
     start = time.time()
     tf.app.run()
