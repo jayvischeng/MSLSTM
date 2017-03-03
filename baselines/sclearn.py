@@ -2,7 +2,7 @@ import evaluation
 from sklearn.feature_selection import RFE
 from collections import defaultdict
 import printlog
-import ucr_load_data
+#import ucr_load_data
 import numpy as np
 from numpy import *
 from sklearn import tree
@@ -52,22 +52,23 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
             result = clf.predict(x_test)
 
         elif _model == "SVM":
-            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_crosscv,
-            #                                                                                cross_cv,
-             #                                                                               Multi_Scale=is_multi_scale,
-             #                                                                               Wave_Let_Scale=training_level,
-              #                                                                              Normalize=0)
+            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+            x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
+                                                                                            filepath, filename,
+                                                                                            sequence_window, tab_crosscv,
+                                                                                            cross_cv,
+                                                                                           Multi_Scale=is_multi_scale,
+                                                                                            Wave_Let_Scale=training_level,
+                                                                                          Normalize=0)
 
             print(_model + " is running..............................................")
             #y_train = y_train0
             clf = svm.SVC(kernel="rbf", gamma=0.001, C=5000, probability=True)
             print(x_test.shape)
-            print(y_test.shape)
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
+            print(y_train.shape)
+            print(y_train0.shape)
+            clf.fit(x_train, y_train0)
+            result = clf.predict_proba(x_test)
 
         elif _model == "SVMF":
             x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
@@ -135,19 +136,19 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
             result = selector.predict_proba(x_test)
 
         elif _model == "NB":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-             #                                                                               filepath, filename,
-             #                                                                               sequence_window, tab_cv,
-             #                                                                               cross_cv,
-             #                                                                               Multi_Scale=is_multi_scale,
-             #                                                                               Wave_Let_Scale=training_level,
-            #                                                                                Normalize=1)
-            x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
+            x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
+                                                                                            filepath, filename,
+                                                                                            sequence_window, tab_cv,
+                                                                                            cross_cv,
+                                                                                            Multi_Scale=is_multi_scale,
+                                                                                            Wave_Let_Scale=training_level,
+                                                                                           Normalize=1)
+            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
             print(_model + " is running..............................................")
             #y_train = y_train0
             clf = MultinomialNB()
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
+            clf.fit(x_train, y_train0)
+            result = clf.predict_proba(x_test)
 
         elif _model == "DT":
             x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
