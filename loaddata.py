@@ -524,7 +524,7 @@ def one_hot(y_):
     y_ = y_.reshape(len(y_))
     n_values = np.max(y_) + 1
     return np.eye(n_values)[np.array(y_, dtype=np.int32)]  # Returns FLOATS
-def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,fileTest,windowSize,currentCV,CV,multiClass="Bin",multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder,filename
     positive_sign = 0
     negative_sign = 1
@@ -537,7 +537,7 @@ def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,fileTest,windo
 
     scaler = preprocessing.StandardScaler()
 
-    #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
+    #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         testX,testY = slidingFunc(windowSize, scaler.fit_transform(data_test[:, :-1]), data_test[:, -1])
 
@@ -552,8 +552,9 @@ def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,fileTest,windo
         for tab_level in range(waveScale):
             data_testX_level,data_testY_level = slidingFunc(windowSize, scaler.fit_transform(data_testMulti[tab_level]), data_testY)
             testX_Multi[tab_level].extend(data_testX_level)
+            testY = data_testY_level
 
-    testY = one_hot(data_testY_level)
+    testY = one_hot(testY)
 
     if multiScale == False:
         return testX, testY
@@ -561,7 +562,7 @@ def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,fileTest,windo
     testX_Multi = np.array(testX_Multi).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(testX_Multi.shape))
     return testX_Multi,testY
-def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiClass="Bin",multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
 
     global positive_sign,negative_sign,output_folder,filename
     positive_sign = 0
@@ -581,7 +582,7 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,cu
     if isNoise == True:
         data_train_val = add_nosie(noiseRatio,data_train_val)
 
-    #if Bin_or_Multi_Label=="Multi":np.random.shuffle(PositiveIndex)
+    #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_train_val[:, :-1]), data_train_val[:, -1])
         trainX, trainY, valX, valY = return_tabData(currentCV,CV,dataSequenlized_X,dataSequenlized_Y)
