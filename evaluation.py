@@ -68,9 +68,9 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
             print(predict)
             print(label)
             if predict[tab_class] == label[tab_class]: correct += 1
-    if error_rate_flag == True:
-        print("Error Rate is :"+str((len(Output_Class) - correct)/float(len(Output_Class))))
-        return {"Error_Rate":(len(Output_Class) - correct)/float(len(Output_Class))}
+    #if error_rate_flag == True:
+        #print("Error Rate is :"+str((len(Output_Class) - correct)/float(len(Output_Class))))
+        #return {"Error_Rate":(len(Output_Class) - correct)/float(len(Output_Class))}
 
     #try:
         #ACC_R = float(ac_negative) / predict_negative
