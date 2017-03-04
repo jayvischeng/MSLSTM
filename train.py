@@ -71,16 +71,19 @@ def pprint(msg,method=''):
     #global sess, data_x, data_y
     #return sess.run(commander, {data_x: data, data_y: label})
 
-def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
+def train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     global tempstdout
     FLAGS.option = method
     dropout = 0.8
 
-    x_train, y_train, x_val, y_val = loaddata.GetData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                                        filename, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-                                                       Multi_Scale=FLAGS.is_multi_scale, Wave_Let_Scale=FLAGS.scale_levels,
-                                                        Wave_Type=FLAGS.wave_type)
-
+    x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+                                                            filename_train, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+                                                            waveType=FLAGS.wave_type)
+    x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+                                           filename_test, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+                                            waveType=FLAGS.wave_type)
     #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
     #loaddata.Multi_Scale_Plotting_2(x_train)
 
@@ -146,11 +149,11 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
                 training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out,is_training:True})
                 #sys.stdout = tempstdout
 
-                val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_test, data_y:y_test,is_training:True})
+                val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_val, data_y:y_val,is_training:True})
             pprint(
                 FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 3 + str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>=" + "train_accuracy: %s, train_loss: %s" % (
                 str(training_acc), str(training_loss)) \
-                + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method + '_' + filename)
+                + ",\tval_accuracy: %s, val_loss: %s" % (str(val_acc), str(val_loss)), method)
 
 
             epoch_training_loss_list.append(training_loss)
@@ -192,10 +195,10 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
     #print(y_test2)
     #print(result2)
     #print(results)
-    with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_True.txt"), "w") as fout:
+    with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename_test + "_True.txt"), "w") as fout:
         for tab in range(len(y_test2)):
             fout.write(str(int(y_test2[tab])) + '\n')
-    with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename + "_" + method + "_" + "_Predict.txt"), "w") as fout:
+    with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename_test + "_" + method + "_" + "_Predict.txt"), "w") as fout:
         for tab in range(len(result2)):
             fout.write(str(int(result2[tab])) + '\n')
 
@@ -203,7 +206,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
         result_list_dict[each_eval].append(each_result)
 
 
-    with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename + ".txt"), "a")as fout:
+    with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename_test + ".txt"), "a")as fout:
         if not FLAGS.is_multi_scale:
             outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
         else:
@@ -218,7 +221,7 @@ def train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation
 
 def train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     return sclearn.Basemodel(method,filename,cross_cv,tab_cross_cv)
-def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
+def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='db1'):
     global data_x, data_y
     result_list_dict = defaultdict(list)
     evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
@@ -238,18 +241,20 @@ def train(method,filename,cross_cv,tab_cross_cv,wave_type='db1'):
                 FLAGS.learning_rate = 0.05
                 FLAGS.is_multi_scale = True
                 FLAGS.wave_type = wave_type
-            return train_lstm(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
+            return train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
         else:
             sys.stdout = tempstdout
-            return train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
+            return train_classic(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
 
 
 def main(unused_argv):
     global tempstdout
 
     #main function
-    filename_list = ["HB_AS_Leak.txt"]
-    #filename_list = ["Two_Patterns"]
+    filename_trainlist = ["HB_AS_Leak.txt"]
+    filename_testlist = ["HB_Code_Red_I.txt"]
+
+    #filename_testlist = ["Two_Patterns"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
@@ -266,7 +271,7 @@ def main(unused_argv):
     tab_cross_cv = 1
     wave_type = wave_type_list[0]
 
-    for filename in filename_list:
+    for tab in range(len(filename_trainlist)):
         case_list = []
         train_acc_list = []
         val_acc_list = []
@@ -275,7 +280,7 @@ def main(unused_argv):
 
         for each_case in case:
             if 1>0: #
-                train_acc,val_acc,train_loss,val_loss = train(each_case,filename, cross_cv,tab_cross_cv,wave_type)
+                train_acc,val_acc,train_loss,val_loss = train(each_case,filename_trainlist[tab], filename_testlist[tab],cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
                 val_acc_list.append(val_acc)
@@ -287,8 +292,8 @@ def main(unused_argv):
             else:
 
                 sys.stdout = tempstdout
-                #sclearn.Basemodel(each_case,filename,cross_cv,tab_cross_cv)
-                nnkeras.Basemodel(each_case,filename,cross_cv,tab_cross_cv)
+                #sclearn.Basemodel(each_case,filename_trainlist[tab], filename_testlist[tab],cross_cv,tab_cross_cv)
+                nnkeras.Basemodel(each_case,filename_trainlist[tab], filename_testlist[tab],cross_cv,tab_cross_cv)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
