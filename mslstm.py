@@ -6,6 +6,7 @@ from __future__ import division
 import tensorflow as tf
 import printlog
 import sys
+
 from BNLSTM import LSTMCell, BNLSTMCell, orthogonal_initializer
 
 #from tensorflow.nn.rnn_cell import GRUCell
@@ -16,7 +17,7 @@ def pprint(msg,method=''):
         print(msg)
         sys.stderr.write(msg+'\n')
 def inputs(option):
-    if option == '1L' or option == '2L' or option == 'AL':
+    if option == '1L' or option == '2L' or option == '3L'or option == 'AL':
         data_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.sequence_window, FLAGS.input_dim])
         #data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.number_class])
@@ -110,6 +111,7 @@ def inference(data,label,option,is_training):
 
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
+        state = tf.Variable(cell.zero_states(batch_size, tf.float32), trainable=False)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
@@ -149,8 +151,8 @@ def inference(data,label,option,is_training):
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
 
     elif option == 'AL':
-        lstm_cell = BNLSTMCell(FLAGS.num_neurons1, training=is_training)
-        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        #lstm_cell = BNLSTMCell(FLAGS.num_neurons1, training=is_training)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
 
         u_ = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w")
         w_ones = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window,1]),name="u_w_one")
