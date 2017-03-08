@@ -13,6 +13,7 @@ import evaluation
 from collections import defaultdict
 import tensorflow as tf
 import mslstm
+import config
 import loaddata
 import numpy as np
 import visualize
@@ -20,26 +21,6 @@ from sklearn.metrics import accuracy_score
 from baselines import nnkeras,sclearn
 import matplotlib.pyplot as plt
 flags = tf.app.flags
-flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
-flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
-flags.DEFINE_string('input_dim',33,"""Input dimension size""")
-flags.DEFINE_string('num_neurons1',120,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
-flags.DEFINE_string('num_neurons2',16,"""Number of hidden units""")
-flags.DEFINE_string('sequence_window',23,"""Sequence window size""")
-flags.DEFINE_string('attention_size',10,"""attention size""")
-flags.DEFINE_string('scale_levels',10,"""Scale level value""")
-flags.DEFINE_string('number_class',2,"""Number of output nodes""")
-flags.DEFINE_string('max_grad_norm',5,"""Maximum gradient norm during training""")
-flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
-flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
-flags.DEFINE_string('batch_size',1000,"""Batch size""")
-flags.DEFINE_string('max_epochs',100,"""Number of epochs to run""")
-flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
-flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
-flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")
-flags.DEFINE_string('option','AL',"""Operation[1L:one-layer lstm;2L:two layer-lstm;HL:hierarchy lstm;HAL:hierarchy attention lstm]""")
-flags.DEFINE_string('log_dir','./log/',"""Directory where to write the event logs""")
-flags.DEFINE_string('output','./output/',"""Directory where to write the results""")
 
 FLAGS = flags.FLAGS
 
@@ -71,19 +52,24 @@ def pprint(msg,method=''):
     #global sess, data_x, data_y
     #return sess.run(commander, {data_x: data, data_y: label})
 
-def train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
+def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     global tempstdout
     FLAGS.option = method
     dropout = 0.8
-
-    x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                                            filename_train, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-                                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
-                                                            waveType=FLAGS.wave_type)
-    x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+    x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
                                            filename_test, FLAGS.sequence_window, tab_cross_cv, cross_cv,
                                             multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
+    #x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+    #                                                        filename_train_list, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+    #                                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+    #                                                        waveType=FLAGS.wave_type)
+    #x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+    #                                       filename_test, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+    #                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+    #                                        waveType=FLAGS.wave_type)
+
+
     #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
     #loaddata.Multi_Scale_Plotting_2(x_train)
 
@@ -102,7 +88,7 @@ def train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        FLAGS.batch_size = 100
+        FLAGS.batch_size = len(y_val)
     #g = tf.Graph()
     #with g.as_default():
     with tf.variable_scope("middle")as scope:
@@ -180,7 +166,6 @@ def train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_
         #weights = output_u_w.eval(session=sess)
         #weights = saver.restore(sess, "./tf_tmp/model.ckpt")
         #pprint(weights)
-        #pprint("ggg")
         #weight_list = return_max_index(weights)
         result = sess.run(prediction, {data_x:x_test, data_y: y_test})
 
@@ -201,26 +186,30 @@ def train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_
     with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename_test + "_" + method + "_" + "_Predict.txt"), "w") as fout:
         for tab in range(len(result2)):
             fout.write(str(int(result2[tab])) + '\n')
-
-    for each_eval, each_result in results.items():
-        result_list_dict[each_eval].append(each_result)
+    eval_list = ["AUC", "G_MEAN","ACCURACY","F1_SCORE"]
+    for each_eval in eval_list:
+        result_list_dict[each_eval].append(results[each_eval])
 
 
     with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename_test + ".txt"), "a")as fout:
         if not FLAGS.is_multi_scale:
-            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
+            outfileline = FLAGS.option + "_tab:"+str(tab_cross_cv) + "_epoch:" + str(FLAGS.max_epochs) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
         else:
-            outfileline = FLAGS.option + "_____epoch:" + str(FLAGS.max_epochs) + ",____wavelet:"+str(FLAGS.wave_type) + ",_____learning rate:" + str(FLAGS.learning_rate) + ",_____multi_scale:" + str(FLAGS.is_multi_scale) + ",_____train_set_using_level:" + str(FLAGS.scale_levels) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
+            outfileline = FLAGS.option + "_tab:"+str(tab_cross_cv) + "_epoch:" + str(FLAGS.max_epochs) + ",_wavelet:"+str(FLAGS.wave_type) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",_train_set_using_level:" + str(FLAGS.scale_levels) + "hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
 
         fout.write(outfileline)
-        for eachk, eachv in result_list_dict.items():
-            fout.write(eachk + ": " + str(round(np.mean(eachv), 3)) + ",\t")
+        for each_eval in eval_list:
+        #for eachk, eachv in result_list_dict.items():
+            fout.write(each_eval + ": " + str(round(np.mean(result_list_dict[each_eval]), 3)) + ",\t")
         fout.write('\n')
 
     return epoch_training_acc_list,epoch_val_acc_list,epoch_training_loss_list,epoch_val_loss_list
 
-def train_classic(method,filename,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
-    return sclearn.Basemodel(method,filename,cross_cv,tab_cross_cv)
+
+
+
+def train_classic(method,filename_train,filename_test, cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
+    return sclearn.Basemodel(method,filename_train,filename_test,cross_cv,tab_cross_cv)
 def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='db1'):
     global data_x, data_y
     result_list_dict = defaultdict(list)
@@ -235,10 +224,10 @@ def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='d
                 FLAGS.learning_rate = 0.02
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                FLAGS.learning_rate = 0.02
+                FLAGS.learning_rate = 0.05
                 FLAGS.is_multi_scale = False
             else:
-                FLAGS.learning_rate = 0.05
+                FLAGS.learning_rate = 0.12
                 FLAGS.is_multi_scale = True
                 FLAGS.wave_type = wave_type
             return train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
@@ -252,7 +241,8 @@ def main(unused_argv):
 
     #main function
     filename_trainlist = ["HB_AS_Leak.txt"]
-    filename_testlist = ["HB_Code_Red_I.txt"]
+    #filename_trainlist = ["HB_Code_Red_I.txt"]
+    filename_test = "HB_Code_Red_I.txt"
 
     #filename_testlist = ["Two_Patterns"]
 
@@ -267,8 +257,8 @@ def main(unused_argv):
     #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
     #case = ["MLP","RNN","LSTM"]
 
-    cross_cv = 2
-    tab_cross_cv = 1
+    cross_cv = 3
+    tab_cross_cv = 0
     wave_type = wave_type_list[0]
 
     for tab in range(len(filename_trainlist)):
@@ -280,7 +270,7 @@ def main(unused_argv):
 
         for each_case in case:
             if 1>0: #
-                train_acc,val_acc,train_loss,val_loss = train(each_case,filename_trainlist[tab], filename_testlist[tab],cross_cv,tab_cross_cv,wave_type)
+                train_acc,val_acc,train_loss,val_loss = train(each_case,filename_trainlist, filename_test,cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
                 val_acc_list.append(val_acc)
