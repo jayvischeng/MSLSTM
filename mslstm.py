@@ -101,7 +101,7 @@ def inference(data,label,option,is_training):
     if option == '1L':#pure one-layer lstm
         #lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
 
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=0, activation=tf.nn.tanh)
         #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
         #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
@@ -113,7 +113,10 @@ def inference(data,label,option,is_training):
 
     elif option == '2L':#two-layer lstm
 
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=0,  activation=tf.nn.tanh)
+        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
         #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
@@ -214,7 +217,7 @@ def inference(data,label,option,is_training):
         with tf.variable_scope('1stlayer_hal'):
             u_w_bottom = tf.Variable(tf.random_normal(shape=[1, FLAGS.scale_levels]), name="u_w_bottom")
             u_w_nor = tf.Variable(tf.constant(1.0, shape=[FLAGS.scale_levels, 1]), name="u_w_nor")
-            lstm_cell_bottom = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+            lstm_cell_bottom = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=0, activation=tf.nn.tanh)
             val_bottom, state_bottom = tf.nn.dynamic_rnn(lstm_cell_bottom, data_train, dtype=tf.float32)
             val_val_bottom_ = tf.reshape(val_bottom, (-1, FLAGS.num_neurons1))
             weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.scale_levels]), name='weight_1_h')
