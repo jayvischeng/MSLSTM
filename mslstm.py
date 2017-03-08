@@ -7,7 +7,7 @@ import tensorflow as tf
 import printlog
 import sys
 
-from BNLSTM import LSTMCell, BNLSTMCell, orthogonal_initializer
+#from BNLSTM import LSTMCell, BNLSTMCell, orthogonal_initializer
 
 #from tensorflow.nn.rnn_cell import GRUCell
 FLAGS = tf.app.flags.FLAGS
@@ -72,7 +72,9 @@ def loss_(predict,label):
     #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
     #cost_cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None)  # Sigmoid
 
-    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
+    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(label,predict))  # Sigmoid
+
     #cost_cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(predict, label, name='softmax')
 
     #cost_cross_entropy = tf.reduce_mean(label * tf.log(predict))  # tanh
@@ -100,6 +102,8 @@ def inference(data,label,option,is_training):
         #lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
 
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
+        #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
@@ -111,7 +115,10 @@ def inference(data,label,option,is_training):
 
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
-        state = tf.Variable(cell.zero_states(batch_size, tf.float32), trainable=False)
+        #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
+
+        #state = tf.Variable(cell.zero_states(batch_size, tf.float32), trainable=False)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
