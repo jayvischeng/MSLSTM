@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="CityUPC">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Ubt">
     <serverData>
       <paths name="CityUPC">
         <serverdata>
@@ -17,6 +17,13 @@
           <excludedPaths>
             <excludedPath local="true" path="$PROJECT_DIR$/UCR_TS_Archive_2015" />
           </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="Ubt">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/raw/mcheng/MSLSTM" local="$PROJECT_DIR$" web="/" />
+          </mappings>
         </serverdata>
       </paths>
     </serverData>

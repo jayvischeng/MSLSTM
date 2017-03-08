@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="e160a5dd-bfc9-4ef7-aeb8-629b4d9100d2" name="Ubt" url="http://ubt16a.cs.cityu.edu.hk">
+        <fileTransfer host="ubt16a.cs.cityu.edu.hk" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>
