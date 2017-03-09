@@ -6,21 +6,23 @@ import random
 import shutil
 import os
 import sys
+from collections import Counter
 start = time.time()
 import numpy as np
 from numpy import *
 from sklearn.preprocessing import LabelEncoder
 from sklearn import svm,preprocessing
-from keras.utils import np_utils
+#from keras.utils import np_utils
 import matplotlib
+##
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif
 def pprint(msg):
     print(msg)
-    sys.stderr.write(msg+'\n')
+    #sys.stderr.write(msg+'\n')
 def get_auc(arr_score, arr_label, pos_label):
     score_label_list = []
-    for index in xrange(len(arr_score)):
+    for index in range(len(arr_score)):
         score_label_list.append((float(arr_score[index]), int(arr_label[index])))
     score_label_list_sorted = sorted(score_label_list, key = lambda line:line[0], reverse = True)
 
@@ -92,9 +94,12 @@ def slidingFunc(window_size,data,label):
         newdata.append(initial_value)
         newlabel.append(initial_value)
         sequence = []
+        sequence_label = []
         for i in range(window_size):
             sequence.append(data[index+i])
-            newlabel[newdata_count] = label[index+i]
+            sequence_label.append(label[index+i])
+            #newlabel[newdata_count] = label[index+i]
+        newlabel[newdata_count] = Counter(sequence_label).most_common(1)[0][0]
         index += interval
         newdata[newdata_count]=sequence
         newdata_count += 1
@@ -122,7 +127,7 @@ def returnPositiveIndex(data,negative_sign):
         except:
             if int(data[i,-1]) != negative_sign:
                 temp.append(i)
-    return temp
+    return np.array(temp)
 
 def returnNegativeIndex(data,negative_sign):
     temp = []
@@ -133,7 +138,7 @@ def returnNegativeIndex(data,negative_sign):
         except:
             if int(data[i,-1]) == negative_sign:
                 temp.append(i)
-    return temp
+    return np.array(temp)
 def returnSub_Positive(positive_list):
     temp1 = []
     temp2 = []
@@ -433,8 +438,6 @@ def Fun(multiscaleSequences,case = 'max pooling'):
                     temp_sample.append(np.mean(l[:,j]))# max pooling
             temp.append(temp_sample)
     return temp
-
-
 def add_nosie(ratio,data):
     w = 5
     x = data[:,:-1]
@@ -463,9 +466,49 @@ def mix_multi_scale1(trainX_multi,trainY,pooling_type):
         b = Fun(total_,pooling_type)
         temp_trainX.append(b)
     return np.array(temp_trainX),trainY
+def returnData(current_cv,cross_cv,dataX,dataY):
+    global positive_sign,negative_sign
 
+    positive_index = returnPositiveIndex(dataY, negative_sign)
+    negative_index = returnNegativeIndex(dataY, negative_sign)
+
+    pos_train_index = positive_index[0:int(0.6*len(positive_index))]
+    pos_val_index = positive_index[int(0.6*len(positive_index)):int(0.7*len(positive_index))]
+    pos_test_index = positive_index[int(0.7*len(positive_index)):len(positive_index)-1]
+    neg_train_index = negative_index[0:int(0.6*len(negative_index))]
+    neg_val_index = negative_index[int(0.6*len(negative_index)):int(0.7*len(negative_index))]
+    neg_test_index = negative_index[int(0.7*len(negative_index)):len(negative_index)-1]
+
+    train_index = np.append(neg_train_index, pos_train_index, axis=0)
+    train_index.sort()
+    train_index = list(map(lambda a: int(a), train_index))
+    train_dataX = dataX[train_index]
+    train_dataY = dataY[train_index]
+
+    val_index = np.append(neg_val_index, pos_val_index, axis=0)
+    val_index.sort()
+    val_index = list(map(lambda a: int(a), val_index))
+    val_dataX = dataX[val_index]
+    val_dataY = dataY[val_index]
+
+    test_index = np.append(neg_test_index, pos_test_index, axis=0)
+    test_index.sort()
+    test_index = list(map(lambda a: int(a), test_index))
+    test_dataX = dataX[test_index]
+    test_dataY = dataY[test_index]
+
+    #min_number = min(len(train_dataX),len(test_dataX))
+
+    pprint("The training size is shape:")
+    pprint(train_dataX.shape)
+    pprint("The validation size is shape:")
+    pprint(val_dataX.shape)
+    pprint("The testing size is shape:")
+    pprint(test_dataX.shape)
+
+    return train_dataX,train_dataY,val_dataX,val_dataY,test_dataX,test_dataY
 def return_tabData(current_cv,cross_cv,dataX,dataY):
-    global positive_sign,negative_sign,filename
+    global positive_sign,negative_sign
 
     positive_index = returnPositiveIndex(dataY, negative_sign)
     negative_index = returnNegativeIndex(dataY, negative_sign)
@@ -512,8 +555,9 @@ def return_tabData(current_cv,cross_cv,dataX,dataY):
 
         #min_number = min(len(train_dataX),len(test_dataX))
 
-        pprint(str(tab_cross + 1) + "th Cross Validation of "+filename+" is running and the training size is shape("+str(len(train_dataX))+','+str(len(train_dataX[0]))+').')
-        pprint(str(tab_cross + 1) + "th Cross Validation of "+filename+" is running and the testing size is shape("+str(len(test_dataX))+','+str(len(test_dataX[0]))+').')
+        pprint(str(tab_cross + 1) + "th Cross Validation of is running and the training size is shape("+str(len(train_dataX))+','+str(len(train_dataX[0]))+').')
+        pprint(str(tab_cross + 1) + "th Cross Validation of is running and the testing size is shape("+str(len(test_dataX))+','+str(len(test_dataX[0]))+').')
+        #pprint(str(tab_cross + 1) + "th Cross Validation of is running and the testing size is shape("+str(len(test_dataY))+','+str(len(test_dataY[0]))+').')
 
         return train_dataX,train_dataY,test_dataX,test_dataY
 
@@ -522,8 +566,9 @@ def one_hot(y_):
     # e.g.: [[5], [0], [3]] --> [[0, 0, 0, 0, 0, 1], [1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0]]
 
     y_ = y_.reshape(len(y_))
-    n_values = np.max(y_) + 1
-    return np.eye(n_values)[np.array(y_, dtype=np.int32)]  # Returns FLOATS
+    n_values = int(np.max(y_) + 1)
+    indexes = np.array(y_, dtype=np.int32)
+    return np.eye(n_values)[indexes]  # Returns FLOATS
 def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder,filename
     positive_sign = 0
@@ -562,9 +607,9 @@ def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,cur
     testX_Multi = np.array(testX_Multi).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(testX_Multi.shape))
     return testX_Multi,testY
-def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileNameList,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
 
-    global positive_sign,negative_sign,output_folder,filename
+    global positive_sign,negative_sign,output_folder
     positive_sign = 0
     negative_sign = 1
     output_folder = "output"
@@ -572,10 +617,13 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,cu
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
         os.makedirs(os.path.join(os.getcwd(),output_folder))
 
+    for tab in range(len(fileNameList)):
+        if tab == 0:
+            data_train_val=LoadData(filePath,fileNameList[0])
+        else:
+            temp = LoadData(filePath, fileNameList[tab])
+            data_train_val=np.concatenate((data_train_val,temp),axis=0)
 
-    data_train_val=LoadData(filePath,fileName)
-
-    filename = fileName
     scaler = preprocessing.StandardScaler()
 
     #Plotting_Sequence(Data_[:,0], Data_[:,-1])
@@ -620,7 +668,51 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,cu
     valX_Multi = np.array(valX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(trainX_Multi.shape))
     return trainX_Multi,trainY,valX_Multi,valY
+def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+    global positive_sign,negative_sign,output_folder
+    positive_sign = 0
+    negative_sign = 1
+    output_folder = "output"
 
+    if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
+        os.makedirs(os.path.join(os.getcwd(),output_folder))
+    data_=LoadData(filePath,fileName)
+
+    scaler = preprocessing.StandardScaler()
+    if isNoise == True:data_ = add_nosie(noiseRatio,data_)
+    #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
+    if multiScale == False:
+        dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
+        trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,dataSequenlized_X,dataSequenlized_Y)
+
+    else:
+        trainX_Multi = [[] for i in range(waveScale)]
+        valX_Multi = [[] for i in range(waveScale)]
+        testX_Multi = [[] for i in range(waveScale)]
+
+        dataMulti, dataX, dataY = Multi_Scale_Wavelet0(data_[:, :-1],data_[:, -1],waveScale,True,waveType)
+
+        for tab_level in range(waveScale):
+            dataX_level,dataY_level = slidingFunc(windowSize, scaler.fit_transform(dataMulti[tab_level]), dataY)
+            trainX, trainY, valX, valY, testX, testY = returnData(currentCV, CV, dataX_level,dataY_level)
+
+            trainX_Multi[tab_level].extend(trainX)
+            valX_Multi[tab_level].extend(valX)
+            testX_Multi[tab_level].extend(testX)
+
+    trainY = one_hot(trainY)
+    valY = one_hot(valY)
+    testY = one_hot(testY)
+
+    if multiScale == False:
+        return trainX, trainY, valX, valY, testX, testY
+
+    trainX_Multi = np.array(trainX_Multi).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
+    valX_Multi = np.array(valX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
+    testX_Multi = np.array(testX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
+
+    print("Input shape is"+str(trainX_Multi.shape))
+    return trainX_Multi, trainY, valX_Multi, valY, testX_Multi, testY
 
 
 def getData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
@@ -713,17 +805,19 @@ def getData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
         X_Testing = np.array(scaler.fit_transform(X_Testing))
         Y_Testing = np.array(Testing_Data[:, -1])
 
-        Y_Training_Encoder = LabelEncoder()
-        Y_Training_Encoder.fit(Y_Training)
-        encoded_Y1 = Y_Training_Encoder.transform(Y_Training)
+        #Y_Training_Encoder = LabelEncoder()
+        #Y_Training_Encoder.fit(Y_Training)
+        #encoded_Y1 = Y_Training_Encoder.transform(Y_Training)
         # convert integers to dummy variables (i.e. one hot encoded)
-        Y_Training = np_utils.to_categorical(encoded_Y1)
+        #Y_Training = np_utils.to_categorical(encoded_Y1)
+        Y_Training = one_hot(Y_Training)
+        #Y_Testing_Encoder = LabelEncoder()
+        #Y_Testing_Encoder.fit(Y_Testing)
+        #encoded_Y2 = Y_Testing_Encoder.transform(Y_Testing)
+        # convert integers to dummy variables (i.e. one hot encoded)
+        #Y_Testing = np_utils.to_categorical(encoded_Y2)
+        Y_Testing = one_hot(Y_Testing)
 
-        Y_Testing_Encoder = LabelEncoder()
-        Y_Testing_Encoder.fit(Y_Testing)
-        encoded_Y2 = Y_Testing_Encoder.transform(Y_Testing)
-        # convert integers to dummy variables (i.e. one hot encoded)
-        Y_Testing = np_utils.to_categorical(encoded_Y2)
         return X_Training[20:],Y_Training[20:],np.array(Training_Data[:, -1])[20:],X_Testing[20:],Y_Testing[20:],np.array(Testing_Data[:, -1])[20:]
 
 
