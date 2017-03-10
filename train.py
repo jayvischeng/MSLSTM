@@ -75,8 +75,6 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
 
     #print(x_train.shape)
     #print(y_train.shape)
-    #print(x_test.shape)
-    #print(y_test.shape)
 
     if FLAGS.is_multi_scale:
         FLAGS.scale_levels = x_train.shape[1]
