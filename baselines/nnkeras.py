@@ -11,7 +11,7 @@ from keras.models import Sequential
 from keras.layers.core import Activation
 from keras.layers import Dense
 from keras.models import Model
-from keras.layers.recurrent import LSTM, SimpleRNN
+from keras.layers.recurrent import LSTM,SimpleRNN
 from sklearn import svm
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.ensemble import AdaBoostClassifier
@@ -92,10 +92,12 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
                                                                                waveScale=FLAGS.scale_levels,
                                                                                waveType=FLAGS.wave_type)
 
-            rnn_object = SimpleRNN(FLAGS.num_neurons1, input_length=len(x_train[0]), input_dim=FLAGS.input_dim)
+            rnn_object1 = SimpleRNN(FLAGS.num_neurons1, input_length=len(x_train[0]), input_dim=FLAGS.input_dim)
             model = Sequential()
-            model.add(rnn_object)  # X.shape is (samples, timesteps, dimension)
+            model.add(rnn_object1)  # X.shape is (samples, timesteps, dimension)
             #model.add(Dense(30, activation="sigmoid"))
+            #rnn_object2 = SimpleRNN(FLAGS.num_neurons2, input_length=len(x_train[0]), input_dim=FLAGS.input_dim)
+            #model.add(rnn_object2)  # X.shape is (samples, timesteps, dimension)
             model.add(Dense(output_dim=FLAGS.number_class))
             model.add(Activation("sigmoid"))
             model.compile(optimizer='adam', learning_rate=0.01, loss='binary_crossentropy', metrics=['accuracy'])
@@ -116,14 +118,14 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
                                                                                waveScale=FLAGS.scale_levels,
                                                                                waveType=FLAGS.wave_type)
 
-            lstm_object = LSTM(FLAGS.num_neurons1, input_length=len(x_train[0]), input_dim=FLAGS.input_dim)
+            lstm_object = LSTM(FLAGS.num_neurons1, input_length=x_train.shape[1], input_dim=FLAGS.input_dim)
             model = Sequential()
             model.add(lstm_object)  # X.shape is (samples, timesteps, dimension)
             #model.add(Dense(30, activation="relu"))
             model.add(Dense(output_dim=FLAGS.number_class))
-            model.add(Activation("softmax"))
+            model.add(Activation("sigmoid"))
             sgd = keras.optimizers.SGD(lr=0.02, momentum=0.0, decay=0.0, nesterov=False)
-            model.compile(optimizer='sgd',loss='binary_crossentropy', metrics=['accuracy'])
+            model.compile(optimizer=sgd,loss='binary_crossentropy', metrics=['accuracy'])
             model.fit(x_train, y_train,validation_data=(x_val, y_val), batch_size=FLAGS.batch_size, nb_epoch=FLAGS.max_epochs)
             result = model.predict(x_test)
             end = time.clock()
