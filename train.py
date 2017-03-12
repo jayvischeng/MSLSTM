@@ -98,7 +98,7 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
         is_training = tf.placeholder(tf.bool)
         prediction, label = mslstm.inference(data_x,data_y,FLAGS.option,is_training)
         loss = mslstm.loss_(prediction, label)
-        optimizer = mslstm.train(loss)
+        tran_op,optimizer = mslstm.train(loss)
         minimize = optimizer.minimize(loss)
         correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(label, 1))
         accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
@@ -216,10 +216,11 @@ def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='d
         result_list_dict[each] = []
     for tab_cv in range(cross_cv):
         if tab_cv == tab_cross_cv: continue
-        if 'L' in method:
+        if 'L' in method or 'RNN' in method:
             sys.stdout = tempstdout
-            if method == '1L' or method == '2L' or method == '3L':
-                FLAGS.learning_rate = 0.02
+            if method == '1L' or method == '2L' or method == '3L' \
+                    or method == '4L' or method == '5L' or method == 'RNN':
+                FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
                 FLAGS.learning_rate = 0.05
@@ -249,11 +250,11 @@ def main(unused_argv):
 
     multi_scale_value_list = [2,3,4,5,6,10]
 
-    case_label = {'1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM'}
+    case_label = {'1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM','4L':'4-LSTM','5L':'5-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM','RNN':'RNN'}
     #case = ['1L','2L','AL','HL','HAL']
-    case = ['HAL']
-    #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
-    #case = ["MLP","RNN","LSTM"]
+    case = ['2L']
+    #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN","1NN-DTW"]
+    #case = ["LSTM"]
 
     cross_cv = 3
     tab_cross_cv = 0
@@ -280,8 +281,8 @@ def main(unused_argv):
             else:
 
                 sys.stdout = tempstdout
-                #sclearn.Basemodel(each_case,filename_trainlist[tab], filename_testlist[tab],cross_cv,tab_cross_cv)
-                nnkeras.Basemodel(each_case,filename_trainlist[tab], filename_testlist[tab],cross_cv,tab_cross_cv)
+                #sclearn.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
+                nnkeras.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
