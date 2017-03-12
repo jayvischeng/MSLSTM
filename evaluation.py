@@ -28,26 +28,33 @@ def ReverseEncoder(y):
 def evaluation(label,predict,positive_label=0,negative_label=1):
 
     try:
+        one_hot_flag = True
         Output_Class = [[] for i in range(len(label[0]))]
+        if len(predict) == len(label):
+            for tab_sample in range(len(label)):
+                max_index = predict[tab_sample].argmax(axis=0)
+                for tab_class in range(len(Output_Class)):
+                    if tab_class == max_index:
+                        Output_Class[tab_class].append(1)
+                    else:
+                        Output_Class[tab_class].append(0)
+        else:
+            print("Error!")
     except:
-        Output_Class = [[] for i in range(len(label))]
-    if len(predict) == len(label):
-        for tab_sample in range(len(label)):
-            max_index = predict[tab_sample].argmax(axis=0)
-            for tab_class in range(len(Output_Class)):
-                if tab_class == max_index:
-                    Output_Class[tab_class].append(1)
-                else:
-                    Output_Class[tab_class].append(0)
-    else:
-        print("Error!")
+        one_hot_flag = False
+        Output_Class = []
+        for tab_sample in range(len(predict)):
+            #print(predict[0])
+            Output_Class.append(int(predict[tab_sample]))
+
 
     ac_positive = 0
     ac_negative = 0
     correct = 0
     error_rate_flag = False
-    for tab_class in range(len(Output_Class)):
-        try:
+    if one_hot_flag:
+        for tab_class in range(len(Output_Class)):
+
             error_rate_flag = True
             if label[0][tab_class] == negative_label:
                 predict_negative = Output_Class[tab_class].count(1)
@@ -62,12 +69,21 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
                 for tab_sample in range(len(label)):
                     if Output_Class[tab_class][tab_sample]==1 and Output_Class[tab_class][tab_sample] == int(label[tab_sample][tab_class]):
                         ac_positive += 1
-        except:
-            #output class error rate
-            error_rate_flag = True
-            print(predict)
-            print(label)
-            if predict[tab_class] == label[tab_class]: correct += 1
+    else:
+        #output class error rate
+        predict_positive = Output_Class.count(positive_label)
+        total_positive = list(label).count(positive_label)
+
+        predict_negative = Output_Class.count(negative_label)
+        total_negative = list(label).count(negative_label)
+        for tab_sample in range(len(predict)):
+            if predict[tab_sample] == label[tab_sample]:
+                correct += 1
+                if int(label[tab_sample]) == positive_label:
+                    ac_positive += 1
+                elif int(label[tab_sample]) == negative_label:
+                    ac_negative += 1
+
     #if error_rate_flag == True:
         #print("Error Rate is :"+str((len(Output_Class) - correct)/float(len(Output_Class))))
         #return {"Error_Rate":(len(Output_Class) - correct)/float(len(Output_Class))}
@@ -82,7 +98,7 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
         ACC_A = float(ac_positive) * 100 / (predict_positive + 1)
 
     #PlottingAUC(ReverseEncoder(label),ReverseEncoder(np.transpose(np.array(Output_Class))))
-    fpr,tpr,auc = ComputeAUC(label,predict)
+    #fpr,tpr,auc = ComputeAUC(label,predict)
     #AUC = auc
     AUC = roc_auc_score(label,np.transpose(np.array(Output_Class)))
     G_MEAN=np.sqrt(float(ac_positive*ac_negative)/(total_negative*total_positive))
