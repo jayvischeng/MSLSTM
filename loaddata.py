@@ -500,7 +500,7 @@ def returnData(current_cv,cross_cv,dataX,dataY):
     #min_number = min(len(train_dataX),len(test_dataX))
 
     pprint("The training size is shape:")
-    pprint(train_dataX.shape)
+    pprint(train_dataY.shape)
     pprint("The validation size is shape:")
     pprint(val_dataX.shape)
     pprint("The testing size is shape:")
@@ -653,11 +653,7 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileNameList,windowSiz
             trainX_Multi[tab_level].extend(trainX)
             valX_Multi[tab_level].extend(valX)
 
-    #trainYEr = LabelEncoder()
-    #trainYEr.fit(trainY)
-    #trainY = trainYEr.transform(trainY)
-    # convert integers to dummy variables (i.e. one hot encoded)
-    #trainY = np_utils.to_categorical(trainY)
+
     trainY = one_hot(trainY)
     valY = one_hot(valY)
 
@@ -715,7 +711,42 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,current
     return trainX_Multi, trainY, valX_Multi, valY, testX_Multi, testY
 
 
-def getData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
+
+
+
+def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=False,waveScale=-1,waveType="db1",timeScale=1):
+    global positive_sign,negative_sign,output_folder
+    positive_sign = 0
+    negative_sign = 1
+    output_folder = "output"
+
+    if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
+        os.makedirs(os.path.join(os.getcwd(),output_folder))
+    data_=LoadData(filePath,fileName)
+
+    scaler = preprocessing.MinMaxScaler()
+    if isNoise == True:data_ = add_nosie(noiseRatio,data_)
+    #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
+    if multiScale == False:
+        #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
+        trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,scaler.fit_transform(data_[:, :-1]),data_[:, -1])
+        trainY = one_hot(trainY)
+        valY = one_hot(valY)
+        testY = one_hot(testY)
+        return trainX, trainY, valX, valY, testX, testY
+
+
+
+
+
+
+
+
+
+
+
+
+def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,Current_CV,Cross_CV,Bin_or_Multi_Label="Bin",Multi_Scale=False,Wave_Let_Scale=2,Time_Scale_Size=1,Normalize=0):
     print("")
     global positive_sign,negative_sign
     output_folder = "output"
