@@ -17,7 +17,9 @@ def pprint(msg,method=''):
         print(msg)
         sys.stderr.write(msg+'\n')
 def inputs(option):
-    if option == '1L' or option == '2L' or option == '3L'or option == 'AL':
+    if option == '1L' or option == '2L' or option == '3L'\
+        or option == '4L' or option == '5L' \
+        or option == 'AL' or option == 'RNN':
         data_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.sequence_window, FLAGS.input_dim])
         #data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.number_class])
@@ -69,11 +71,11 @@ def last_relevant(output, length):
     return relevant
 def loss_(predict,label):
 
-    #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
+    cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
     #cost_cross_entropy = tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None)  # Sigmoid
 
     #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
-    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(label,predict))  # Sigmoid
+    #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(label,predict))  # Sigmoid
 
     #cost_cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(predict, label, name='softmax')
 
@@ -101,7 +103,7 @@ def inference(data,label,option,is_training):
     if option == '1L':#pure one-layer lstm
         #lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
 
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
         #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
         #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
@@ -109,35 +111,66 @@ def inference(data,label,option,is_training):
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
-        prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
+    elif option == 'RNN':#pure one-layer RNN
+        #lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)
 
+        rnn_cell = tf.nn.rnn_cell.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
+        #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
+        #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
+        val, state = tf.nn.dynamic_rnn(rnn_cell, data, dtype=tf.float32)
+        val = tf.transpose(val, [1, 0, 2])
+        last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
+        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
     elif option == '2L':#two-layer lstm
 
         #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=0,  activation=tf.nn.tanh)
-        #lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
-
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias= 1.0,  activation=tf.nn.tanh)
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
-        #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
-        #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
-
         #state = tf.Variable(cell.zero_states(batch_size, tf.float32), trainable=False)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
-        prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
+
     elif option == '3L':#three-layer lstm
 
         lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
-        lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2)
+        lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*3)
         val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
         bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
-        prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
+    elif option == '4L':#four-layer lstm
+
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*4)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        val = tf.transpose(val, [1, 0, 2])
+        last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
+        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
+        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
+    elif option == '5L':#five-layer lstm
+
+        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
+        lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*5)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        val = tf.transpose(val, [1, 0, 2])
+        last = tf.gather(val, int(val.get_shape()[0]) - 1)
+        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
+        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
+        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
     elif option == 'Boost':#boost lstm (prototype)
 
         data = tf.transpose(data,[1,0,2,3])
@@ -217,7 +250,7 @@ def inference(data,label,option,is_training):
         with tf.variable_scope('1stlayer_hal'):
             u_w_bottom = tf.Variable(tf.random_normal(shape=[1, FLAGS.scale_levels]), name="u_w_bottom")
             u_w_nor = tf.Variable(tf.constant(1.0, shape=[FLAGS.scale_levels, 1]), name="u_w_nor")
-            lstm_cell_bottom = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=0, activation=tf.nn.tanh)
+            lstm_cell_bottom = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
             val_bottom, state_bottom = tf.nn.dynamic_rnn(lstm_cell_bottom, data_train, dtype=tf.float32)
             val_val_bottom_ = tf.reshape(val_bottom, (-1, FLAGS.num_neurons1))
             weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.scale_levels]), name='weight_1_h')
@@ -241,7 +274,7 @@ def inference(data,label,option,is_training):
 
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
-        prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
+        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
     #try:
      #   return output_u_w,prediction,label
     #except:
@@ -253,7 +286,7 @@ def inference(data,label,option,is_training):
 def train(loss):
 
   _optimizer = tf.train.GradientDescentOptimizer(learning_rate=FLAGS.learning_rate)
-  #_grads = _optimizer.compute_gradients(loss)
+  _grads = _optimizer.compute_gradients(loss)
 
   #for var in tf.trainable_variables():
         #tf.histogram_summary(var.op.name, var)
@@ -262,9 +295,9 @@ def train(loss):
     #if grad is not None:
       #tf.histogram_summary(var.op.name + '/gradients', grad)
 
-  #_train_op = _optimizer.apply_gradients(_grads, global_step=global_step)
+  _train_op = _optimizer.apply_gradients(_grads)
   #_train_op = None
-  return _optimizer
+  return _train_op,_optimizer
 
 
 
