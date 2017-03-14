@@ -71,6 +71,7 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
             model.add(Dense(FLAGS.num_neurons1, activation="relu", input_dim=FLAGS.input_dim))
 
             model.add(Dense(output_dim=FLAGS.number_class))
+            model.add(Dense(output_dim=FLAGS.number_class))
             model.add(Activation("sigmoid"))
             # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
