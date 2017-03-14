@@ -123,10 +123,10 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
         #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
         #visualize.Quxian_Plotting(x_test, y_test, 2, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
         for i in range(FLAGS.max_epochs):
-            #if early_stopping > 0:
-                #pass
-            #else:
-                #break
+            if early_stopping > 0:
+                pass
+            else:
+                break
             for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
                 inp, out = j_batch
                 sess.run(minimize, {data_x: inp, data_y: out, is_training:True})
@@ -223,7 +223,7 @@ def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='d
                 FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                FLAGS.learning_rate = 0.05
+                FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             else:
                 FLAGS.learning_rate = 0.12
@@ -241,7 +241,9 @@ def main(unused_argv):
     #main function
     filename_trainlist = ["HB_AS_Leak.txt"]
     #filename_trainlist = ["HB_Code_Red_I.txt"]
-    filename_test = "HB_Code_Red_I.txt"
+    filename_test = "HB_Nimda.txt"#HB_Code_Red_I.txt
+                                    #HB_Nimda.txt
+                                    #HB_Slammer.txt
 
     #filename_testlist = ["Two_Patterns"]
 
@@ -251,9 +253,12 @@ def main(unused_argv):
     multi_scale_value_list = [2,3,4,5,6,10]
 
     case_label = {'1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM','4L':'4-LSTM','5L':'5-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM','RNN':'RNN'}
-    #case = ['1L','2L','AL','HL','HAL']
-    case = ['2L']
-    #case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN","1NN-DTW"]
+
+    trigger = 1
+    if trigger == 1 :
+        case = ['1L','2L','3L','AL','HL','HAL']
+    else:
+        case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN"]
     #case = ["LSTM"]
 
     cross_cv = 3
@@ -268,7 +273,7 @@ def main(unused_argv):
         val_loss_list = []
 
         for each_case in case:
-            if 1>0: #
+            if trigger: #
                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename_trainlist, filename_test,cross_cv,tab_cross_cv,wave_type)
                 case_list.append(case_label[each_case])
                 train_acc_list.append(train_acc)
@@ -279,10 +284,11 @@ def main(unused_argv):
                 #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
                 #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
             else:
-
                 sys.stdout = tempstdout
-                #sclearn.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
-                nnkeras.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
+                try:
+                    sclearn.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
+                except:
+                    nnkeras.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
