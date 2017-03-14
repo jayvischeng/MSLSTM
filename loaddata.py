@@ -730,9 +730,9 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
         trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,scaler.fit_transform(data_[:, :-1]),data_[:, -1])
-        trainY = one_hot(trainY)
-        valY = one_hot(valY)
-        testY = one_hot(testY)
+        #trainY = one_hot(trainY)
+        #valY = one_hot(valY)
+        #testY = one_hot(testY)
         return trainX, trainY, valX, valY, testX, testY
 
 
