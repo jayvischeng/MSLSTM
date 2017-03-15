@@ -241,7 +241,7 @@ def main(unused_argv):
     #main function
     filename_trainlist = ["HB_AS_Leak.txt"]
     #filename_trainlist = ["HB_Code_Red_I.txt"]
-    filename_test = "HB_Nimda.txt"#HB_Code_Red_I.txt
+    filename_test = "HB_AS_Leak.txt"#HB_Code_Red_I.txt
                                     #HB_Nimda.txt
                                     #HB_Slammer.txt
 
@@ -256,7 +256,7 @@ def main(unused_argv):
 
     trigger = 1
     if trigger == 1 :
-        case = ['1L','2L','3L','AL','HL','HAL']
+        case = ['1L','2L','AL','HL','HAL']
     else:
         case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN"]
     #case = ["LSTM"]
