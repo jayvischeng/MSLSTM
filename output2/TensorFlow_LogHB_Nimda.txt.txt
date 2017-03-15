@@ -1,0 +1,2 @@
+HAL_tab:0_epoch:100,_wavelet:haar,_lr:0.12,_multi_scale:True,_train_set_using_level:10,hidden_nodes: 32/8
+AUC: 0.756,	G_MEAN: 0.755,	ACCURACY: 0.756,	F1_SCORE: 0.746,	

@@ -1,0 +1,89 @@
+2L_____epoch:200,_____learning rate:0.02,_____multi_scale:Falsehidden_nodes: 120/16
+F1_SCORE: 0.759,	AUC: 0.703,	G_MEAN: 0.669,	ACCURACY: 0.705,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:Falsehidden_nodes: 64/16
+F1_SCORE: 0.723,	AUC: 0.608,	G_MEAN: 0.465,	ACCURACY: 0.613,	
+2L_tab:0_epoch:100,_lr:0.02,_multi_scale:Falsehidden_nodes: 64/16
+F1_SCORE: 0.712,	AUC: 0.585,	G_MEAN: 0.413,	ACCURACY: 0.59,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:Falsehidden_nodes: 64/16
+F1_SCORE: 0.724,	AUC: 0.62,	G_MEAN: 0.489,	ACCURACY: 0.62,	
+2L_tab:0_epoch:100,_lr:0.02,_multi_scale:Falsehidden_nodes: 64/16
+F1_SCORE: 0.726,	AUC: 0.623,	G_MEAN: 0.495,	ACCURACY: 0.623,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:Falsehidden_nodes: 32/8
+AUC: 0.701,	G_MEAN: 0.65,	ACCURACY: 0.701,	F1_SCORE: 0.764,	
+2L_tab:0_epoch:100,_lr:0.02,_multi_scale:Falsehidden_nodes: 32/8
+AUC: 0.625,	G_MEAN: 0.501,	ACCURACY: 0.625,	F1_SCORE: 0.727,	
+HAL_tab:0_epoch:100,_wavelet:haar,_lr:0.12,_multi_scale:True,_train_set_using_level:10hidden_nodes: 32/8
+AUC: 0.799,	G_MEAN: 0.788,	ACCURACY: 0.799,	F1_SCORE: 0.821,	
+
+HAL_tab:0_epoch:100,_wavelet:haar,_lr:0.12,_multi_scale:True,_train_set_using_level:10,hidden_nodes: 32/8
+AUC: 0.799,	G_MEAN: 0.788,	ACCURACY: 0.799,	F1_SCORE: 0.821,	
+HAL_tab:0_epoch:100,_wavelet:haar,_lr:0.12,_multi_scale:True,_train_set_using_level:10,hidden_nodes: 64/128
+AUC: 0.723,	G_MEAN: 0.684,	ACCURACY: 0.723,	F1_SCORE: 0.775,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:False,hidden_nodes: 64/128
+AUC: 0.639,	G_MEAN: 0.537,	ACCURACY: 0.639,	F1_SCORE: 0.732,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:False,hidden_nodes: 32/128
+AUC: 0.704,	G_MEAN: 0.658,	ACCURACY: 0.704,	F1_SCORE: 0.764,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:False,hidden_nodes: 32/128
+AUC: 0.704,	G_MEAN: 0.658,	ACCURACY: 0.704,	F1_SCORE: 0.764,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:False,hidden_nodes: 32/128
+AUC: 0.763,	G_MEAN: 0.757,	ACCURACY: 0.763,	F1_SCORE: 0.784,	
+HAL_tab:0_epoch:100,_wavelet:haar,_lr:0.12,_multi_scale:True,_train_set_using_level:10,hidden_nodes: 32/8
+AUC: 0.815,	G_MEAN: 0.809,	ACCURACY: 0.815,	F1_SCORE: 0.833,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.763,	G_MEAN: 0.76,	ACCURACY: 0.763,	F1_SCORE: 0.78,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.763,	G_MEAN: 0.76,	ACCURACY: 0.763,	F1_SCORE: 0.78,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.763,	G_MEAN: 0.76,	ACCURACY: 0.763,	F1_SCORE: 0.78,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.435,	G_MEAN: 0.254,	ACCURACY: 0.435,	F1_SCORE: 0.583,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.776,	G_MEAN: 0.76,	ACCURACY: 0.776,	F1_SCORE: 0.806,	
+HAL_tab:0_epoch:100,_wavelet:haar,_lr:0.12,_multi_scale:True,_train_set_using_level:10,hidden_nodes: 32/8
+AUC: 0.825,	G_MEAN: 0.82,	ACCURACY: 0.825,	F1_SCORE: 0.841,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.776,	G_MEAN: 0.76,	ACCURACY: 0.776,	F1_SCORE: 0.806,	
+RNN_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.63,	G_MEAN: 0.517,	ACCURACY: 0.63,	F1_SCORE: 0.727,	
+2L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.575,	G_MEAN: 0.386,	ACCURACY: 0.575,	F1_SCORE: 0.702,	
+3L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/8
+AUC: 0.687,	G_MEAN: 0.62,	ACCURACY: 0.687,	F1_SCORE: 0.759,	
+1L_tab:0_epoch:100,_lr:0.02,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.745,	G_MEAN: 0.712,	ACCURACY: 0.745,	F1_SCORE: 0.791,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.776,	G_MEAN: 0.76,	ACCURACY: 0.776,	F1_SCORE: 0.806,	
+2L_tab:0_epoch:100,_lr:0.001,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.53,	G_MEAN: 0.35,	ACCURACY: 0.53,	F1_SCORE: 0.663,	
+3L_tab:0_epoch:100,_lr:0.001,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.5,	G_MEAN: 0.0,	ACCURACY: 0.5,	F1_SCORE: 0.667,	
+1L_tab:0_epoch:100,_lr:0.1,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.673,	G_MEAN: 0.59,	ACCURACY: 0.673,	F1_SCORE: 0.753,	
+2L_tab:0_epoch:100,_lr:0.1,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.562,	G_MEAN: 0.352,	ACCURACY: 0.562,	F1_SCORE: 0.695,	
+3L_tab:0_epoch:100,_lr:0.1,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.685,	G_MEAN: 0.607,	ACCURACY: 0.685,	F1_SCORE: 0.76,	
+4L_tab:0_epoch:100,_lr:0.1,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.569,	G_MEAN: 0.372,	ACCURACY: 0.569,	F1_SCORE: 0.699,	
+5L_tab:0_epoch:100,_lr:0.1,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.752,	G_MEAN: 0.714,	ACCURACY: 0.752,	F1_SCORE: 0.8,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.566,	G_MEAN: 0.364,	ACCURACY: 0.566,	F1_SCORE: 0.697,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 32/16
+AUC: 0.544,	G_MEAN: 0.296,	ACCURACY: 0.544,	F1_SCORE: 0.687,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 8/16
+AUC: 0.759,	G_MEAN: 0.73,	ACCURACY: 0.759,	F1_SCORE: 0.695,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 16/16
+AUC: 0.677,	G_MEAN: 0.61,	ACCURACY: 0.677,	F1_SCORE: 0.751,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 128/16
+AUC: 0.644,	G_MEAN: 0.545,	ACCURACY: 0.644,	F1_SCORE: 0.735,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 128/16
+AUC: 0.644,	G_MEAN: 0.545,	ACCURACY: 0.644,	F1_SCORE: 0.735,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 256/16
+AUC: 0.668,	G_MEAN: 0.579,	ACCURACY: 0.668,	F1_SCORE: 0.751,	
+2L_tab:0_epoch:100,_lr:0.05,_multi_scale:False,hidden_nodes: 256/16
+AUC: 0.677,	G_MEAN: 0.596,	ACCURACY: 0.677,	F1_SCORE: 0.756,	
+2L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 256/16
+AUC: 0.696,	G_MEAN: 0.626,	ACCURACY: 0.696,	F1_SCORE: 0.767,	
+1L_tab:0_epoch:100,_lr:0.01,_multi_scale:False,hidden_nodes: 256/16
+AUC: 0.668,	G_MEAN: 0.579,	ACCURACY: 0.668,	F1_SCORE: 0.751,	
