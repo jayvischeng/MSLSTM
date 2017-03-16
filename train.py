@@ -109,7 +109,7 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
         saver = tf.train.Saver({"my_weights": weights})
         init_op = tf.global_variables_initializer()
         sess = tf.Session()
-    #init_op = tf.initialize_all_variables()
+        #init_op = tf.initialize_all_variables()
     #with tf.Session() as sess:
         sess.run(init_op)
         #summary_writer = tf.train.SummaryWriter(FLAGS.log_dir, sess.graph)
@@ -208,6 +208,7 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
 
 def train_classic(method,filename_train,filename_test, cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     return sclearn.Basemodel(method,filename_train,filename_test,cross_cv,tab_cross_cv)
+
 def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='db1'):
     global data_x, data_y
     result_list_dict = defaultdict(list)
@@ -220,10 +221,10 @@ def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='d
             sys.stdout = tempstdout
             if method == '1L' or method == '2L' or method == '3L' \
                     or method == '4L' or method == '5L' or method == 'RNN':
-                FLAGS.learning_rate = 0.01
+                #FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                FLAGS.learning_rate = 0.01
+                #FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             else:
                 FLAGS.learning_rate = 0.12
@@ -241,7 +242,7 @@ def main(unused_argv):
     #main function
     filename_trainlist = ["HB_AS_Leak.txt"]
     #filename_trainlist = ["HB_Code_Red_I.txt"]
-    filename_test = "HB_AS_Leak.txt"#HB_Code_Red_I.txt
+    filename_test = "HB_Nimda.txt"#HB_Code_Red_I.txt
                                     #HB_Nimda.txt
                                     #HB_Slammer.txt
 
@@ -256,7 +257,8 @@ def main(unused_argv):
 
     trigger = 1
     if trigger == 1 :
-        case = ['1L','2L','AL','HL','HAL']
+        #case = ['1L','2L','AL','HL','HAL']
+        case = ['1L']
     else:
         case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN"]
     #case = ["LSTM"]
