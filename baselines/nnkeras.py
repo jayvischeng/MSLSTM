@@ -119,9 +119,11 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
                                                                                waveScale=FLAGS.scale_levels,
                                                                                waveType=FLAGS.wave_type)
 
+            initi_weight = keras.initializers.RandomNormal(mean=0.0, stddev= 1, seed=None)
+            initi_bias = keras.initializers.Constant(value=0.1)
             lstm_object = LSTM(FLAGS.num_neurons1, input_length=x_train.shape[1], input_dim=FLAGS.input_dim)
             model = Sequential()
-            model.add(lstm_object)  # X.shape is (samples, timesteps, dimension)
+            model.add(lstm_object,kernel_initializer=initi_weight,bias_initializer=initi_bias)  # X.shape is (samples, timesteps, dimension)
             #model.add(Dense(30, activation="relu"))
             model.add(Dense(output_dim=FLAGS.number_class))
             model.add(Activation("sigmoid"))
