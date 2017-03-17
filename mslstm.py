@@ -124,8 +124,6 @@ def inference(data,label,option,is_training):
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         #last = tf.unpack(tf.transpose(val, [1, 0, 2]))
-        #weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
-        #bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
         #prediction = tf.nn.sigmoid(tf.matmul(last, weights['out_layer1']) + biases['out'])
         prediction = tf.matmul(last, weights['out_layer1']) + biases['out']
 
