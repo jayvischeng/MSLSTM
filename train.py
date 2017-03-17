@@ -257,7 +257,7 @@ def main(unused_argv):
 
     trigger = 1
     if trigger == 1 :
-        #case = ['1L','2L','3L']
+        case = ['1L','2L','3L','AL','HL','HAL']
         case = ['2L']
     else:
         case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN"]
