@@ -88,8 +88,8 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
         FLAGS.number_class = y_train.shape[1]
         FLAGS.batch_size = len(y_val)
     #g = tf.Graph()
-    #with g.as_default():
-    with tf.variable_scope("middle")as scope:
+    with tf.Graph().as_default():
+    #with tf.variable_scope("middle")as scope:
         tf.set_random_seed(1337)
         #global_step = tf.Variable(0,name="global_step",trainable=False)
         data_x,data_y = mslstm.inputs(FLAGS.option)
@@ -242,7 +242,7 @@ def main(unused_argv):
     #main function
     filename_trainlist = ["HB_AS_Leak.txt"]
     #filename_trainlist = ["HB_Code_Red_I.txt"]
-    filename_test = "HB_Nimda.txt"#HB_Code_Red_I.txt
+    filename_test = "HB_Slammer.txt"#HB_Code_Red_I.txt
                                     #HB_Nimda.txt
                                     #HB_Slammer.txt
 
@@ -257,8 +257,8 @@ def main(unused_argv):
 
     trigger = 1
     if trigger == 1 :
-        #case = ['1L','2L','AL','HL','HAL']
-        case = ['1L']
+        #case = ['1L','2L','3L']
+        case = ['2L']
     else:
         case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN"]
     #case = ["LSTM"]
