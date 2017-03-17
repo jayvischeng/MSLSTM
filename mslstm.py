@@ -115,15 +115,17 @@ def inference(data,label,option,is_training):
     X_in = tf.matmul(X, weights['in']) + biases['in']#X_in = W*X + b
     X_in = tf.reshape(X_in, [-1, FLAGS.sequence_window, FLAGS.num_neurons1])#X_in ==> ( batches,  steps,  hidden) 换回3维
     #X_in = data
+    lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,
+                                             state_is_tuple=True)
+    # lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
+    # lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
     if option == '1L':#pure one-layer lstm
-        X_in = data
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,state_is_tuple=True)
-        #lstm_cell = tf.contrib.rnn.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
-        #lstm_cell = tf.contrib.rnn_cell.MultiRNNCell([lstm_cell]*2)
         val, state = tf.nn.dynamic_rnn(lstm_cell, X_in, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
+
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         #last = tf.unpack(tf.transpose(val, [1, 0, 2]))
+
         #prediction = tf.nn.sigmoid(tf.matmul(last, weights['out_layer1']) + biases['out'])
         prediction = tf.matmul(last, weights['out_layer1']) + biases['out']
 
