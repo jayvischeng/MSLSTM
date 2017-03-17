@@ -6,9 +6,7 @@ from __future__ import division
 import tensorflow as tf
 import printlog
 import sys
-
 #from BNLSTM import LSTMCell, BNLSTMCell, orthogonal_initializer
-
 #from tensorflow.nn.rnn_cell import GRUCell
 FLAGS = tf.app.flags.FLAGS
 def pprint(msg,method=''):
@@ -17,16 +15,12 @@ def pprint(msg,method=''):
         print(msg)
         sys.stderr.write(msg+'\n')
 def inputs(option):
-    if option == '1L' or option == '2L' or option == '3L'\
-        or option == '4L' or option == '5L' \
-        or option == 'AL' or option == 'RNN':
-        data_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.sequence_window, FLAGS.input_dim])
-        #data_tensor = tf.placeholder(tf.float32,shape=[FLAGS.batch_size,FLAGS.sequence_window,FLAGS.input_dim])
-        label_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.number_class])
-
-    elif option == 'HL' or 'HAL' or 'Boost' :
+    if 'H' in option:# Hierarcy architecture
         data_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.scale_levels,FLAGS.sequence_window,FLAGS.input_dim])
         label_tensor = tf.placeholder(tf.float32,shape=[None,FLAGS.number_class])
+    else:
+        data_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.sequence_window, FLAGS.input_dim])
+        label_tensor = tf.placeholder(tf.float32, shape=[None, FLAGS.number_class])
 
     return data_tensor,label_tensor
 
@@ -73,13 +67,8 @@ def loss_(predict,label):
 
     #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
     cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(label,predict))  # Sigmoid
-
     #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
-    #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(label,predict))  # Sigmoid
     #cost_cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(predict, label, name='softmax')
-    #cost_cross_entropy = tf.reduce_mean(label * tf.log(predict))  # tanh
-
-    #cost_cross_entropy = tf.reduce_sum(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))/（FLAGS.batch_size*FLAGS.number_class）  # Sigmoid
 
     #--------------------------------------------- Compute cross entropy with various length--------------------------.
     #cross_entropy = label * tf.log(predict)
@@ -97,24 +86,39 @@ def loss_(predict,label):
 def print_info(tensor,name):
     return tf.Print(tensor, [tensor.get_shape()], "The "+name+" shape is :", first_n=4096, summarize=40)
 
-def weight_bias():
-    weights = {
-        'in': tf.Variable(tf.random_normal([FLAGS.input_dim, FLAGS.num_neurons1])),
-        'out': tf.Variable(tf.random_normal([FLAGS.num_neurons1, FLAGS.number_class])),
-        'out': tf.Variable(tf.random_normal([FLAGS.num_neurons2, FLAGS.number_class]))
-    }
-    biases = {
-        'in': tf.Variable(tf.constant(0.1, shape=[FLAGS.num_neurons1, ])),
-        'out': tf.Variable(tf.constant(0.1, shape=[FLAGS.number_class, ]))
+def weight_bias(option):
+    if 'H' in option:# Hierarcy architecture
+        weights = {
+            'in': tf.Variable(tf.random_normal([FLAGS.input_dim, FLAGS.num_neurons1])),
+            'out': tf.Variable(tf.random_normal([FLAGS.num_neurons2, FLAGS.number_class]))
+        }
+        biases = {
+            'in': tf.Variable(tf.constant(0.1, shape=[FLAGS.num_neurons1, ])),
+            'out': tf.Variable(tf.constant(0.1, shape=[FLAGS.number_class, ]))
+        }
+        if 'A' in option:
+            weights['attention'] = tf.Variable(tf.random_normal([FLAGS.num_neurons1, FLAGS.scale_levels]))
+            biases['attention'] = tf.Variable(tf.constant(0.1, shape=[FLAGS.scale_levels, ]))
+    else:
+        weights = {
+            'in': tf.Variable(tf.random_normal([FLAGS.input_dim, FLAGS.num_neurons1])),
+            'out': tf.Variable(tf.random_normal([FLAGS.num_neurons1, FLAGS.number_class])),
+        }
+        biases = {
+            'in': tf.Variable(tf.constant(0.1, shape=[FLAGS.num_neurons1, ])),
+            'out': tf.Variable(tf.constant(0.1, shape=[FLAGS.number_class, ]))
+        }
+        if 'A' in option:
+            weights['attention'] = tf.Variable(tf.random_normal([FLAGS.num_neurons1, FLAGS.sequence_window]))
+            biases['attention'] = tf.Variable(tf.constant(0.1, shape=[FLAGS.sequence_window, ]))
 
-    }
     return weights, biases
 def inference(data,label,option,is_training):
     weights,biases = weight_bias()
-    X = tf.reshape(data, [-1, FLAGS.input_dim])
-    X_in = tf.matmul(X, weights['in']) + biases['in']#X_in = W*X + b
-    X_in = tf.reshape(X_in, [-1, FLAGS.sequence_window, FLAGS.num_neurons1])#X_in ==> ( batches,  steps,  hidden) 换回3维
-    #X_in = data
+    #X = tf.reshape(data, [-1, FLAGS.input_dim])
+    #X_in = tf.matmul(X, weights['in']) + biases['in']#X_in = W*X + b
+    #X_in = tf.reshape(X_in, [-1, FLAGS.sequence_window, FLAGS.num_neurons1])#X_in ==> ( batches,  steps,  hidden) 换回3维
+    X_in = data
     lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh,
                                              state_is_tuple=True)
     # lstm_cell = BNLSTMCell(FLAGS.num_neurons1,is_training)# Batch_Normalization
@@ -126,38 +130,28 @@ def inference(data,label,option,is_training):
 
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
         #last = tf.unpack(tf.transpose(val, [1, 0, 2]))
-
-        #prediction = tf.nn.sigmoid(tf.matmul(last, weights['out_layer1']) + biases['out'])
-        prediction = tf.matmul(last, weights['out_layer1']) + biases['out']
-
     elif option == 'RNN':#pure one-layer RNN
 
         rnn_cell = tf.nn.rnn_cell.BasicRNNCell(FLAGS.num_neurons1, activation=tf.nn.tanh)
         val, state = tf.nn.dynamic_rnn(rnn_cell, X_in, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
-        prediction = tf.matmul(last, weights['out_layer1']) + biases['out']
 
     elif option == '2L':#two-layer lstm
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*2,state_is_tuple=True)
-        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, X_in, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
 
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
 
-        prediction = tf.matmul(last, weights['out_layer1']) + biases['out']
-        #prediction = tf.nn.sigmoid(tf.matmul(last, weights['out_layer1']) + biases['out'])
 
     elif option == '3L':#three-layer lstm
 
         lstm_cell = tf.nn.rnn_cell.MultiRNNCell([lstm_cell]*3,state_is_tuple=True)
-        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, X_in, dtype=tf.float32)
         val = tf.transpose(val, [1, 0, 2])
 
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
-
-        #prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
-        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
 
     elif option == 'Boost':#boost lstm (prototype)
 
@@ -182,36 +176,21 @@ def inference(data,label,option,is_training):
         prediction = tf.nn.softmax(tf.matmul(last, weight) + bias)
 
     elif option == 'AL':
-        #lstm_cell = BNLSTMCell(FLAGS.num_neurons1, training=is_training)
-        lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
 
         u_ = tf.Variable(tf.random_normal(shape=[1, FLAGS.sequence_window]), name="u_w")
         w_ones = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window,1]),name="u_w_one")
-
-        val, state = tf.nn.dynamic_rnn(lstm_cell, data, dtype=tf.float32)
+        val, state = tf.nn.dynamic_rnn(lstm_cell, X_in, dtype=tf.float32)
         val_ = tf.reshape(val,(-1,FLAGS.num_neurons1))
-
-        weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.sequence_window]),name='weight_h')
-        bias_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.sequence_window]))
-        u_levels = tf.reshape((tf.matmul(val_, weight_h) + bias_h),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
-
+        u_levels = tf.reshape((tf.matmul(val_, weights["attention"]) + biases["attention"]),(-1,FLAGS.sequence_window,FLAGS.sequence_window))
         u_levels_ = tf.transpose(u_levels,[0,1,2])
-
         u_levels_ = tf.reshape(u_levels_,(FLAGS.sequence_window,-1))
         u_levels_t = tf.exp(tf.matmul(u_,u_levels_))
         w_t = tf.reshape(u_levels_t,(-1,FLAGS.sequence_window))
-
         w_ = tf.matmul(w_t,w_ones)
-        u_w = tf.div(w_t, w_)
-        u_w = tf.reshape(u_w,(-1,1,FLAGS.sequence_window))
-
-        m_t = tf.reshape(tf.matmul(u_w,val),(-1,FLAGS.num_neurons1))
-        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, int(label.get_shape()[1])]),name='weight')
-        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
-        prediction = tf.nn.softmax(tf.matmul(m_t, weight) + bias)
-
+        u_w = tf.reshape(tf.div(w_t, w_),(-1,1,FLAGS.sequence_window))
+        last = tf.reshape(tf.matmul(u_w,val),(-1,FLAGS.num_neurons1))
     elif option == 'HL': #hierarchy lstm
-        data_train = tf.transpose(data, [0, 2, 1, 3])
+        data_train = tf.transpose(X_in, [0, 2, 1, 3])
         data_train = tf.reshape(data_train,(-1,FLAGS.scale_levels,FLAGS.input_dim))
 
         with tf.variable_scope('1stlayer_hl'):
@@ -226,11 +205,8 @@ def inference(data,label,option,is_training):
             lstm_cell_top = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons2, forget_bias=1.0, activation=tf.nn.tanh)
             val_top, state_top = tf.nn.dynamic_rnn(lstm_cell_top, temp_, dtype=tf.float32)
 
-        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons2, int(label.get_shape()[1])]),name='weight')
-        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
         val_t = tf.transpose(val_top, [1, 0, 2])
-        last_t = tf.gather(val_t, int(val_t.get_shape()[0]) - 1)
-        prediction = tf.nn.softmax(tf.matmul(last_t, weight) + bias)
+        last = tf.gather(val_t, int(val_t.get_shape()[0]) - 1)
 
     elif option == 'HAL':
         data_train = tf.transpose(data, [0, 2, 1, 3])
@@ -241,9 +217,8 @@ def inference(data,label,option,is_training):
             lstm_cell_bottom = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons1, forget_bias=1.0, activation=tf.nn.tanh)
             val_bottom, state_bottom = tf.nn.dynamic_rnn(lstm_cell_bottom, data_train, dtype=tf.float32)
             val_val_bottom_ = tf.reshape(val_bottom, (-1, FLAGS.num_neurons1))
-            weight_h = tf.Variable(tf.truncated_normal([FLAGS.num_neurons1, FLAGS.scale_levels]), name='weight_1_h')
-            bias_h = tf.Variable(tf.constant(0.1, shape=[FLAGS.scale_levels]))
-            u_levels_bottom = tf.reshape((tf.matmul(val_val_bottom_, weight_h) + bias_h),
+
+            u_levels_bottom = tf.reshape((tf.matmul(val_val_bottom_, weights["attention"]) + biases["attention"]),
                                                (-1, FLAGS.scale_levels, FLAGS.scale_levels))
             u_levels_t = tf.transpose(u_levels_bottom, [1, 2, 0])
             u_levels_t = tf.reshape(u_levels_t, (FLAGS.scale_levels, -1))
@@ -257,12 +232,9 @@ def inference(data,label,option,is_training):
             lstm_cell = tf.nn.rnn_cell.BasicLSTMCell(FLAGS.num_neurons2, forget_bias=1.0, activation=tf.nn.tanh)
             val, state = tf.nn.dynamic_rnn(lstm_cell, temp, dtype=tf.float32)
 
-        weight = tf.Variable(tf.truncated_normal([FLAGS.num_neurons2, int(label.get_shape()[1])]),name='weight')
-        bias = tf.Variable(tf.constant(0.1, shape=[label.get_shape()[1]]))
-
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
-        prediction = tf.nn.sigmoid(tf.matmul(last, weight) + bias)
+
     prediction = tf.matmul(last, weights['out']) + biases['out']
     #prediction = tf.nn.sigmoid(tf.matmul(last, weights['out_layer1']) + biases['out'])
 
