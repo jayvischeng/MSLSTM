@@ -36,7 +36,7 @@ def iterate_minibatches(inputs, targets, batchsize, shuffle=False):
         if shuffle:
             excerpt = indices[start_idx:start_idx + batchsize]
         else:
-            excerpbt = slice(start_idx, start_idx + batchsize)
+            excerpt = slice(start_idx, start_idx + batchsize)
         yield inputs[excerpt], targets[excerpt]
 def pprint(msg,method=''):
     #if not 'Warning' in msg:
@@ -81,12 +81,12 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
         FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        FLAGS.batch_size = int(y_train.shape[0])
+        #FLAGS.batch_size = int(y_train.shape[0])
     else:
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        FLAGS.batch_size = len(y_val)
+        #FLAGS.batch_size = len(y_val)
     #g = tf.Graph()
     with tf.Graph().as_default():
     #with tf.variable_scope("middle")as scope:
@@ -127,7 +127,7 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
                 pass
             else:
                 break
-            for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=True):
+            for j_batch in iterate_minibatches(x_train,y_train,FLAGS.batch_size,shuffle=False):
                 inp, out = j_batch
                 sess.run(minimize, {data_x: inp, data_y: out, is_training:True})
                 training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out,is_training:True})
@@ -224,10 +224,10 @@ def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='d
                 #FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             elif 'AL' == method:
-                #FLAGS.learning_rate = 0.01
+                FLAGS.learning_rate = 0.01
                 FLAGS.is_multi_scale = False
             else:
-                FLAGS.learning_rate = 0.12
+                FLAGS.learning_rate = 0.1
                 FLAGS.is_multi_scale = True
                 FLAGS.wave_type = wave_type
             return train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
@@ -242,7 +242,7 @@ def main(unused_argv):
     #main function
     filename_trainlist = ["HB_AS_Leak.txt"]
     #filename_trainlist = ["HB_Code_Red_I.txt"]
-    filename_test = "HB_Slammer.txt"#HB_Code_Red_I.txt
+    filename_test = "HB_AS_Leak.txt"#HB_Code_Red_I.txt
                                     #HB_Nimda.txt
                                     #HB_Slammer.txt
 
@@ -257,8 +257,8 @@ def main(unused_argv):
 
     trigger = 1
     if trigger == 1 :
-        case = ['1L','2L','3L','AL','HL','HAL']
-        case = ['2L']
+        case = ['HL']
+        #case = ['1L','2L','3L']
     else:
         case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost","1NN"]
     #case = ["LSTM"]
