@@ -66,7 +66,9 @@ def last_relevant(output, length):
 def loss_(predict,label):
 
     #cost_cross_entropy = -tf.reduce_mean(label * tf.log(predict))
-    cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict,label))  # Sigmoid
+    cost_cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(predict,label))  # Softmax for labels that mutally exclusive
+    #cost_cross_entropy = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(predict,label))  # Same as above but wihout the need to transfer labels to one-hot vector
+
     #cost_cross_entropy = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(predict, label, name=None))  # Sigmoid
     #cost_cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(predict, label, name='softmax')
 
