@@ -472,6 +472,10 @@ def returnData(current_cv,cross_cv,dataX,dataY):
     positive_index = returnPositiveIndex(dataY, negative_sign)
     negative_index = returnNegativeIndex(dataY, negative_sign)
 
+    pprint("The POSITIVE is "+str(len(positive_index)))
+    pprint("The NEGATIVE is "+str(len(negative_index)))
+
+
     pos_train_index = positive_index[0:int(0.6*len(positive_index))]
     pos_val_index = positive_index[int(0.6*len(positive_index)):int(0.7*len(positive_index))]
     pos_test_index = positive_index[int(0.7*len(positive_index)):len(positive_index)-1]
@@ -515,6 +519,9 @@ def return_tabData(current_cv,cross_cv,dataX,dataY):
 
     pos_data = dataX[positive_index]
     neg_data = dataX[negative_index]
+
+    pprint("The POSITIVE is "+str(len(pos_data)))
+    pprint("The NEGATIVE is "+str(len(pos_data)))
 
     for tab_cross in range(cross_cv):
         if not tab_cross == current_cv: continue
@@ -730,9 +737,9 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
         trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,scaler.fit_transform(data_[:, :-1]),data_[:, -1])
-        #trainY = one_hot(trainY)
-        #valY = one_hot(valY)
-        #testY = one_hot(testY)
+        trainY = one_hot(trainY)
+        valY = one_hot(valY)
+        testY = one_hot(testY)
         return trainX, trainY, valX, valY, testX, testY
 
 
