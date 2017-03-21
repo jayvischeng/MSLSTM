@@ -243,8 +243,8 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
-    #filename_trainlist = ["HB_Code_Red_I.txt"]
+    #filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
+    filename_testlist = ["HB_ALL.txt"]
     filename_test = "HB_AS_Leak.txt"#HB_Code_Red_I.txt
                                     #HB_Nimda.txt
                                     #HB_Slammer.txt
