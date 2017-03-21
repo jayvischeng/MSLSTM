@@ -150,7 +150,6 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
             epoch_val_loss_list.append(val_loss)
             epoch_val_acc_list.append(val_acc)
 
-
             try:
                 max_val_acc = epoch_val_acc_list[-2]
             except:
@@ -244,7 +243,7 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    filename_testlist = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
+    filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
     #filename_trainlist = ["HB_Code_Red_I.txt"]
     filename_test = "HB_AS_Leak.txt"#HB_Code_Red_I.txt
                                     #HB_Nimda.txt
@@ -264,7 +263,9 @@ def main(unused_argv):
         case = ['HAL']
         #case = ['1L','2L','3L']
     else:
-        case = ["RF","SVM","SVMF","SVMW","NB","NBF","DT","Ada.Boost","1NN"]
+        #case = ["1NN-DTW"]
+        case = ["1NN"]
+        #case = ["RF","SVM","SVMF","SVMW","NB","NBF","DT","Ada.Boost","1NN"]
     #case = ["LSTM"]
 
     cross_cv = 3
@@ -293,8 +294,9 @@ def main(unused_argv):
                 sys.stdout = tempstdout
                 if 1>0:
                     sclearn.Basemodel(each_case, filename_testlist[tab],cross_cv,tab_cross_cv)
-                #except:
-                    #nnkeras.Basemodel(each_case, filename_test,cross_cv,tab_cross_cv)
+                else:
+                    pass
+                    #nnkeras.Basemodel(each_case, filename_testlist[tab],cross_cv,tab_cross_cv)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
