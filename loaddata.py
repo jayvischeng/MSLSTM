@@ -55,17 +55,19 @@ def LoadData(input_data_path,filename):
         if filename == 'sonar.dat':
             negative_flag = 'M'
         else:
-            negative_flag = '1.0'
+            negative_flag = '0'
         Data=[]
 
         for each in fin:
             if '@' in each:continue
             val=each.split(",")
             if len(val)>0 or val[-1].strip()=="negative" or val[-1].strip()=="positive":
-                if val[-1].strip()== negative_flag:
+                if val[-1].strip() == negative_flag:#ALL
+                #if val[-1].strip() != negative_flag:
                     val[-1] = negative_sign
                 else:
-                    val[-1] = positive_sign
+                    pass
+                    #val[-1] = positive_sign
                 try:
                     val=list(map(lambda a:float(a),val))
                 except:
@@ -474,6 +476,7 @@ def returnData(current_cv,cross_cv,dataX,dataY):
 
     pprint("The POSITIVE is "+str(len(positive_index)))
     pprint("The NEGATIVE is "+str(len(negative_index)))
+    print(str(list(dataY).count(2.0)))
 
 
     pos_train_index = positive_index[0:int(0.6*len(positive_index))]
@@ -578,8 +581,8 @@ def one_hot(y_):
     return np.eye(n_values)[indexes]  # Returns FLOATS
 def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder,filename
-    positive_sign = 0
-    negative_sign = 1
+    positive_sign = 1
+    negative_sign = 0
     output_folder = "output"
 
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
@@ -617,8 +620,8 @@ def get_testData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,cur
 def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileNameList,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
 
     global positive_sign,negative_sign,output_folder
-    positive_sign = 0
-    negative_sign = 1
+    positive_sign = 1
+    negative_sign = 0
     output_folder = "output"
 
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
@@ -673,8 +676,8 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileNameList,windowSiz
     return trainX_Multi,trainY,valX_Multi,valY
 def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder
-    positive_sign = 0
-    negative_sign = 1
+    positive_sign = 1
+    negative_sign = 0
     output_folder = "output"
 
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
@@ -703,9 +706,9 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,current
             valX_Multi[tab_level].extend(valX)
             testX_Multi[tab_level].extend(testX)
 
-    trainY = one_hot(trainY)
-    valY = one_hot(valY)
-    testY = one_hot(testY)
+    #trainY = one_hot(trainY)
+    #valY = one_hot(valY)
+    #testY = one_hot(testY)
 
     if multiScale == False:
         return trainX, trainY, valX, valY, testX, testY
@@ -723,8 +726,8 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,current
 
 def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=False,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder
-    positive_sign = 0
-    negative_sign = 1
+    positive_sign = 1
+    negative_sign = 0
     output_folder = "output"
 
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
@@ -737,9 +740,9 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
         trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,scaler.fit_transform(data_[:, :-1]),data_[:, -1])
-        trainY = one_hot(trainY)
-        valY = one_hot(valY)
-        testY = one_hot(testY)
+        #trainY = one_hot(trainY)
+        #valY = one_hot(valY)
+        #testY = one_hot(testY)
         return trainX, trainY, valX, valY, testX, testY
 
 
@@ -760,8 +763,8 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
 
     if not os.path.isdir(os.path.join(os.getcwd(),output_folder)):
         os.makedirs(os.path.join(os.getcwd(),output_folder))
-    positive_sign=0
-    negative_sign=1
+    positive_sign=1
+    negative_sign=0
     Data_=LoadData(Fila_Path,FileName)
 
 
@@ -919,8 +922,8 @@ if __name__=='__main__':
     case_list = [1]
     multi_scale_value = sequence_window
     #os.chdir("/home/grads/mcheng223/IGBB")
-    positive_sign=0
-    negative_sign=1
+    positive_sign=1
+    negative_sign=0
     ACCURACY=[]
     sequence_window_list = [10,20,30]
     hidden_units = 200
