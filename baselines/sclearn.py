@@ -425,33 +425,33 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                     fout.write(str(int(result2[tab])) + '\n')
         except:
             pass
-        if 1>0:
 
-            for each_eval, each_result in results.items():
-                result_list_dict[each_eval].append(each_result)
+        for each_eval, each_result in results.items():
+            result_list_dict[each_eval].append(each_result)
 
-            for each_eval in evaluation_list:
-                result_list_dict[each_eval].append(results[each_eval])
-            #for eachk, eachv in result_list_dict.items():
-                #result_list_dict[eachk] = np.average(eachv)
-            if evalua_flag == True:
-                with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
-                    outfileline = _model + ":__"+str(tab_selected_features)
-                    fout.write(outfileline)
-                    for each_eval in evaluation_list:
-                        fout.write(each_eval + ": " + str(round(np.average(result_list_dict[each_eval]), 3)) + ",\t")
-                    #for eachk, eachv in result_list_dict.items():
-                        #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
-                    fout.write('\n')
-            else:return results
-
-            #print(results)
-            if '-' in _model:break
-            if 'W' in _model or 'F' in _model:continue
-            else: break
+        for each_eval in evaluation_list:
+            result_list_dict[each_eval].append(results[each_eval])
+        #for eachk, eachv in result_list_dict.items():
+            #result_list_dict[eachk] = np.average(eachv)
+        if evalua_flag:
+            with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
+                outfileline = _model + ":__"+str(tab_selected_features)
+                fout.write(outfileline)
+                for each_eval in evaluation_list:
+                    fout.write(each_eval + ": " + str(round(np.average(result_list_dict[each_eval]), 3)) + ",\t")
+                #for eachk, eachv in result_list_dict.items():
+                    #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
+                fout.write('\n')
+        if '-' in _model:break
+        if 'W' in _model or 'F' in _model:
+            continue
         else:
-            pass
-    #return epoch_training_loss_list,epoch_val_loss_list
+            break
+    if evalua_flag:
+        pass
+        #return epoch_training_loss_list,epoch_val_loss_list
+    else:return results
+
 
 
 def epoch_loss_plotting(train_loss_list, val_loss_list):

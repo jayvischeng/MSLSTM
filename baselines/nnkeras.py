@@ -38,7 +38,6 @@ def pprint(msg,method=''):
 def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluation_list):
 
     result_list_dict = defaultdict(list)
-    evaluation_list = ["AUC", "G_MEAN","ACCURACY","F1_SCORE"]
     for each in evaluation_list:
         result_list_dict[each] = []
     # num_selected_features = 25#AS leak tab=0
@@ -48,9 +47,6 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                             filename, FLAGS.sequence_window, trigger_flag,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
-
-
-
 
     FLAGS.sequence_window = x_train.shape[1]
     FLAGS.input_dim = x_train.shape[-1]
@@ -63,14 +59,12 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         start = time.clock()
         model = Sequential()
         model.add(Dense(FLAGS.num_neurons1, activation="relu", input_dim=FLAGS.input_dim))
-
         model.add(Dense(output_dim=FLAGS.number_class))
         model.add(Activation("sigmoid"))
+        sgd = keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
         # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
+        model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
         model.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=FLAGS.batch_size, nb_epoch=FLAGS.max_epochs)
-        # result = model.predict(X_Testing, batch_size=FLAGS.batch_size)
         result = model.predict(x_test)
         end = time.clock()
         pprint("The Time For MLP is " + str(end - start))
@@ -155,7 +149,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         result_list_dict[each_eval].append(results[each_eval])
     #for eachk, eachv in result_list_dict.items():
         #result_list_dict[eachk] = np.average(eachv)
-    if evalua_flag == False:
+    if evalua_flag:
         with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
             outfileline = _model + ":__"
             fout.write(outfileline)
@@ -164,6 +158,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             #for eachk, eachv in result_list_dict.items():
                 #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
             fout.write('\n')
+        #return epoch_training_loss_list,epoch_val_loss_list
+    else:
+        return results
 
-    return results
-    # return epoch_training_loss_list,epoch_val_loss_list
