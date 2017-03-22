@@ -265,9 +265,9 @@ def main(unused_argv):
                   'SVMF':'SVMF','SVMW':'SVMW','MLP':'MLP','RNN':'RNN','1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM',\
                   'AL':'ALSTM','HL':'MSLSTM','HAL':'MSLSTM2'}
 
-    trigger_flag = 1
+    trigger_flag = 0
     evalua_flag = True
-    is_binary_class = True
+    is_binary_class = False
     single_layer = True
 
     if is_binary_class:
