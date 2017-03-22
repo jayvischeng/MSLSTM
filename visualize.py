@@ -161,7 +161,7 @@ def Quxian_Plotting_2(dataX,name):
 #filename_list = ["HB_AS_Leak.txt","HB_Slammer.txt","HB_Nimda.txt","HB_Code_Red_I.txt"]
 #method_list = ["SVM","NB","DT","Ada.Boost","MLP","RNN","LSTM","MS-LSTM"]
 
-def plotAUC(method_list,Parameters):
+def plotAUC(method_list,filename):
     fpr = [0 for i in range(len(method_list))]
     tpr = [0 for i in range(len(method_list))]
     auc = [0 for i in range(len(method_list))]
@@ -176,7 +176,7 @@ def plotAUC(method_list,Parameters):
     plt.ylim([0.0, 1.05])
     plt.xlabel('False Positive Rate',fontsize=12)
     plt.ylabel('True Positive Rate',fontsize=12)
-    plt.title('Receiver operating characteristic of '+Parameters['filename'].replace('HB_','').split('.')[0],fontsize=12)
+    plt.title('Receiver operating characteristic of '+filename.replace('HB_','').split('.')[0],fontsize=12)
     plt.legend(loc="lower right", fontsize=10)
     plt.tick_params(labelsize=12)
     plt.grid()
