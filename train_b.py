@@ -52,12 +52,12 @@ def pprint(msg,method=''):
     #global sess, data_x, data_y
     #return sess.run(commander, {data_x: data, data_y: label})
 
-def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
+def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag,result_list_dict,evaluation_list):
     global tempstdout
     FLAGS.option = method
     dropout = 0.8
     x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                           filename_test, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+                                           filename_test, FLAGS.sequence_window, trigger_flag, evalua_flag,
                                             multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
     #x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
@@ -195,9 +195,9 @@ def train_lstm(method,filename_train_list,filename_test,cross_cv,tab_cross_cv,re
 
     with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename_test + ".txt"), "a")as fout:
         if not FLAGS.is_multi_scale:
-            outfileline = FLAGS.option + "_tab:"+str(tab_cross_cv) + "_epoch:" + str(FLAGS.max_epochs) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
+            outfileline = FLAGS.option  + "_epoch:" + str(FLAGS.max_epochs) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
         else:
-            outfileline = FLAGS.option + "_tab:"+str(tab_cross_cv) + "_epoch:" + str(FLAGS.max_epochs) + ",_wavelet:"+str(FLAGS.wave_type) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",_train_set_using_level:" + str(FLAGS.scale_levels) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
+            outfileline = FLAGS.option  + "_epoch:" + str(FLAGS.max_epochs) + ",_wavelet:"+str(FLAGS.wave_type) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",_train_set_using_level:" + str(FLAGS.scale_levels) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
 
         fout.write(outfileline)
         for each_eval in eval_list:
@@ -243,61 +243,73 @@ def main(unused_argv):
     global tempstdout
 
     #main function
-    #filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
-    filename_testlist = ["HB_ALL.txt"]
-    filename_test = "HB_AS_Leak.txt"#HB_Code_Red_I.txt
-                                    #HB_Nimda.txt
-                                    #HB_Slammer.txt
 
-    #filename_testlist = ["Two_Patterns"]
 
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
-
     multi_scale_value_list = [2,3,4,5,6,10]
-
     case_label = {'1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM','4L':'4-LSTM','5L':'5-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM','RNN':'RNN'}
 
-    trigger = 0
-    if trigger == 1 :
-        case = ['HAL']
-        #case = ['1L','2L','3L']
+    trigger_flag = 0
+    evalua_flag = False
+    is_binary_class = True
+    single_layer = False
+
+    if is_binary_class:
+        # filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
+        filename_list = ["HB_AS_Leak.txt"]  # HB_Code_Red_I.txt
+                                                # HB_Nimda.txt
+                                                # HB_Slammer.txt
+    else:
+        filename_list = ["HB_ALL.txt"]
+
+    if trigger_flag == 1 :
+        if single_layer:
+            case = ['MLP','RNN','1L','2L','3L','AL']
+        else:
+            case = ['HL','HAL']
     else:
         #case = ["1NN-DTW"]
-        case = ["1NN"]
-        #case = ["RF","SVM","SVMF","SVMW","NB","NBF","DT","Ada.Boost","1NN"]
-    #case = ["LSTM"]
+        #case = ["RF","SVM","SVMF","SVMW","NB","DT","Ada.Boost","1NN"]
+        case = ["SVM","NB","DT","Ada.Boost","1NN"]
 
-    cross_cv = 3
-    tab_cross_cv = 0
+    if evalua_flag:
+        evaluation_list = ["AUC", "G_MEAN", "ACCURACY", "F1_SCORE"]
+    else:
+        evaluation_list = ["FPR", "TPR","AUC","G_MEAN"]
+
     wave_type = wave_type_list[0]
 
-    for tab in range(len(filename_testlist)):
+    for tab in range(len(filename_list)):
         case_list = []
         train_acc_list = []
         val_acc_list = []
         train_loss_list = []
         val_loss_list = []
 
-        for each_case in case:
-            if trigger: #
-                train_acc,val_acc,train_loss,val_loss = train(each_case,filename_testlist, filename_testlist[tab],cross_cv,tab_cross_cv,wave_type)
-                case_list.append(case_label[each_case])
-                train_acc_list.append(train_acc)
-                val_acc_list.append(val_acc)
-                train_loss_list.append(train_loss)
-                val_loss_list.append(val_loss)
 
-                #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
-                #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+        results = {}
+        for each_case in case:
+            if trigger_flag: #
+                if each_case == 'MLP':
+                    nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class)
+                else:
+                    train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,wave_type)
+                    case_list.append(case_label[each_case])
+                    train_acc_list.append(train_acc)
+                    val_acc_list.append(val_acc)
+                    train_loss_list.append(train_loss)
+                    val_loss_list.append(val_loss)
+
+                    #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
+                    #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
             else:
                 sys.stdout = tempstdout
-                if 1>0:
-                    sclearn.Basemodel(each_case, filename_testlist[tab],cross_cv,tab_cross_cv)
+                if evalua_flag:
+                    sclearn.Basemodel(each_case, filename_list[tab], trigger_flag, evalua_flag,is_binary_class,evaluation_list)
                 else:
-                    pass
-                    #nnkeras.Basemodel(each_case, filename_testlist[tab],cross_cv,tab_cross_cv)
-
+                    results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
+    visualize.plotAUC(results,case_list)
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
 
