@@ -25,10 +25,9 @@ def ReverseEncoder(y):
     return temp
 
 
-def evaluation(label,predict,positive_label=0,negative_label=1):
+def evaluation(label,predict,trigger_flag,evalua_flag,positive_label=1,negative_label=0):
 
-    try:
-        one_hot_flag = True
+    if trigger_flag or evalua_flag == False:
         Output_Class = [[] for i in range(len(label[0]))]
         if len(predict) == len(label):
             for tab_sample in range(len(label)):
@@ -40,21 +39,17 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
                         Output_Class[tab_class].append(0)
         else:
             print("Error!")
-    except:
-        one_hot_flag = False
+    else:
         Output_Class = []
         for tab_sample in range(len(predict)):
-            #print(predict[0])
             Output_Class.append(int(predict[tab_sample]))
-
 
     ac_positive = 0
     ac_negative = 0
     correct = 0
     error_rate_flag = False
-    if one_hot_flag:
+    if trigger_flag or evalua_flag == False:
         for tab_class in range(len(Output_Class)):
-
             error_rate_flag = True
             if label[0][tab_class] == negative_label:
                 predict_negative = Output_Class[tab_class].count(1)
@@ -88,32 +83,34 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
         #print("Error Rate is :"+str((len(Output_Class) - correct)/float(len(Output_Class))))
         #return {"Error_Rate":(len(Output_Class) - correct)/float(len(Output_Class))}
 
-    #try:
-        #ACC_R = float(ac_negative) / predict_negative
-    #except:
-        #ACC_R = float(ac_negative) * 100 / (predict_negative + 1)
-    try:
-        ACC_A = float(ac_positive) / predict_positive
-    except:
-        ACC_A = float(ac_positive) * 100 / (predict_positive + 1)
-
     #PlottingAUC(ReverseEncoder(label),ReverseEncoder(np.transpose(np.array(Output_Class))))
-    fpr,tpr,auc = ComputeAUC(label,predict)
-    #AUC = auc
-    AUC = roc_auc_score(label,np.transpose(np.array(Output_Class)))
-    G_MEAN=np.sqrt(float(ac_positive*ac_negative)/(total_negative*total_positive))
+    if evalua_flag == True:
+        try:
+            ACC_A = float(ac_positive) / predict_positive
+        except:
+            ACC_A = float(ac_positive) * 100 / (predict_positive + 1)
 
-    PRECISION = ACC_A
-    RECALL = float(ac_positive) / total_positive
-    ACCURACY = round(float(ac_positive + ac_negative) / len(label), 5)
-    try:
-        F1_SCORE = round((2 * PRECISION * RECALL) / (PRECISION + RECALL), 5)
-    except:
-        F1_SCORE = 0.01 * round((2 * PRECISION * RECALL) / (PRECISION + RECALL + 1), 5)
+        AUC = roc_auc_score(label, np.transpose(np.array(Output_Class)))
+        G_MEAN = np.sqrt(float(ac_positive * ac_negative) / (total_negative * total_positive))
+
+        PRECISION = ACC_A
+        RECALL = float(ac_positive) / total_positive
+        ACCURACY = round(float(ac_positive + ac_negative) / len(label), 5)
+        try:
+            F1_SCORE = round((2 * PRECISION * RECALL) / (PRECISION + RECALL), 5)
+        except:
+            F1_SCORE = 0.01 * round((2 * PRECISION * RECALL) / (PRECISION + RECALL + 1), 5)
+
+        return {"ACCURACY": ACCURACY, "F1_SCORE": F1_SCORE, "AUC": AUC, "G_MEAN": G_MEAN}
 
 
-    #return {"ACCURACY":ACCURACY,"F1_SCORE":F1_SCORE,"AUC":AUC,"G_MEAN":G_MEAN}
-    return fpr,tpr,auc#evaluate auc
+    else:
+        AUC = roc_auc_score(label, np.transpose(np.array(Output_Class)))
+        G_MEAN = np.sqrt(float(ac_positive * ac_negative) / (total_negative * total_positive))
+        FPR,TPR,AUC = ComputeAUC(label,predict)
+        print({"FPR":FPR,"TPR":TPR,"AUC":AUC,"G_MEAN":G_MEAN})
+        return {"FPR":FPR,"TPR":TPR,"AUC":AUC,"G_MEAN":G_MEAN}
+        #return fpr,tpr,auc#evaluate auc
 
 
 
