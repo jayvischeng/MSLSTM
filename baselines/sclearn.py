@@ -4,6 +4,7 @@ from collections import defaultdict
 import printlog
 #import ucr_load_data
 import numpy as np
+import sklearn
 from numpy import *
 from sklearn import tree
 from sklearn import svm
@@ -13,6 +14,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import loaddata
 import os
+from sklearn.metrics import classification_report
 from sklearn.feature_selection import chi2,f_classif
 import sys
 import collections
@@ -57,7 +59,7 @@ class KnnDtw(object):
         item is skipped. Implemented by x[:, ::subsample_step]
     """
 
-    def __init__(self, n_neighbors=5, max_warping_window=10, subsample_step=1):
+    def __init__(self, n_neighbors=1, max_warping_window=10, subsample_step=10):
         self.n_neighbors = n_neighbors
         self.max_warping_window = max_warping_window
         self.subsample_step = subsample_step
@@ -247,7 +249,58 @@ class ProgressBar:
 
     def __str__(self):
         return str(self.prog_bar)
-def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
+
+def knn(train,test,w):
+    preds=[]
+    for ind,i in enumerate(test):
+        min_dist=float('inf')
+        closest_seq=[]
+        #print ind
+        for j in train:
+            if LB_Keogh(i[:-1],j[:-1],5)<min_dist:
+                dist=DTWDistance(i[:-1],j[:-1],w)
+                if dist<min_dist:
+                    min_dist=dist
+                    closest_seq=j
+        preds.append(closest_seq[-1])
+    return classification_report(test[:,-1],preds)
+
+
+def LB_Keogh(s1,s2,r):
+    LB_sum=0
+    for ind,i in enumerate(s1):
+
+        lower_bound=min(s2[(ind-r if ind-r>=0 else 0):(ind+r)])
+        upper_bound=max(s2[(ind-r if ind-r>=0 else 0):(ind+r)])
+
+        if i>upper_bound:
+            LB_sum=LB_sum+(i-upper_bound)**2
+        elif i<lower_bound:
+            LB_sum=LB_sum+(i-lower_bound)**2
+
+    return sqrt(LB_sum)
+
+def DTWDistance(s1, s2,w):
+    DTW={}
+
+    w = max(w, abs(len(s1)-len(s2)))
+
+    for i in range(-1,len(s1)):
+        for j in range(-1,len(s2)):
+            DTW[(i, j)] = float('inf')
+    DTW[(-1, -1)] = 0
+
+    for i in range(len(s1)):
+        for j in range(max(0, i-w), min(len(s2), i+w)):
+            dist= (s1[i]-s2[j])**2
+            DTW[(i, j)] = dist + min(DTW[(i-1, j)],DTW[(i, j-1)], DTW[(i-1, j-1)])
+
+    return sqrt(DTW[len(s1)-1, len(s2)-1])
+
+
+
+
+def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluation_list):
 
     filepath = FLAGS.data_dir
     sequence_window = FLAGS.sequence_window
@@ -257,7 +310,6 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
     noise_ratio = FLAGS.noise_ratio
 
     result_list_dict = defaultdict(list)
-    evaluation_list = ["AUC", "G_MEAN","ACCURACY","F1_SCORE"]
 
     for each in evaluation_list:
         result_list_dict[each] = []
@@ -266,7 +318,7 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
     # num_selected_features = 32#Slammer tab=0
     #num_selected_features = 20  # Nimda tab=1
     x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data_withoutS(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                            filename, FLAGS.sequence_window, tab_crosscv, cross_cv,
+                                            filename, FLAGS.sequence_window, trigger_flag,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
     for tab_selected_features in range(2,34):
@@ -274,160 +326,93 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
             #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
             print(_model + " is running..............................................")
             clf = KNeighborsClassifier(n_neighbors=1)
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
         elif _model == '1NN-DTW':
-            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
+            x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise,
+                                                                               FLAGS.noise_ratio, FLAGS.data_dir,
+                                                                               filename, FLAGS.sequence_window,
+                                                                               trigger_flag,
+                                                                               multiScale=False,
+                                                                               waveScale=FLAGS.scale_levels,
+                                                                               waveType=FLAGS.wave_type)
+            x_train = np.transpose(x_train,[0,2,1])
+            x_test = np.transpose(x_test,[0,2,1])
             print(_model + " is running..............................................")
+
             clf = KnnDtw(n_neighbors=1)
-            print((x_train[::1]).shape)
-            clf.fit(x_train[::1], y_train)
-            result = clf.predict(x_test[::1])
+            x_train = x_train[:,1]
+            x_test = x_test[:,1]
+
         elif _model == 'RF':
             clf = RandomForestClassifier(n_estimators=50)
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
         elif _model == "SVM":
-            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_crosscv,
-            #                                                                                cross_cv,
-            #                                                                               Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                              Normalize=0)
-            print("222")
-            print(y_train[0])
             print(_model + " is running..............................................")
-            #y_train = y_train0
-            clf = svm.SVC(kernel="rbf", gamma=0.0001, C=100000, probability=False)
-            print(x_test.shape)
-            print(y_train.shape)
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
+            clf = svm.SVC(kernel="rbf", gamma=0.0001, C=100000, probability=True)
 
         elif _model == "SVMF":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                                Normalize=5)
-
-            print(_model + " is running..............................................")
+            x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data_withoutS(FLAGS.pooling_type,
+                                                                                        FLAGS.is_add_noise,
+                                                                                        FLAGS.noise_ratio,
+                                                                                        FLAGS.data_dir,
+                                                                                        filename, FLAGS.sequence_window,
+                                                                                        trigger_flag,
+                                                                                        multiScale=False,
+                                                                                        waveScale=FLAGS.scale_levels,
+                                                                                        waveType=FLAGS.wave_type)
+            print(_model + " is running.............................................."+str(tab_selected_features))
             clf = svm.SVC(kernel="rbf", gamma=0.0001, C=100000, probability=False)
             estimator = SelectKBest(chi2, k=tab_selected_features)
 
             x_train_new = estimator.fit_transform(x_train, y_train)
             x_test_new = estimator.fit_transform(x_test, y_test)
-            print(x_train_new.shape)
 
-            clf.fit(x_train_new, y_train)
-            result = clf.predict(x_test_new)
+            x_train = x_train_new
+            x_test = x_test_new
+
+
 
         elif _model == "SVMW":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                                Normalize=6)
-
-            print(_model + " is running..............................................")
+            print(_model + " is running.............................................."+str(tab_selected_features))
             #estimator = svm.SVC(kernel="rbf", gamma=0.00001, C=1000, probability=False)
             estimator = svm.SVC(kernel="linear")
+            clf = RFE(estimator, tab_selected_features, step=1)
 
-            selector = RFE(estimator, tab_selected_features, step=1)
-            selector = selector.fit(x_train, y_train)
-
-            result = selector.predict(x_test)
-        elif _model == "NBF":
-
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                                Normalize=10)
-
-            print(_model + " is running..............................................")
-            clf = BernoulliNB()
-
-            estimator = SelectKBest(chi2, k=tab_selected_features)
-
-            x_train_new = estimator.fit_transform(x_train, y_train)
-            x_test_new = estimator.fit_transform(x_test, y_test)
-
-            clf.fit(x_train_new, y_train)
-            result = clf.predict(x_test_new)
-
-        elif _model == "NBW":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                                Normalize=11)
-
-            print(_model + " is running..............................................")
-            # SVR(kernel="linear") = svm.SVC(kernel="rbf", gamma=0.00001, C=100000, probability=True)
-            estimator = BernoulliNB()
-            selector = RFE(estimator, tab_selected_features, step=1)
-            selector = selector.fit(x_train, y_train)
-            result = selector.predict(x_test)
 
         elif _model == "NB":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                               Normalize=1)
-            #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
             print(_model + " is running..............................................")
-            #y_train = y_train0
             clf = BernoulliNB()
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
 
         elif _model == "DT":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                                Normalize=2)
-
             print(_model + " is running.............................................." + str(x_train.shape))
             y_train = y_train
             clf = tree.DecisionTreeClassifier()
-            clf.fit(x_train, y_train)
-            result = clf.predict(x_test)
 
         elif _model == "Ada.Boost":
-            #x_train, y_train, y_train0, x_test, y_test, y_test0 = loaddata.GetData_WithoutS(is_add_noise, noise_ratio,
-            #                                                                                filepath, filename,
-            #                                                                                sequence_window, tab_cv,
-            #                                                                                cross_cv,
-            #                                                                                Multi_Scale=is_multi_scale,
-            #                                                                                Wave_Let_Scale=training_level,
-            #                                                                                Normalize=0)
-
             print(_model + " is running.............................................." + str(x_train.shape))
             y_train = y_train
-            # clf = AdaBoostClassifier(n_estimators=10) #Nimda tab=1
             clf = AdaBoostClassifier()
 
-            clf.fit(x_train, y_train)
+        clf.fit(x_train, y_train)
+        if evalua_flag == True:
             result = clf.predict(x_test)
 
-        results = evaluation.evaluation(y_test, result)  # Computing ACCURACY,F1-score,..,etc
+        else:
+            y_test = loaddata.one_hot(y_test)
+            result = clf.predict_proba(x_test)
+            print(y_test.shape)
+            print(result.shape)
+
+        if is_binary_class == True:
+            #print(y_test.shape)
+            #print(result.shape)
+            #print(evalua_flag)
+            results = evaluation.evaluation(y_test, result,trigger_flag,evalua_flag)  # Computing ACCURACY,F1-score,..,etc
+        else:
+            accuracy = sklearn.metrics.accuracy_score(y_test,result)
+            print("Accuracy is :"+str(accuracy))
+            f1_score = sklearn.metrics.f1_score(y_test,result)
+            print("F-score is :"+str(f1_score))
+            results = {'ACCURACY':accuracy,'F1_SCORE':f1_score,'AUC':9999,'G_MEAN':9999}
+
         try:
             y_test2 = np.array(evaluation.ReverseEncoder(y_test))
             result2 = np.array(evaluation.ReverseEncoder(result))
@@ -440,28 +425,32 @@ def Basemodel(_model,filename='HB_AS_Leak.txt',cross_cv=2,tab_crosscv=0):
                     fout.write(str(int(result2[tab])) + '\n')
         except:
             pass
+        if 1>0:
 
-        for each_eval, each_result in results.items():
-            result_list_dict[each_eval].append(each_result)
+            for each_eval, each_result in results.items():
+                result_list_dict[each_eval].append(each_result)
 
-        for each_eval in evaluation_list:
-            result_list_dict[each_eval].append(results[each_eval])
-        #for eachk, eachv in result_list_dict.items():
-            #result_list_dict[eachk] = np.average(eachv)
-        if is_add_noise == False:
-            with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
-                outfileline = _model + ":__"+str(tab_selected_features)
-                fout.write(outfileline)
-                for each_eval in evaluation_list:
-                    fout.write(each_eval + ": " + str(round(np.average(result_list_dict[each_eval]), 3)) + ",\t")
-                #for eachk, eachv in result_list_dict.items():
-                    #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
-                fout.write('\n')
-        print(results)
-        if '-' in _model:break
-        if 'W' in _model or 'F' in _model:continue
-        else: break
-        #return results
+            for each_eval in evaluation_list:
+                result_list_dict[each_eval].append(results[each_eval])
+            #for eachk, eachv in result_list_dict.items():
+                #result_list_dict[eachk] = np.average(eachv)
+            if evalua_flag == True:
+                with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
+                    outfileline = _model + ":__"+str(tab_selected_features)
+                    fout.write(outfileline)
+                    for each_eval in evaluation_list:
+                        fout.write(each_eval + ": " + str(round(np.average(result_list_dict[each_eval]), 3)) + ",\t")
+                    #for eachk, eachv in result_list_dict.items():
+                        #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
+                    fout.write('\n')
+            else:return results
+
+            #print(results)
+            if '-' in _model:break
+            if 'W' in _model or 'F' in _model:continue
+            else: break
+        else:
+            pass
     #return epoch_training_loss_list,epoch_val_loss_list
 
 
