@@ -82,13 +82,16 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        #FLAGS.batch_size = int(int(x_train.shape[0])/2)
+        if "Nimda" in filename_test:
+            FLAGS.batch_size = int(int(x_train.shape[0])/5)
+        else:
+            FLAGS.batch_size = int(x_train.shape[0])
     else:
         FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
-        #FLAGS.batch_size = int(int(x_train.shape[0])/2)
-    pprint("aaa"+str(FLAGS.batch_size))
+        if "Nimda" in filename_test:
+            FLAGS.batch_size = int(int(x_train.shape[0])/5)
     #g = tf.Graph()
     with tf.Graph().as_default():
     #with tf.variable_scope("middle")as scope:
@@ -160,6 +163,8 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
                 early_stopping -= 1
             elif epoch_val_acc_list[-1] >= max_val_acc:
                 early_stopping = 10
+            if val_loss > 10 or val_loss == np.nan:
+                break
         try:
             weights_results = sess.run(output_u_w, {data_x:x_test, data_y: y_test})
             sess.run(weights.assign(weights_results))
@@ -197,23 +202,22 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     with open(os.path.join(os.path.join(os.getcwd(),'stat'),"StatFalseAlarm_" + filename_test + "_" + method + "_" + "_Predict.txt"), "w") as fout:
         for tab in range(len(result2)):
             fout.write(str(int(result2[tab])) + '\n')
-    eval_list = ["AUC", "G_MEAN","ACCURACY","F1_SCORE"]
-    for each_eval in eval_list:
+    #eval_list = ["AUC", "G_MEAN","ACCURACY","F1_SCORE"]
+    for each_eval in evaluation_list:
         result_list_dict[each_eval].append(results[each_eval])
 
-
-    with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename_test + ".txt"), "a")as fout:
-        if not FLAGS.is_multi_scale:
-            outfileline = FLAGS.option  + "_epoch:" + str(FLAGS.max_epochs) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
-        else:
-            outfileline = FLAGS.option  + "_epoch:" + str(FLAGS.max_epochs) + ",_wavelet:"+str(FLAGS.wave_type) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",_train_set_using_level:" + str(FLAGS.scale_levels) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
-
-        fout.write(outfileline)
-        for each_eval in eval_list:
-        #for eachk, eachv in result_list_dict.items():
-            fout.write(each_eval + ": " + str(round(np.mean(result_list_dict[each_eval]), 3)) + ",\t")
-        fout.write('\n')
     if evalua_flag:
+        with open(os.path.join(FLAGS.output, "TensorFlow_Log" + filename_test + ".txt"), "a")as fout:
+            if not FLAGS.is_multi_scale:
+                outfileline = FLAGS.option  + "_epoch:" + str(FLAGS.max_epochs) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
+            else:
+                outfileline = FLAGS.option  + "_epoch:" + str(FLAGS.max_epochs) + ",_wavelet:"+str(FLAGS.wave_type) + ",_lr:" + str(FLAGS.learning_rate) + ",_multi_scale:" + str(FLAGS.is_multi_scale) + ",_train_set_using_level:" + str(FLAGS.scale_levels) + ",hidden_nodes: "+str(FLAGS.num_neurons1)+"/"+str(FLAGS.num_neurons2) + "\n"
+
+            fout.write(outfileline)
+            for each_eval in evaluation_list:
+            #for eachk, eachv in result_list_dict.items():
+                fout.write(each_eval + ": " + str(round(np.mean(result_list_dict[each_eval]), 3)) + ",\t")
+            fout.write('\n')
         return epoch_training_acc_list,epoch_val_acc_list,epoch_training_loss_list,epoch_val_loss_list
     else:
         return results
@@ -221,13 +225,13 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
 
 
 
-def train_classic(method,filename_train,filename_test, cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
-    return sclearn.Basemodel(method,filename_train,filename_test,cross_cv,tab_cross_cv)
+def train_classic(method,filename_train,filename_test, trigger_flag,evalua_flag,is_binary_class,evaluation_list):
+    return sclearn.Basemodel(method,filename_train,filename_test,trigger_flag,evalua_flag,evaluation_list)
 
-def train(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary_class,wave_type='db1'):
+def train(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary_class,evaluation_list,wave_type='db1'):
     global data_x, data_y
     result_list_dict = defaultdict(list)
-    evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
+    #evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
     for each in evaluation_list:
         result_list_dict[each] = []
     if 'L' in method or 'RNN' in method:
@@ -237,10 +241,10 @@ def train(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary
             #FLAGS.learning_rate = 0.01
             FLAGS.is_multi_scale = False
         elif 'AL' == method:
-            FLAGS.learning_rate = 0.01
+            #FLAGS.learning_rate = 0.01
             FLAGS.is_multi_scale = False
         else:
-            FLAGS.learning_rate = 0.05
+            #FLAGS.learning_rate = 0.05
             FLAGS.is_multi_scale = True
             FLAGS.wave_type = wave_type
         return train_lstm(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary_class,result_list_dict,evaluation_list)
@@ -261,14 +265,14 @@ def main(unused_argv):
                   'SVMF':'SVMF','SVMW':'SVMW','MLP':'MLP','RNN':'RNN','1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM',\
                   'AL':'ALSTM','HL':'MSLSTM','HAL':'MSLSTM2'}
 
-    trigger_flag = 0
-    evalua_flag = False
+    trigger_flag = 1
+    evalua_flag = True
     is_binary_class = True
-    single_layer = False
+    single_layer = True
 
     if is_binary_class:
-        # filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
-        filename_list = ["HB_AS_Leak.txt"]  # HB_Code_Red_I.txt
+        #filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
+        filename_list = ["HB_Code_Red_I.txt"]  # HB_Code_Red_I.txt
                                                 # HB_Nimda.txt
                                                 # HB_Slammer.txt
     else:
@@ -276,7 +280,8 @@ def main(unused_argv):
 
     if trigger_flag == 1 :
         if single_layer:
-            case = ['MLP','RNN','1L','2L','3L','AL']
+            case = ['MLP']
+            #case = ['MLP','RNN','1L','2L','3L','AL']
         else:
             case = ['HL','HAL']
     else:
@@ -290,6 +295,15 @@ def main(unused_argv):
         evaluation_list = ["FPR", "TPR","AUC","G_MEAN"]
 
     wave_type = wave_type_list[0]
+    hidden_unit1_list = [8, 16, 32, 64, 100, 128, 200, 256]
+    hidden_unit2_list = [8, 16, 20, 32, 64]
+    comnination_list = []
+    for each1 in hidden_unit1_list:
+        for each2 in hidden_unit2_list:
+            comnination_list.append([each1, each2])
+    if single_layer:
+        comnination_list = hidden_unit1_list
+    learning_rate_list = [0.001, 0.01, 0.05, 0.1]
 
     for tab in range(len(filename_list)):
         case_list = []
@@ -302,25 +316,31 @@ def main(unused_argv):
         for each_case in case:
             case_list.append(case_label[each_case])
             if trigger_flag: #
+                sys.stdout = tempstdout
                 if each_case == 'MLP':
                     if evalua_flag:
-                        nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class)
+                        nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
                     else:
-                        results[case_label[each_case]] = nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class)
+                        results[case_label[each_case]] = nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
 
                 else:
                     if evalua_flag:
-                        train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,wave_type)
-                        train_acc_list.append(train_acc)
-                        val_acc_list.append(val_acc)
-                        train_loss_list.append(train_loss)
-                        val_loss_list.append(val_loss)
-                        #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
-                        #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+                        for learning_rate in learning_rate_list:
+                            FLAGS.learning_rate = learning_rate
+                            for each_comb in comnination_list:
+                                if single_layer:
+                                    FLAGS.num_neurons1 = each_comb
+                                else:
+                                    FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
+                                train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list,wave_type)
+                                train_acc_list.append(train_acc)
+                                val_acc_list.append(val_acc)
+                                train_loss_list.append(train_loss)
+                                val_loss_list.append(val_loss)
+                                #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
+                                #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
                     else:
-                        results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab], trigger_flag,
-                                                                           evalua_flag, is_binary_class,
-                                                                           evaluation_list)
+                        results[case_label[each_case]] = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list,wave_type)
 
             else:
                 sys.stdout = tempstdout
@@ -328,8 +348,8 @@ def main(unused_argv):
                     sclearn.Basemodel(each_case, filename_list[tab], trigger_flag, evalua_flag,is_binary_class,evaluation_list)
                 else:
                     results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
-
-        visualize.plotAUC(results,case_list,filename_list[tab])
+        if not evalua_flag:
+            visualize.plotAUC(results,case_list,filename_list[tab])
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
