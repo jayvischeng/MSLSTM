@@ -161,15 +161,16 @@ def Quxian_Plotting_2(dataX,name):
 #filename_list = ["HB_AS_Leak.txt","HB_Slammer.txt","HB_Nimda.txt","HB_Code_Red_I.txt"]
 #method_list = ["SVM","NB","DT","Ada.Boost","MLP","RNN","LSTM","MS-LSTM"]
 
-def plotAUC(method_list,filename):
-    fpr = [0 for i in range(len(method_list))]
-    tpr = [0 for i in range(len(method_list))]
-    auc = [0 for i in range(len(method_list))]
+def plotAUC(results,method_list,filename):
+
     plt.figure()
     #color_list = ['y', 'g', '#FF8C00', 'c', 'b', 'r', 'm']
     color_list = ['y', 'g','#FF8C00','#FD8CD0','c', 'b', 'r', 'm']
     for tab in range(len(method_list)):
-        plt.plot(fpr[tab], tpr[tab], color_list[tab], label=method_list[tab] + ' ROC curve (area = %0.2f)' % auc[tab])
+        fpr = results[method_list[tab]]['FPR']
+        tpr = results[method_list[tab]]['TPR']
+        auc = results[method_list[tab]]['AUC']
+        plt.plot(fpr, tpr, color_list[tab], label=method_list[tab] + ' ROC curve (area = %0.2f)' % auc)
 
     plt.plot([0, 1], [0, 1], 'k--')
     plt.xlim([0.0, 1.0])
@@ -181,7 +182,7 @@ def plotAUC(method_list,filename):
     plt.tick_params(labelsize=12)
     plt.grid()
     #plt.savefig("_AUC.png", dpi=800)
-    plt.savefig("_AUC.pdf", dpi=800)
+    plt.savefig(filename+"TP_FP_AUC.pdf", dpi=800)
 #------------------------------------------Plotting STAT-----------------------------------------------------
 def _plotting(filename, subtitle, method):
     # Predict = []
