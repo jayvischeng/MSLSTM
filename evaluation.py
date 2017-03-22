@@ -98,7 +98,7 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
         ACC_A = float(ac_positive) * 100 / (predict_positive + 1)
 
     #PlottingAUC(ReverseEncoder(label),ReverseEncoder(np.transpose(np.array(Output_Class))))
-    #fpr,tpr,auc = ComputeAUC(label,predict)
+    fpr,tpr,auc = ComputeAUC(label,predict)
     #AUC = auc
     AUC = roc_auc_score(label,np.transpose(np.array(Output_Class)))
     G_MEAN=np.sqrt(float(ac_positive*ac_negative)/(total_negative*total_positive))
@@ -112,8 +112,8 @@ def evaluation(label,predict,positive_label=0,negative_label=1):
         F1_SCORE = 0.01 * round((2 * PRECISION * RECALL) / (PRECISION + RECALL + 1), 5)
 
 
-    return {"ACCURACY":ACCURACY,"F1_SCORE":F1_SCORE,"AUC":AUC,"G_MEAN":G_MEAN}
-    #return fpr,tpr,auc#evaluate auc
+    #return {"ACCURACY":ACCURACY,"F1_SCORE":F1_SCORE,"AUC":AUC,"G_MEAN":G_MEAN}
+    return fpr,tpr,auc#evaluate auc
 
 
 
