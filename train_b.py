@@ -8,6 +8,7 @@ import printlog
 import datetime
 import os
 import time
+import sklearn
 from baselines import sclearn
 import evaluation
 from collections import defaultdict
@@ -52,7 +53,7 @@ def pprint(msg,method=''):
     #global sess, data_x, data_y
     #return sess.run(commander, {data_x: data, data_y: label})
 
-def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag,result_list_dict,evaluation_list):
+def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag,is_binary_class,result_list_dict,evaluation_list):
     global tempstdout
     FLAGS.option = method
     dropout = 0.8
@@ -173,7 +174,15 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
 
     saver.save(sess, "./tf_tmp/model.ckpt")
     sess.close()
-    results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
+    #results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
+    if is_binary_class == True:
+        results = evaluation.evaluation(y_test, result, trigger_flag, evalua_flag)  # Computing ACCURACY,F1-score,..,etc
+    else:
+        accuracy = sklearn.metrics.accuracy_score(y_test, result)
+        print("Accuracy is :" + str(accuracy))
+        f1_score = sklearn.metrics.f1_score(y_test, result)
+        print("F-score is :" + str(f1_score))
+        results = {'ACCURACY': accuracy, 'F1_SCORE': f1_score, 'AUC': 9999, 'G_MEAN': 9999}
     sys.stdout = tempstdout
 
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
@@ -204,8 +213,10 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         #for eachk, eachv in result_list_dict.items():
             fout.write(each_eval + ": " + str(round(np.mean(result_list_dict[each_eval]), 3)) + ",\t")
         fout.write('\n')
-
-    return epoch_training_acc_list,epoch_val_acc_list,epoch_training_loss_list,epoch_val_loss_list
+    if evalua_flag:
+        return epoch_training_acc_list,epoch_val_acc_list,epoch_training_loss_list,epoch_val_loss_list
+    else:
+        return results
 
 
 
@@ -213,31 +224,29 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
 def train_classic(method,filename_train,filename_test, cross_cv,tab_cross_cv,result_list_dict,evaluation_list):
     return sclearn.Basemodel(method,filename_train,filename_test,cross_cv,tab_cross_cv)
 
-def train(method,filename_train,filename_test,cross_cv,tab_cross_cv,wave_type='db1'):
+def train(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary_class,wave_type='db1'):
     global data_x, data_y
     result_list_dict = defaultdict(list)
     evaluation_list = ["ACCURACY", "F1_SCORE", "AUC", "G_MEAN"]
     for each in evaluation_list:
         result_list_dict[each] = []
-    for tab_cv in range(cross_cv):
-        if tab_cv == tab_cross_cv: continue
-        if 'L' in method or 'RNN' in method:
-            sys.stdout = tempstdout
-            if method == '1L' or method == '2L' or method == '3L' \
-                    or method == '4L' or method == '5L' or method == 'RNN':
-                #FLAGS.learning_rate = 0.01
-                FLAGS.is_multi_scale = False
-            elif 'AL' == method:
-                FLAGS.learning_rate = 0.01
-                FLAGS.is_multi_scale = False
-            else:
-                FLAGS.learning_rate = 0.05
-                FLAGS.is_multi_scale = True
-                FLAGS.wave_type = wave_type
-            return train_lstm(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
+    if 'L' in method or 'RNN' in method:
+        sys.stdout = tempstdout
+        if method == '1L' or method == '2L' or method == '3L' \
+                or method == '4L' or method == '5L' or method == 'RNN':
+            #FLAGS.learning_rate = 0.01
+            FLAGS.is_multi_scale = False
+        elif 'AL' == method:
+            FLAGS.learning_rate = 0.01
+            FLAGS.is_multi_scale = False
         else:
-            sys.stdout = tempstdout
-            return train_classic(method,filename_train,filename_test,cross_cv,tab_cross_cv,result_list_dict,evaluation_list)
+            FLAGS.learning_rate = 0.05
+            FLAGS.is_multi_scale = True
+            FLAGS.wave_type = wave_type
+        return train_lstm(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary_class,result_list_dict,evaluation_list)
+    else:
+        sys.stdout = tempstdout
+        return train_classic(method,filename_train,filename_test,trigger_flag,evalua_flag,is_binary_class,result_list_dict,evaluation_list)
 
 def main(unused_argv):
     global tempstdout
@@ -248,7 +257,9 @@ def main(unused_argv):
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
     multi_scale_value_list = [2,3,4,5,6,10]
-    case_label = {'1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM','4L':'4-LSTM','5L':'5-LSTM','AL':'ALSTM','HL':'HLSTM','HAL':'HALSTM','RNN':'RNN'}
+    case_label = {'SVM':'SVM','NB':'NB','DT':'DT','Ada.Boost':'Ada.Boost','1NN':'1NN','1NN-DTW':'DTW',
+                  'SVMF':'SVMF','SVMW':'SVMW','MLP':'MLP','RNN':'RNN','1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM',\
+                  'AL':'ALSTM','HL':'MSLSTM','HAL':'MSLSTM2'}
 
     trigger_flag = 0
     evalua_flag = False
@@ -287,29 +298,39 @@ def main(unused_argv):
         train_loss_list = []
         val_loss_list = []
 
-
         results = {}
         for each_case in case:
+            case_list.append(case_label[each_case])
             if trigger_flag: #
                 if each_case == 'MLP':
-                    nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class)
-                else:
-                    train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,wave_type)
-                    case_list.append(case_label[each_case])
-                    train_acc_list.append(train_acc)
-                    val_acc_list.append(val_acc)
-                    train_loss_list.append(train_loss)
-                    val_loss_list.append(val_loss)
+                    if evalua_flag:
+                        nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class)
+                    else:
+                        results[case_label[each_case]] = nnkeras.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class)
 
-                    #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
-                    #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+                else:
+                    if evalua_flag:
+                        train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,wave_type)
+                        train_acc_list.append(train_acc)
+                        val_acc_list.append(val_acc)
+                        train_loss_list.append(train_loss)
+                        val_loss_list.append(val_loss)
+                        #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
+                        #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+                    else:
+                        results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab], trigger_flag,
+                                                                           evalua_flag, is_binary_class,
+                                                                           evaluation_list)
+
             else:
                 sys.stdout = tempstdout
                 if evalua_flag:
                     sclearn.Basemodel(each_case, filename_list[tab], trigger_flag, evalua_flag,is_binary_class,evaluation_list)
                 else:
                     results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
-    visualize.plotAUC(results,case_list)
+
+        visualize.plotAUC(results,case_list,filename_list[tab])
+
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
 
