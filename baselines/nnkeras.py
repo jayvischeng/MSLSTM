@@ -48,6 +48,9 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
 
+
+
+
     FLAGS.sequence_window = x_train.shape[1]
     FLAGS.input_dim = x_train.shape[-1]
     FLAGS.number_class = y_train.shape[1]
@@ -70,7 +73,6 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
             model = Sequential()
             model.add(Dense(FLAGS.num_neurons1, activation="relu", input_dim=FLAGS.input_dim))
 
-            model.add(Dense(output_dim=FLAGS.number_class))
             model.add(Dense(output_dim=FLAGS.number_class))
             model.add(Activation("sigmoid"))
             # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -101,7 +103,7 @@ def Basemodel(_model,filename,cross_cv,tab_crosscv):
             #model.add(rnn_object2)  # X.shape is (samples, timesteps, dimension)
             model.add(Dense(output_dim=FLAGS.number_class))
             model.add(Activation("sigmoid"))
-            model.compile(optimizer='adam', learning_rate=0.01, loss='binary_crossentropy', metrics=['accuracy'])
+            model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
             model.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=FLAGS.batch_size, nb_epoch=FLAGS.max_epochs)
             result = model.predict(x_test)
             end = time.clock()
