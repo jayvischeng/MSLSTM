@@ -468,15 +468,15 @@ def mix_multi_scale1(trainX_multi,trainY,pooling_type):
         b = Fun(total_,pooling_type)
         temp_trainX.append(b)
     return np.array(temp_trainX),trainY
-def returnData(current_cv,cross_cv,dataX,dataY):
+def returnData(dataX,dataY):
     global positive_sign,negative_sign
 
     positive_index = returnPositiveIndex(dataY, negative_sign)
     negative_index = returnNegativeIndex(dataY, negative_sign)
 
     pprint("The POSITIVE is "+str(len(positive_index)))
-    pprint("The NEGATIVE is "+str(len(negative_index)))
-    print(str(list(dataY).count(2.0)))
+    #pprint("The NEGATIVE is "+str(len(negative_index)))
+    #print(str(list(dataY).count(2.0)))
 
 
     pos_train_index = positive_index[0:int(0.6*len(positive_index))]
@@ -506,12 +506,12 @@ def returnData(current_cv,cross_cv,dataX,dataY):
 
     #min_number = min(len(train_dataX),len(test_dataX))
 
-    pprint("The training size is shape:")
-    pprint(train_dataY.shape)
-    pprint("The validation size is shape:")
-    pprint(val_dataX.shape)
-    pprint("The testing size is shape:")
-    pprint(test_dataX.shape)
+    #pprint("The training size is shape:")
+    #pprint(train_dataY.shape)
+    #pprint("The validation size is shape:")
+    #pprint(val_dataX.shape)
+    #pprint("The testing size is shape:")
+    #pprint(test_dataX.shape)
 
     return train_dataX,train_dataY,val_dataX,val_dataY,test_dataX,test_dataY
 def return_tabData(current_cv,cross_cv,dataX,dataY):
@@ -674,7 +674,7 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileNameList,windowSiz
     valX_Multi = np.array(valX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(trainX_Multi.shape))
     return trainX_Multi,trainY,valX_Multi,valY
-def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger_flag,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder
     positive_sign = 1
     negative_sign = 0
@@ -689,7 +689,7 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,current
     #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
-        trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,dataSequenlized_X,dataSequenlized_Y)
+        trainX, trainY, valX, valY, testX, testY = returnData(dataSequenlized_X,dataSequenlized_Y)
 
     else:
         trainX_Multi = [[] for i in range(waveScale)]
@@ -700,15 +700,15 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,current
 
         for tab_level in range(waveScale):
             dataX_level,dataY_level = slidingFunc(windowSize, scaler.fit_transform(dataMulti[tab_level]), dataY)
-            trainX, trainY, valX, valY, testX, testY = returnData(currentCV, CV, dataX_level,dataY_level)
+            trainX, trainY, valX, valY, testX, testY = returnData(dataX_level,dataY_level)
 
             trainX_Multi[tab_level].extend(trainX)
             valX_Multi[tab_level].extend(valX)
             testX_Multi[tab_level].extend(testX)
-
-    #trainY = one_hot(trainY)
-    #valY = one_hot(valY)
-    #testY = one_hot(testY)
+    if trigger_flag:
+        trainY = one_hot(trainY)
+        valY = one_hot(valY)
+        testY = one_hot(testY)
 
     if multiScale == False:
         return trainX, trainY, valX, valY, testX, testY
@@ -724,7 +724,7 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,current
 
 
 
-def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,currentCV,CV,multiScale=False,waveScale=-1,waveType="db1",timeScale=1):
+def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger_flag,multiScale=False,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder
     positive_sign = 1
     negative_sign = 0
@@ -739,10 +739,11 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
     #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
-        trainX, trainY, valX, valY, testX, testY = returnData(currentCV,CV,scaler.fit_transform(data_[:, :-1]),data_[:, -1])
-        #trainY = one_hot(trainY)
-        #valY = one_hot(valY)
-        #testY = one_hot(testY)
+        trainX, trainY, valX, valY, testX, testY = returnData(scaler.fit_transform(data_[:, :-1]),data_[:, -1])
+        if trigger_flag:
+            trainY = one_hot(trainY)
+            valY = one_hot(valY)
+            testY = one_hot(testY)
         return trainX, trainY, valX, valY, testX, testY
 
 
