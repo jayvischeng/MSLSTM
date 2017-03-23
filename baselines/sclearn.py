@@ -5,6 +5,7 @@ import printlog
 #import ucr_load_data
 import numpy as np
 import sklearn
+from sklearn.metrics import confusion_matrix
 from numpy import *
 from sklearn import tree
 from sklearn import svm
@@ -14,6 +15,7 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 import loaddata
 import os
+import visualize
 from sklearn.metrics import classification_report
 from sklearn.feature_selection import chi2,f_classif
 import sys
@@ -321,7 +323,9 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                             filename, FLAGS.sequence_window, trigger_flag,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
-    for tab_selected_features in range(2,34):
+    #for tab_selected_features in range(2,34):
+    for tab_selected_features in range(33):
+
         if _model == '1NN':
             #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
             print(_model + " is running..............................................")
@@ -339,8 +343,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             print(_model + " is running..............................................")
 
             clf = KnnDtw(n_neighbors=1)
-            x_train = x_train[:,1]
-            x_test = x_test[:,1]
+            x_train = x_train[:,tab_selected_features]
+            x_test = x_test[:,tab_selected_features]
 
         elif _model == 'RF':
             clf = RandomForestClassifier(n_estimators=50)
@@ -391,6 +395,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             y_train = y_train
             clf = AdaBoostClassifier()
 
+        visualize.curve_plotting(x_test,y_test,filename,_model)
         clf.fit(x_train, y_train)
         if evalua_flag == True:
             result = clf.predict(x_test)
@@ -408,7 +413,18 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             results = evaluation.evaluation(y_test, result,trigger_flag,evalua_flag)  # Computing ACCURACY,F1-score,..,etc
         else:
             accuracy = sklearn.metrics.accuracy_score(y_test,result)
-            print("Accuracy is :"+str(accuracy))
+            y_ = []
+            symbol_list = [0,1,2,3,4]
+            cc = confusion_matrix(y_test, result, labels=symbol_list)
+            print(cc)
+            #for symbol in symbol_list:
+             #   for tab in range(len(y_test)):
+              #      if y_test[tab] == symbol and y_test[tab] == result[tab]:
+               #         y_.append(symbol)
+                #print(y_test[0:10])
+                #rint(result[0:10])
+                #print("Accuracy is :"+str(accuracy))
+                #print("Accuracy of "+str(symbol)+" is :"+str(float(len(y_))/(list(result).count(symbol))))
             f1_score = sklearn.metrics.f1_score(y_test,result)
             print("F-score is :"+str(f1_score))
             results = {'ACCURACY':accuracy,'F1_SCORE':f1_score,'AUC':9999,'G_MEAN':9999}
@@ -442,7 +458,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                 #for eachk, eachv in result_list_dict.items():
                     #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
                 fout.write('\n')
-        if '-' in _model:break
+        #if '-' in _model:break
         if 'W' in _model or 'F' in _model:
             continue
         else:
