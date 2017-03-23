@@ -4,7 +4,7 @@ flags = tf.app.flags
 flags.DEFINE_string('data_dir',os.path.join(os.getcwd(),'BGP_Data'),"""Directory for storing BGP_Data set""")
 flags.DEFINE_string('is_multi_scale',False,"""Run with multi-scale or not""")
 flags.DEFINE_string('input_dim',33,"""Input dimension size""")
-flags.DEFINE_string('num_neurons1',64,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
+flags.DEFINE_string('num_neurons1',32,"""Number of hidden units""")#HAL(hn1=32,hn2=16)
 flags.DEFINE_string('num_neurons2',20,"""Number of hidden units""")#16,32
 flags.DEFINE_string('sequence_window',30,"""Sequence window size""")
 flags.DEFINE_string('attention_size',10,"""attention size""")
