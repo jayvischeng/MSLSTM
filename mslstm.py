@@ -213,6 +213,8 @@ def inference(data,label,option,is_training):
         val = tf.transpose(val, [1, 0, 2])
         last = tf.gather(val, int(val.get_shape()[0]) - 1)
 
+
+    output_last = tf.Print(last,[last],message = None,first_n = 4096)
     prediction = tf.matmul(last, weights['out']) + biases['out']
     #prediction = tf.nn.softmax(tf.matmul(last, weights['out']) + biases['out'])
 
@@ -222,7 +224,8 @@ def inference(data,label,option,is_training):
     #weights = tf.Variable(tf.constant(1.0, shape=[FLAGS.sequence_window*FLAGS.batch_size, 1,FLAGS.scale_levels]),name="weights")
     #tf.assign(weights,u_w_bottom)
     #return u_w_bottom,prediction,label
-    return prediction,label
+    #return prediction,label,output_last
+    return prediction,label,last
 
 def train(loss):
 
