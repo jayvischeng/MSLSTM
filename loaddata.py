@@ -474,17 +474,17 @@ def returnData(dataX,dataY):
     positive_index = returnPositiveIndex(dataY, negative_sign)
     negative_index = returnNegativeIndex(dataY, negative_sign)
 
-    pprint("The POSITIVE is "+str(len(positive_index)))
-    #pprint("The NEGATIVE is "+str(len(negative_index)))
+
     #print(str(list(dataY).count(2.0)))
+    start_ratio = 0.7
 
 
-    pos_train_index = positive_index[0:int(0.6*len(positive_index))]
-    pos_val_index = positive_index[int(0.6*len(positive_index)):int(0.7*len(positive_index))]
-    pos_test_index = positive_index[int(0.7*len(positive_index)):len(positive_index)-1]
-    neg_train_index = negative_index[0:int(0.6*len(negative_index))]
-    neg_val_index = negative_index[int(0.6*len(negative_index)):int(0.7*len(negative_index))]
-    neg_test_index = negative_index[int(0.7*len(negative_index)):len(negative_index)-1]
+    pos_train_index = positive_index[0:int(start_ratio*len(positive_index))]
+    pos_val_index = positive_index[int(start_ratio*len(positive_index)):int((start_ratio+0.1)*len(positive_index))]
+    pos_test_index = positive_index[int((start_ratio+0.1)*len(positive_index)):len(positive_index)-1]
+    neg_train_index = negative_index[0:int(start_ratio*len(negative_index))]
+    neg_val_index = negative_index[int(start_ratio*len(negative_index)):int((start_ratio+0.1)*len(negative_index))]
+    neg_test_index = negative_index[int((start_ratio+0.1)*len(negative_index)):len(negative_index)-1]
 
     train_index = np.append(neg_train_index, pos_train_index, axis=0)
     train_index.sort()
@@ -508,10 +508,14 @@ def returnData(dataX,dataY):
 
     #pprint("The training size is shape:")
     #pprint(train_dataY.shape)
+    #pprint("The POSITIVE is "+str(len(pos_train_index)))
+    #pprint("The NEGATIVE is "+str(len(neg_train_index)))
     #pprint("The validation size is shape:")
     #pprint(val_dataX.shape)
-    #pprint("The testing size is shape:")
+    #print("The testing size is shape:")
     #pprint(test_dataX.shape)
+    #pprint("The POSITIVE is "+str(len(pos_test_index)))
+    #pprint("The NEGATIVE is "+str(len(neg_test_index)))
 
     return train_dataX,train_dataY,val_dataX,val_dataY,test_dataX,test_dataY
 def return_tabData(current_cv,cross_cv,dataX,dataY):
@@ -740,6 +744,8 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
         trainX, trainY, valX, valY, testX, testY = returnData(scaler.fit_transform(data_[:, :-1]),data_[:, -1])
+        #trainX, trainY, valX, valY, testX, testY = returnData(data_[:, :-1],data_[:, -1])
+
         if trigger_flag:
             trainY = one_hot(trainY)
             valY = one_hot(valY)
