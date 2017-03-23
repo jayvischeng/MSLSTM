@@ -58,7 +58,7 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     FLAGS.option = method
     dropout = 0.8
     x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                           filename_test, FLAGS.sequence_window, trigger_flag, evalua_flag,
+                                           filename_test, FLAGS.sequence_window, trigger_flag,
                                             multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
     #x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
@@ -74,8 +74,7 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
     #loaddata.Multi_Scale_Plotting_2(x_train)
 
-    #print(x_train.shape)
-    #print(y_train.shape)
+    print(x_test.shape)
 
     if FLAGS.is_multi_scale:
         FLAGS.scale_levels = x_train.shape[1]
@@ -101,7 +100,7 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         #output_u_w,prediction, label = mslstm.inference(data_x,data_y,FLAGS.option)
 
         is_training = tf.placeholder(tf.bool)
-        prediction, label = mslstm.inference(data_x,data_y,FLAGS.option,is_training)
+        prediction, label,output_last = mslstm.inference(data_x,data_y,FLAGS.option,is_training)
         loss = mslstm.loss_(prediction, label)
         tran_op,optimizer = mslstm.train(loss)
         minimize = optimizer.minimize(loss)
@@ -125,8 +124,8 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         epoch_val_acc_list = []
         early_stopping = 10
         no_of_batches = int(len(x_train) / FLAGS.batch_size)
-        #visualize.Quxian_Plotting(x_train, y_train, 0, "Train_"+str(tab_cross_cv)+'_'+FLAGS.option)
-        #visualize.Quxian_Plotting(x_test, y_test, 2, "Test_"+str(tab_cross_cv)+'_'+FLAGS.option)
+        #visualize.curve_plotting_withWindow(x_train, y_train, 0, "Train_"+'_'+FLAGS.option)
+        #visualize.curve_plotting_withWindow(x_test, y_test, 2, "Test_"+'_'+FLAGS.option)
         total_iteration = 0
         for i in range(FLAGS.max_epochs):
             if early_stopping > 0:
@@ -165,10 +164,17 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
                 early_stopping = 10
             if val_loss > 10 or val_loss == np.nan:
                 break
-        try:
-            weights_results = sess.run(output_u_w, {data_x:x_test, data_y: y_test})
-            sess.run(weights.assign(weights_results))
-        except:
+        if 1>0:
+            #pprint("PPP")
+            weights_results = sess.run(output_last, {data_x:x_test, data_y: y_test})
+            #print(weights_results)
+            #sys.stdout = tempstdout
+            visualize.curve_plotting(weights_results,y_test,filename_test,FLAGS.option)
+            #pprint("QQQ")
+            with open(filename_test+"_EA.txt",'w')as fout:
+                fout.write(weights_results)
+            #sess.run(weights.assign(weights_results))
+        else:
             pass
 
         #weights = output_u_w.eval(session=sess)
@@ -176,7 +182,9 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         #pprint(weights)
         #weight_list = return_max_index(weights)
         result = sess.run(prediction, {data_x:x_test, data_y: y_test})
-
+        print(result)
+        pprint(result)
+        print("LLL")
     saver.save(sess, "./tf_tmp/model.ckpt")
     sess.close()
     #results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
@@ -189,7 +197,8 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         print("F-score is :" + str(f1_score))
         results = {'ACCURACY': accuracy, 'F1_SCORE': f1_score, 'AUC': 9999, 'G_MEAN': 9999}
     sys.stdout = tempstdout
-
+    print(weights_results.shape)
+    print("215")
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
     result2 = np.array(evaluation.ReverseEncoder(result))
     #results = accuracy_score(y_test2, result2)
@@ -261,18 +270,18 @@ def main(unused_argv):
     #wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
     wave_type_list = ['haar']
     multi_scale_value_list = [2,3,4,5,6,10]
-    case_label = {'SVM':'SVM','NB':'NB','DT':'DT','Ada.Boost':'Ada.Boost','1NN':'1NN','1NN-DTW':'DTW',
+    case_label = {'SVM':'SVM','NB':'NB','DT':'DT','Ada.Boost':'Ada.Boost','RF':'RF','1NN':'1NN','1NN-DTW':'DTW',
                   'SVMF':'SVMF','SVMW':'SVMW','MLP':'MLP','RNN':'RNN','1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM',\
                   'AL':'ALSTM','HL':'MSLSTM','HAL':'MSLSTM2'}
 
     trigger_flag = 0
     evalua_flag = True
-    is_binary_class = False
+    is_binary_class = True
     single_layer = True
 
     if is_binary_class:
-        #filename_testlist = ["HB_AS_Leak.txt","IB_Code_Red_I.txt","HB_Nimda.txt","IB_Slammer.txt"]
-        filename_list = ["HB_Code_Red_I.txt"]  # HB_Code_Red_I.txt
+        filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
+        #filename_list = ["HB_Code_Red_I.txt"]  # HB_Code_Red_I.txt
                                                 # HB_Nimda.txt
                                                 # HB_Slammer.txt
     else:
@@ -280,14 +289,14 @@ def main(unused_argv):
 
     if trigger_flag == 1 :
         if single_layer:
-            case = ['MLP']
+            case = ['1L','3L']
             #case = ['MLP','RNN','1L','2L','3L','AL']
         else:
             case = ['HL','HAL']
     else:
-        #case = ["1NN-DTW"]
+        case = ["1NN-DTW"]
         #case = ["RF","SVM","SVMF","SVMW","NB","DT","Ada.Boost","1NN"]
-        case = ["SVM","NB","DT","Ada.Boost","1NN"]
+        #case = ["DT","Ada.Boost","1NN"]
 
     if evalua_flag:
         evaluation_list = ["AUC", "G_MEAN", "ACCURACY", "F1_SCORE"]
@@ -295,7 +304,9 @@ def main(unused_argv):
         evaluation_list = ["FPR", "TPR","AUC","G_MEAN"]
 
     wave_type = wave_type_list[0]
-    hidden_unit1_list = [8, 16, 32, 64, 100, 128, 200, 256]
+    #hidden_unit1_list = [8, 16, 32, 64, 100, 128, 200, 256]
+    hidden_unit1_list = [32]
+
     hidden_unit2_list = [8, 16, 20, 32, 64]
     comnination_list = []
     for each1 in hidden_unit1_list:
@@ -303,7 +314,8 @@ def main(unused_argv):
             comnination_list.append([each1, each2])
     if single_layer:
         comnination_list = hidden_unit1_list
-    learning_rate_list = [0.001, 0.01, 0.05, 0.1]
+    #learning_rate_list = [0.001, 0.01, 0.05, 0.1]
+    learning_rate_list = [0.01]
 
     for tab in range(len(filename_list)):
         case_list = []
