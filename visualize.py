@@ -5,10 +5,25 @@ import os
 import numpy as np
 #import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+from sklearn import decomposition
 def set_style():
     plt.style.use(['seaborn-paper'])
     matplotlib.rc("font", family="serif")
 set_style()
+
+
+def reverse_one_hot(y):
+    temp = []
+    for i in range(len(y)):
+        for j in range(len(y[0])):
+            if y[i][j] == 1:
+                temp.append(j)
+    return np.array(temp)
+
 def epoch_acc_plotting(filename,case_list,sequence_window,corss_val_label,learning_rate,train_acc_list,val_acc_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
         os.makedirs(os.path.join(os.getcwd(),'picture'))
@@ -126,7 +141,7 @@ def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super
     plt.savefig(save_fig,dpi=200)
     plt.show()
 
-def Quxian_Plotting(dataX,dataY,feature,name):
+def curve_plotting_withWindow(dataX,dataY,feature,name):
     y = list(dataX[0][:,feature])
     for i in range(1,len(dataX)):
         y.append(dataX[i][:,feature][-1])
@@ -139,15 +154,35 @@ def Quxian_Plotting(dataX,dataY,feature,name):
     plt.grid()
     plt.show()
     plt.savefig(name + '.pdf', dpi=400)
-def Quxian_Plotting_2(dataX,name):
-    y = list(dataX[0])
-    x = [i for i in range(len(y))]
-    print(len(y))
-    plt.plot(x,np.array(y),'b')
-    plt.tight_layout()
-    plt.grid()
-    plt.show()
-    plt.savefig(name + '_QUXIAN_2.pdf', dpi=400)
+def curve_plotting(dataX,dataY,name,method):
+    np.random.seed(5)
+    target_names = ['Regular','Anomaly']
+    centers = [[1, 1], [-1, -1]]
+    X = dataX
+    y = dataY
+    plt.clf()
+    plt.cla()
+    pca = decomposition.PCA(n_components=2)
+    pca.fit(X)
+    X = pca.transform(X)
+    plt.figure()
+    colors = ['navy', 'turquoise', 'darkorange']
+    print(X[0])
+    print(y[0])
+    try:
+        y = reverse_one_hot(y)
+    except:
+        pass
+    print(y[0])
+    for color, i, target_name in zip(colors, [0, 1], target_names):
+        plt.scatter(X[y == i, 0], X[y == i, 1], color=color, alpha=.8, lw=2,
+                    label=target_name)
+    plt.legend(loc='best', shadow=False, scatterpoints=1)
+    plt.title('PCA of the dataset')
+    plt.savefig(name + method +"_PCA.pdf", dpi=400)
+    #plt.show()
+
+
 
 #A1 = [51.5,54.2,55.1,55.4,55.8,57.3,49.6,52.2,63.4,63.5]#"AS_LEAK"
 #A2 = [50.6,53.9,55.3,54.3,56.8,52.7,54.7,52.1,63.3,63.3]
