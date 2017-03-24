@@ -323,8 +323,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                             filename, FLAGS.sequence_window, trigger_flag,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
-    #for tab_selected_features in range(2,34):
-    for tab_selected_features in range(33):
+    for tab_selected_features in range(2,34):
+    #for tab_selected_features in range(33):
 
         if _model == '1NN':
             #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
@@ -413,7 +413,6 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             results = evaluation.evaluation(y_test, result,trigger_flag,evalua_flag)  # Computing ACCURACY,F1-score,..,etc
         else:
             accuracy = sklearn.metrics.accuracy_score(y_test,result)
-            y_ = []
             symbol_list = [0,1,2,3,4]
             cc = confusion_matrix(y_test, result, labels=symbol_list)
             print(cc)
@@ -459,7 +458,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                     #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
                 fout.write('\n')
         #if '-' in _model:break
-        if 'W' in _model or 'F' in _model:
+        if 'MW' in _model or 'MF' in _model:
             continue
         else:
             break
