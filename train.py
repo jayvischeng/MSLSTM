@@ -9,6 +9,7 @@ import datetime
 import os
 import time
 import sklearn
+from sklearn.metrics import confusion_matrix
 from baselines import sclearn
 import evaluation
 from collections import defaultdict
@@ -191,6 +192,9 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     if is_binary_class == True:
         results = evaluation.evaluation(y_test, result, trigger_flag, evalua_flag)  # Computing ACCURACY,F1-score,..,etc
     else:
+        symbol_list = [0, 1, 2, 3, 4]
+        cc = confusion_matrix(y_test, result, labels=symbol_list)
+        print(cc)
         accuracy = sklearn.metrics.accuracy_score(y_test, result)
         print("Accuracy is :" + str(accuracy))
         f1_score = sklearn.metrics.f1_score(y_test, result)
@@ -272,16 +276,16 @@ def main(unused_argv):
     multi_scale_value_list = [2,3,4,5,6,10]
     case_label = {'SVM':'SVM','NB':'NB','DT':'DT','Ada.Boost':'Ada.Boost','RF':'RF','1NN':'1NN','1NN-DTW':'DTW',
                   'SVMF':'SVMF','SVMW':'SVMW','MLP':'MLP','RNN':'RNN','1L':'LSTM','2L':'2-LSTM','3L':'3-LSTM',\
-                  'AL':'ALSTM','HL':'MSLSTM','HAL':'MSLSTM2'}
+                  'AL':'ALSTM','HL':'MSLSTM','HAL':'MSLSTM'}
 
-    trigger_flag = 0
+    trigger_flag = 1
     evalua_flag = True
     is_binary_class = True
     single_layer = True
 
     if is_binary_class:
-        filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
-        #filename_list = ["HB_Code_Red_I.txt"]  # HB_Code_Red_I.txt
+        #filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
+        filename_list = ["HB_AS_Leak.txt"]  # HB_Code_Red_I.txt
                                                 # HB_Nimda.txt
                                                 # HB_Slammer.txt
     else:
@@ -289,14 +293,16 @@ def main(unused_argv):
 
     if trigger_flag == 1 :
         if single_layer:
-            case = ['1L','3L']
+            case = ['1L','3L','HAL']
             #case = ['MLP','RNN','1L','2L','3L','AL']
         else:
-            case = ['HL','HAL']
+            case = ['HAL']
+            #case = ['HL','HAL']
+
     else:
-        case = ["1NN-DTW"]
+        #case = ["1NN-DTW"]
         #case = ["RF","SVM","SVMF","SVMW","NB","DT","Ada.Boost","1NN"]
-        #case = ["DT","Ada.Boost","1NN"]
+        case = ["DT","Ada.Boost","1NN"]
 
     if evalua_flag:
         evaluation_list = ["AUC", "G_MEAN", "ACCURACY", "F1_SCORE"]
@@ -305,15 +311,16 @@ def main(unused_argv):
 
     wave_type = wave_type_list[0]
     #hidden_unit1_list = [8, 16, 32, 64, 100, 128, 200, 256]
-    hidden_unit1_list = [32]
+    hidden_unit1_list = [64]
 
-    hidden_unit2_list = [8, 16, 20, 32, 64]
+    #hidden_unit2_list = [8, 16, 20, 32, 64]
+    hidden_unit2_list = [8]
     comnination_list = []
     for each1 in hidden_unit1_list:
         for each2 in hidden_unit2_list:
             comnination_list.append([each1, each2])
-    if single_layer:
-        comnination_list = hidden_unit1_list
+    #if single_layer:
+        #comnination_list = hidden_unit1_list
     #learning_rate_list = [0.001, 0.01, 0.05, 0.1]
     learning_rate_list = [0.01]
 
@@ -340,17 +347,19 @@ def main(unused_argv):
                         for learning_rate in learning_rate_list:
                             FLAGS.learning_rate = learning_rate
                             for each_comb in comnination_list:
-                                if single_layer:
-                                    FLAGS.num_neurons1 = each_comb
-                                else:
-                                    FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
+                                #if single_layer:
+                                    #FLAGS.num_neurons1 = each_comb[0]
+                                #else:
+                                    #FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
+                                FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
+
                                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list,wave_type)
                                 train_acc_list.append(train_acc)
                                 val_acc_list.append(val_acc)
                                 train_loss_list.append(train_loss)
                                 val_loss_list.append(val_loss)
-                                #visualize.epoch_acc_plotting(filename,case_list,FLAGS.sequence_window,tab_cross_cv,FLAGS.learning_rate,train_acc_list,val_acc_list)
-                                #visualize.epoch_loss_plotting(filename, case_list,FLAGS.sequence_window, tab_cross_cv, FLAGS.learning_rate,train_loss_list, val_loss_list)
+                                #visualize.epoch_acc_plotting(filename_list[tab],case_list,FLAGS.sequence_window,FLAGS.learning_rate,train_acc_list,val_acc_list)
+                                #visualize.epoch_loss_plotting(filename_list[tab], case_list,FLAGS.sequence_window, FLAGS.learning_rate,train_loss_list, val_loss_list)
                     else:
                         results[case_label[each_case]] = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list,wave_type)
 
@@ -362,6 +371,9 @@ def main(unused_argv):
                     results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
         if not evalua_flag:
             visualize.plotAUC(results,case_list,filename_list[tab])
+        else:
+            visualize.epoch_acc_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_acc_list, val_acc_list)
+            visualize.epoch_loss_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_loss_list, val_loss_list)
 
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
