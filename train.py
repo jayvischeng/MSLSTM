@@ -193,8 +193,8 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         results = evaluation.evaluation(y_test, result, trigger_flag, evalua_flag)  # Computing ACCURACY,F1-score,..,etc
     else:
         symbol_list = [0, 1, 2, 3, 4]
-        cc = confusion_matrix(y_test, result, labels=symbol_list)
-        print(cc)
+        confmat = confusion_matrix(y_test, result, labels=symbol_list)
+        visualize.plotConfusionMatrix(confmat)
         accuracy = sklearn.metrics.accuracy_score(y_test, result)
         print("Accuracy is :" + str(accuracy))
         f1_score = sklearn.metrics.f1_score(y_test, result)
@@ -281,11 +281,11 @@ def main(unused_argv):
     trigger_flag = 1
     evalua_flag = True
     is_binary_class = True
-    single_layer = True
+    single_layer = False
 
     if is_binary_class:
         #filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
-        filename_list = ["HB_AS_Leak.txt"]  # HB_Code_Red_I.txt
+        filename_list = ["HB_Code_Red_I.txt"]  # HB_Code_Red_I.txt
                                                 # HB_Nimda.txt
                                                 # HB_Slammer.txt
     else:
@@ -293,7 +293,8 @@ def main(unused_argv):
 
     if trigger_flag == 1 :
         if single_layer:
-            case = ['1L','3L','HAL']
+            #case = ["MLP"]
+            case = ['1L','3L']
             #case = ['MLP','RNN','1L','2L','3L','AL']
         else:
             case = ['HAL']
@@ -302,7 +303,7 @@ def main(unused_argv):
     else:
         #case = ["1NN-DTW"]
         #case = ["RF","SVM","SVMF","SVMW","NB","DT","Ada.Boost","1NN"]
-        case = ["DT","Ada.Boost","1NN"]
+        case = ["Ada.Boost"]
 
     if evalua_flag:
         evaluation_list = ["AUC", "G_MEAN", "ACCURACY", "F1_SCORE"]
@@ -311,7 +312,7 @@ def main(unused_argv):
 
     wave_type = wave_type_list[0]
     #hidden_unit1_list = [8, 16, 32, 64, 100, 128, 200, 256]
-    hidden_unit1_list = [64]
+    hidden_unit1_list = [32]
 
     #hidden_unit2_list = [8, 16, 20, 32, 64]
     hidden_unit2_list = [8]
@@ -369,12 +370,16 @@ def main(unused_argv):
                     sclearn.Basemodel(each_case, filename_list[tab], trigger_flag, evalua_flag,is_binary_class,evaluation_list)
                 else:
                     results[case_label[each_case]] = sclearn.Basemodel(each_case, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list)
+
         if not evalua_flag:
             visualize.plotAUC(results,case_list,filename_list[tab])
         else:
-            visualize.epoch_acc_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_acc_list, val_acc_list)
-            visualize.epoch_loss_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_loss_list, val_loss_list)
-
+            if trigger_flag:
+                try:
+                    visualize.epoch_acc_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_acc_list, val_acc_list)
+                    visualize.epoch_loss_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_loss_list, val_loss_list)
+                except:
+                    pass
     end = time.time()
     pprint("The time elapsed :  " + str(end - start) + ' seconds.\n')
 
