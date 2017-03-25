@@ -130,18 +130,20 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         print("F-score is :" + str(f1_score))
         results = {'ACCURACY': accuracy, 'F1_SCORE': f1_score, 'AUC': 9999, 'G_MEAN': 9999}
 
-    y_test2 = np.array(evaluation.ReverseEncoder(y_test))
-    result2 = np.array(evaluation.ReverseEncoder(result))
-    # Statistics False Alarm Rate
     try:
-        with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_True"), "w") as fout:
-            for tab in range(len(y_test2)):
-                fout.write(str(int(y_test2[tab])) + '\n')
-        with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
-            for tab in range(len(result2)):
-                fout.write(str(int(result2[tab])) + '\n')
+        y_test2 = np.array(evaluation.ReverseEncoder(y_test))
+        result2 = np.array(evaluation.ReverseEncoder(result))
     except:
-        pass
+        y_test2 = y_test
+        result2 = result
+    # Statistics False Alarm Rate
+    with open(os.path.join("./stat/","StatFalseAlarm_" + filename + "_True"), "w") as fout:
+        for tab in range(len(y_test2)):
+            fout.write(str(int(y_test2[tab])) + '\n')
+    with open(os.path.join("./stat/","StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
+        for tab in range(len(result2)):
+            fout.write(str(int(result2[tab])) + '\n')
+
 
     #for each_eval, each_result in results.items():
         #result_list_dict[each_eval].append(each_result)
