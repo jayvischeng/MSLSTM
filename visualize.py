@@ -143,7 +143,7 @@ def curve_plotting_withWindow(dataX,dataY,feature,name):
     plt.savefig(name + '.pdf', dpi=400)
 def curve_plotting(dataX,dataY,name,method):
     np.random.seed(5)
-    target_names = ['Regular','Anomaly']
+    target_names = ['Regular','Anomalous']
     centers = [[1, 1], [-1, -1]]
     X = dataX
     y = dataY
@@ -162,12 +162,12 @@ def curve_plotting(dataX,dataY,name,method):
     for color, i, target_name in zip(colors, [0, 1], target_names):
         plt.scatter(X[y == i, 0], X[y == i, 1], color=color, alpha=.8, lw=2,
                     label=target_name)
-    plt.legend(loc='upper left', fontsize = 12, shadow=False, scatterpoints=1)
-    plt.tick_params(labelsize = 10)
+    plt.legend(loc='lower right', fontsize = 16, shadow=False, scatterpoints=1)
+    plt.tick_params(labelsize = 15)
     plt.grid()
     #plt.title('PCA of the dataset')
     plt.savefig(name + method +"_PCA.pdf", dpi=400)
-    #plt.show()
+    plt.show()
 def plotAUC(results,method_list,filename):
 
     plt.figure()
@@ -191,45 +191,76 @@ def plotAUC(results,method_list,filename):
     #plt.savefig("_AUC.png", dpi=800)
     plt.savefig(filename+"TP_FP_AUC.pdf", dpi=800)
 #------------------------------------------Plotting STAT-----------------------------------------------------
-def _plotting(filename, subtitle, method):
+def _plotting(filename, subtitle, method,method_dict):
     temp = []
-    with open(os.path.join(os.path.join(os.getcwd(),'stat'), filename))as fin:
-        for each in fin.readlines():
-            temp.append(int(each))
+    try:
+        with open(os.path.join(os.path.join(os.getcwd(),'stat'), filename))as fin:
+            for each in fin.readlines():
+                temp.append(int(each))
+    except:
+        with open(os.path.join(os.path.join(os.getcwd(),'stat'), filename).replace('Predict.txt','Predict'))as fin:
+            for each in fin.readlines():
+                temp.append(int(each))
+    temp = np.array(temp)
     X = [i + 1 for i in range(len(temp))]
+    X = np.array(X)
     plt.xlim(0, len(X))
     plt.ylim(-0.5, 2.0)
-    if not method == "Original":
-        plt.plot(X, temp, 'b.', markersize=2, label='Predict')
-    else:
-        plt.plot(X, temp, 'r.', markersize=2, label='True')
-    plt.legend(loc=1, fontsize=12)
+    #if  'True' in method:
+        #p1_,= plt.plot(X[temp==0], temp[temp==0], 'b.', markersize=2, label='Regular')
+        #l1 = plt.legend([p1_], ["Regular"])
+        #p2_,= plt.plot(X[temp==1], temp[temp==1], 'r.', markersize=2,label='Anomalous')
+        #plt.legend()
+        #plt.gca().add_artist(l1)
+        #l2 = plt.legend([p2_], ["Anomalousppppppp"])
+        #plt.gca().add_artist(l1)
+    if 1>0:
+        p1, = plt.plot(X[temp==1], temp[temp==1], 'b.', markersize=4, label='Regular')
+        p2, = plt.plot(X[temp==0], temp[temp==0], 'r.', markersize=4, label='Anomalous')
+        l1 = plt.legend([p1], ["Regular"], loc=2,fontsize=10)
+        plt.gca().add_artist(l1)
+        l2 = plt.legend([p2], ["Anomalous"], loc=0,fontsize=10)
+        plt.gca().add_artist(l2)
+
+    #plt.legend(loc=1, fontsize=12)
     #plt.legend(bbox_to_anchor=(1, 1),
     #bbox_transform=plt.gcf().transFigure)
     #plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-    plt.xlabel('(' + subtitle + ')' + "  " + method)
-    x = (len(X) / 2)+70
-    plt.xticks([1, 400, 800, 1200, 1600, 2000, 2500])
+    try:
+        plt.xlabel('(' + subtitle + ')' + "  " + method_dict[method]+' Predicted',fontsize=10)
+    except:
+        if 'True' in method:
+            plt.xlabel('(' + subtitle + ')' + "  " + method,fontsize=10)
+        else:
+            plt.xlabel('(' + subtitle + ')' + "  " + method+' Predicted',fontsize=10)
+
+    x = (len(X) / 2)
+    #plt.xticks([1, 400, 800, 1200, 1600, 2000, 2500])
+    plt.xticks([1, 100, 200, 300, 400, 500, 600,700,800])
+    plt.tick_params(labelsize=10)
     # plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.1)
     # plt.minorticks_on()
+    #plt.grid()
+    plt.grid(b=True, which='minor')
     plt.axvline(x, ymin=-1, ymax=2, linewidth=2, color='g')  # plt.title('Testing Sequence')
     # plt.axvline(x+30, ymin=-1, ymax=2, linewidth=2, color='g')    #plt.title('Testing Sequence')
     # plt.grid()
-def plotStat(filename, Method_List):
+def plotStat(filename, Method_List,Method_Label):
     subtitle = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']
-    plt.figure(figsize=(12, 6), dpi=800)
-    plt.subplot(3, 3, 1)
+    plt.figure(figsize=(15, 4), dpi=400)
+    #plt.figure()
+    plt.subplot(2, 4, 1)
     filename_ = "StatFalseAlarm_" + filename + "_True.txt"
-    _plotting(filename_, subtitle[0], "Original")
+    _plotting(filename_, subtitle[0], "True Label",Method_Label)
 
     for tab in range(len(Method_List)):
         filename_ = "StatFalseAlarm_" + filename + "_" + Method_List[tab] + "_" + "_Predict.txt"
-        plt.subplot(3, 3, tab + 2)
-        _plotting(filename_, subtitle[tab + 1], Method_List[tab])
+        plt.subplot(2, 4, tab + 2)
+        _plotting(filename_, subtitle[tab + 1], Method_List[tab],Method_Label)
 
     plt.tight_layout()
     plt.savefig("StateFalseAlarm_" + filename + ".pdf", dpi=400)
-    #plt.show()
+    plt.show()
 #------------------------------------------Plotting Wavelet-----------------------------------------------------
 def plotWavelet(filename_result,filename_result2):
     filename_list_label = ["AS_Leak","Slammer","Nimda","Code_Red_I"]
@@ -292,7 +323,8 @@ def MC_Plotting(Data,row,col,x_label='x_label',y_label='y_label',suptitle='super
 #A.append(A3)
 #MC_Plotting(A,1,3)
 
-def plot3D(X,Y,Z):
+def plot3D(X=[],Y=[],Z=[]):
+
     X = [1, 2, 3, 4, 5, 6]
     Y = [10, 20, 30, 40]
     X = np.array(X)
@@ -311,11 +343,51 @@ def plot3D(X,Y,Z):
     surf = ax.plot_surface(XX, YY, Z1, rstride=1, cstride=1, alpha=1, cmap=cm.jet, linewidth=0.5, antialiased=False)
     fig.colorbar(surf, shrink=0.6, aspect=6)
     surf.set_clim(vmin=min_, vmax=max_)
-    plt.xlabel('scale levels')
+    plt.xlabel('scale level')
     plt.ylabel('window size')
+    plt.tight_layout()
     plt.savefig('wqf.pdf', dpi=400)
     plt.show()
+#plot3D()
 
+
+
+def plotConfusionMatrix(confmat):
+    import seaborn
+    seaborn.set_context('poster')
+    #seaborn.set_style("white")
+    seaborn.set_style("ticks")
+    plt.style.use(['seaborn-paper'])
+    font = {'family': 'serif',
+            #'weight': 'bold',
+            'size': 12}
+    matplotlib.rc("font", **font)
+
+    fig, ax = plt.subplots()
+    labels = ['','Regular','AS Leak','  Code Red I','Nimda','Slammer']
+    #labels = ['a','b','c','d','e']
+    #ticks=np.linspace(0, 5,num=5)
+    #res = plt.imshow(confmat, interpolation='none')
+    #res = ax.imshow(np.array(confmat), cmap=plt.cm.jet,interpolation='nearest')
+    res = ax.imshow(np.array(confmat), interpolation='nearest')
+
+    #plt.xlabel('kkk')
+    width, height = confmat.shape
+
+    #plt.xticks(labels)
+    #plt.tick_params(labelbottom=labels,labelleft=labels)
+    for x in xrange(width):
+        for y in xrange(height):
+            ax.annotate(str(confmat[x][y]), xy=(y, x),
+                horizontalalignment='center',
+                verticalalignment='center')
+    ax.set_xticklabels(labels)
+    ax.set_yticklabels(labels)
+    plt.tick_params(labelsize=10)
+    plt.colorbar(res,shrink=1, pad=.01, aspect=10)
+    plt.savefig("Fig_10.pdf",dpi=400)
+    plt.show()
+    print(confmat.shape)
 
 
 
