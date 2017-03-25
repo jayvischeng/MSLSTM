@@ -24,7 +24,7 @@ def load_log(filename,file_folder):
 
 # main function
 # filename_list = ["HB_AS_Leak.txt", "HB_Slammer.txt", "HB_Nimda.txt", "HB_Code_Red_I.txt"]
-filename = "HB_AS_Leak.txt"
+filename = "HB_Slammer.txt"
 
 # wave_type_list =['db1','db2','haar','coif1','db1','db2','haar','coif1','db1','db2']
 wave_type_list = ['db1']
@@ -34,14 +34,14 @@ multi_scale_value_list = [2, 3, 4, 5, 6, 10]
 #case_ = ['1L','HAL','AL','HL']
 #case_ = ['1L','2L','AL','HL','HAL']
 #case_ = ['AL','HL','HAL']
-case_ = ['1L','2L','HL']
+#case_ = ['1L','2L','HL']
 #case_ = ['AL','HL','HAL']
-
+case_ = ["SVM","NB","1NN","DT","MLP","1L","HAL"]
 # case = ["SVM","SVMF","SVMW","NB","NBF","NBW","DT","Ada.Boost"]
 # method_list2 = ["MLP","RNN","LSTM"]
 
-case_label = {'1L': 'LSTM', '2L': '2-LSTM', 'AL': 'ALSTM', 'HL': 'HLSTM', 'HAL': 'HALSTM'}
-case_list = [case_label[k] for k in case_]
+case_label = {'1L': 'LSTM', '2L': '2-LSTM', 'AL': 'ALSTM', 'HL': 'HLSTM', 'HAL': 'MSLSTM'}
+#case_list = [case_label[k] for k in case_]
 cross_cv = 2
 tab_cross_cv = 1
 wave_type = wave_type_list[0]
@@ -52,17 +52,17 @@ train_acc_list = []
 val_acc_list = []
 train_loss_list = []
 val_loss_list = []
-for each_file in file_list:
-    train_acc, train_loss, val_acc, val_loss = load_log(each_file, folder)
-    train_acc_list.append(train_acc)
-    val_acc_list.append(val_acc)
-    train_loss_list.append(train_loss)
-    val_loss_list.append(val_loss)
+#for each_file in file_list:
+#    train_acc, train_loss, val_acc, val_loss = load_log(each_file, folder)
+#    train_acc_list.append(train_acc)
+#    val_acc_list.append(val_acc)
+#    train_loss_list.append(train_loss)
+#    val_loss_list.append(val_loss)
 
-visualize.epoch_acc_plotting(filename, case_list, sequence_window, tab_cross_cv, learning_rate,
-                             train_acc_list, val_acc_list)
-visualize.epoch_loss_plotting(filename, case_list, sequence_window, tab_cross_cv, learning_rate,
-                              train_loss_list, val_loss_list)
+#visualize.epoch_acc_plotting(filename, case_list, sequence_window, tab_cross_cv, learning_rate,
+                             #train_acc_list, val_acc_list)
+#visualize.epoch_loss_plotting(filename, case_list, sequence_window, tab_cross_cv, learning_rate,
+                              #train_loss_list, val_loss_list)
 
 
-visualize.plotStat(filename,case_)
+visualize.plotStat(filename,case_,case_label)
