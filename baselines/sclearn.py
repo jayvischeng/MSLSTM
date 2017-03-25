@@ -414,8 +414,9 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         else:
             accuracy = sklearn.metrics.accuracy_score(y_test,result)
             symbol_list = [0,1,2,3,4]
-            cc = confusion_matrix(y_test, result, labels=symbol_list)
-            print(cc)
+            confmat = confusion_matrix(y_test, result, labels=symbol_list)
+            visualize.plotConfusionMatrix(confmat)
+
             #for symbol in symbol_list:
              #   for tab in range(len(y_test)):
               #      if y_test[tab] == symbol and y_test[tab] == result[tab]:
@@ -427,19 +428,19 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             f1_score = sklearn.metrics.f1_score(y_test,result)
             print("F-score is :"+str(f1_score))
             results = {'ACCURACY':accuracy,'F1_SCORE':f1_score,'AUC':9999,'G_MEAN':9999}
-
         try:
             y_test2 = np.array(evaluation.ReverseEncoder(y_test))
             result2 = np.array(evaluation.ReverseEncoder(result))
-            # Statistics False Alarm Rate
-            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_True"), "w") as fout:
-                for tab in range(len(y_test2)):
-                    fout.write(str(int(y_test2[tab])) + '\n')
-            with open(os.path.join(FLAGS.output,"StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
-                for tab in range(len(result2)):
-                    fout.write(str(int(result2[tab])) + '\n')
         except:
-            pass
+            y_test2 = y_test
+            result2 = result
+        # Statistics False Alarm Rate
+        with open(os.path.join("./stat/","StatFalseAlarm_" + filename + "_True"), "w") as fout:
+            for tab in range(len(y_test2)):
+                fout.write(str(int(y_test2[tab])) + '\n')
+        with open(os.path.join("./stat/","StatFalseAlarm_" + filename + "_" + _model + "_" + "_Predict"), "w") as fout:
+            for tab in range(len(result2)):
+                fout.write(str(int(result2[tab])) + '\n')
 
         for each_eval, each_result in results.items():
             result_list_dict[each_eval].append(each_result)
