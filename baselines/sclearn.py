@@ -395,7 +395,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             y_train = y_train
             clf = AdaBoostClassifier()
 
-        visualize.curve_plotting(x_test,y_test,filename,_model)
+        #visualize.curve_plotting(x_test,y_test,filename,_model)
         clf.fit(x_train, y_train)
         if evalua_flag == True:
             result = clf.predict(x_test)
@@ -412,19 +412,21 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             #print(evalua_flag)
             results = evaluation.evaluation(y_test, result,trigger_flag,evalua_flag)  # Computing ACCURACY,F1-score,..,etc
         else:
-            accuracy = sklearn.metrics.accuracy_score(y_test,result)
+            #accuracy = sklearn.metrics.accuracy_score(y_test,result)
             symbol_list = [0,1,2,3,4]
             confmat = confusion_matrix(y_test, result, labels=symbol_list)
-            visualize.plotConfusionMatrix(confmat)
-
-            #for symbol in symbol_list:
-             #   for tab in range(len(y_test)):
-              #      if y_test[tab] == symbol and y_test[tab] == result[tab]:
-               #         y_.append(symbol)
+            #visualize.plotConfusionMatrix(confmat)
+            symbol_list2 = [0]
+            y_= []
+            for symbol in symbol_list2:
+                for tab in range(len(y_test)):
+                    if y_test[tab] == symbol and y_test[tab] == result[tab]:
+                        y_.append(symbol)
                 #print(y_test[0:10])
                 #rint(result[0:10])
                 #print("Accuracy is :"+str(accuracy))
-                #print("Accuracy of "+str(symbol)+" is :"+str(float(len(y_))/(list(result).count(symbol))))
+                accuracy = float(len(y_))/(list(result).count(symbol))
+                print("Accuracy of "+str(symbol)+" is :"+str(accuracy))
             f1_score = sklearn.metrics.f1_score(y_test,result)
             print("F-score is :"+str(f1_score))
             results = {'ACCURACY':accuracy,'F1_SCORE':f1_score,'AUC':9999,'G_MEAN':9999}
@@ -458,7 +460,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                 #for eachk, eachv in result_list_dict.items():
                     #fout.write(eachk + ": " + str(round(eachv, 3)) + ",\t")
                 fout.write('\n')
-        #if '-' in _model:break
+        #if '-' in _model:continue
         if 'MW' in _model or 'MF' in _model:
             continue
         else:
