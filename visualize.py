@@ -386,7 +386,7 @@ def plotConfusionMatrix(confmat):
     plt.tick_params(labelsize=10)
     plt.colorbar(res,shrink=1, pad=.01, aspect=10)
     plt.savefig("Fig_10.pdf",dpi=400)
-    plt.show()
+    #plt.show()
     print(confmat.shape)
 
 
