@@ -58,11 +58,11 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     global tempstdout
     FLAGS.option = method
     dropout = 0.8
-    #x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-    #                                       filename_test, FLAGS.sequence_window, trigger_flag,
-    #                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
-    #                                        waveType=FLAGS.wave_type)
-
+    x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+                                           filename_test, FLAGS.sequence_window, trigger_flag,
+                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+                                            waveType=FLAGS.wave_type)
+    """
     if filename_test == 'HB_AS_Leak.txt':
         filename_train = 'HB_C_N_S.txt'
     elif filename_test == 'HB_Code_Red_I.txt':
@@ -72,16 +72,16 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     elif filename_test == 'HB_Slammer.txt':
         filename_train = 'HB_A_C_N.txt'
     print(filename_test)
-    x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                                            filename_train, FLAGS.sequence_window, trigger_flag,
-                                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
-                                                            waveType=FLAGS.wave_type)
-    x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                           filename_test, FLAGS.sequence_window, trigger_flag,
-                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
-                                            waveType=FLAGS.wave_type)
+    #x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+    #                                                        filename_train, FLAGS.sequence_window, trigger_flag,
+    #                                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+    #                                                        waveType=FLAGS.wave_type)
+    #x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+    #                                       filename_test, FLAGS.sequence_window, trigger_flag,
+    #                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+    #                                        waveType=FLAGS.wave_type)
 
-
+    """
     #loaddata.Multi_Scale_Plotting_2(x_train)
 
     print(x_test.shape)
