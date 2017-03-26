@@ -126,8 +126,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
     else:
         #accuracy = sklearn.metrics.accuracy_score(y_test, result)
 
-        f1_score = sklearn.metrics.f1_score(y_test, result)
-        print("F-score is :" + str(f1_score))
+        #f1_score = sklearn.metrics.f1_score(y_test, result)
+        #print("F-score is :" + str(f1_score))
         symbol_list2 = [0]
         y_ = []
         for symbol in symbol_list2:
@@ -136,7 +136,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                     y_.append(symbol)
             accuracy = float(len(y_)) / (list(result).count(symbol))
             print("Accuracy of " + str(symbol) + " is :" + str(accuracy))
-        results = {'ACCURACY': accuracy, 'F1_SCORE': f1_score, 'AUC': 9999, 'G_MEAN': 9999}
+        results = {'ACCURACY': accuracy, 'F1_SCORE': 9999, 'AUC': 9999, 'G_MEAN': 9999}
 
     try:
         y_test2 = np.array(evaluation.ReverseEncoder(y_test))
