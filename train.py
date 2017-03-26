@@ -58,21 +58,30 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     global tempstdout
     FLAGS.option = method
     dropout = 0.8
-    x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                           filename_test, FLAGS.sequence_window, trigger_flag,
-                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
-                                            waveType=FLAGS.wave_type)
-    #x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-    #                                                        filename_train_list, FLAGS.sequence_window, tab_cross_cv, cross_cv,
-    #                                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
-    #                                                        waveType=FLAGS.wave_type)
-    #x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-    #                                       filename_test, FLAGS.sequence_window, tab_cross_cv, cross_cv,
+    #x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+    #                                       filename_test, FLAGS.sequence_window, trigger_flag,
     #                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
     #                                        waveType=FLAGS.wave_type)
 
+    if filename_test == 'HB_AS_Leak.txt':
+        filename_train = 'HB_C_N_S.txt'
+    elif filename_test == 'HB_Code_Red_I.txt':
+        filename_train = 'HB_A_N_S.txt'
+    elif filename_test == 'HB_Nimda.txt':
+        filename_train = 'HB_A_C_S.txt'
+    elif filename_test == 'HB_Slammer.txt':
+        filename_train = 'HB_A_C_N.txt'
+    print(filename_test)
+    x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+                                                            filename_train, FLAGS.sequence_window, trigger_flag,
+                                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+                                                            waveType=FLAGS.wave_type)
+    x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
+                                           filename_test, FLAGS.sequence_window, trigger_flag,
+                                            multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
+                                            waveType=FLAGS.wave_type)
 
-    #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data(FLAGS.is_multi_scale,filename)
+
     #loaddata.Multi_Scale_Plotting_2(x_train)
 
     print(x_test.shape)
@@ -141,7 +150,6 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
                 sess.run(minimize, {data_x: inp, data_y: out, is_training:True})
                 training_acc, training_loss = sess.run((accuracy, loss), {data_x: inp, data_y: out,is_training:True})
                 #sys.stdout = tempstdout
-
                 val_acc, val_loss = sess.run((accuracy, loss), {data_x:x_val, data_y:y_val,is_training:True})
             pprint(
                 FLAGS.option + "_Epoch%s" % (str(i + 1)) + ">" * 3 +'_Titer-'+str(total_iteration) +'_iter-'+str(j_iteration)+ str(FLAGS.wave_type) + '-' + str(FLAGS.scale_levels) + '-' + str(FLAGS.learning_rate)+'-'+str(FLAGS.num_neurons1)+'-'+str(FLAGS.num_neurons2)+ ">>>=" + "train_accuracy: %s, train_loss: %s" % (
@@ -183,9 +191,9 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         #pprint(weights)
         #weight_list = return_max_index(weights)
         result = sess.run(prediction, {data_x:x_test, data_y: y_test})
-        print(result)
-        pprint(result)
-        print("LLL")
+        #print(result)
+        #pprint(result)
+        #print("LLL")
     saver.save(sess, "./tf_tmp/model.ckpt")
     sess.close()
     #results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
@@ -195,14 +203,25 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         symbol_list = [0, 1, 2, 3, 4]
         confmat = confusion_matrix(y_test, result, labels=symbol_list)
         visualize.plotConfusionMatrix(confmat)
-        accuracy = sklearn.metrics.accuracy_score(y_test, result)
+        #accuracy = sklearn.metrics.accuracy_score(y_test, result)
+        symbol_list2 = [0]
+        y_ = []
+        for symbol in symbol_list2:
+            for tab in range(len(y_test)):
+                if y_test[tab] == symbol and y_test[tab] == result[tab]:
+                    y_.append(symbol)
+            # print(y_test[0:10])
+            # rint(result[0:10])
+            # print("Accuracy is :"+str(accuracy))
+            accuracy = float(len(y_)) / (list(result).count(symbol))
+            print("Accuracy of " + str(symbol) + " is :" + str(accuracy))
         print("Accuracy is :" + str(accuracy))
         f1_score = sklearn.metrics.f1_score(y_test, result)
         print("F-score is :" + str(f1_score))
         results = {'ACCURACY': accuracy, 'F1_SCORE': f1_score, 'AUC': 9999, 'G_MEAN': 9999}
     sys.stdout = tempstdout
-    print(weights_results.shape)
-    print("215")
+    #print(weights_results.shape)
+    #print("215")
     y_test2 = np.array(evaluation.ReverseEncoder(y_test))
     result2 = np.array(evaluation.ReverseEncoder(result))
     #results = accuracy_score(y_test2, result2)
@@ -280,12 +299,12 @@ def main(unused_argv):
 
     trigger_flag = 1
     evalua_flag = True
-    is_binary_class = True
+    is_binary_class = False
     single_layer = False
 
     if is_binary_class:
-        #filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
-        filename_list = ["HB_Code_Red_I.txt"]  # HB_Code_Red_I.txt
+        filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
+        #filename_list = ["HB_Slammer.txt"]  # HB_Code_Red_I.txt
                                                 # HB_Nimda.txt
                                                 # HB_Slammer.txt
     else:
@@ -294,8 +313,8 @@ def main(unused_argv):
     if trigger_flag == 1 :
         if single_layer:
             #case = ["MLP"]
-            case = ['1L','3L']
-            #case = ['MLP','RNN','1L','2L','3L','AL']
+            #case = ['1L','3L']
+            case = ['MLP','RNN','1L','2L','3L','AL']
         else:
             case = ['HAL']
             #case = ['HL','HAL']
@@ -303,7 +322,7 @@ def main(unused_argv):
     else:
         #case = ["1NN-DTW"]
         #case = ["RF","SVM","SVMF","SVMW","NB","DT","Ada.Boost","1NN"]
-        case = ["Ada.Boost"]
+        case = ["SVM","NB","1NN","Ada.Boost","RF"]
 
     if evalua_flag:
         evaluation_list = ["AUC", "G_MEAN", "ACCURACY", "F1_SCORE"]
