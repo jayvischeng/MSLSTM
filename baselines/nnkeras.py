@@ -7,6 +7,7 @@ np.random.seed(1337)  # for reproducibility
 import keras
 import sklearn
 from numpy import *
+import loaddata
 from sklearn import tree
 from keras.models import Sequential
 from keras.layers.core import Activation
@@ -44,7 +45,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
     # num_selected_features = 32#Slammer tab=0
     num_selected_features = 33  # Nimda tab=1
     x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data_withoutS(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                            filename, FLAGS.sequence_window, trigger_flag,
+                                            filename, FLAGS.sequence_window, trigger_flag,is_binary_class,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
 
@@ -58,14 +59,16 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         pprint(_model + " is running..............................................")
         start = time.clock()
         model = Sequential()
-        model.add(Dense(FLAGS.num_neurons1, activation="relu", input_dim=FLAGS.input_dim))
+        model.add(Dense(FLAGS.num_neurons1, activation="tanh", input_dim=FLAGS.input_dim))
         model.add(Dense(output_dim=FLAGS.number_class))
-        model.add(Activation("sigmoid"))
-        sgd = keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
-        # model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
+        model.add(Activation("softmax"))
+        #sgd = keras.optimizers.SGD(lr=0.001, momentum=0.0, decay=0.0, nesterov=False)
+        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        #model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
         model.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=FLAGS.batch_size, nb_epoch=FLAGS.max_epochs)
+        print("AOA")
         result = model.predict(x_test)
+        print(result)
         end = time.clock()
         pprint("The Time For MLP is " + str(end - start))
 
@@ -75,7 +78,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise,
                                                                            FLAGS.noise_ratio, FLAGS.data_dir,
                                                                            filename, FLAGS.sequence_window,
-                                                                           trigger_flag,
+                                                                           trigger_flag,is_binary_class,
                                                                            multiScale=False,
                                                                            waveScale=FLAGS.scale_levels,
                                                                            waveType=FLAGS.wave_type)
@@ -101,7 +104,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise,
                                                                            FLAGS.noise_ratio, FLAGS.data_dir,
                                                                            filename, FLAGS.sequence_window,
-                                                                           trigger_flag,
+                                                                           trigger_flag,is_binary_class,
                                                                            multiScale=False,
                                                                            waveScale=FLAGS.scale_levels,
                                                                            waveType=FLAGS.wave_type)
@@ -124,18 +127,40 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
     if is_binary_class == True:
         results = evaluation.evaluation(y_test, result, trigger_flag, evalua_flag)  # Computing ACCURACY,F1-score,..,etc
     else:
-        #accuracy = sklearn.metrics.accuracy_score(y_test, result)
+        y_test = loaddata.reverse_one_hot(y_test)
+        result = loaddata.reverse_one_hot(result)
 
-        #f1_score = sklearn.metrics.f1_score(y_test, result)
+        accuracy = sklearn.metrics.accuracy_score(y_test, result)
+
+        f1_score = sklearn.metrics.f1_score(y_test, result,average="macro")
         #print("F-score is :" + str(f1_score))
         symbol_list2 = [0]
         y_ = []
-        for symbol in symbol_list2:
-            for tab in range(len(y_test)):
-                if y_test[tab] == symbol and y_test[tab] == result[tab]:
-                    y_.append(symbol)
-            accuracy = float(len(y_)) / (list(result).count(symbol))
-            print("Accuracy of " + str(symbol) + " is :" + str(accuracy))
+        print("True is ")
+        #print(y_test)
+        print("The 0 of True is "+str(list(y_test).count(0)))
+        print("The 1 of True is "+str(list(y_test).count(1)))
+        print("The 2 of True is "+str(list(y_test).count(2)))
+        print("The 3 of True is "+str(list(y_test).count(3)))
+        print("The 4 of True is "+str(list(y_test).count(4)))
+        #print(len(y_test))
+        print("Predict is ")
+        #print(result)
+        print("The 0 of Predict is "+str(list(result).count(0)))
+        print("The 1 of Predict is "+str(list(result).count(1)))
+        print("The 2 of Predict is "+str(list(result).count(2)))
+        print("The 3 of Predict is "+str(list(result).count(3)))
+        print("The 4 of Predict is "+str(list(result).count(4)))
+        #print(len(result))
+        print("Accuracy of "+_model+"is :" + str(accuracy))
+        print("F-score of "+_model+"is :" + str(f1_score))
+
+        #for symbol in symbol_list2:
+            #for tab in range(len(y_test)):
+                #if y_test[tab] == symbol and y_test[tab] == result[tab]:
+                    #y_.append(symbol)
+            #accuracy = float(len(y_)) / (list(result).count(symbol))
+            #print("Accuracy of " + str(symbol) + " is :" + str(accuracy))
         results = {'ACCURACY': accuracy, 'F1_SCORE': 9999, 'AUC': 9999, 'G_MEAN': 9999}
 
     try:
