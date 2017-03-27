@@ -20,6 +20,17 @@ from sklearn.feature_selection import f_classif
 def pprint(msg):
     print(msg)
     #sys.stderr.write(msg+'\n')
+
+def reverse_one_hot(y):
+    temp = []
+    for tab1 in range(len(y)):
+            temp.append(list(y[tab1]).index(max(list(y[tab1]))))
+    return temp
+    #for i in range(len(y)):
+        #for j in range(len(y[0])):
+            #if y[i][j] == 1:
+                #temp.append(j)
+    return np.array(temp)
 def get_auc(arr_score, arr_label, pos_label):
     score_label_list = []
     for index in range(len(arr_score)):
@@ -468,51 +479,94 @@ def mix_multi_scale1(trainX_multi,trainY,pooling_type):
         b = Fun(total_,pooling_type)
         temp_trainX.append(b)
     return np.array(temp_trainX),trainY
-def returnData(dataX,dataY):
+def returnData(dataX,dataY,is_binary_class):
     global positive_sign,negative_sign
-
-    positive_index = returnPositiveIndex(dataY, negative_sign)
-    negative_index = returnNegativeIndex(dataY, negative_sign)
-
-
-    #print(str(list(dataY).count(2.0)))
     start_ratio = 0.6
+    if is_binary_class:
+        positive_index = returnPositiveIndex(dataY, negative_sign)
+        negative_index = returnNegativeIndex(dataY, negative_sign)
 
+        pos_train_index = positive_index[0:int(start_ratio * len(positive_index))]
+        pos_val_index = positive_index[
+                        int(start_ratio * len(positive_index)):int((start_ratio + 0.1) * len(positive_index))]
+        pos_test_index = positive_index[int((start_ratio + 0.1) * len(positive_index)):len(positive_index) - 1]
+        neg_train_index = negative_index[0:int(start_ratio * len(negative_index))]
+        neg_val_index = negative_index[
+                        int(start_ratio * len(negative_index)):int((start_ratio + 0.1) * len(negative_index))]
+        neg_test_index = negative_index[int((start_ratio + 0.1) * len(negative_index)):len(negative_index) - 1]
 
-    pos_train_index = positive_index[0:int(start_ratio*len(positive_index))]
-    pos_val_index = positive_index[int(start_ratio*len(positive_index)):int((start_ratio+0.1)*len(positive_index))]
-    pos_test_index = positive_index[int((start_ratio+0.1)*len(positive_index)):len(positive_index)-1]
-    neg_train_index = negative_index[0:int(start_ratio*len(negative_index))]
-    neg_val_index = negative_index[int(start_ratio*len(negative_index)):int((start_ratio+0.1)*len(negative_index))]
-    neg_test_index = negative_index[int((start_ratio+0.1)*len(negative_index)):len(negative_index)-1]
+        train_index = np.append(neg_train_index, pos_train_index, axis=0)
+        train_index.sort()
+        train_index = list(map(lambda a: int(a), train_index))
+        train_dataX = dataX[train_index]
+        train_dataY = dataY[train_index]
 
-    train_index = np.append(neg_train_index, pos_train_index, axis=0)
-    train_index.sort()
-    train_index = list(map(lambda a: int(a), train_index))
-    train_dataX = dataX[train_index]
-    train_dataY = dataY[train_index]
+        val_index = np.append(neg_val_index, pos_val_index, axis=0)
+        val_index.sort()
+        val_index = list(map(lambda a: int(a), val_index))
+        val_dataX = dataX[val_index]
+        val_dataY = dataY[val_index]
 
-    val_index = np.append(neg_val_index, pos_val_index, axis=0)
-    val_index.sort()
-    val_index = list(map(lambda a: int(a), val_index))
-    val_dataX = dataX[val_index]
-    val_dataY = dataY[val_index]
+        test_index = np.append(neg_test_index, pos_test_index, axis=0)
+        test_index.sort()
+        test_index = list(map(lambda a: int(a), test_index))
+        test_dataX = dataX[test_index]
+        test_dataY = dataY[test_index]
+    else:
+         negative_sign = 0
+         negative_index = returnNegativeIndex(dataY, negative_sign)
+         neg_train_index = negative_index[0:int(start_ratio * len(negative_index))]
+         neg_val_index = negative_index[int(start_ratio * len(negative_index)):int((start_ratio + 0.1) * len(negative_index))]
+         neg_test_index = negative_index[int((start_ratio + 0.1) * len(negative_index)):len(negative_index) - 1]
 
-    test_index = np.append(neg_test_index, pos_test_index, axis=0)
-    test_index.sort()
-    test_index = list(map(lambda a: int(a), test_index))
-    test_dataX = dataX[test_index]
-    test_dataY = dataY[test_index]
+         for tab_ in range(1,5):
+             negative_sign = tab_
+             positive_index = returnNegativeIndex(dataY, negative_sign)
+
+             pos_train_index = positive_index[0:int(start_ratio * len(positive_index))]
+             pos_val_index = positive_index[int(start_ratio * len(positive_index)):int((start_ratio + 0.1) * len(positive_index))]
+             pos_test_index = positive_index[int((start_ratio + 0.1) * len(positive_index)):len(positive_index) - 1]
+
+             train_index = np.append(neg_train_index, pos_train_index, axis=0)
+             train_index.sort()
+             neg_train_index = train_index
+
+             val_index = np.append(neg_val_index, pos_val_index, axis=0)
+             val_index.sort()
+             neg_val_index = val_index
+
+             test_index = np.append(neg_test_index, pos_test_index, axis=0)
+             test_index.sort()
+             neg_test_index = test_index
+
+             # min_number = min(len(train_dataX),len(test_dataX))
+             pprint("The training size is shape:")
+             pprint("The POSITIVE TRAIN is " + str(len(pos_train_index)))
+             pprint("The NEGATIVE TRAIN is " + str(len(neg_train_index)))
+             pprint("The POSITIVE TEST is " + str(len(pos_test_index)))
+             pprint("The NEGATIVE TEST is " + str(len(neg_test_index)))
+
+         train_index = list(map(lambda a: int(a), train_index))
+         train_dataX = dataX[train_index]
+         train_dataY = dataY[train_index]
+
+         val_index = list(map(lambda a: int(a), val_index))
+         val_dataX = dataX[val_index]
+         val_dataY = dataY[val_index]
+
+         test_index = list(map(lambda a: int(a), test_index))
+         test_dataX = dataX[test_index]
+         test_dataY = dataY[test_index]
+
 
     #min_number = min(len(train_dataX),len(test_dataX))
-
     #pprint("The training size is shape:")
     #pprint(train_dataY.shape)
     #pprint("The POSITIVE is "+str(len(pos_train_index)))
     #pprint("The NEGATIVE is "+str(len(neg_train_index)))
     #pprint("The validation size is shape:")
     #pprint(val_dataX.shape)
-    #print("The testing size is shape:")
+    #pprint("The testing size is shape:")
     #pprint(test_dataX.shape)
     #pprint("The POSITIVE is "+str(len(pos_test_index)))
     #pprint("The NEGATIVE is "+str(len(neg_test_index)))
@@ -677,7 +731,7 @@ def get_trainData(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,tr
     valX_Multi = np.array(valX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
     print("Input shape is"+str(trainX_Multi.shape))
     return trainX_Multi,trainY,valX_Multi,valY
-def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger_flag,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
+def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger_flag,is_binary_class,multiScale=True,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder
     positive_sign = 1
     negative_sign = 0
@@ -692,7 +746,7 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger
     #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
-        trainX, trainY, valX, valY, testX, testY = returnData(dataSequenlized_X,dataSequenlized_Y)
+        trainX, trainY, valX, valY, testX, testY = returnData(dataSequenlized_X,dataSequenlized_Y,is_binary_class)
 
     else:
         trainX_Multi = [[] for i in range(waveScale)]
@@ -703,7 +757,7 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger
 
         for tab_level in range(waveScale):
             dataX_level,dataY_level = slidingFunc(windowSize, scaler.fit_transform(dataMulti[tab_level]), dataY)
-            trainX, trainY, valX, valY, testX, testY = returnData(dataX_level,dataY_level)
+            trainX, trainY, valX, valY, testX, testY = returnData(dataX_level,dataY_level,is_binary_class)
 
             trainX_Multi[tab_level].extend(trainX)
             valX_Multi[tab_level].extend(valX)
@@ -716,6 +770,12 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger
     if multiScale == False:
         return trainX, trainY, valX, valY, testX, testY
 
+    print("Multi X is ")
+    print((np.array(trainX_Multi)).shape)
+    print(len(trainX_Multi))
+    print(len(trainX_Multi[0]))
+    print(len(trainX_Multi[0][0]))
+
     trainX_Multi = np.array(trainX_Multi).transpose((1,0,2,3))#batch_size, scale_levels, sequence_window, input_dim
     valX_Multi = np.array(valX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
     testX_Multi = np.array(testX_Multi).transpose((1,0,2,3)) #batch_size, scale_levels, sequence_window, input_dim
@@ -727,7 +787,7 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger
 
 
 
-def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger_flag,multiScale=False,waveScale=-1,waveType="db1",timeScale=1):
+def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger_flag,is_binary_class,multiScale=False,waveScale=-1,waveType="db1",timeScale=1):
     global positive_sign,negative_sign,output_folder
     positive_sign = 1
     negative_sign = 0
@@ -742,8 +802,8 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
     #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
-        trainX, trainY, valX, valY, testX, testY = returnData(scaler.fit_transform(data_[:, :-1]),data_[:, -1])
-        #trainX, trainY, valX, valY, testX, testY = returnData(data_[:, :-1],data_[:, -1])
+        trainX, trainY, valX, valY, testX, testY = returnData(scaler.fit_transform(data_[:, :-1]),data_[:, -1],is_binary_class)
+        #trainX, trainY, valX, valY, testX, testY = returnData(data_[:, :-1],data_[:, -1],is_binary_class)
 
         if trigger_flag:
             trainY = one_hot(trainY)
