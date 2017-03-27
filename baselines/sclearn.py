@@ -320,7 +320,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
     # num_selected_features = 32#Slammer tab=0
     #num_selected_features = 20  # Nimda tab=1
     x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data_withoutS(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                            filename, FLAGS.sequence_window, trigger_flag,
+                                            filename, FLAGS.sequence_window, trigger_flag, is_binary_class,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
     for tab_selected_features in range(2,34):
@@ -334,7 +334,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise,
                                                                                FLAGS.noise_ratio, FLAGS.data_dir,
                                                                                filename, FLAGS.sequence_window,
-                                                                               trigger_flag,
+                                                                               trigger_flag, is_binary_class,
                                                                                multiScale=False,
                                                                                waveScale=FLAGS.scale_levels,
                                                                                waveType=FLAGS.wave_type)
@@ -358,7 +358,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                                                                         FLAGS.noise_ratio,
                                                                                         FLAGS.data_dir,
                                                                                         filename, FLAGS.sequence_window,
-                                                                                        trigger_flag,
+                                                                                        trigger_flag, is_binary_class,
                                                                                         multiScale=False,
                                                                                         waveScale=FLAGS.scale_levels,
                                                                                         waveType=FLAGS.wave_type)
@@ -412,23 +412,41 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             #print(evalua_flag)
             results = evaluation.evaluation(y_test, result,trigger_flag,evalua_flag)  # Computing ACCURACY,F1-score,..,etc
         else:
-            #accuracy = sklearn.metrics.accuracy_score(y_test,result)
+            accuracy = sklearn.metrics.accuracy_score(y_test,result)
             symbol_list = [0,1,2,3,4]
             confmat = confusion_matrix(y_test, result, labels=symbol_list)
             #visualize.plotConfusionMatrix(confmat)
-            symbol_list2 = [0]
-            y_= []
-            for symbol in symbol_list2:
-                for tab in range(len(y_test)):
-                    if y_test[tab] == symbol and y_test[tab] == result[tab]:
-                        y_.append(symbol)
+            #symbol_list2 = [0]
+            #y_= []
+            #for symbol in symbol_list2:
+             #   for tab in range(len(y_test)):
+              #      if y_test[tab] == symbol and y_test[tab] == result[tab]:
+               #         y_.append(symbol)
                 #print(y_test[0:10])
                 #rint(result[0:10])
                 #print("Accuracy is :"+str(accuracy))
-                accuracy = float(len(y_))/(list(result).count(symbol))
-                print("Accuracy of "+str(symbol)+" is :"+str(accuracy))
-            f1_score = sklearn.metrics.f1_score(y_test,result)
-            print("F-score is :"+str(f1_score))
+                #accuracy = float(len(y_))/(list(result).count(symbol))
+            print("True is ")
+            # print(y_test)
+            print("The 0 of True is " + str(list(y_test).count(0)))
+            print("The 1 of True is " + str(list(y_test).count(1)))
+            print("The 2 of True is " + str(list(y_test).count(2)))
+            print("The 3 of True is " + str(list(y_test).count(3)))
+            print("The 4 of True is " + str(list(y_test).count(4)))
+            # print(len(y_test))
+            print("Predict is ")
+            # print(result)
+            print("The 0 of Predict is " + str(list(result).count(0)))
+            print("The 1 of Predict is " + str(list(result).count(1)))
+            print("The 2 of Predict is " + str(list(result).count(2)))
+            print("The 3 of Predict is " + str(list(result).count(3)))
+            print("The 4 of Predict is " + str(list(result).count(4)))
+            # print(len(result))
+            f1_score = sklearn.metrics.f1_score(y_test,result,average="macro")
+            print("Accuracy of is :" + str(accuracy))
+            print("F-score of is :" + str(f1_score))
+            print("Accuracy of "+_model+"is :"+str(accuracy))
+            print("F-score of "+_model+"is :"+str(f1_score))
             results = {'ACCURACY':accuracy,'F1_SCORE':f1_score,'AUC':9999,'G_MEAN':9999}
         try:
             y_test2 = np.array(evaluation.ReverseEncoder(y_test))
