@@ -2,6 +2,7 @@ import matplotlib
 #matplotlib.use('GTKAgg')
 #matplotlib.rcParams['backend'] = 'GTKCairo'
 import os
+import loaddata
 import numpy as np
 #import seaborn as sns
 import matplotlib.pyplot as plt
@@ -18,13 +19,6 @@ def set_style():
 set_style()
 
 
-def reverse_one_hot(y):
-    temp = []
-    for i in range(len(y)):
-        for j in range(len(y[0])):
-            if y[i][j] == 1:
-                temp.append(j)
-    return np.array(temp)
 
 def epoch_acc_plotting(filename,case_list,sequence_window,learning_rate,train_acc_list,val_acc_list):
     if not os.path.isdir(os.path.join(os.getcwd(),'picture')):
@@ -155,7 +149,7 @@ def curve_plotting(dataX,dataY,name,method):
     plt.figure()
     colors = ['navy', 'turquoise', 'darkorange']
     try:
-        y = reverse_one_hot(y)
+        y = loaddata.reverse_one_hot(y)
     except:
         pass
     print(y[0])
