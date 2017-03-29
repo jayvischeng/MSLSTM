@@ -66,19 +66,18 @@ def LoadData(input_data_path,filename):
         if filename == 'sonar.dat':
             negative_flag = 'M'
         else:
-            negative_flag = '0'
+            negative_flag = '1.0' # For binary txt flag is 1; for multi-class flag is 0
         Data=[]
 
         for each in fin:
             if '@' in each:continue
             val=each.split(",")
             if len(val)>0 or val[-1].strip()=="negative" or val[-1].strip()=="positive":
-                if val[-1].strip() == negative_flag:#ALL
+                if int(val[-1][0].strip()) == 1 or val[-1].strip()==negative_flag:#1 or 1.0 as the last element of the val
                 #if val[-1].strip() != negative_flag:
                     val[-1] = negative_sign
                 else:
-                    pass
-                    #val[-1] = positive_sign
+                    val[-1] = positive_sign
                 try:
                     val=list(map(lambda a:float(a),val))
                 except:
@@ -540,7 +539,7 @@ def returnData(dataX,dataY,is_binary_class):
              neg_test_index = test_index
 
              # min_number = min(len(train_dataX),len(test_dataX))
-             pprint("The training size is shape:")
+             pprint("The training size is shapeAAA:")
              pprint("The POSITIVE TRAIN is " + str(len(pos_train_index)))
              pprint("The NEGATIVE TRAIN is " + str(len(neg_train_index)))
              pprint("The POSITIVE TEST is " + str(len(pos_test_index)))
@@ -745,6 +744,8 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger
     if isNoise == True:data_ = add_nosie(noiseRatio,data_)
     #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
+        print("AAA")
+        print(windowSize)
         dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
         trainX, trainY, valX, valY, testX, testY = returnData(dataSequenlized_X,dataSequenlized_Y,is_binary_class)
 
@@ -768,6 +769,8 @@ def get_data(poolingType,isNoise,noiseRatio,filePath,fileName,windowSize,trigger
         testY = one_hot(testY)
 
     if multiScale == False:
+        print("BBB")
+        print(testX.shape)
         return trainX, trainY, valX, valY, testX, testY
 
     print("Multi X is ")
@@ -797,13 +800,13 @@ def get_data_withoutS(poolingType,isNoise,noiseRatio,filePath,fileName,windowSiz
         os.makedirs(os.path.join(os.getcwd(),output_folder))
     data_=LoadData(filePath,fileName)
 
-    scaler = preprocessing.MinMaxScaler()
-    if isNoise == True:data_ = add_nosie(noiseRatio,data_)
+    scaler = preprocessing.StandardScaler()
+    #if isNoise == True:data_ = add_nosie(noiseRatio,data_)
     #if multiClass=="Multi":np.random.shuffle(PositiveIndex)
     if multiScale == False:
         #dataSequenlized_X,dataSequenlized_Y = slidingFunc(windowSize, scaler.fit_transform(data_[:, :-1]), data_[:, -1])
-        trainX, trainY, valX, valY, testX, testY = returnData(scaler.fit_transform(data_[:, :-1]),data_[:, -1],is_binary_class)
-        #trainX, trainY, valX, valY, testX, testY = returnData(data_[:, :-1],data_[:, -1],is_binary_class)
+        #trainX, trainY, valX, valY, testX, testY = returnData(scaler.fit_transform(data_[:, :-1]),data_[:, -1],is_binary_class)
+        trainX, trainY, valX, valY, testX, testY = returnData(data_[:, :-1],data_[:, -1],is_binary_class)
 
         if trigger_flag:
             trainY = one_hot(trainY)
@@ -856,6 +859,7 @@ def GetData_WithoutS(Is_Adding_Noise,Noise_Ratio,Fila_Path,FileName,Window_Size,
         Positive_Data_Index_Testing=[]
         Negative_Data_Index_Training=[]
         Negative_Data_Index_Testing=[]
+
         for tab_positive in range(len(PositiveIndex)):
             if int((Cross_CV-tab_cross-1)*len(Pos_Data)/Cross_CV)<=tab_positive<int((Cross_CV-tab_cross)*len(Pos_Data)/Cross_CV):
                 Positive_Data_Index_Testing.append(PositiveIndex[tab_positive])
