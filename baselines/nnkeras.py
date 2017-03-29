@@ -49,28 +49,31 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
 
-    FLAGS.sequence_window = x_train.shape[1]
+    print("DDD")
+    print(FLAGS.sequence_window)
     FLAGS.input_dim = x_train.shape[-1]
     FLAGS.number_class = y_train.shape[1]
-    FLAGS.batch_size = int(y_train.shape[0])
 
     # using MLP to train
     if _model == "MLP":
         pprint(_model + " is running..............................................")
         start = time.clock()
         model = Sequential()
-        model.add(Dense(FLAGS.num_neurons1, activation="tanh", input_dim=FLAGS.input_dim))
+        model.add(Dense(FLAGS.num_neurons1, activation="sigmoid", input_dim=FLAGS.input_dim))
+        #model.add(Dense(output_dim=FLAGS.num_neurons1))
+        #model.add(Dense(output_dim=FLAGS.num_neurons1))
         model.add(Dense(output_dim=FLAGS.number_class))
         model.add(Activation("softmax"))
-        #sgd = keras.optimizers.SGD(lr=0.001, momentum=0.0, decay=0.0, nesterov=False)
-        model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        #model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
+        sgd = keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
+        #model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
         model.fit(x_train, y_train, validation_data=(x_val, y_val), batch_size=FLAGS.batch_size, nb_epoch=FLAGS.max_epochs)
         print("AOA")
         result = model.predict(x_test)
         print(result)
         end = time.clock()
         pprint("The Time For MLP is " + str(end - start))
+        pprint(x_test.shape)
 
     elif _model == "RNN":
         pprint(_model + " is running..............................................")
@@ -164,8 +167,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         results = {'ACCURACY': accuracy, 'F1_SCORE': 9999, 'AUC': 9999, 'G_MEAN': 9999}
 
     try:
-        y_test2 = np.array(evaluation.ReverseEncoder(y_test))
-        result2 = np.array(evaluation.ReverseEncoder(result))
+        y_test2 = np.array(loaddata.reverse_one_hot(y_test))
+        result2 = np.array(loaddata.reverse_one_hot(result))
     except:
         y_test2 = y_test
         result2 = result
@@ -186,7 +189,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         #result_list_dict[eachk] = np.average(eachv)
     if evalua_flag:
         with open(os.path.join(FLAGS.output, "Comparison_Log_" + filename), "a")as fout:
-            outfileline = _model + ":__"
+            outfileline = _model +'_'+str(FLAGS.num_neurons1)+ ":__"
             fout.write(outfileline)
             for each_eval in evaluation_list:
                 fout.write(each_eval + ": " + str(round(np.average(result_list_dict[each_eval]), 3)) + ",\t")
