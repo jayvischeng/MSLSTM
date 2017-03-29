@@ -59,7 +59,7 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     FLAGS.option = method
     dropout = 0.8
     x_train, y_train, x_val, y_val, x_test, y_test = loaddata.get_data(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-                                           filename_test, FLAGS.sequence_window, trigger_flag,
+                                           filename_test, FLAGS.sequence_window, trigger_flag,is_binary_class,
                                             multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
     """
@@ -73,22 +73,19 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         filename_train = 'HB_A_C_N.txt'
     print(filename_test)
     #x_train, y_train, x_val, y_val = loaddata.get_trainData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-    #                                                        filename_train, FLAGS.sequence_window, trigger_flag,
+    #                                                        filename_train, FLAGS.sequence_window, trigger_flag,is_binary_class,
     #                                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
     #                                                        waveType=FLAGS.wave_type)
     #x_test, y_test = loaddata.get_testData(FLAGS.pooling_type, FLAGS.is_add_noise, FLAGS.noise_ratio, FLAGS.data_dir,
-    #                                       filename_test, FLAGS.sequence_window, trigger_flag,
+    #                                       filename_test, FLAGS.sequence_window, trigger_flag,is_binary_class,
     #                                        multiScale=FLAGS.is_multi_scale, waveScale=FLAGS.scale_levels,
     #                                        waveType=FLAGS.wave_type)
 
     """
     #loaddata.Multi_Scale_Plotting_2(x_train)
 
-    print(x_test.shape)
-
     if FLAGS.is_multi_scale:
         FLAGS.scale_levels = x_train.shape[1]
-        FLAGS.sequence_window = x_train.shape[len(x_train.shape) - 2]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
         if "Nimda" in filename_test:
@@ -96,11 +93,12 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
         else:
             FLAGS.batch_size = int(x_train.shape[0])
     else:
-        FLAGS.sequence_window = x_train.shape[1]
         FLAGS.input_dim = x_train.shape[-1]
         FLAGS.number_class = y_train.shape[1]
         if "Nimda" in filename_test:
             FLAGS.batch_size = int(int(x_train.shape[0])/5)
+        else:
+            FLAGS.batch_size = int(x_train.shape[0])
     #g = tf.Graph()
     with tf.Graph().as_default():
     #with tf.variable_scope("middle")as scope:
@@ -173,7 +171,7 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
                 early_stopping = 10
             if val_loss > 10 or val_loss == np.nan:
                 break
-        if 1>0:
+        if 1<0:
             #pprint("PPP")
             weights_results = sess.run(output_last, {data_x:x_test, data_y: y_test})
             #print(weights_results)
@@ -198,9 +196,18 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
     sess.close()
     #results = evaluation.evaluation(y_test, result)#Computing ACCURACY, F1-Score, .., etc
     if is_binary_class == True:
+        #sys.stdout = tempstdout
         results = evaluation.evaluation(y_test, result, trigger_flag, evalua_flag)  # Computing ACCURACY,F1-score,..,etc
+        y_test = loaddata.reverse_one_hot(y_test)
+        result = loaddata.reverse_one_hot(result)
     else:
         symbol_list = [0, 1, 2, 3, 4]
+        sys.stdout = tempstdout
+        print(y_test)
+        print(result)
+        y_test = loaddata.reverse_one_hot(y_test)
+        result = loaddata.reverse_one_hot(result)
+
         confmat = confusion_matrix(y_test, result, labels=symbol_list)
         visualize.plotConfusionMatrix(confmat)
         #accuracy = sklearn.metrics.accuracy_score(y_test, result)
@@ -215,15 +222,30 @@ def train_lstm(method,filename_train_list,filename_test,trigger_flag,evalua_flag
             # print("Accuracy is :"+str(accuracy))
             accuracy = float(len(y_)) / (list(result).count(symbol))
             print("Accuracy of " + str(symbol) + " is :" + str(accuracy))
+        print("True is ")
+        # print(y_test)
+        print("The 0 of True is " + str(list(y_test).count(0)))
+        print("The 1 of True is " + str(list(y_test).count(1)))
+        print("The 2 of True is " + str(list(y_test).count(2)))
+        print("The 3 of True is " + str(list(y_test).count(3)))
+        print("The 4 of True is " + str(list(y_test).count(4)))
+        # print(len(y_test))
+        print("Predict is ")
+        # print(result)
+        print("The 0 of Predict is " + str(list(result).count(0)))
+        print("The 1 of Predict is " + str(list(result).count(1)))
+        print("The 2 of Predict is " + str(list(result).count(2)))
+        print("The 3 of Predict is " + str(list(result).count(3)))
+        print("The 4 of Predict is " + str(list(result).count(4)))
         print("Accuracy is :" + str(accuracy))
-        f1_score = sklearn.metrics.f1_score(y_test, result)
+        f1_score = sklearn.metrics.f1_score(y_test, result,average="macro")
         print("F-score is :" + str(f1_score))
         results = {'ACCURACY': accuracy, 'F1_SCORE': f1_score, 'AUC': 9999, 'G_MEAN': 9999}
     sys.stdout = tempstdout
     #print(weights_results.shape)
     #print("215")
-    y_test2 = np.array(evaluation.ReverseEncoder(y_test))
-    result2 = np.array(evaluation.ReverseEncoder(result))
+    y_test2 = np.array(y_test)
+    result2 = np.array(result)
     #results = accuracy_score(y_test2, result2)
     #print(y_test2)
     #print(result2)
@@ -299,12 +321,12 @@ def main(unused_argv):
 
     trigger_flag = 1
     evalua_flag = True
-    is_binary_class = False
+    is_binary_class = True
     single_layer = False
 
     if is_binary_class:
-        filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
-        #filename_list = ["HB_Slammer.txt"]  # HB_Code_Red_I.txt
+        #filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
+        filename_list = ["HB_Slammer.txt"]  # HB_Code_Red_I.txt
                                                 # HB_Nimda.txt
                                                 # HB_Slammer.txt
     else:
@@ -312,17 +334,17 @@ def main(unused_argv):
 
     if trigger_flag == 1 :
         if single_layer:
-            #case = ["MLP"]
-            #case = ['1L','3L']
+            #case = ['MLP']
+            #case = ['AL']
             case = ['MLP','RNN','1L','2L','3L','AL']
         else:
-            case = ['HAL']
+            case = ['HL','HAL']
             #case = ['HL','HAL']
 
     else:
         #case = ["1NN-DTW"]
         #case = ["RF","SVM","SVMF","SVMW","NB","DT","Ada.Boost","1NN"]
-        case = ["SVM","NB","1NN","Ada.Boost","RF"]
+        case = ["NB","1NN","Ada.Boost","RF"]
 
     if evalua_flag:
         evaluation_list = ["AUC", "G_MEAN", "ACCURACY", "F1_SCORE"]
@@ -330,19 +352,20 @@ def main(unused_argv):
         evaluation_list = ["FPR", "TPR","AUC","G_MEAN"]
 
     wave_type = wave_type_list[0]
-    #hidden_unit1_list = [8, 16, 32, 64, 100, 128, 200, 256]
-    hidden_unit1_list = [32]
+    hidden_unit1_list = [128,256]
+    #hidden_unit1_list = [16]
 
     #hidden_unit2_list = [8, 16, 20, 32, 64]
-    hidden_unit2_list = [8]
-    comnination_list = []
-    for each1 in hidden_unit1_list:
-        for each2 in hidden_unit2_list:
-            comnination_list.append([each1, each2])
-    #if single_layer:
-        #comnination_list = hidden_unit1_list
+    #hidden_unit2_list = [8]
+
+    if single_layer:
+        combination_list = hidden_unit1_list
+    else:
+        combination_list = [(16,8),(16,32),(16,64),(32,64),(128,16)]
+
+        #combination_list = [(8,8),(8,32),(16,8),(16,64),(128,16),(128,64)]
     #learning_rate_list = [0.001, 0.01, 0.05, 0.1]
-    learning_rate_list = [0.01]
+    learning_rate_list = [0.001]
 
     for tab in range(len(filename_list)):
         case_list = []
@@ -366,12 +389,17 @@ def main(unused_argv):
                     if evalua_flag:
                         for learning_rate in learning_rate_list:
                             FLAGS.learning_rate = learning_rate
-                            for each_comb in comnination_list:
-                                #if single_layer:
-                                    #FLAGS.num_neurons1 = each_comb[0]
-                                #else:
-                                    #FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
-                                FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
+                            for each_comb in combination_list:
+                                if not 'H' in each_case:
+                                    FLAGS.num_neurons1 = each_comb
+                                    #FLAGS.num_neurons1 = 16
+                                    #FLAGS.learning_rate = 0.001
+                                else:
+                                    #if each_case == 'HAL':
+                                        #FLAGS.num_neurons1, FLAGS.num_neurons2 = (100,64)
+                                    #elif each_case == 'HL':
+                                        #FLAGS.num_neurons1, FLAGS.num_neurons2 = (16,8)
+                                    FLAGS.num_neurons1, FLAGS.num_neurons2 = each_comb
 
                                 train_acc,val_acc,train_loss,val_loss = train(each_case,filename_list, filename_list[tab],trigger_flag,evalua_flag,is_binary_class,evaluation_list,wave_type)
                                 train_acc_list.append(train_acc)
@@ -395,6 +423,7 @@ def main(unused_argv):
         else:
             if trigger_flag:
                 try:
+                    print()
                     visualize.epoch_acc_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_acc_list, val_acc_list)
                     visualize.epoch_loss_plotting(filename_list[tab], case_list, FLAGS.sequence_window,FLAGS.learning_rate, train_loss_list, val_loss_list)
                 except:
