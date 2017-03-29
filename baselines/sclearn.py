@@ -323,7 +323,9 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                             filename, FLAGS.sequence_window, trigger_flag, is_binary_class,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
-    for tab_selected_features in range(2,34):
+
+
+    for tab_selected_features in range(33,34):
     #for tab_selected_features in range(33):
 
         if _model == '1NN':
@@ -349,6 +351,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         elif _model == 'RF':
             clf = RandomForestClassifier(n_estimators=50)
         elif _model == "SVM":
+            x_train = x_train[:, [0, 1]]
+            x_test = x_test[:, [0, 1]]
             print(_model + " is running..............................................")
             clf = svm.SVC(kernel="rbf", gamma=0.0001, C=100000, probability=True)
 
@@ -393,7 +397,7 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
         elif _model == "Ada.Boost":
             print(_model + " is running.............................................." + str(x_train.shape))
             y_train = y_train
-            clf = AdaBoostClassifier()
+            clf = AdaBoostClassifier(n_estimators=200)
 
         #visualize.curve_plotting(x_test,y_test,filename,_model)
         clf.fit(x_train, y_train)
@@ -407,8 +411,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             print(result.shape)
 
         if is_binary_class == True:
-            #print(y_test.shape)
-            #print(result.shape)
+            print(y_test.shape)
+            print(result.shape)
             #print(evalua_flag)
             results = evaluation.evaluation(y_test, result,trigger_flag,evalua_flag)  # Computing ACCURACY,F1-score,..,etc
         else:
@@ -449,8 +453,8 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
             print("F-score of "+_model+"is :"+str(f1_score))
             results = {'ACCURACY':accuracy,'F1_SCORE':f1_score,'AUC':9999,'G_MEAN':9999}
         try:
-            y_test2 = np.array(evaluation.ReverseEncoder(y_test))
-            result2 = np.array(evaluation.ReverseEncoder(result))
+            y_test2 = np.array(loaddata.reverse_one_hot(y_test))
+            result2 = np.array(loaddata.reverse_one_hot(result))
         except:
             y_test2 = y_test
             result2 = result
