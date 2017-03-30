@@ -166,6 +166,10 @@ def inference(data,label,option,is_training):
         w_t = tf.reshape(u_levels_t,(-1,FLAGS.sequence_window))
         w_ = tf.matmul(w_t,w_ones)
         u_w = tf.reshape(tf.div(w_t, w_),(-1,1,FLAGS.sequence_window))
+        #u_w = tf.reshape(tf.div(w_t, w_),(-1,FLAGS.sequence_window))
+        #val2 = tf.reshape(val,(FLAGS.sequence_window,-1))
+        #print(u_w.get_shape())
+        #print(val.get_shape())
         last = tf.reshape(tf.matmul(u_w,val),(-1,FLAGS.num_neurons1))
     elif option == 'HL': #hierarchy lstm
         data_train = tf.transpose(X_in, [0, 2, 1, 3])
