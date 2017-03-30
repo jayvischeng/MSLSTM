@@ -262,52 +262,116 @@ def Multi_Scale_Wavelet000(trainX,trainY,level,is_multi=True,wave_type='db1'):
             temp[current_level - 1].extend(np.transpose(x))
 
     return  np.array(temp),trainX,trainY
-def multi_scale_plotting_2(dataA):
-
-    original = dataA[1]
+def return_indexes(index_,label):
+    index_1 = []
+    index_2 = []
+    flag = False
+    index_Anomaly = index_[label == 1]
+    for tab_ in range(len(index_Anomaly) - 1):
+        if index_Anomaly[tab_ + 1] - index_Anomaly[tab_] > 2:
+            flag = True
+        if flag == True:
+            try:
+                index_2.append(index_Anomaly[tab_ + 1])
+            except:
+                pass
+        else:
+            index_1.append(index_Anomaly[tab_])
+    # index_2.append(index_Anomaly[-1])
+    index_1 = np.array(index_1)
+    index_2 = np.array(index_2)
+    return index_1,index_2
+def multi_scale_plotting(dataA,label):
+    selected_feature = 2
+    original = dataA[:,selected_feature]
     #Obtain Level_2_D
-    print("original")
-    print(original)
+    #print("original")
+    #print(original)
     plt.plot([i for i in range(len(original))],original,'b')
     plt.xlabel("Time",fontsize=12)
     plt.ylabel("Original",fontsize=12)
     plt.tick_params(labelsize=12)
     plt.grid(True)
     plt.savefig("Original.png",dpi=400)
-    plt.show()
-    fig = plt.figure()
+    #plt.show()
+    fig = plt.figure(figsize=(10,5))
+    label_ = np.array(label)
+
     ax1 = fig.add_subplot(221)
 
+    index_ = np.array([i for i in range(len(original))])
+    index_1, index_2 = return_indexes(index_,label_)
+    plt.plot([i for i in range(len(original))],original,'b')
+    print(label_)
+    print(label_.shape)
+    print(len(index_1))
+    print(len(original[label_==1]))
+    print(len(index_2))
+    plt.plot(index_1,original[index_1],'r')
+    plt.plot(index_2,original[index_2],'r')
+
+    plt.xlabel("(a)",fontsize=10)
+    plt.ylabel("Number of announced prefix")
+    ax1.grid(True)
+    plt.tick_params(labelsize=11)
+
+    level_ = 2
+    ax1 = fig.add_subplot(222)
+    coeffs = pywt.wavedec(original, 'db1', level=level_)
+    #newCoeffs = [None,coeffs[1],None]
+    #new_ = pywt.waverec(newCoeffs,'db1')
+    index_b = [ i for i in range(len(coeffs[1]))]
+    plt.plot(index_b,coeffs[1],'b')
+    #plt.plot(index_b[label_==1],new_[label_==1],'r.')
+    #plt.plot([i for i in range(len(coeffs[1]))],coeffs[1],'b')
+    plt.xlabel("(b)",fontsize=10)
+    #plt.ylabel("Detail coefficient of level "+ str(level_))
+    plt.ylabel("Number of announced prefix")
+    ax1.grid(True)
+    plt.tick_params(labelsize=11)
+
+    ax1 = fig.add_subplot(223)
+    level_ = 2
+    coeffs = pywt.wavedec(original, 'db1', level=level_)
+    newCoeffs = [None,coeffs[1],None]
+    new_ = pywt.waverec(newCoeffs,'db1')
+    #print(len(index_))
+    #print(len(new_))
+    print(len(index_))
+    print(len(new_))
+    index_ = [i for i in range(len(new_))]
+    plt.plot(index_,new_,'b')
+    plt.plot(index_1,new_[index_1],'r')
+    plt.plot(index_2,new_[index_2],'r')
+    #plt.plot([i for i in range(len(coeffs[2]))],coeffs[2],'b')
+    plt.xlabel("(c)",fontsize=10)
+    #plt.ylabel("Reconstructed detail of level "+str(level_))
+    plt.ylabel("Number of announced prefix")
+    ax1.grid(True)
+    plt.tick_params(labelsize=11)
+
+
+    ax1 = fig.add_subplot(224)
     level_ = 5
     coeffs = pywt.wavedec(original, 'db1', level=level_)
     newCoeffs = [coeffs[0],None,None,None,None,None]
     new_ = pywt.waverec(newCoeffs,'db1')
-    plt.plot([i for i in range(len(new_))],new_,'b')
-    plt.xlabel("(a)")
-    plt.ylabel("Approximations")
-    ax1.grid(True)
 
-    ax1 = fig.add_subplot(222)
-    coeffs = pywt.wavedec(original, 'db1', level=level_)
-    newCoeffs = [None,coeffs[1],None,None,None,None]
-    new_ = pywt.waverec(newCoeffs,'db1')
-    plt.plot([i for i in range(len(new_))],new_,'b')
-    #plt.plot([i for i in range(len(coeffs[1]))],coeffs[1],'b')
-    plt.xlabel("(b)")
-    plt.ylabel("Details of level "+ str(level_))
-    ax1.grid(True)
+    index_ = np.array([i for i in range(len(new_))])
+    index_1, index_2 = return_indexes(index_,label_)
 
-    ax1 = fig.add_subplot(223)
-    level_ = 4
-    coeffs = pywt.wavedec(original, 'db1', level=level_)
-    newCoeffs = [None,coeffs[1],None,None,None]
-    new_ = pywt.waverec(newCoeffs,'db1')
-    plt.plot([i for i in range(len(new_))],new_,'b')
-    #plt.plot([i for i in range(len(coeffs[2]))],coeffs[2],'b')
-    plt.xlabel("(c)")
-    plt.ylabel("Details of level "+str(level_))
+    plt.plot(index_,new_,'b')
+    plt.plot(index_1,new_[index_1],'r')
+    plt.plot(index_2,new_[index_2],'r')
+    plt.xlabel("(d)",fontsize=10)
+    #plt.ylabel("Reconstructed Approximation of level "+str(level_))
+    plt.ylabel("Number of announced prefix")
     ax1.grid(True)
+    plt.tick_params(labelsize=11)
 
+
+
+    """
     ax1 = fig.add_subplot(224)
     level_ = 3
     coeffs = pywt.wavedec(original, 'db1', level=level_)
@@ -318,9 +382,12 @@ def multi_scale_plotting_2(dataA):
     plt.xlabel("(d)")
     plt.ylabel("Details of level "+str(level_))
     ax1.grid(True)
-    plt.savefig("Wavelet Decomposition.png",dpi=400)
+    """
+    plt.tight_layout()
+
+    plt.savefig("Wavelet Decomposition.pdf",dpi=400)
     plt.show()
-def multi_scale_plotting(dataMulti,dataA):
+def multi_scale_plotting_Multi(dataMulti,dataA):
 
     selected_feature = 1
     original = dataA[:,selected_feature]
@@ -571,15 +638,20 @@ def returnData(dataX,dataY,is_binary_class):
     #pprint("The NEGATIVE is "+str(len(neg_test_index)))
 
     return train_dataX,train_dataY,val_dataX,val_dataY,test_dataX,test_dataY
-def return_tabData(current_cv=0,cross_cv=2,dataX=[],dataY=[]):
+def return_tabData(current_cv=1,cross_cv=5,dataX=[],dataY=[]):
     global positive_sign,negative_sign
+    positive_index = returnPositiveIndex(dataY, negative_sign)
+    negative_index = returnNegativeIndex(dataY, negative_sign)
 
-    train_dataX = dataX
-    train_dataY = dataY
-    val_dataX = dataX
-    val_dataY = dataY
-    return train_dataX, train_dataY, val_dataX, val_dataY
-    """
+    pos_data = dataX[positive_index]
+    neg_data = dataX[negative_index]
+
+    #train_dataX = dataX
+    #train_dataY = dataY
+    #val_dataX = dataX
+    #val_dataY = dataY
+    #return train_dataX, train_dataY, val_dataX, val_dataY
+
     for tab_cross in range(cross_cv):
         if not tab_cross == current_cv: continue
         pos_train_index = []
@@ -606,7 +678,7 @@ def return_tabData(current_cv=0,cross_cv=2,dataX=[],dataY=[]):
         train_index.sort()
 
         train_index = list(map(lambda a: int(a), train_index))
-        print(train_index)
+        #print(train_index)
         train_dataX = dataX[train_index, :]
         train_dataY = dataY[train_index]
 
@@ -619,12 +691,12 @@ def return_tabData(current_cv=0,cross_cv=2,dataX=[],dataY=[]):
 
         #min_number = min(len(train_dataX),len(test_dataX))
 
-        pprint(str(tab_cross + 1) + "th Cross Validation of is running and the training size is shape("+str(len(train_dataX))+','+str(len(train_dataX[0]))+').')
-        pprint(str(tab_cross + 1) + "th Cross Validation of is running and the testing size is shape("+str(len(test_dataX))+','+str(len(test_dataX[0]))+').')
+        #pprint(str(tab_cross + 1) + "th Cross Validation of is running and the training size is shape("+str(len(train_dataX))+','+str(len(train_dataX[0]))+').')
+        #pprint(str(tab_cross + 1) + "th Cross Validation of is running and the testing size is shape("+str(len(test_dataX))+','+str(len(test_dataX[0]))+').')
         #pprint(str(tab_cross + 1) + "th Cross Validation of is running and the testing size is shape("+str(len(test_dataY))+','+str(len(test_dataY[0]))+').')
 
         return train_dataX,train_dataY,test_dataX,test_dataY
-    """
+
 
 def one_hot(y_):
     # Function to encode output labels from number indexes
