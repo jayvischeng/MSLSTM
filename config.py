@@ -14,7 +14,7 @@ flags.DEFINE_string('max_grad_norm',5,"""Maximum gradient norm during training""
 flags.DEFINE_string('wave_type','haar',"""Type of wavelet""")
 flags.DEFINE_string('pooling_type','max pooling',"""Type of wavelet""")
 flags.DEFINE_string('batch_size',200,"""Batch size""")
-flags.DEFINE_string('max_epochs',50,"""Number of epochs to run""")
+flags.DEFINE_string('max_epochs',100,"""Number of epochs to run""")
 flags.DEFINE_string('learning_rate',0.01,"""Learning rate""")
 flags.DEFINE_string('is_add_noise',False,"""Whether add noise""")
 flags.DEFINE_string('noise_ratio',0,"""Noise ratio""")

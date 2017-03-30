@@ -323,11 +323,13 @@ def Basemodel(_model,filename,trigger_flag,evalua_flag,is_binary_class,evaluatio
                                             filename, FLAGS.sequence_window, trigger_flag, is_binary_class,
                                             multiScale=False, waveScale=FLAGS.scale_levels,
                                             waveType=FLAGS.wave_type)
+    #total = np.concatenate((x_train,x_val,x_test))
+    #total_label = np.concatenate((y_train,y_val,y_test))
 
-
+    loaddata.multi_scale_plotting(x_train,y_train)
     for tab_selected_features in range(33,34):
     #for tab_selected_features in range(33):
-
+    #hello
         if _model == '1NN':
             #x_train, y_train, x_test, y_test = ucr_load_data.load_ucr_data()
             print(_model + " is running..............................................")
