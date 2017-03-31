@@ -328,7 +328,7 @@ def main(unused_argv):
     trigger_flag = 1
     evalua_flag = True
     is_binary_class = True
-    single_layer = False
+    single_layer = True
 
     if is_binary_class:
         filename_list = ["HB_AS_Leak.txt","HB_Code_Red_I.txt","HB_Nimda.txt","HB_Slammer.txt"]
@@ -358,7 +358,7 @@ def main(unused_argv):
         evaluation_list = ["FPR", "TPR","AUC","G_MEAN"]
 
     wave_type = wave_type_list[0]
-    hidden_unit1_list = [8,16,32,64,128]
+    hidden_unit1_list = [8,16,32,64,128,256]
     #hidden_unit1_list = [16]
 
     hidden_unit2_list = [8,16,32,64,128]
@@ -368,7 +368,7 @@ def main(unused_argv):
         #combination_list = [(16,8),(16,32),(16,64),(32,64),(128,16)]
         #combination_list = [(8,8),(8,32),(16,8),(16,64),(128,16),(128,64)]
     #learning_rate_list = [0.001, 0.01, 0.05, 0.1]
-    learning_rate_list = [0.001]
+    learning_rate_list = [0.1,0.05,0.01,0.001]
 
     for tab in range(len(filename_list)):
         case_list = []
